@@ -46,72 +46,69 @@ const NAV = [
   },
 ]
 
-function DropdownItem({ item, onClose }) {
+function DropdownItem({ item }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
   const timeoutRef = useRef(null)
 
-  const handleMouseEnter = () => {
-    clearTimeout(timeoutRef.current)
-    setOpen(true)
-  }
-  const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => setOpen(false), 120)
-  }
+  const handleMouseEnter = () => { clearTimeout(timeoutRef.current); setOpen(true) }
+  const handleMouseLeave = () => { timeoutRef.current = setTimeout(() => setOpen(false), 120) }
 
   useEffect(() => () => clearTimeout(timeoutRef.current), [])
 
   return (
-    <div
-      ref={ref}
-      className="relative"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div ref={ref} className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <NavLink
         to={item.to}
         className={({ isActive }) =>
-          `flex items-center gap-1 font-sans text-sm transition-colors duration-150 whitespace-nowrap py-1 ${
-            isActive ? 'text-ocre font-medium' : 'text-terre/70 hover:text-ocre'
+          `relative flex items-center gap-1 font-sans text-sm transition-colors duration-200 whitespace-nowrap py-1 group ${
+            isActive ? 'text-ocre font-medium' : 'text-terre/65 hover:text-terre'
           }`
         }
       >
-        {item.label}
-        <svg
-          className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-          fill="none" stroke="currentColor" viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        {({ isActive }) => (
+          <>
+            {item.label}
+            <svg
+              className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? 'rotate-180 text-ocre' : ''}`}
+              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+            {/* Animated underline */}
+            <span
+              className={`absolute bottom-0 left-0 h-px bg-ocre transition-all duration-300 ${
+                isActive || open ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}
+            />
+          </>
+        )}
       </NavLink>
 
       {/* Dropdown panel */}
       <div
         className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200 ${
-          open ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'
+          open ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
         }`}
-        style={{ minWidth: '220px' }}
+        style={{ minWidth: '224px' }}
       >
-        {/* Invisible bridge so mouse doesn't lose hover */}
         <div className="absolute -top-3 left-0 right-0 h-3" />
-        <div className="bg-white rounded-xl shadow-xl border border-beige overflow-hidden">
-          {/* Top accent */}
-          <div className="h-0.5 bg-gradient-to-r from-ocre to-ocre-light" />
+        <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-terre/10 border border-beige/80 overflow-hidden">
+          <div className="h-0.5 bg-gradient-to-r from-ocre via-ocre-light to-ocre/30" />
           <div className="py-2">
-            {item.children.map((child) => (
+            {item.children.map((child, i) => (
               <NavLink
                 key={child.to}
                 to={child.to}
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-2.5 px-4 py-2.5 text-sm font-sans transition-colors duration-100 ${
-                    isActive
-                      ? 'text-ocre bg-ocre/5 font-medium'
-                      : 'text-terre/75 hover:text-ocre hover:bg-ocre/5'
+                  `flex items-center gap-3 px-4 py-2.5 text-sm font-sans transition-all duration-150 group/item ${
+                    isActive ? 'text-ocre bg-ocre/5 font-medium' : 'text-terre/70 hover:text-ocre hover:bg-ocre/4'
                   }`
                 }
+                style={{ animationDelay: `${i * 40}ms` }}
               >
-                <span className="w-1 h-1 rounded-full bg-ocre/40 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-ocre/30 group-hover/item:bg-ocre transition-colors duration-150 shrink-0" />
                 {child.label}
               </NavLink>
             ))}
@@ -126,13 +123,18 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [openSection, setOpenSection] = useState(null)
   const [scrolled, setScrolled] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
   const { pathname } = useLocation()
 
-  // Close mobile menu on route change
   useEffect(() => { setMenuOpen(false) }, [pathname])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 20)
+      const docH = document.documentElement.scrollHeight - window.innerHeight
+      setScrollProgress(docH > 0 ? (y / docH) * 100 : 0)
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -142,23 +144,29 @@ export default function Header() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
-  const toggleSection = (label) =>
-    setOpenSection((prev) => (prev === label ? null : label))
+  const toggleSection = (label) => setOpenSection((prev) => (prev === label ? null : label))
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-all duration-300 ${
+      className={`sticky top-0 z-40 transition-all duration-500 ${
         scrolled
-          ? 'bg-beige-light/96 backdrop-blur-md shadow-[0_1px_12px_rgba(61,74,45,0.08)]'
+          ? 'bg-beige-light/90 backdrop-blur-xl shadow-[0_2px_20px_rgba(61,74,45,0.08)] border-b border-kaki/5'
           : 'bg-beige-light'
       }`}
     >
+      {/* Scroll progress bar */}
+      <div
+        className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-ocre to-ocre-light transition-all duration-100"
+        style={{ width: `${scrollProgress}%` }}
+        aria-hidden
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="w-9 h-9 md:w-10 md:h-10 rounded-md overflow-hidden bg-kaki flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
+            <div className="relative w-9 h-9 md:w-10 md:h-10 rounded-xl overflow-hidden bg-kaki flex items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-kaki/30">
               <img
                 src="/logo_ressources1.jpg"
                 alt="Logo Ressources"
@@ -171,7 +179,7 @@ export default function Header() {
               <span className="font-serif text-ocre text-xl font-bold hidden items-center justify-center w-full h-full">R</span>
             </div>
             <div className="leading-tight">
-              <span className="block font-serif text-base md:text-lg text-terre font-semibold tracking-tight">
+              <span className="block font-serif text-base md:text-lg text-terre font-semibold tracking-tight transition-colors group-hover:text-ocre duration-200">
                 Ressources
               </span>
               <span className="block text-[10px] text-terre/45 tracking-[0.18em] uppercase font-sans">
@@ -180,7 +188,7 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Desktop nav avec dropdowns */}
+          {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-5 xl:gap-7" aria-label="Navigation principale">
             {NAV.map((item) => (
               <DropdownItem key={item.to} item={item} />
@@ -191,7 +199,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-3">
             <Link
               to="/recyclerie-informatique/comment-donner/"
-              className="btn-ocre text-xs px-4 py-2"
+              className="btn-ocre text-xs px-4 py-2 rounded-lg"
             >
               Je donne mon matériel
             </Link>
@@ -223,22 +231,21 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile menu — slide down */}
+      {/* Mobile menu */}
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+        className={`lg:hidden overflow-hidden transition-all duration-400 ease-in-out ${
           menuOpen ? 'max-h-[85vh] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className="bg-beige-light border-t border-beige/80 overflow-y-auto max-h-[calc(85vh-64px)]">
+        <div className="bg-beige-light/95 backdrop-blur-xl border-t border-beige/80 overflow-y-auto max-h-[calc(85vh-64px)]">
           <nav className="max-w-7xl mx-auto px-4 py-3" aria-label="Navigation mobile">
             {NAV.map((item) => (
               <div key={item.to} className="border-b border-beige/70 last:border-0">
-                {/* Section parent */}
                 <div className="flex items-center justify-between">
                   <NavLink
                     to={item.to}
                     className={({ isActive }) =>
-                      `flex-1 py-3.5 font-sans text-sm font-medium ${
+                      `flex-1 py-3.5 font-sans text-sm font-medium transition-colors ${
                         isActive ? 'text-ocre' : 'text-terre'
                       }`
                     }
@@ -252,7 +259,7 @@ export default function Header() {
                   >
                     <svg
                       className={`w-4 h-4 transition-transform duration-200 ${
-                        openSection === item.label ? 'rotate-180' : ''
+                        openSection === item.label ? 'rotate-180 text-ocre' : ''
                       }`}
                       fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     >
@@ -261,9 +268,8 @@ export default function Header() {
                   </button>
                 </div>
 
-                {/* Sous-pages */}
                 <div
-                  className={`overflow-hidden transition-all duration-250 ease-in-out ${
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
                     openSection === item.label ? 'max-h-96 pb-2' : 'max-h-0'
                   }`}
                 >
@@ -272,7 +278,7 @@ export default function Header() {
                       key={child.to}
                       to={child.to}
                       className={({ isActive }) =>
-                        `flex items-center gap-2.5 pl-4 py-2.5 font-sans text-sm ${
+                        `flex items-center gap-2.5 pl-4 py-2.5 font-sans text-sm transition-colors ${
                           isActive ? 'text-ocre font-medium' : 'text-terre/65 hover:text-ocre'
                         }`
                       }
@@ -285,11 +291,10 @@ export default function Header() {
               </div>
             ))}
 
-            {/* CTA mobile */}
             <div className="pt-4 pb-3">
               <Link
                 to="/recyclerie-informatique/comment-donner/"
-                className="btn-ocre text-sm w-full text-center block"
+                className="btn-ocre text-sm w-full text-center block rounded-lg"
               >
                 Je donne mon matériel
               </Link>

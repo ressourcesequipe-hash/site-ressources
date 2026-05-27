@@ -24,25 +24,53 @@
     outline: 2px solid #C8973A;
     outline-offset: 2px;
   }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #F7F3ED; }
+  ::-webkit-scrollbar-thumb { background: #C8973A40; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #C8973A80; }
 }
 
 @layer components {
+  /* Buttons — with shimmer on hover */
   .btn-ocre {
-    @apply inline-block bg-ocre text-white font-sans font-medium px-7 py-3.5 text-sm tracking-wide transition-all duration-200 hover:bg-ocre-dark hover:shadow-md active:scale-95;
+    @apply relative inline-block bg-ocre text-white font-sans font-medium px-7 py-3.5 text-sm tracking-wide overflow-hidden
+           transition-all duration-300 hover:bg-ocre-dark hover:shadow-lg hover:shadow-ocre/25 hover:-translate-y-px active:scale-95;
+  }
+  .btn-ocre::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
+           -translate-x-full transition-transform duration-700;
+  }
+  .btn-ocre:hover::after {
+    @apply translate-x-full;
   }
 
   .btn-kaki {
-    @apply inline-block bg-kaki text-white font-sans font-medium px-7 py-3.5 text-sm tracking-wide transition-all duration-200 hover:bg-kaki-dark hover:shadow-md active:scale-95;
+    @apply relative inline-block bg-kaki text-white font-sans font-medium px-7 py-3.5 text-sm tracking-wide overflow-hidden
+           transition-all duration-300 hover:bg-kaki-dark hover:shadow-lg hover:shadow-kaki/25 hover:-translate-y-px active:scale-95;
+  }
+  .btn-kaki::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent
+           -translate-x-full transition-transform duration-700;
+  }
+  .btn-kaki:hover::after {
+    @apply translate-x-full;
   }
 
   .btn-outline-ocre {
-    @apply inline-block border-2 border-ocre text-ocre font-sans font-medium px-7 py-3 text-sm tracking-wide transition-all duration-200 hover:bg-ocre hover:text-white active:scale-95;
+    @apply relative inline-block border-2 border-ocre text-ocre font-sans font-medium px-7 py-3 text-sm tracking-wide overflow-hidden
+           transition-all duration-300 hover:bg-ocre hover:text-white hover:-translate-y-px hover:shadow-md active:scale-95;
   }
 
   .btn-outline-white {
-    @apply inline-block border-2 border-white text-white font-sans font-medium px-7 py-3 text-sm tracking-wide transition-all duration-200 hover:bg-white hover:text-kaki active:scale-95;
+    @apply relative inline-block border-2 border-white text-white font-sans font-medium px-7 py-3 text-sm tracking-wide overflow-hidden
+           transition-all duration-300 hover:bg-white hover:text-kaki hover:-translate-y-px hover:shadow-md active:scale-95;
   }
 
+  /* Labels */
   .section-label {
     @apply font-sans text-xs font-semibold tracking-[0.2em] uppercase text-ocre mb-4;
   }
@@ -51,17 +79,103 @@
     @apply w-12 h-0.5 bg-ocre my-6;
   }
 
+  /* Cards */
   .card-base {
-    @apply bg-white border border-beige transition-shadow duration-200 hover:shadow-md;
+    @apply bg-white border border-beige transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
 
   .input-field {
-    @apply w-full border border-beige-dark bg-white px-4 py-3 text-sm text-terre placeholder-terre/40 focus:outline-none focus:border-ocre transition-colors;
+    @apply w-full border border-beige-dark bg-white px-4 py-3 text-sm text-terre placeholder-terre/40
+           focus:outline-none focus:border-ocre focus:ring-2 focus:ring-ocre/10 transition-all duration-200;
+  }
+
+  /* Glass morphism */
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/40;
+  }
+
+  .glass-dark {
+    @apply bg-kaki/80 backdrop-blur-md border border-white/10;
+  }
+
+  /* Gradient text */
+  .text-gradient-ocre {
+    @apply bg-gradient-to-r from-ocre to-ocre-light bg-clip-text text-transparent;
+  }
+
+  /* Animated underline for nav */
+  .nav-underline {
+    @apply relative;
+  }
+  .nav-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-px bg-ocre transition-all duration-300;
+  }
+  .nav-underline:hover::after {
+    @apply w-full;
+  }
+
+  /* Glow effects */
+  .glow-ocre {
+    box-shadow: 0 0 40px rgba(200, 151, 58, 0.15);
+  }
+  .glow-kaki {
+    box-shadow: 0 0 40px rgba(61, 74, 45, 0.15);
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Scroll reveal states */
+  .reveal {
+    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  }
+  .reveal.is-visible {
+    @apply opacity-100 translate-y-0;
+  }
+  .reveal-left {
+    @apply opacity-0 -translate-x-8 transition-all duration-700 ease-out;
+  }
+  .reveal-left.is-visible {
+    @apply opacity-100 translate-x-0;
+  }
+  .reveal-right {
+    @apply opacity-0 translate-x-8 transition-all duration-700 ease-out;
+  }
+  .reveal-right.is-visible {
+    @apply opacity-100 translate-x-0;
+  }
+  .reveal-scale {
+    @apply opacity-0 scale-95 transition-all duration-700 ease-out;
+  }
+  .reveal-scale.is-visible {
+    @apply opacity-100 scale-100;
+  }
+
+  /* Stagger delays */
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
+  .delay-400 { transition-delay: 400ms; }
+  .delay-500 { transition-delay: 500ms; }
+  .delay-600 { transition-delay: 600ms; }
+
+  /* Perspective for 3D hover */
+  .perspective {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  /* Noise texture overlay */
+  .noise::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none opacity-[0.03];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
   }
 }

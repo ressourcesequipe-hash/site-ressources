@@ -10,20 +10,17 @@ export default function EventBanner() {
 
   return (
     <div className="relative bg-kaki overflow-hidden z-50">
-      {/* Subtle shimmer line */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ocre/60 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5">
         <div className="flex items-center justify-center gap-3 sm:gap-6">
-          {/* Date badge */}
           <span className="hidden sm:flex items-center gap-1.5 bg-ocre/15 border border-ocre/25 px-2.5 py-1 shrink-0">
             <CalendarIcon />
             <span className="font-sans text-[10px] font-bold text-ocre tracking-[0.15em] uppercase whitespace-nowrap">
-              17 OCT 2026
+              03 OCT 2026
             </span>
           </span>
 
-          {/* Text */}
           <p className="font-sans text-sm text-white/90 text-center">
             <strong className="text-white font-semibold">Événement de lancement</strong>
             <span className="hidden md:inline text-white/60">
@@ -31,9 +28,8 @@ export default function EventBanner() {
             </span>
           </p>
 
-          {/* CTA */}
           <Link
-            to="/evenement-lancement-17-octobre-2026/"
+            to="/evenement-lancement-03-octobre-2026/"
             className="shrink-0 border border-ocre text-ocre px-3.5 py-1 text-[11px] font-semibold tracking-wide hover:bg-ocre hover:text-white transition-all duration-200 whitespace-nowrap font-sans"
           >
             En savoir plus →
@@ -41,7 +37,6 @@ export default function EventBanner() {
         </div>
       </div>
 
-      {/* Dismiss */}
       <button
         onClick={() => {
           sessionStorage.setItem('event-banner-dismissed', '1')

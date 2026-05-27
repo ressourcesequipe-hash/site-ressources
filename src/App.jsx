@@ -37,7 +37,7 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/evenement-lancement-17-octobre-2026/" element={<Evenement />} />
+        <Route path="/evenement-lancement-03-octobre-2026/" element={<Evenement />} />
         <Route path="/recyclerie-informatique/" element={<RecyclerieInfo />} />
         <Route path="/recyclerie-informatique/comment-donner/" element={<CommentDonner />} />
         <Route path="/recyclerie-informatique/materiel-accepte/" element={<MaterielAccepte />} />
