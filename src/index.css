@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-terre bg-beige-light antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+
+  ::selection {
+    background-color: #C8973A;
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #C8973A;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .btn-ocre {
+    @apply inline-block bg-ocre text-white font-sans font-medium px-7 py-3.5 text-sm tracking-wide transition-all duration-200 hover:bg-ocre-dark hover:shadow-md active:scale-95;
+  }
+
+  .btn-kaki {
+    @apply inline-block bg-kaki text-white font-sans font-medium px-7 py-3.5 text-sm tracking-wide transition-all duration-200 hover:bg-kaki-dark hover:shadow-md active:scale-95;
+  }
+
+  .btn-outline-ocre {
+    @apply inline-block border-2 border-ocre text-ocre font-sans font-medium px-7 py-3 text-sm tracking-wide transition-all duration-200 hover:bg-ocre hover:text-white active:scale-95;
+  }
+
+  .btn-outline-white {
+    @apply inline-block border-2 border-white text-white font-sans font-medium px-7 py-3 text-sm tracking-wide transition-all duration-200 hover:bg-white hover:text-kaki active:scale-95;
+  }
+
+  .section-label {
+    @apply font-sans text-xs font-semibold tracking-[0.2em] uppercase text-ocre mb-4;
+  }
+
+  .decorative-line {
+    @apply w-12 h-0.5 bg-ocre my-6;
+  }
+
+  .card-base {
+    @apply bg-white border border-beige transition-shadow duration-200 hover:shadow-md;
+  }
+
+  .input-field {
+    @apply w-full border border-beige-dark bg-white px-4 py-3 text-sm text-terre placeholder-terre/40 focus:outline-none focus:border-ocre transition-colors;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
