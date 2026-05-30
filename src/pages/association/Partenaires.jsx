@@ -8,69 +8,165 @@ const BREADCRUMBS = [
 ]
 
 const PARTENAIRES = [
-  { nom: 'SITCOM40', type: 'Partenaire institutionnel', desc: 'Syndicat Intercommunal de Traitement des COrdures Ménagères des Landes. Partenaire clé pour la collecte et le recyclage.' },
-  { nom: 'Mairie de Vielle-Saint-Girons', type: 'Partenaire fondateur', desc: 'La commune hôte accompagne l\'association depuis sa création et soutient le déploiement de la filière sur son territoire.' },
-  { nom: 'CC Côte Landes Nature', type: 'Partenaire institutionnel', desc: 'L\'intercommunalité soutient le projet dans le cadre de sa politique de développement durable et d\'inclusion.' },
-  { nom: 'CC MACS', type: 'Partenaire institutionnel', desc: 'Maremne Adour Côte-Sud — partenaire pour l\'extension du maillage territorial de collecte.' },
+  {
+    nom: 'Mairie de Vielle-Saint-Girons',
+    label: 'PARTENAIRE LOCAL CONFIRMÉ',
+    labelColor: 'ocre',
+    desc: 'La commune de Vielle-Saint-Girons s\'est positionnée comme partenaire du lancement de Ressources sur son territoire.',
+    lien: null,
+  },
+  {
+    nom: 'SITCOM40',
+    label: 'PARTENARIAT EN COURS DE FORMALISATION',
+    labelColor: 'kaki',
+    desc: 'Des échanges sont engagés avec le SITCOM40 pour structurer une coopération autour de la collecte et du réemploi.',
+    lien: null,
+  },
+  {
+    nom: 'Réseau ReNAITRe',
+    label: 'RÉSEAU PROFESSIONNEL REJOINT',
+    labelColor: 'ocre',
+    desc: 'Ressources rejoint le réseau ReNAITRe, réseau régional du réemploi solidaire en Nouvelle-Aquitaine.',
+    lien: 'https://www.reseau-renaitre.com/page/1502390-accueil',
+  },
+  {
+    nom: 'CC Côte Landes Nature',
+    label: 'ÉCHANGE EN COURS',
+    labelColor: 'kaki',
+    desc: 'Ressources souhaite développer des coopérations territoriales autour du réemploi, de l\'inclusion numérique et de la recyclerie végétale.',
+    lien: null,
+  },
+  {
+    nom: 'Territoire MACS',
+    label: 'PRÉSENTATION DU PROJET EN COURS',
+    labelColor: 'kaki',
+    desc: 'Ressources engage une démarche de présentation du projet sur le territoire MACS afin d\'identifier de futures pistes de coopération locale.',
+    lien: null,
+  },
 ]
 
 export default function Partenaires() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Partenaires de l'association Ressources — Landes"
-        description="Les partenaires institutionnels et locaux de l'association Ressources dans les Landes : SITCOM40, Mairie de Vielle-Saint-Girons, CC Côte Landes Nature, CC MACS."
+        title="Partenaires — Ressources, réseau territorial dans les Landes"
+        description="Ressources structure progressivement un réseau de partenaires publics, associatifs et professionnels autour du réemploi informatique, de la recyclerie végétale et de l'inclusion numérique dans les Landes."
         canonical="/association/partenaires/"
       />
 
-      <section className="bg-beige-light py-12 md:py-16 border-b border-beige-dark">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      {/* Hero */}
+      <section className="bg-beige-light py-12 md:py-16 border-b border-beige-dark relative overflow-hidden">
+        <div className="absolute right-0 top-0 w-64 h-64 pointer-events-none"
+          style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.06), transparent 70%)' }} aria-hidden />
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
           <p className="section-label">Réseau territorial</p>
           <h1 className="font-serif text-3xl sm:text-4xl text-terre mb-4">
-            Nos partenaires dans les Landes
+            Un réseau territorial en construction
           </h1>
           <p className="text-terre/60 max-w-xl leading-relaxed">
-            L'association Ressources s'appuie sur un réseau de partenaires institutionnels
-            et locaux pour construire un réemploi solidaire à l'échelle du territoire.
+            Ressources structure progressivement un réseau de partenaires publics,
+            associatifs et professionnels autour du réemploi informatique, de la
+            recyclerie végétale, de l'inclusion numérique et de la solidarité locale
+            dans les Landes.
           </p>
         </div>
       </section>
 
+      {/* Partenaires */}
       <section className="py-14 md:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <h2 className="font-serif text-2xl text-terre mb-8">Partenaires actuels</h2>
-          <div className="grid sm:grid-cols-2 gap-6 mb-14">
-            {PARTENAIRES.map(({ nom, type, desc }) => (
-              <div key={nom} className="border border-beige-dark p-6">
-                <div className="w-full h-16 bg-beige-light flex items-center justify-center mb-4 border border-beige">
-                  <p className="text-sm text-terre/40 font-medium">{nom}</p>
+
+          <h2 className="font-serif text-2xl text-terre mb-8">
+            Soutiens et partenariats en cours
+          </h2>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
+            {PARTENAIRES.map(({ nom, label, labelColor, desc, lien }) => (
+              <div
+                key={nom}
+                className={`group border-t-2 ${labelColor === 'ocre' ? 'border-ocre' : 'border-kaki/40'} border border-beige-dark bg-beige-light p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5`}
+              >
+                {/* Logo placeholder */}
+                <div className="w-full h-14 bg-white border border-beige flex items-center justify-center mb-5">
+                  <p className="text-xs text-terre/35 font-sans font-medium tracking-wide">{nom}</p>
                 </div>
-                <p className="text-xs text-ocre font-semibold tracking-wider uppercase mb-2">{type}</p>
-                <p className="font-serif text-lg text-terre mb-2">{nom}</p>
-                <p className="text-sm text-terre/55 leading-relaxed">{desc}</p>
+
+                {/* Label statut */}
+                <p className={`text-[10px] font-sans font-bold tracking-[0.15em] uppercase mb-2 ${
+                  labelColor === 'ocre' ? 'text-ocre' : 'text-kaki/70'
+                }`}>
+                  {label}
+                </p>
+
+                {/* Nom */}
+                <h3 className="font-serif text-lg text-terre mb-2 leading-snug">
+                  {nom}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm text-terre/55 leading-relaxed">
+                  {desc}
+                </p>
+
+                {/* Lien externe si disponible */}
+                {lien && (
+                  <a
+                    href={lien}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 mt-4 text-xs text-ocre hover:underline font-sans font-medium"
+                  >
+                    Voir le site
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                )}
               </div>
             ))}
           </div>
 
-          {/* CTA nouvelles communes */}
-          <div className="bg-kaki text-white p-8 md:p-10">
-            <div className="max-w-xl">
-              <p className="font-sans text-ocre text-xs font-semibold tracking-widest uppercase mb-3">
-                Rejoignez le réseau
+          {/* Légende statuts */}
+          <div className="bg-beige-light border border-beige-dark p-5 mb-10 rounded-sm">
+            <p className="font-sans text-[10px] font-semibold tracking-[0.15em] uppercase text-terre/40 mb-3">
+              Légende des statuts
+            </p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              {[
+                { color: 'bg-ocre', label: 'Partenaire confirmé ou réseau rejoint' },
+                { color: 'bg-kaki/40', label: 'Échange ou démarche en cours' },
+              ].map(({ color, label }) => (
+                <div key={label} className="flex items-center gap-2">
+                  <span className={`w-2.5 h-2.5 rounded-full ${color} shrink-0`} />
+                  <span className="text-xs text-terre/55 font-sans">{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="bg-kaki text-white p-8 md:p-10 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-40 h-40"
+              style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.1), transparent 65%)' }} aria-hidden />
+            <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-ocre/50 to-transparent" aria-hidden />
+            <div className="relative max-w-xl">
+              <p className="font-sans text-ocre text-[10px] font-bold tracking-[0.2em] uppercase mb-3">
+                Rejoindre le réseau
               </p>
               <h2 className="font-serif text-2xl text-white mb-3">
-                Votre commune souhaite s'engager ?
+                Votre structure souhaite échanger avec Ressources ?
               </h2>
-              <p className="text-white/65 text-sm leading-relaxed mb-6">
-                Collectivités, entreprises locales, associations — nous sommes
-                ouverts à tout partenariat qui renforce l'impact du projet
-                sur le territoire landais.
+              <p className="text-white/60 text-sm leading-relaxed mb-6">
+                Collectivités, entreprises, associations, établissements scolaires ou
+                acteurs sociaux : Ressources est ouverte aux échanges permettant de
+                renforcer l'impact local du projet.
               </p>
               <a href="mailto:ressources.equipe@gmail.com" className="btn-ocre text-sm">
-                Nous contacter pour un partenariat
+                Proposer un échange
               </a>
             </div>
           </div>
+
         </div>
       </section>
 
