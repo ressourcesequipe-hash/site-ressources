@@ -19,6 +19,7 @@ import Gouvernance from './pages/association/Gouvernance'
 import Territoire from './pages/association/Territoire'
 import Partenaires from './pages/association/Partenaires'
 import Actualites from './pages/association/Actualites'
+import ArticlePage from './pages/association/ArticlePage'
 import NousRejoindre from './pages/association/NousRejoindre'
 import Tombola from './pages/soutenir/Tombola'
 import Benevole from './pages/soutenir/Benevole'
@@ -54,6 +55,7 @@ export default function App() {
         <Route path="/association/territoire/" element={<Territoire />} />
         <Route path="/association/partenaires/" element={<Partenaires />} />
         <Route path="/association/actualites/" element={<Actualites />} />
+        <Route path="/association/actualites/:slug/" element={<ArticlePage />} />
         <Route path="/association/nous-rejoindre/" element={<NousRejoindre />} />
         <Route path="/soutenir/" element={<Soutenir />} />
         <Route path="/soutenir/tombola/" element={<Tombola />} />
