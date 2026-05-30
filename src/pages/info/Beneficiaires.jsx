@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import { IconFamille, IconEcole, IconPartenaires, IconBriefcase, IconMaison, IconSenior } from '../../components/Icons'
 
 const BREADCRUMBS = [
   { label: 'Recyclerie Informatique', href: '/recyclerie-informatique/' },
@@ -37,15 +38,15 @@ export default function Beneficiaires() {
             <h2 className="font-serif text-2xl text-terre mb-6">Bénéficiaires prioritaires</h2>
             <div className="grid sm:grid-cols-2 gap-5">
               {[
-                { icon: '👨‍👩‍👧', title: 'Familles en précarité numérique', desc: 'Personnes sans équipement informatique, orientées par les travailleurs sociaux ou les structures d\'accompagnement.' },
-                { icon: '🏫', title: 'Établissements scolaires', desc: 'Écoles, collèges et lycées du territoire manquant d\'équipements pour les élèves.' },
-                { icon: '🤝', title: 'Associations locales', desc: 'Associations de proximité dont les ressources ne permettent pas l\'achat de matériel neuf.' },
-                { icon: '💼', title: 'Structures d\'insertion', desc: 'ESAT, CHRS, centres sociaux et structures d\'accompagnement vers l\'emploi.' },
-                { icon: '🏘️', title: 'Communes et collectivités', desc: 'Mairies et intercommunalités partenaires pour des usages citoyens et solidaires.' },
-                { icon: '👴', title: 'Seniors isolés', desc: 'Personnes âgées souhaitant accéder au numérique sans moyens pour équipement neuf.' },
+                { icon: <IconFamille className="w-5 h-5" />, title: 'Familles en précarité numérique', desc: 'Personnes sans équipement informatique, orientées par les travailleurs sociaux ou les structures d\'accompagnement.' },
+                { icon: <IconEcole className="w-5 h-5" />, title: 'Établissements scolaires', desc: 'Écoles, collèges et lycées du territoire manquant d\'équipements pour les élèves.' },
+                { icon: <IconPartenaires className="w-5 h-5" />, title: 'Associations locales', desc: 'Associations de proximité dont les ressources ne permettent pas l\'achat de matériel neuf.' },
+                { icon: <IconBriefcase className="w-5 h-5" />, title: 'Structures d\'insertion', desc: 'ESAT, CHRS, centres sociaux et structures d\'accompagnement vers l\'emploi.' },
+                { icon: <IconMaison className="w-5 h-5" />, title: 'Communes et collectivités', desc: 'Mairies et intercommunalités partenaires pour des usages citoyens et solidaires.' },
+                { icon: <IconSenior className="w-5 h-5" />, title: 'Seniors isolés', desc: 'Personnes âgées souhaitant accéder au numérique sans moyens pour équipement neuf.' },
               ].map(({ icon, title, desc }) => (
                 <div key={title} className="flex gap-4 p-5 bg-beige-light border border-beige">
-                  <span className="text-2xl shrink-0" aria-hidden>{icon}</span>
+                  <div className="w-9 h-9 shrink-0 border border-ocre/25 bg-ocre/5 flex items-center justify-center text-ocre" aria-hidden>{icon}</div>
                   <div>
                     <p className="font-sans text-sm font-semibold text-terre mb-1">{title}</p>
                     <p className="text-xs text-terre/55 leading-relaxed">{desc}</p>

@@ -36,10 +36,10 @@ export default function PartenairesVegetaux() {
           <h2 className="font-serif text-2xl text-terre mb-8">Comment devenir partenaire végétal ?</h2>
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             {[
-              { titre: '📍 Point de collecte', desc: 'Votre site accueille les dépôts de plantes et matériels. Idéal pour les communes, mairies, déchetteries végétales, jardineries.' },
-              { titre: '🌱 Point de redistribution', desc: 'Votre structure sert de lieu de distribution à vos usagers ou clients. Idéal pour les centres sociaux, EHPAD, campings.' },
-              { titre: '🌿 Partenaire de soin', desc: 'Vous disposez d\'un espace pour accueillir temporairement des plantes en attente de redistribution. Idéal pour pépiniéristes.' },
-              { titre: '📣 Partenaire relais', desc: 'Vous relayez nos actions sur vos réseaux et auprès de votre clientèle. Idéal pour tout commerce local.' },
+              { titre: 'Point de collecte', desc: 'Votre site accueille les dépôts de plantes et matériels. Idéal pour les communes, mairies, déchetteries végétales, jardineries.' },
+              { titre: 'Point de redistribution', desc: 'Votre structure sert de lieu de distribution à vos usagers ou clients. Idéal pour les centres sociaux, EHPAD, campings.' },
+              { titre: 'Partenaire de soin', desc: 'Vous disposez d\'un espace pour accueillir temporairement des plantes en attente de redistribution. Idéal pour pépiniéristes.' },
+              { titre: 'Partenaire relais', desc: 'Vous relayez nos actions sur vos réseaux et auprès de votre clientèle. Idéal pour tout commerce local.' },
             ].map(({ titre, desc }) => (
               <div key={titre} className="border-l-2 border-kaki pl-5 py-2">
                 <h3 className="font-serif text-lg text-terre mb-2">{titre}</h3>

@@ -1,32 +1,13 @@
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import { IconPlante, IconPot, IconNousRejoindre, IconFeuille, IconGlobe, IconReemploi, IconSolidarite } from '../components/Icons'
 
 const PAGES_FILLES = [
-  {
-    to: '/recyclerie-vegetale/comment-donner/',
-    title: 'Comment donner',
-    desc: 'Démarche de don, points de collecte végétale',
-    icon: '🌱',
-  },
-  {
-    to: '/recyclerie-vegetale/ce-que-nous-acceptons/',
-    title: 'Ce que nous acceptons',
-    desc: 'Plantes, contenants, outils et matériels de jardin',
-    icon: '🪴',
-  },
-  {
-    to: '/recyclerie-vegetale/redistribution/',
-    title: 'Redistribution',
-    desc: 'Qui peut bénéficier des plantes et matériels collectés',
-    icon: '🤲',
-  },
-  {
-    to: '/recyclerie-vegetale/partenaires-vegetaux/',
-    title: 'Partenaires végétaux',
-    desc: 'Communes, campings, pépinières et fleuristes partenaires',
-    icon: '🌿',
-  },
+  { to: '/recyclerie-vegetale/comment-donner/', title: 'Comment donner', desc: 'Démarche de don, points de collecte végétale', Icon: IconPlante },
+  { to: '/recyclerie-vegetale/ce-que-nous-acceptons/', title: 'Ce que nous acceptons', desc: 'Plantes, contenants, outils et matériels de jardin', Icon: IconPot },
+  { to: '/recyclerie-vegetale/redistribution/', title: 'Redistribution', desc: 'Qui peut bénéficier des plantes et matériels collectés', Icon: IconNousRejoindre },
+  { to: '/recyclerie-vegetale/partenaires-vegetaux/', title: 'Partenaires végétaux', desc: 'Communes, campings, pépinières et fleuristes partenaires', Icon: IconFeuille },
 ]
 
 export default function RecyclerieVegetale() {
@@ -76,13 +57,13 @@ export default function RecyclerieVegetale() {
             <h2 className="font-serif text-3xl text-terre">Tout savoir sur la recyclerie végétale</h2>
           </div>
           <div className="grid sm:grid-cols-2 gap-5">
-            {PAGES_FILLES.map(({ to, title, desc, icon }) => (
+            {PAGES_FILLES.map(({ to, title, desc, Icon }) => (
               <Link
                 key={to}
                 to={to}
                 className="group card-base p-6 flex gap-4 border-l-4 border-transparent hover:border-kaki transition-all"
               >
-                <span className="text-2xl shrink-0" aria-hidden>{icon}</span>
+                <div className="w-10 h-10 shrink-0 border border-kaki/20 bg-kaki/5 flex items-center justify-center text-kaki transition-all duration-200 group-hover:bg-kaki/15 group-hover:border-kaki/40" aria-hidden><Icon className="w-5 h-5" /></div>
                 <div>
                   <h3 className="font-serif text-lg text-terre mb-1.5 group-hover:text-kaki transition-colors">
                     {title}
@@ -123,12 +104,12 @@ export default function RecyclerieVegetale() {
             </div>
             <div className="space-y-4">
               {[
-                { icon: '🌍', title: 'Réemploi local', desc: 'Vos végétaux restent sur le territoire, au profit des habitants des Landes.' },
-                { icon: '♻️', title: 'Zéro gaspillage', desc: 'Chaque plante, contenant et outil récupéré évite un déchet et un achat neuf.' },
-                { icon: '🤝', title: 'Lien social', desc: 'La filière végétale crée des rencontres et du lien entre donateurs et bénéficiaires.' },
+                { icon: <IconGlobe className="w-5 h-5" />, title: 'Réemploi local', desc: 'Vos végétaux restent sur le territoire, au profit des habitants des Landes.' },
+                { icon: <IconReemploi className="w-5 h-5" />, title: 'Zéro gaspillage', desc: 'Chaque plante, contenant et outil récupéré évite un déchet et un achat neuf.' },
+                { icon: <IconSolidarite className="w-5 h-5" />, title: 'Lien social', desc: 'La filière végétale crée des rencontres et du lien entre donateurs et bénéficiaires.' },
               ].map(({ icon, title, desc }) => (
                 <div key={title} className="flex gap-4 bg-white p-5 border border-kaki/10">
-                  <span className="text-xl shrink-0" aria-hidden>{icon}</span>
+                  <div className="w-9 h-9 shrink-0 border border-kaki/20 bg-kaki/5 flex items-center justify-center text-kaki" aria-hidden>{icon}</div>
                   <div>
                     <p className="font-sans text-sm font-semibold text-terre mb-1">{title}</p>
                     <p className="text-xs text-terre/55 leading-relaxed">{desc}</p>

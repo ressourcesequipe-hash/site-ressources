@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import { IconEquipe, IconTerritoire, IconPartenaires, IconActualites, IconNousRejoindre } from '../components/Icons'
 
 const EQUIPE = [
   {
@@ -24,11 +25,11 @@ const EQUIPE = [
 ]
 
 const PAGES_FILLES = [
-  { to: '/association/gouvernance/', icon: '👥', title: 'Gouvernance', desc: 'L\'équipe dirigeante et les bénévoles' },
-  { to: '/association/territoire/', icon: '🗺️', title: 'Notre territoire', desc: 'Ancrage local, CC CLN, CC MACS' },
-  { to: '/association/partenaires/', icon: '🤝', title: 'Partenaires', desc: 'Partenaires institutionnels et locaux' },
-  { to: '/association/actualites/', icon: '📰', title: 'Actualités', desc: 'Le fil d\'actualités de l\'association' },
-  { to: '/association/nous-rejoindre/', icon: '✋', title: 'Nous rejoindre', desc: 'Bénévolat, mécénat, partenariat' },
+  { to: '/association/gouvernance/', Icon: IconEquipe, title: 'Gouvernance', desc: 'L\'équipe dirigeante et les bénévoles' },
+  { to: '/association/territoire/', Icon: IconTerritoire, title: 'Notre territoire', desc: 'Ancrage local, CC CLN, CC MACS' },
+  { to: '/association/partenaires/', Icon: IconPartenaires, title: 'Partenaires', desc: 'Partenaires institutionnels et locaux' },
+  { to: '/association/actualites/', Icon: IconActualites, title: 'Actualités', desc: 'Le fil d\'actualités de l\'association' },
+  { to: '/association/nous-rejoindre/', Icon: IconNousRejoindre, title: 'Nous rejoindre', desc: 'Bénévolat, mécénat, partenariat' },
 ]
 
 export default function Association() {
@@ -159,13 +160,13 @@ export default function Association() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <h2 className="font-serif text-2xl text-terre mb-8">En savoir plus sur l'association</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {PAGES_FILLES.map(({ to, icon, title, desc }) => (
+            {PAGES_FILLES.map(({ to, Icon, title, desc }) => (
               <Link
                 key={to}
                 to={to}
                 className="group flex items-start gap-3 bg-white border border-beige p-5 hover:border-ocre/30 hover:shadow-sm transition-all"
               >
-                <span className="text-xl shrink-0" aria-hidden>{icon}</span>
+                <div className="w-9 h-9 shrink-0 border border-ocre/25 bg-ocre/5 flex items-center justify-center text-ocre" aria-hidden><Icon className="w-5 h-5" /></div>
                 <div>
                   <p className="font-sans text-sm font-semibold text-terre mb-0.5 group-hover:text-ocre transition-colors">
                     {title}

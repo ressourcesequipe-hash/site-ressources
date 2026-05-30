@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import { IconFamille, IconMaison, IconEcole, IconPartenaires, IconGlobe, IconProximite } from '../../components/Icons'
 
 const BREADCRUMBS = [
   { label: 'Recyclerie Végétale', href: '/recyclerie-vegetale/' },
@@ -36,15 +37,15 @@ export default function RedistributionVeg() {
           <h2 className="font-serif text-2xl text-terre mb-8">Qui peut bénéficier ?</h2>
           <div className="grid sm:grid-cols-2 gap-5 mb-10">
             {[
-              { icon: '👨‍👩‍👧', titre: 'Particuliers', desc: 'Habitants du territoire qui souhaitent végétaliser leur logement sans moyens pour acheter des plantes neuves.' },
-              { icon: '🏘️', titre: 'Communes partenaires', desc: 'Espaces verts communaux, fleurissement des villages, jardins partagés municipaux.' },
-              { icon: '🏫', titre: 'Écoles & établissements', desc: 'Projets pédagogiques, jardins scolaires, espaces extérieurs des établissements.' },
-              { icon: '🤝', titre: 'Structures sociales', desc: 'EHPAD, centres d\'hébergement, structures d\'insertion proposant des activités horticoles.' },
-              { icon: '🌍', titre: 'Jardins partagés', desc: 'Initiatives collectives de jardinage solidaire sur le territoire landais.' },
-              { icon: '🏕️', titre: 'Sites touristiques partenaires', desc: 'Campings et sites partenaires engagés dans la démarche via notre réseau végétal.' },
+              { icon: <IconFamille className="w-5 h-5" />, titre: 'Particuliers', desc: 'Habitants du territoire qui souhaitent végétaliser leur logement sans moyens pour acheter des plantes neuves.' },
+              { icon: <IconMaison className="w-5 h-5" />, titre: 'Communes partenaires', desc: 'Espaces verts communaux, fleurissement des villages, jardins partagés municipaux.' },
+              { icon: <IconEcole className="w-5 h-5" />, titre: 'Écoles & établissements', desc: 'Projets pédagogiques, jardins scolaires, espaces extérieurs des établissements.' },
+              { icon: <IconPartenaires className="w-5 h-5" />, titre: 'Structures sociales', desc: 'EHPAD, centres d\'hébergement, structures d\'insertion proposant des activités horticoles.' },
+              { icon: <IconGlobe className="w-5 h-5" />, titre: 'Jardins partagés', desc: 'Initiatives collectives de jardinage solidaire sur le territoire landais.' },
+              { icon: <IconProximite className="w-5 h-5" />, titre: 'Sites touristiques partenaires', desc: 'Campings et sites partenaires engagés dans la démarche via notre réseau végétal.' },
             ].map(({ icon, titre, desc }) => (
               <div key={titre} className="flex gap-4 bg-beige-light border border-beige p-5">
-                <span className="text-2xl shrink-0" aria-hidden>{icon}</span>
+                <div className="w-9 h-9 shrink-0 border border-kaki/20 bg-kaki/5 flex items-center justify-center text-kaki" aria-hidden>{icon}</div>
                 <div>
                   <p className="font-sans text-sm font-semibold text-terre mb-1">{titre}</p>
                   <p className="text-xs text-terre/55 leading-relaxed">{desc}</p>

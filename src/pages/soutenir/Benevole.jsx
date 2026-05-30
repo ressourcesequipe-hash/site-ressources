@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import { IconCollecte, IconOutil, IconPlante, IconMegaphone, IconTransport } from '../../components/Icons'
 
 const BREADCRUMBS = [
   { label: 'Soutenir', href: '/soutenir/' },
@@ -34,14 +35,14 @@ export default function Benevole() {
               <h2 className="font-serif text-2xl text-terre mb-6">Les missions bénévoles</h2>
               <div className="space-y-4">
                 {[
-                  { icon: '📦', titre: 'Collecte & manutention', desc: 'Participation aux collectes, réception et déchargement du matériel, organisation des stocks.' },
-                  { icon: '🔧', titre: 'Diagnostic & reconditionnement', desc: 'Tri, nettoyage, tests, reconditionnement des appareils informatiques. Formation technique fournie.' },
-                  { icon: '🌱', titre: 'Filière végétale', desc: 'Réception, soin et redistribution des plantes et matériels de jardinage collectés.' },
-                  { icon: '📣', titre: 'Communication & événements', desc: 'Aide à la communication, animation des événements, représentation de l\'association.' },
-                  { icon: '🚗', titre: 'Logistique & transport', desc: 'Enlèvements chez les donateurs, livraisons aux bénéficiaires (véhicule souhaitable).' },
+                  { icon: <IconCollecte className="w-5 h-5" />, titre: 'Collecte & manutention', desc: 'Participation aux collectes, réception et déchargement du matériel, organisation des stocks.' },
+                  { icon: <IconOutil className="w-5 h-5" />, titre: 'Diagnostic & reconditionnement', desc: 'Tri, nettoyage, tests, reconditionnement des appareils informatiques. Formation technique fournie.' },
+                  { icon: <IconPlante className="w-5 h-5" />, titre: 'Filière végétale', desc: 'Réception, soin et redistribution des plantes et matériels de jardinage collectés.' },
+                  { icon: <IconMegaphone className="w-5 h-5" />, titre: 'Communication & événements', desc: 'Aide à la communication, animation des événements, représentation de l\'association.' },
+                  { icon: <IconTransport className="w-5 h-5" />, titre: 'Logistique & transport', desc: 'Enlèvements chez les donateurs, livraisons aux bénéficiaires (véhicule souhaitable).' },
                 ].map(({ icon, titre, desc }) => (
                   <div key={titre} className="flex gap-4">
-                    <span className="text-xl shrink-0" aria-hidden>{icon}</span>
+                    <div className="w-9 h-9 shrink-0 border border-kaki/20 bg-kaki/5 flex items-center justify-center text-kaki" aria-hidden>{icon}</div>
                     <div>
                       <p className="font-sans text-sm font-semibold text-terre mb-0.5">{titre}</p>
                       <p className="text-xs text-terre/55 leading-relaxed">{desc}</p>

@@ -1,20 +1,21 @@
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import { IconTombola, IconNousRejoindre, IconEntreprise, IconDon } from '../components/Icons'
 
 const OPTIONS = [
   {
     to: '/soutenir/tombola/',
-    icon: '🎟',
+    Icon: IconTombola,
     title: 'Tombola solidaire',
     subtitle: 'Plus de 7 000 € de lots à gagner',
-    desc: 'Participez à notre grande tombola du 17 octobre 2026. Des lots attractifs, un financement direct pour l\'association.',
+    desc: 'Participez à notre grande tombola du 03 octobre 2026. Plus de 7 000 € de lots à gagner, soutenez directement la recyclerie.',
     cta: 'Participer à la tombola',
     accent: 'ocre',
   },
   {
     to: '/soutenir/benevole/',
-    icon: '✋',
+    Icon: IconNousRejoindre,
     title: 'Devenir bénévole',
     subtitle: 'Rejoignez l\'équipe',
     desc: 'Vous avez du temps, des compétences, de la bonne volonté ? L\'association Ressources a besoin de vous pour ses filières.',
@@ -23,7 +24,7 @@ const OPTIONS = [
   },
   {
     to: '/soutenir/mecene/',
-    icon: '🏢',
+    Icon: IconEntreprise,
     title: 'Mécénat & partenariat',
     subtitle: 'Pour les entreprises et commerces locaux',
     desc: 'Associez votre nom à un projet solidaire et ancré dans le territoire landais. Plusieurs formules de partenariat disponibles.',
@@ -32,7 +33,7 @@ const OPTIONS = [
   },
   {
     to: '/soutenir/don/',
-    icon: '💛',
+    Icon: IconDon,
     title: 'Faire un don',
     subtitle: 'Soutien direct',
     desc: 'Votre don finance l\'équipement, les déplacements et les actions de l\'association. Chaque euro compte pour le territoire.',
@@ -74,9 +75,9 @@ export default function Soutenir() {
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-6">
-            {OPTIONS.map(({ to, icon, title, subtitle, desc, cta, accent }) => (
+            {OPTIONS.map(({ to, Icon, title, subtitle, desc, cta, accent }) => (
               <div key={to} className={`border-t-2 ${accent === 'ocre' ? 'border-ocre' : 'border-kaki'} bg-beige-light p-8`}>
-                <span className="text-3xl block mb-4" aria-hidden>{icon}</span>
+                <div className={`w-12 h-12 border flex items-center justify-center mb-4 ${accent === 'ocre' ? 'border-ocre/25 bg-ocre/5 text-ocre' : 'border-kaki/25 bg-kaki/5 text-kaki'}`} aria-hidden><Icon className="w-6 h-6" /></div>
                 <p className={`font-sans text-xs font-semibold tracking-widest uppercase mb-1 ${accent === 'ocre' ? 'text-ocre' : 'text-kaki'}`}>
                   {subtitle}
                 </p>
@@ -100,7 +101,7 @@ export default function Soutenir() {
           <div className="flex-1">
             <p className="section-label">Priorité</p>
             <h2 className="font-serif text-2xl md:text-3xl text-terre mb-3">
-              Tombola solidaire — 17 octobre 2026
+              Tombola solidaire — 03 octobre 2026
             </h2>
             <p className="text-terre/60 text-sm leading-relaxed mb-4">
               Participez à une grande tombola solidaire et soutenez le lancement de la

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import { IconOrdinateur, IconEcran, IconMobile, IconConsole, IconCable, IconImprimante } from '../../components/Icons'
 
 const BREADCRUMBS = [
   { label: 'Recyclerie Informatique', href: '/recyclerie-informatique/' },
@@ -8,36 +9,12 @@ const BREADCRUMBS = [
 ]
 
 const CATEGORIES = [
-  {
-    icon: '💻',
-    titre: 'Ordinateurs',
-    items: ['Ordinateurs portables (laptop)', 'Ordinateurs fixes (desktop)', 'Unités centrales', 'Mac & PC'],
-  },
-  {
-    icon: '🖥️',
-    titre: 'Écrans & périphériques',
-    items: ['Moniteurs LCD/LED', 'Claviers', 'Souris', 'Webcams', 'Haut-parleurs'],
-  },
-  {
-    icon: '📱',
-    titre: 'Mobiles & tablettes',
-    items: ['Smartphones (tous modèles)', 'Tablettes (iPad, Android)', 'Liseuses', 'MP3 players'],
-  },
-  {
-    icon: '🎮',
-    titre: 'Jeux & multimédia',
-    items: ['Consoles de jeux (PS, Xbox, Nintendo…)', 'Manettes', 'Appareils photo numériques', 'GPS'],
-  },
-  {
-    icon: '🔌',
-    titre: 'Câbles & accessoires',
-    items: ['Câbles USB, HDMI, VGA, etc.', 'Chargeurs et alimentations', 'Disques durs externes', 'Clés USB'],
-  },
-  {
-    icon: '🖨️',
-    titre: 'Bureautique',
-    items: ['Imprimantes (fonctionnelles)', 'Scanners', 'Routeurs & box (déverrouillés)', 'Téléphones fixes'],
-  },
+  { icon: <IconOrdinateur className="w-5 h-5" />, titre: 'Ordinateurs', items: ['Ordinateurs portables (laptop)', 'Ordinateurs fixes (desktop)', 'Unités centrales', 'Mac & PC'] },
+  { icon: <IconEcran className="w-5 h-5" />, titre: 'Écrans & périphériques', items: ['Moniteurs LCD/LED', 'Claviers', 'Souris', 'Webcams', 'Haut-parleurs'] },
+  { icon: <IconMobile className="w-5 h-5" />, titre: 'Mobiles & tablettes', items: ['Smartphones (tous modèles)', 'Tablettes (iPad, Android)', 'Liseuses', 'MP3 players'] },
+  { icon: <IconConsole className="w-5 h-5" />, titre: 'Jeux & multimédia', items: ['Consoles de jeux (PS, Xbox, Nintendo…)', 'Manettes', 'Appareils photo numériques', 'GPS'] },
+  { icon: <IconCable className="w-5 h-5" />, titre: 'Câbles & accessoires', items: ['Câbles USB, HDMI, VGA, etc.', 'Chargeurs et alimentations', 'Disques durs externes', 'Clés USB'] },
+  { icon: <IconImprimante className="w-5 h-5" />, titre: 'Bureautique', items: ['Imprimantes (fonctionnelles)', 'Scanners', 'Routeurs & box (déverrouillés)', 'Téléphones fixes'] },
 ]
 
 export default function MaterielAccepte() {
@@ -79,7 +56,7 @@ export default function MaterielAccepte() {
             {CATEGORIES.map(({ icon, titre, items }) => (
               <div key={titre} className="bg-beige-light border border-beige-dark p-5">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-2xl" aria-hidden>{icon}</span>
+                  <div className="w-9 h-9 border border-ocre/25 bg-ocre/5 flex items-center justify-center text-ocre shrink-0" aria-hidden>{icon}</div>
                   <h2 className="font-serif text-lg text-terre">{titre}</h2>
                 </div>
                 <ul className="space-y-1.5">

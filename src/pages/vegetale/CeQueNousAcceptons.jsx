@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import { IconFeuille, IconFleur, IconPot, IconPlante, IconJardinage, IconMaison } from '../../components/Icons'
 
 const BREADCRUMBS = [
   { label: 'Recyclerie Végétale', href: '/recyclerie-vegetale/' },
@@ -35,40 +36,16 @@ export default function CeQueNousAcceptons() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {[
-              {
-                icon: '🌿',
-                titre: 'Plantes vertes',
-                items: ['Plantes d\'intérieur', 'Plantes d\'extérieur vivaces', 'Arbustes d\'ornement', 'Plantes aromatiques'],
-              },
-              {
-                icon: '🌸',
-                titre: 'Fleurs & plantes saisonnières',
-                items: ['Fleurs annuelles', 'Bulbes', 'Géraniums et pétunias', 'Plantes de balcon'],
-              },
-              {
-                icon: '🪴',
-                titre: 'Contenants',
-                items: ['Pots de toutes tailles', 'Jardinières', 'Bacs à fleurs', 'Suspension et présentoirs'],
-              },
-              {
-                icon: '🌱',
-                titre: 'Semences & boutures',
-                items: ['Graines de potager', 'Boutures enracinées', 'Rejets et stolons', 'Plants à repiquer'],
-              },
-              {
-                icon: '🪚',
-                titre: 'Outils de jardin',
-                items: ['Outils manuels (bèches, râteaux…)', 'Petits outillages', 'Arrosoirs', 'Tuteurs et attaches'],
-              },
-              {
-                icon: '🏡',
-                titre: 'Mobilier & aménagement',
-                items: ['Mobilier de jardin (bon état)', 'Bordures et clôtures légères', 'Bâches et voiles', 'Grilles et treillages'],
-              },
+              { icon: <IconFeuille className="w-5 h-5" />, titre: 'Plantes vertes', items: ['Plantes d\'intérieur', 'Plantes d\'extérieur vivaces', 'Arbustes d\'ornement', 'Plantes aromatiques'] },
+              { icon: <IconFleur className="w-5 h-5" />, titre: 'Fleurs & plantes saisonnières', items: ['Fleurs annuelles', 'Bulbes', 'Géraniums et pétunias', 'Plantes de balcon'] },
+              { icon: <IconPot className="w-5 h-5" />, titre: 'Contenants', items: ['Pots de toutes tailles', 'Jardinières', 'Bacs à fleurs', 'Suspension et présentoirs'] },
+              { icon: <IconPlante className="w-5 h-5" />, titre: 'Semences & boutures', items: ['Graines de potager', 'Boutures enracinées', 'Rejets et stolons', 'Plants à repiquer'] },
+              { icon: <IconJardinage className="w-5 h-5" />, titre: 'Outils de jardin', items: ['Outils manuels (bèches, râteaux…)', 'Petits outillages', 'Arrosoirs', 'Tuteurs et attaches'] },
+              { icon: <IconMaison className="w-5 h-5" />, titre: 'Mobilier & aménagement', items: ['Mobilier de jardin (bon état)', 'Bordures et clôtures légères', 'Bâches et voiles', 'Grilles et treillages'] },
             ].map(({ icon, titre, items }) => (
               <div key={titre} className="bg-beige-light border border-beige-dark p-5">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-2xl" aria-hidden>{icon}</span>
+                  <div className="w-8 h-8 border border-kaki/20 bg-kaki/5 flex items-center justify-center text-kaki shrink-0" aria-hidden>{icon}</div>
                   <h2 className="font-serif text-base text-terre">{titre}</h2>
                 </div>
                 <ul className="space-y-1.5">

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import { IconSecurite, IconDocument, IconTracabilite, IconConformite } from '../../components/Icons'
 
 const BREADCRUMBS = [
   { label: 'Recyclerie Informatique', href: '/recyclerie-informatique/' },
@@ -38,13 +39,13 @@ export default function EffacementDonnees() {
               <h2 className="font-serif text-2xl text-terre mb-4">Notre processus d'effacement</h2>
               <div className="space-y-5">
                 {[
-                  { icon: '🔒', title: 'Effacement selon normes reconnues', desc: 'Nous appliquons les standards NIST SP 800-88 (écrasement multi-passes) sur tous les supports de stockage.' },
-                  { icon: '📋', title: 'Certificat d\'effacement', desc: 'Un certificat nominatif est émis pour chaque appareil traité, attestant l\'effacement complet des données.' },
-                  { icon: '🔐', title: 'Traçabilité complète', desc: 'Chaque appareil est tracé de sa réception jusqu\'à sa redistribution ou son recyclage.' },
-                  { icon: '⚖️', title: 'Conformité RGPD', desc: 'Notre processus est conforme au Règlement Général sur la Protection des Données (RGPD/GDPR).' },
+                  { icon: <IconSecurite className="w-5 h-5" />, title: 'Effacement selon normes reconnues', desc: 'Nous appliquons les standards NIST SP 800-88 (écrasement multi-passes) sur tous les supports de stockage.' },
+                  { icon: <IconDocument className="w-5 h-5" />, title: 'Certificat d\'effacement', desc: 'Un certificat nominatif est émis pour chaque appareil traité, attestant l\'effacement complet des données.' },
+                  { icon: <IconTracabilite className="w-5 h-5" />, title: 'Traçabilité complète', desc: 'Chaque appareil est tracé de sa réception jusqu\'à sa redistribution ou son recyclage.' },
+                  { icon: <IconConformite className="w-5 h-5" />, title: 'Conformité RGPD', desc: 'Notre processus est conforme au Règlement Général sur la Protection des Données (RGPD/GDPR).' },
                 ].map(({ icon, title, desc }) => (
                   <div key={title} className="flex gap-4">
-                    <span className="text-xl shrink-0 mt-0.5" aria-hidden>{icon}</span>
+                    <div className="w-9 h-9 shrink-0 border border-ocre/25 bg-ocre/5 flex items-center justify-center text-ocre mt-0.5" aria-hidden>{icon}</div>
                     <div>
                       <p className="font-sans text-sm font-semibold text-terre mb-1">{title}</p>
                       <p className="text-xs text-terre/55 leading-relaxed">{desc}</p>

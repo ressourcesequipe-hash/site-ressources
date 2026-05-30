@@ -1,38 +1,14 @@
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import { IconCollecte, IconOrdinateur, IconOutil, IconSecurite, IconPartenaires, IconConformite, IconCalendar, IconTracabilite } from '../components/Icons'
 
 const PAGES_FILLES = [
-  {
-    to: '/recyclerie-informatique/comment-donner/',
-    title: 'Comment donner',
-    desc: 'Points de collecte, enlèvements, démarche simplifiée',
-    icon: '📦',
-  },
-  {
-    to: '/recyclerie-informatique/materiel-accepte/',
-    title: 'Matériel accepté',
-    desc: 'Liste complète des équipements que nous collectons',
-    icon: '💻',
-  },
-  {
-    to: '/recyclerie-informatique/reconditionnement/',
-    title: 'Notre processus',
-    desc: 'Les 6 étapes de la filière, de la collecte à la redistribution',
-    icon: '🔧',
-  },
-  {
-    to: '/recyclerie-informatique/effacement-donnees/',
-    title: 'Sécurité des données',
-    desc: 'Effacement certifié, traçabilité, conformité RGPD',
-    icon: '🔒',
-  },
-  {
-    to: '/recyclerie-informatique/beneficiaires/',
-    title: 'Qui peut bénéficier',
-    desc: 'Personnes et structures prioritaires sur notre territoire',
-    icon: '🤝',
-  },
+  { to: '/recyclerie-informatique/comment-donner/', title: 'Comment donner', desc: 'Points de collecte, enlèvements, démarche simplifiée', Icon: IconCollecte },
+  { to: '/recyclerie-informatique/materiel-accepte/', title: 'Matériel accepté', desc: 'Liste complète des équipements que nous collectons', Icon: IconOrdinateur },
+  { to: '/recyclerie-informatique/reconditionnement/', title: 'Notre processus', desc: 'Les 6 étapes de la filière, de la collecte à la redistribution', Icon: IconOutil },
+  { to: '/recyclerie-informatique/effacement-donnees/', title: 'Sécurité des données', desc: 'Effacement certifié, traçabilité, conformité RGPD', Icon: IconSecurite },
+  { to: '/recyclerie-informatique/beneficiaires/', title: 'Qui peut bénéficier', desc: 'Personnes et structures prioritaires sur notre territoire', Icon: IconPartenaires },
 ]
 
 export default function RecyclerieInfo() {
@@ -76,15 +52,17 @@ export default function RecyclerieInfo() {
       <section className="bg-ocre-pale border-y border-ocre/20 py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="text-xl" aria-hidden>📅</span>
+            <div className="w-8 h-8 border border-ocre/30 bg-ocre/5 flex items-center justify-center text-ocre shrink-0" aria-hidden>
+              <IconCalendar className="w-4 h-4" />
+            </div>
             <div>
               <p className="font-sans text-sm font-semibold text-terre">
-                Événement de lancement — 17 octobre 2026
+                Événement de lancement — 03 octobre 2026
               </p>
               <p className="text-xs text-terre/55">Challenge collecte 1 tonne · Tombola solidaire</p>
             </div>
           </div>
-          <Link to="/evenement-lancement-17-octobre-2026/" className="btn-ocre text-sm shrink-0">
+          <Link to="/evenement-lancement-03-octobre-2026/" className="btn-ocre text-sm shrink-0">
             Participer
           </Link>
         </div>
@@ -98,13 +76,13 @@ export default function RecyclerieInfo() {
             <h2 className="font-serif text-3xl text-terre">Tout savoir sur la recyclerie informatique</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {PAGES_FILLES.map(({ to, title, desc, icon }) => (
+            {PAGES_FILLES.map(({ to, title, desc, Icon }) => (
               <Link
                 key={to}
                 to={to}
                 className="group card-base p-6 flex gap-4"
               >
-                <span className="text-2xl shrink-0" aria-hidden>{icon}</span>
+                <div className="w-10 h-10 shrink-0 border border-ocre/25 bg-ocre/5 flex items-center justify-center text-ocre transition-all duration-200 group-hover:bg-ocre/12 group-hover:border-ocre/50" aria-hidden><Icon className="w-5 h-5" /></div>
                 <div>
                   <h3 className="font-serif text-lg text-terre mb-1.5 group-hover:text-ocre transition-colors">
                     {title}
@@ -126,12 +104,12 @@ export default function RecyclerieInfo() {
           </div>
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { icon: '🔒', title: 'Effacement certifié', desc: 'Toutes vos données sont effacées selon les normes avant tout reconditionnement ou recyclage.' },
-              { icon: '📋', title: 'Traçabilité totale', desc: 'Chaque appareil est tracé de la collecte à la redistribution ou au recyclage responsable.' },
-              { icon: '⚖️', title: 'Conformité RGPD', desc: 'Nos processus respectent le Règlement Général sur la Protection des Données.' },
+              { icon: <IconSecurite className="w-6 h-6" />, title: 'Effacement certifié', desc: 'Toutes vos données sont effacées selon les normes avant tout reconditionnement ou recyclage.' },
+              { icon: <IconTracabilite className="w-6 h-6" />, title: 'Traçabilité totale', desc: 'Chaque appareil est tracé de la collecte à la redistribution ou au recyclage responsable.' },
+              { icon: <IconConformite className="w-6 h-6" />, title: 'Conformité RGPD', desc: 'Nos processus respectent le Règlement Général sur la Protection des Données.' },
             ].map(({ icon, title, desc }) => (
               <div key={title} className="text-center bg-white p-6 border border-beige-dark">
-                <span className="text-3xl block mb-4" aria-hidden>{icon}</span>
+                <div className="w-12 h-12 border border-ocre/25 bg-ocre/5 flex items-center justify-center text-ocre mx-auto mb-4" aria-hidden>{icon}</div>
                 <h3 className="font-serif text-lg text-terre mb-2">{title}</h3>
                 <p className="text-sm text-terre/55 leading-relaxed">{desc}</p>
               </div>
