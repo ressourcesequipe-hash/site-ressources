@@ -9,7 +9,7 @@ const BREADCRUMBS = [
 
 const ARTICLES = [
   {
-    date: 'Mai 2026',
+    date: 'Septembre 2026',
     categorie: 'Événement',
     titre: 'Événement de lancement confirmé pour le 03 octobre 2026',
     extrait: 'L\'association Ressources organise sa grande journée de lancement à Vielle-Saint-Girons. Challenge collecte, tombola solidaire avec plus de 7 000 € de lots, festivités — programme complet à venir.',
@@ -17,7 +17,7 @@ const ARTICLES = [
     accentColor: 'ocre',
   },
   {
-    date: 'Avril 2026',
+    date: 'Août 2026',
     categorie: 'Partenariat',
     titre: 'SITCOM40 rejoint le réseau partenaire',
     extrait: 'Le syndicat intercommunal SITCOM40 s\'associe à l\'association Ressources pour le maillage territorial de la collecte informatique dans les Landes.',
@@ -25,7 +25,7 @@ const ARTICLES = [
     accentColor: 'kaki',
   },
   {
-    date: 'Mars 2026',
+    date: 'Juillet 2026',
     categorie: 'Association',
     titre: 'Appel aux bénévoles — filière informatique',
     extrait: 'Ressources recrute ses premiers bénévoles pour la filière informatique. Démarrage en septembre 2026, formation assurée. Inscriptions ouvertes.',
@@ -33,7 +33,7 @@ const ARTICLES = [
     accentColor: 'kaki',
   },
   {
-    date: 'Janvier 2026',
+    date: 'Mai 2026',
     categorie: 'Projet',
     titre: 'Démarrage de la phase de préparation',
     extrait: 'L\'équipe fondatrice finalise les partenariats institutionnels et prépare les outils opérationnels pour le démarrage pilote de septembre 2026.',
