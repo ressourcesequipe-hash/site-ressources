@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
 
+
 const BREADCRUMBS = [
   { label: 'L\'Association', href: '/association/' },
   { label: 'Partenaires' },
