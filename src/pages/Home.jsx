@@ -202,12 +202,12 @@ export default function Home() {
               }}
             >
               {[
-                { label: 'Réemploi', icon: '♻' },
-                { label: 'Solidarité', icon: '🤝' },
-                { label: 'Proximité', icon: '📍' },
+                { label: 'Réemploi',   icon: <IconReemploi /> },
+                { label: 'Solidarité', icon: <IconSolidarite /> },
+                { label: 'Proximité',  icon: <IconProximite /> },
               ].map(({ label, icon }) => (
                 <span key={label} className="chip">
-                  <span className="text-sm" aria-hidden>{icon}</span>
+                  <span aria-hidden>{icon}</span>
                   {label}
                 </span>
               ))}
@@ -530,9 +530,9 @@ export default function Home() {
                 de l'association Ressources à Vielle-Saint-Girons. Venez nombreux !
               </p>
               <div className="space-y-4 mb-9">
-                <EventFeature icon="🏆" title="Challenge collecte — 1 tonne" desc="Objectif collecte de matériel informatique pour la journée" />
-                <EventFeature icon="🎟" title="Tombola solidaire" desc="Plus de 7 000 € de lots offerts par nos partenaires locaux" />
-                <EventFeature icon="📍" title="Vielle-Saint-Girons, Landes" desc="Dans les locaux et espaces partenaires de la commune" />
+                <EventFeature icon={<IconChallenge />} title="Challenge collecte — 1 tonne" desc="Objectif collecte de matériel informatique pour la journée" />
+                <EventFeature icon={<IconTombola />} title="Tombola solidaire" desc="Plus de 7 000 € de lots offerts par nos partenaires locaux" />
+                <EventFeature icon={<IconLieu />} title="Vielle-Saint-Girons, Landes" desc="Dans les locaux et espaces partenaires de la commune" />
               </div>
               <Link to="/evenement-lancement-03-octobre-2026/" className="btn-ocre shadow-ocre-glow">
                 Je participe à l'événement
@@ -675,12 +675,67 @@ function ImpactCounter({ value, suffix = '', label, index = 0 }) {
 function EventFeature({ icon, title, desc }) {
   return (
     <div className="flex gap-4 group">
-      <span className="text-2xl shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-200 inline-block" aria-hidden>{icon}</span>
-      <div>
+      <div className="w-9 h-9 shrink-0 border border-ocre/25 bg-ocre/5 flex items-center justify-center transition-all duration-200 group-hover:bg-ocre/12 group-hover:border-ocre/50" aria-hidden>
+        {icon}
+      </div>
+      <div className="pt-1">
         <p className="font-sans text-sm font-semibold text-terre mb-0.5">{title}</p>
         <p className="text-xs text-terre/50 leading-relaxed">{desc}</p>
       </div>
     </div>
+  )
+}
+
+/* ── Icônes SVG minimalistes ── */
+function IconReemploi() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <polyline points="23 4 23 10 17 10" />
+      <polyline points="1 20 1 14 7 14" />
+      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+    </svg>
+  )
+}
+function IconSolidarite() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+    </svg>
+  )
+}
+function IconProximite() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+      <circle cx="12" cy="9" r="2.5" />
+    </svg>
+  )
+}
+function IconChallenge() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <circle cx="12" cy="8" r="6" />
+      <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
+    </svg>
+  )
+}
+function IconTombola() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="2" y="7" width="20" height="14" rx="2" />
+      <path d="M16 7V5a2 2 0 0 0-4 0v2" />
+      <path d="M8 7V5a2 2 0 0 0-4 0v2" />
+      <line x1="12" y1="12" x2="12" y2="16" />
+      <line x1="10" y1="14" x2="14" y2="14" />
+    </svg>
+  )
+}
+function IconLieu() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+      <circle cx="12" cy="9" r="2.5" />
+    </svg>
   )
 }
 
