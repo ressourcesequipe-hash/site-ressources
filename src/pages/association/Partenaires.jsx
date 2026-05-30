@@ -29,6 +29,7 @@ const PARTENAIRES = [
     label: 'RÉSEAU PROFESSIONNEL REJOINT',
     labelColor: 'ocre',
     logo: '/logos/logo-renaitre.png',
+    logoHeight: 60,
     desc: 'Ressources rejoint le réseau ReNAITRe, réseau régional du réemploi solidaire en Nouvelle-Aquitaine.',
     lien: 'https://www.reseau-renaitre.com/page/1502390-accueil',
   },
@@ -45,6 +46,7 @@ const PARTENAIRES = [
     label: 'PRÉSENTATION DU PROJET EN COURS',
     labelColor: 'kaki',
     logo: '/logos/logo-macs.png',
+    logoHeight: 60,
     desc: 'Ressources engage une démarche de présentation du projet sur le territoire MACS afin d\'identifier de futures pistes de coopération locale.',
     lien: null,
   },
@@ -86,7 +88,7 @@ export default function Partenaires() {
           </h2>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
-            {PARTENAIRES.map(({ nom, label, labelColor, desc, lien, logo }) => (
+            {PARTENAIRES.map(({ nom, label, labelColor, desc, lien, logo, logoSize, logoHeight }) => (
               <div
                 key={nom}
                 className={`group border-t-2 ${labelColor === 'ocre' ? 'border-ocre' : 'border-kaki/40'} border border-beige-dark bg-beige-light p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}
@@ -96,7 +98,8 @@ export default function Partenaires() {
                   <img
                     src={logo}
                     alt={`Logo ${nom}`}
-                    className="max-h-full max-w-[160px] object-contain"
+                    className="object-contain w-auto"
+                    style={{ height: logoHeight ? `${logoHeight}px` : '48px' }}
                     onError={(e) => {
                       e.target.style.display = 'none'
                       e.target.nextSibling.style.display = 'block'
