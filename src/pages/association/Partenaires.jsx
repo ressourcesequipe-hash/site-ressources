@@ -12,6 +12,7 @@ const PARTENAIRES = [
     nom: 'Mairie de Vielle-Saint-Girons',
     label: 'PARTENAIRE LOCAL CONFIRMÉ',
     labelColor: 'ocre',
+    logo: '/logos/logo-mairie-vsg.png',
     desc: 'La commune de Vielle-Saint-Girons s\'est positionnée comme partenaire du lancement de Ressources sur son territoire.',
     lien: null,
   },
@@ -19,6 +20,7 @@ const PARTENAIRES = [
     nom: 'SITCOM40',
     label: 'PARTENARIAT EN COURS DE FORMALISATION',
     labelColor: 'kaki',
+    logo: '/logos/logo-sitcom40.svg',
     desc: 'Des échanges sont engagés avec le SITCOM40 pour structurer une coopération autour de la collecte et du réemploi.',
     lien: null,
   },
@@ -26,6 +28,7 @@ const PARTENAIRES = [
     nom: 'Réseau ReNAITRe',
     label: 'RÉSEAU PROFESSIONNEL REJOINT',
     labelColor: 'ocre',
+    logo: '/logos/logo-renaitre.png',
     desc: 'Ressources rejoint le réseau ReNAITRe, réseau régional du réemploi solidaire en Nouvelle-Aquitaine.',
     lien: 'https://www.reseau-renaitre.com/page/1502390-accueil',
   },
@@ -33,6 +36,7 @@ const PARTENAIRES = [
     nom: 'CC Côte Landes Nature',
     label: 'ÉCHANGE EN COURS',
     labelColor: 'kaki',
+    logo: '/logos/logo-cln.png',
     desc: 'Ressources souhaite développer des coopérations territoriales autour du réemploi, de l\'inclusion numérique et de la recyclerie végétale.',
     lien: null,
   },
@@ -40,6 +44,7 @@ const PARTENAIRES = [
     nom: 'Territoire MACS',
     label: 'PRÉSENTATION DU PROJET EN COURS',
     labelColor: 'kaki',
+    logo: '/logos/logo-macs.png',
     desc: 'Ressources engage une démarche de présentation du projet sur le territoire MACS afin d\'identifier de futures pistes de coopération locale.',
     lien: null,
   },
@@ -81,14 +86,25 @@ export default function Partenaires() {
           </h2>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
-            {PARTENAIRES.map(({ nom, label, labelColor, desc, lien }) => (
+            {PARTENAIRES.map(({ nom, label, labelColor, desc, lien, logo }) => (
               <div
                 key={nom}
-                className={`group border-t-2 ${labelColor === 'ocre' ? 'border-ocre' : 'border-kaki/40'} border border-beige-dark bg-beige-light p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5`}
+                className={`group border-t-2 ${labelColor === 'ocre' ? 'border-ocre' : 'border-kaki/40'} border border-beige-dark bg-beige-light p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}
               >
-                {/* Logo placeholder */}
-                <div className="w-full h-14 bg-white border border-beige flex items-center justify-center mb-5">
-                  <p className="text-xs text-terre/35 font-sans font-medium tracking-wide">{nom}</p>
+                {/* Logo partenaire */}
+                <div className="w-full h-20 bg-white border border-beige flex items-center justify-center mb-5 p-3 overflow-hidden">
+                  <img
+                    src={logo}
+                    alt={`Logo ${nom}`}
+                    className="max-h-full max-w-full object-contain"
+                    onError={(e) => {
+                      e.target.style.display = 'none'
+                      e.target.nextSibling.style.display = 'flex'
+                    }}
+                  />
+                  <span className="text-xs text-terre/35 font-sans font-medium tracking-wide hidden w-full h-full items-center justify-center">
+                    {nom}
+                  </span>
                 </div>
 
                 {/* Label statut */}
