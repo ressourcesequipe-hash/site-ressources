@@ -46,7 +46,7 @@ export default function Evenement() {
     <Layout>
       <SEO
         title="Événement de lancement — 03 octobre 2026"
-        description="Rejoignez le lancement de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons (Landes). Challenge collecte 1 tonne de matériel, tombola solidaire 15 000 €, festivités."
+        description="Rejoignez le lancement de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons (Landes). Challenge collecte 1 tonne de matériel, tombola solidaire avec plus de 7 000 € de lots, festivités."
         canonical="/evenement-lancement-03-octobre-2026/"
         type="event"
         schema={eventSchema}
@@ -100,7 +100,7 @@ export default function Evenement() {
           <div className="grid sm:grid-cols-3 gap-6">
             {[
               { num: '01', label: 'Challenge collecte', title: '1 tonne de matériel', desc: "Apportez vos équipements informatiques ce jour-là. Objectif : 1 000 kg collectés en une journée pour marquer le démarrage de la filière.", accent: 'ocre', delay: 0 },
-              { num: '02', label: 'Tombola solidaire', title: 'Objectif 15 000 €', desc: 'Des lots attractifs à gagner, des partenaires locaux mobilisés. Chaque billet finance directement l\'équipement de l\'association.', accent: 'ocre', delay: 100 },
+              { num: '02', label: 'Tombola solidaire', title: 'Plus de 7 000 € de lots', desc: 'Des lots d\'une valeur totale estimée à plus de 7 000 €, offerts par nos partenaires locaux. Chaque billet soutient directement la recyclerie.', accent: 'ocre', delay: 100 },
               { num: '03', label: 'Festivités', title: 'Une journée en commun', desc: "Rencontrez l'équipe, découvrez le projet, échangez avec les partenaires. Un moment de convivialité ancré dans le territoire.", accent: 'kaki', delay: 200 },
             ].map((card) => (
               <HighlightCard key={card.num} {...card} />
@@ -126,8 +126,8 @@ export default function Evenement() {
               </p>
               <div className="bg-gradient-to-br from-ocre-pale to-beige border border-ocre/20 p-6 mb-6 rounded-xl">
                 <p className="font-sans text-xs text-ocre font-semibold tracking-wider uppercase mb-2">Objectif</p>
-                <p className="font-serif text-4xl text-ocre mb-1">15 000 €</p>
-                <p className="text-sm text-terre/50">pour financer l'équipement de l'association</p>
+                <p className="font-serif text-4xl text-ocre mb-1">+7 000 € de lots</p>
+                <p className="text-sm text-terre/50">à gagner lors du tirage au sort</p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <Link to="/soutenir/tombola/" className="btn-ocre rounded-lg">En savoir plus sur la tombola</Link>

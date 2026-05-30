@@ -24,7 +24,7 @@ export default function EventBanner() {
           <p className="font-sans text-sm text-white/90 text-center">
             <strong className="text-white font-semibold">Événement de lancement</strong>
             <span className="hidden md:inline text-white/60">
-              {' '}· Challenge 1 tonne · Tombola 15 000 € · Vielle-Saint-Girons
+              {' '}· Challenge 1 tonne · Plus de 7 000 € de lots · Vielle-Saint-Girons
             </span>
           </p>
 

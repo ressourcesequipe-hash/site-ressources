@@ -7,7 +7,7 @@ const OPTIONS = [
     to: '/soutenir/tombola/',
     icon: '🎟',
     title: 'Tombola solidaire',
-    subtitle: 'Objectif 15 000 €',
+    subtitle: 'Plus de 7 000 € de lots à gagner',
     desc: 'Participez à notre grande tombola du 17 octobre 2026. Des lots attractifs, un financement direct pour l\'association.',
     cta: 'Participer à la tombola',
     accent: 'ocre',
@@ -103,21 +103,22 @@ export default function Soutenir() {
               Tombola solidaire — 17 octobre 2026
             </h2>
             <p className="text-terre/60 text-sm leading-relaxed mb-4">
-              Notre principal levier de financement pour démarrer. Objectif : 15 000 €
-              pour équiper l'association et pérenniser la filière informatique.
+              Participez à une grande tombola solidaire et soutenez le lancement de la
+              recyclerie informatique et végétale Ressources. Des lots d'une valeur totale
+              estimée à plus de 7 000 € offerts par nos partenaires locaux.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link to="/soutenir/tombola/" className="btn-ocre text-sm">
                 Tout savoir sur la tombola
               </Link>
-              <Link to="/evenement-lancement-17-octobre-2026/" className="btn-outline-ocre text-sm">
-                L'événement du 17 octobre
+              <Link to="/evenement-lancement-03-octobre-2026/" className="btn-outline-ocre text-sm">
+                L'événement du 03 octobre
               </Link>
             </div>
           </div>
           <div className="text-center">
-            <p className="font-serif text-6xl md:text-7xl text-ocre leading-none">15 000</p>
-            <p className="font-sans text-xs text-terre/50 tracking-wider uppercase mt-1">euros — objectif</p>
+            <p className="font-serif text-5xl md:text-6xl text-ocre leading-none">+7 000 €</p>
+            <p className="font-sans text-xs text-terre/50 tracking-wider uppercase mt-1">de lots à gagner</p>
           </div>
         </div>
       </section>

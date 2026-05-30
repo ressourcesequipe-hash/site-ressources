@@ -201,7 +201,7 @@ export default function Home() {
                 03 octobre 2026 — Vielle-Saint-Girons
               </h2>
               <p className="text-white/60 text-sm">
-                Challenge collecte · 1 tonne de matériel informatique · Tombola solidaire · objectif 15 000 €
+                Challenge collecte · 1 tonne de matériel informatique · Tombola solidaire · Plus de 7 000 € de lots
               </p>
             </div>
             <Link
@@ -403,7 +403,7 @@ export default function Home() {
               </p>
               <div className="space-y-4 mb-8">
                 <EventFeature icon="🏆" title="Challenge collecte — 1 tonne" desc="Objectif collecte de matériel informatique pour la journée" />
-                <EventFeature icon="🎟" title="Tombola solidaire" desc="Objectif 15 000 € pour financer l'équipement de l'association" />
+                <EventFeature icon="🎟" title="Tombola solidaire" desc="Plus de 7 000 € de lots à gagner — chaque ticket soutient la recyclerie" />
                 <EventFeature icon="📍" title="Vielle-Saint-Girons, Landes" desc="Dans les locaux et espaces partenaires de la commune" />
               </div>
               <Link to="/evenement-lancement-03-octobre-2026/" className="btn-ocre rounded-lg">
@@ -433,8 +433,8 @@ export default function Home() {
                     Programme complet à venir
                   </p>
                   <div className="border-t border-white/10 pt-6">
-                    <p className="text-xs text-white/40 mb-1">Objectif tombola</p>
-                    <p className="font-serif text-3xl text-ocre">15 000 €</p>
+                    <p className="text-xs text-white/40 mb-1">Lots à gagner</p>
+                    <p className="font-serif text-3xl text-ocre">+7 000 €</p>
                   </div>
                 </div>
               </div>
