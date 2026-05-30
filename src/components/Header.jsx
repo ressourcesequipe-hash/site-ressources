@@ -166,17 +166,12 @@ export default function Header() {
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="relative w-9 h-9 md:w-10 md:h-10 rounded-xl overflow-hidden bg-kaki flex items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-kaki/30">
+            <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
               <img
-                src="/logo_ressources1.jpg"
-                alt="Logo Ressources"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.style.display = 'none'
-                  e.target.nextSibling.style.display = 'flex'
-                }}
+                src="/logo.png"
+                alt="Logo Ressources Recyclerie"
+                className="w-full h-full object-contain drop-shadow-sm"
               />
-              <span className="font-serif text-ocre text-xl font-bold hidden items-center justify-center w-full h-full">R</span>
             </div>
             <div className="leading-tight">
               <span className="block font-serif text-base md:text-lg text-terre font-semibold tracking-tight transition-colors group-hover:text-ocre duration-200">
