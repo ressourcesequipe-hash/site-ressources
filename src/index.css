@@ -2,180 +2,227 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     @apply font-sans text-terre bg-beige-light antialiased;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4 {
-    @apply font-serif;
-  }
+  h1, h2, h3, h4 { @apply font-serif; }
 
-  ::selection {
-    background-color: #C8973A;
-    color: #fff;
-  }
+  ::selection { background-color: #C8973A; color: #fff; }
 
   :focus-visible {
     outline: 2px solid #C8973A;
     outline-offset: 2px;
   }
 
-  /* Custom scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #F7F3ED; }
-  ::-webkit-scrollbar-thumb { background: #C8973A40; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #C8973A80; }
+  /* Scrollbar premium */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #C8973A, #3D4A2D);
+    border-radius: 10px;
+  }
 }
 
 @layer components {
-  /* Buttons — with shimmer on hover */
+
+  /* ── Buttons ── */
   .btn-ocre {
-    @apply relative inline-block bg-ocre text-white font-sans font-medium px-7 py-3.5 text-sm tracking-wide overflow-hidden
-           transition-all duration-300 hover:bg-ocre-dark hover:shadow-lg hover:shadow-ocre/25 hover:-translate-y-px active:scale-95;
+    @apply relative inline-flex items-center justify-center gap-2
+           bg-ocre text-white font-sans font-medium px-7 py-3.5 text-sm tracking-wide
+           overflow-hidden transition-all duration-300
+           hover:bg-ocre-dark hover:shadow-lg hover:shadow-ocre/30 hover:-translate-y-0.5
+           active:scale-95;
   }
-  .btn-ocre::after {
+  .btn-ocre::before {
     content: '';
-    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
-           -translate-x-full transition-transform duration-700;
+    @apply absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0
+           -translate-x-full skew-x-12 transition-transform duration-700;
   }
-  .btn-ocre:hover::after {
-    @apply translate-x-full;
-  }
+  .btn-ocre:hover::before { @apply translate-x-full; }
 
   .btn-kaki {
-    @apply relative inline-block bg-kaki text-white font-sans font-medium px-7 py-3.5 text-sm tracking-wide overflow-hidden
-           transition-all duration-300 hover:bg-kaki-dark hover:shadow-lg hover:shadow-kaki/25 hover:-translate-y-px active:scale-95;
+    @apply relative inline-flex items-center justify-center gap-2
+           bg-kaki text-white font-sans font-medium px-7 py-3.5 text-sm tracking-wide
+           overflow-hidden transition-all duration-300
+           hover:bg-kaki-dark hover:shadow-lg hover:shadow-kaki/30 hover:-translate-y-0.5
+           active:scale-95;
   }
-  .btn-kaki::after {
+  .btn-kaki::before {
     content: '';
-    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent
-           -translate-x-full transition-transform duration-700;
+    @apply absolute inset-0 bg-gradient-to-r from-white/0 via-white/15 to-white/0
+           -translate-x-full skew-x-12 transition-transform duration-700;
   }
-  .btn-kaki:hover::after {
-    @apply translate-x-full;
-  }
+  .btn-kaki:hover::before { @apply translate-x-full; }
 
   .btn-outline-ocre {
-    @apply relative inline-block border-2 border-ocre text-ocre font-sans font-medium px-7 py-3 text-sm tracking-wide overflow-hidden
-           transition-all duration-300 hover:bg-ocre hover:text-white hover:-translate-y-px hover:shadow-md active:scale-95;
+    @apply relative inline-flex items-center justify-center gap-2
+           border-2 border-ocre text-ocre font-sans font-medium px-7 py-3 text-sm tracking-wide
+           overflow-hidden transition-all duration-300
+           hover:text-white hover:-translate-y-0.5 hover:shadow-md active:scale-95;
+    background: linear-gradient(to right, #C8973A 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right;
   }
+  .btn-outline-ocre:hover { background-position: left; }
 
   .btn-outline-white {
-    @apply relative inline-block border-2 border-white text-white font-sans font-medium px-7 py-3 text-sm tracking-wide overflow-hidden
-           transition-all duration-300 hover:bg-white hover:text-kaki hover:-translate-y-px hover:shadow-md active:scale-95;
+    @apply relative inline-flex items-center justify-center gap-2
+           border-2 border-white text-white font-sans font-medium px-7 py-3 text-sm tracking-wide
+           overflow-hidden transition-all duration-300
+           hover:-translate-y-0.5 hover:shadow-md active:scale-95;
+    background: linear-gradient(to right, #fff 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right;
   }
+  .btn-outline-white:hover { @apply text-kaki; background-position: left; }
 
-  /* Labels */
+  /* ── Labels & decorations ── */
   .section-label {
-    @apply font-sans text-xs font-semibold tracking-[0.2em] uppercase text-ocre mb-4;
+    @apply font-sans text-xs font-semibold tracking-[0.22em] uppercase text-ocre mb-4;
   }
+  .decorative-line { @apply w-12 h-0.5 bg-ocre my-6; }
 
-  .decorative-line {
-    @apply w-12 h-0.5 bg-ocre my-6;
-  }
-
-  /* Cards */
+  /* ── Cards ── */
   .card-base {
-    @apply bg-white border border-beige transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+    @apply bg-white border border-beige transition-all duration-400
+           hover:shadow-2xl hover:-translate-y-1.5;
   }
 
+  /* ── Inputs ── */
   .input-field {
-    @apply w-full border border-beige-dark bg-white px-4 py-3 text-sm text-terre placeholder-terre/40
-           focus:outline-none focus:border-ocre focus:ring-2 focus:ring-ocre/10 transition-all duration-200;
+    @apply w-full border border-beige-dark bg-white px-4 py-3 text-sm text-terre
+           placeholder-terre/35 focus:outline-none focus:border-ocre
+           focus:ring-4 focus:ring-ocre/10 transition-all duration-200 rounded-lg;
   }
 
-  /* Glass morphism */
+  /* ── Glass ── */
   .glass {
-    @apply bg-white/70 backdrop-blur-md border border-white/40;
+    background: rgba(247, 243, 237, 0.75);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.5);
   }
-
   .glass-dark {
-    @apply bg-kaki/80 backdrop-blur-md border border-white/10;
+    background: rgba(61, 74, 45, 0.85);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.08);
   }
 
-  /* Gradient text */
-  .text-gradient-ocre {
-    @apply bg-gradient-to-r from-ocre to-ocre-light bg-clip-text text-transparent;
+  /* ── Animated underline nav ── */
+  .nav-link {
+    @apply relative font-sans text-sm text-terre/65 hover:text-terre
+           transition-colors duration-200 py-1;
   }
-
-  /* Animated underline for nav */
-  .nav-underline {
-    @apply relative;
-  }
-  .nav-underline::after {
+  .nav-link::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-0 h-px bg-ocre transition-all duration-300;
+    @apply absolute bottom-0 left-0 h-px bg-ocre w-0 transition-all duration-300;
   }
-  .nav-underline:hover::after {
-    @apply w-full;
+  .nav-link:hover::after, .nav-link.active::after { @apply w-full; }
+
+  /* ── Gradient text ── */
+  .text-gradient {
+    background: linear-gradient(135deg, #C8973A 0%, #D4AA5A 50%, #A07828 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  /* Glow effects */
-  .glow-ocre {
-    box-shadow: 0 0 40px rgba(200, 151, 58, 0.15);
+  /* ── Noise overlay ── */
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
   }
-  .glow-kaki {
-    box-shadow: 0 0 40px rgba(61, 74, 45, 0.15);
+
+  /* ── Tag chip ── */
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-3.5 py-1.5
+           border border-kaki/15 bg-white/80 backdrop-blur-sm
+           font-sans text-xs font-medium text-terre/70 tracking-wide
+           transition-all duration-200
+           hover:border-ocre/40 hover:bg-ocre/5 hover:text-terre
+           cursor-default;
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 
-  /* Scroll reveal states */
+  /* ── Reveal animations ── */
   .reveal {
-    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+                transform 0.75s cubic-bezier(0.16,1,0.3,1);
   }
-  .reveal.is-visible {
-    @apply opacity-100 translate-y-0;
-  }
-  .reveal-left {
-    @apply opacity-0 -translate-x-8 transition-all duration-700 ease-out;
-  }
-  .reveal-left.is-visible {
-    @apply opacity-100 translate-x-0;
-  }
-  .reveal-right {
-    @apply opacity-0 translate-x-8 transition-all duration-700 ease-out;
-  }
-  .reveal-right.is-visible {
-    @apply opacity-100 translate-x-0;
-  }
-  .reveal-scale {
-    @apply opacity-0 scale-95 transition-all duration-700 ease-out;
-  }
-  .reveal-scale.is-visible {
-    @apply opacity-100 scale-100;
-  }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-  /* Stagger delays */
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-32px);
+    transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+                transform 0.75s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal-left.is-visible { opacity: 1; transform: translateX(0); }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(32px);
+    transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+                transform 0.75s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal-right.is-visible { opacity: 1; transform: translateX(0); }
+
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+                transform 0.75s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal-scale.is-visible { opacity: 1; transform: scale(1); }
+
+  /* ── Stagger delays ── */
+  .delay-75  { transition-delay: 75ms; }
   .delay-100 { transition-delay: 100ms; }
+  .delay-150 { transition-delay: 150ms; }
   .delay-200 { transition-delay: 200ms; }
   .delay-300 { transition-delay: 300ms; }
   .delay-400 { transition-delay: 400ms; }
   .delay-500 { transition-delay: 500ms; }
   .delay-600 { transition-delay: 600ms; }
+  .delay-700 { transition-delay: 700ms; }
 
-  /* Perspective for 3D hover */
-  .perspective {
-    perspective: 1000px;
-  }
-  .preserve-3d {
-    transform-style: preserve-3d;
+  /* ── Mesh gradient bg ── */
+  .mesh-hero {
+    background-color: #F7F3ED;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 70% 20%, rgba(200,151,58,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 70% at 90% 80%, rgba(61,74,45,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 10% 60%, rgba(200,151,58,0.06) 0%, transparent 60%);
   }
 
-  /* Noise texture overlay */
-  .noise::before {
-    content: '';
-    @apply absolute inset-0 pointer-events-none opacity-[0.03];
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-size: 128px 128px;
+  /* ── Clip-path card reveal ── */
+  .clip-reveal {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.6s cubic-bezier(0.16,1,0.3,1);
   }
+  .clip-reveal.is-visible { clip-path: inset(0 0% 0 0); }
+
+  /* ── Glow shadows ── */
+  .shadow-ocre-glow { box-shadow: 0 8px 32px -4px rgba(200,151,58,0.25); }
+  .shadow-kaki-glow { box-shadow: 0 8px 32px -4px rgba(61,74,45,0.25); }
 }
