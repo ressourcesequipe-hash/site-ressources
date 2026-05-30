@@ -162,11 +162,11 @@ export default function Header() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-24 md:h-28">
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
+            <div className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center transition-all duration-300 group-hover:scale-105 mx-2 my-1">
               <img
                 src="/logo.png"
                 alt="Logo Ressources Recyclerie"
