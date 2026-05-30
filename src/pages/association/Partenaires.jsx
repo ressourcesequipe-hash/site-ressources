@@ -92,17 +92,17 @@ export default function Partenaires() {
                 className={`group border-t-2 ${labelColor === 'ocre' ? 'border-ocre' : 'border-kaki/40'} border border-beige-dark bg-beige-light p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}
               >
                 {/* Logo partenaire */}
-                <div className="w-full h-20 bg-white border border-beige flex items-center justify-center mb-5 p-3 overflow-hidden">
+                <div className="h-16 flex items-center mb-5">
                   <img
                     src={logo}
                     alt={`Logo ${nom}`}
-                    className="max-h-full max-w-full object-contain"
+                    className="max-h-full max-w-[160px] object-contain"
                     onError={(e) => {
                       e.target.style.display = 'none'
-                      e.target.nextSibling.style.display = 'flex'
+                      e.target.nextSibling.style.display = 'block'
                     }}
                   />
-                  <span className="text-xs text-terre/35 font-sans font-medium tracking-wide hidden w-full h-full items-center justify-center">
+                  <span className="text-xs text-terre/40 font-sans font-medium tracking-wide hidden">
                     {nom}
                   </span>
                 </div>
