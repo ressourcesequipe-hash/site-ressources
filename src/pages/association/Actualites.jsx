@@ -11,9 +11,9 @@ const ARTICLES = [
   {
     date: 'Mai 2026',
     categorie: 'Événement',
-    titre: 'Événement de lancement confirmé pour le 17 octobre 2026',
-    extrait: 'L\'association Ressources organise sa grande journée de lancement à Vielle-Saint-Girons. Challenge collecte, tombola solidaire, festivités — programme complet à venir.',
-    lien: '/evenement-lancement-17-octobre-2026/',
+    titre: 'Événement de lancement confirmé pour le 03 octobre 2026',
+    extrait: 'L\'association Ressources organise sa grande journée de lancement à Vielle-Saint-Girons. Challenge collecte, tombola solidaire avec plus de 7 000 € de lots, festivités — programme complet à venir.',
+    lien: '/evenement-lancement-03-octobre-2026/',
     accentColor: 'ocre',
   },
   {
