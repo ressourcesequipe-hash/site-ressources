@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 
 const BASE_URL = 'https://www.association-ressources.fr' // ← à mettre à jour lors du changement de domaine
-const DEFAULT_OG_IMAGE = `${BASE_URL}/logo.png`
+const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg.png`
 
 export default function SEO({
   title,
