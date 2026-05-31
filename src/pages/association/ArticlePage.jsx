@@ -122,6 +122,12 @@ export default function ArticlePage() {
               En lien avec cet article
             </p>
             <div className="flex flex-wrap gap-3">
+              <Link to="/soutenir/tombola/" className="text-sm text-kaki hover:text-ocre transition-colors font-medium">
+                → Tombola solidaire — 03 octobre 2026
+              </Link>
+              <Link to="/evenement-lancement-03-octobre-2026/" className="text-sm text-kaki hover:text-ocre transition-colors font-medium">
+                → Événement de lancement
+              </Link>
               <Link to="/recyclerie-informatique/comment-donner/" className="text-sm text-kaki hover:text-ocre transition-colors font-medium">
                 → Comment donner du matériel informatique
               </Link>
@@ -130,9 +136,6 @@ export default function ArticlePage() {
               </Link>
               <Link to="/association/nous-rejoindre/" className="text-sm text-kaki hover:text-ocre transition-colors font-medium">
                 → Devenir bénévole
-              </Link>
-              <Link to="/association/partenaires/" className="text-sm text-kaki hover:text-ocre transition-colors font-medium">
-                → Nos partenaires
               </Link>
             </div>
           </div>

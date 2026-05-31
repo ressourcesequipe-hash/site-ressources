@@ -75,6 +75,12 @@ export default function Footer() {
               >
                 Je donne des plantes
               </Link>
+              <Link
+                to="/soutenir/don/"
+                className="bg-ocre text-white px-6 py-2.5 text-sm font-medium hover:bg-ocre-dark transition-all duration-200 whitespace-nowrap"
+              >
+                Faire un don
+              </Link>
             </div>
           </div>
         </div>
@@ -107,11 +113,7 @@ export default function Footer() {
                 <MailIcon />
                 ressources.equipe@gmail.com
               </a>
-              <a href="tel:+33660200388" className="flex items-center gap-2 text-sm text-white/55 hover:text-ocre transition-colors">
-                <PhoneIcon />
-                06.60.20.03.88
-              </a>
-              <p className="flex items-start gap-2 text-xs text-white/35 leading-relaxed pt-1">
+<p className="flex items-start gap-2 text-xs text-white/35 leading-relaxed pt-1">
                 <PinIcon />
                 80 allée des Cigales<br />40560 Vielle-Saint-Girons
               </p>

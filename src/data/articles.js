@@ -219,6 +219,116 @@ export const ARTICLES = [
     ],
   },
 
+  // ── Article comment soutenir ──
+  {
+    slug: 'comment-soutenir-association-recyclerie-landes',
+    title: 'Comment soutenir une association solidaire dans les Landes ? Dons, bénévolat, mécénat',
+    excerpt: 'Vous souhaitez soutenir une initiative citoyenne dans les Landes ? Voici les différentes façons de contribuer à l\'association Ressources : don financier, achat de billets de tombola, bénévolat ou mécénat d\'entreprise.',
+    category: 'association',
+    date: '2026-09-15',
+    dateLabel: 'Septembre 2026',
+    readingTime: '4 min',
+    featured: false,
+    image: null,
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Soutenir une association locale, c\'est agir concrètement pour son territoire. L\'association Ressources, recyclerie informatique et végétale solidaire basée à Vielle-Saint-Girons dans les Landes, propose plusieurs formes d\'engagement adaptées à chaque profil — particulier, entreprise, ou simplement curieux.',
+      },
+      {
+        type: 'heading',
+        text: 'Le don financier : simple et direct',
+      },
+      {
+        type: 'paragraph',
+        text: 'Le don est la façon la plus directe de soutenir la recyclerie. Dès 10 €, votre contribution participe au tri, à l\'étiquetage et à la préparation des ressources collectées. À 100 €, vous financez le reconditionnement complet d\'un ordinateur redistribué à une famille, un senior ou une association du territoire. Les dons sont acceptés en ligne via HelloAsso, sur la page dédiée du site.',
+      },
+      {
+        type: 'heading',
+        text: 'La tombola solidaire du 03 octobre 2026',
+      },
+      {
+        type: 'paragraph',
+        text: 'Pour les amateurs de sensations fortes, la tombola solidaire est une façon festive de soutenir l\'association tout en tentant de gagner l\'un des nombreux lots offerts par les partenaires locaux — une dotation estimée à plus de 7 000 €. Les billets sont disponibles en ligne et sur place le jour de l\'événement à Vielle-Saint-Girons. Le tirage au sort se déroule en public le 03 octobre 2026.',
+      },
+      {
+        type: 'heading',
+        text: 'Le bénévolat : donner de son temps',
+      },
+      {
+        type: 'paragraph',
+        text: 'L\'association recherche activement des bénévoles pour ses deux filières. Pas besoin d\'être technicien informatique : des profils variés sont les bienvenus — logistique, communication, accueil, tri, jardinage. Un engagement flexible, adapté à votre disponibilité, au service d\'un projet ancré dans le territoire landais.',
+      },
+      {
+        type: 'heading',
+        text: 'Le mécénat : pour les entreprises et commerces locaux',
+      },
+      {
+        type: 'paragraph',
+        text: 'Entreprises, artisans et commerçants des Landes peuvent soutenir Ressources via un partenariat de mécénat. En échange d\'un soutien financier ou matériel, votre structure bénéficie d\'une visibilité sur les supports de l\'association et d\'une association d\'image à un projet solidaire et citoyen. Plusieurs formules sont proposées, adaptées à la taille et aux objectifs de chaque partenaire.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Quelle que soit la forme de votre soutien, chaque contribution compte pour faire vivre la recyclerie solidaire des Landes. Contactez l\'association à ressources.equipe@gmail.com pour en savoir plus ou pour toute question.',
+      },
+    ],
+  },
+
+  // ── Article tombola ──
+  {
+    slug: 'tombola-solidaire-recyclerie-landes-2026',
+    title: 'Tombola solidaire : soutenez la recyclerie Ressources et tentez de gagner plus de 7 000 € de lots',
+    excerpt: 'Le 03 octobre 2026 à Vielle-Saint-Girons, l\'association Ressources organise une grande tombola solidaire. Plus de 7 000 € de lots offerts par nos partenaires locaux, et des fonds directement investis dans la recyclerie informatique et végétale des Landes.',
+    category: 'evenements',
+    date: '2026-09-05',
+    dateLabel: 'Septembre 2026',
+    readingTime: '4 min',
+    featured: false,
+    image: null,
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Pour soutenir le lancement de la recyclerie solidaire Ressources dans les Landes, l\'association organise une tombola lors de son événement de lancement le 03 octobre 2026 à Vielle-Saint-Girons. Une façon festive et concrète de contribuer au réemploi informatique et végétal sur le territoire.',
+      },
+      {
+        type: 'heading',
+        text: 'Pourquoi une tombola solidaire ?',
+      },
+      {
+        type: 'paragraph',
+        text: 'Une tombola, c\'est un don qui donne quelque chose en retour. En achetant un billet, vous soutenez directement les actions de l\'association — équipement de l\'atelier, outils de reconditionnement, frais de collecte — tout en tentant votre chance pour remporter l\'un des nombreux lots offerts par les partenaires locaux. Un modèle simple, transparent et ancré dans la tradition associative française.',
+      },
+      {
+        type: 'heading',
+        text: 'Plus de 7 000 € de lots à gagner',
+      },
+      {
+        type: 'paragraph',
+        text: 'Nos partenaires locaux — commerçants, artisans, entreprises et structures du territoire landais — ont répondu présent pour constituer une dotation exceptionnelle estimée à plus de 7 000 €. Les lots seront annoncés en détail courant septembre 2026. Restez connectés sur nos actualités pour la révélation complète.',
+      },
+      {
+        type: 'heading',
+        text: 'Comment participer ?',
+      },
+      {
+        type: 'paragraph',
+        text: 'Les billets sont disponibles en ligne via notre partenaire HelloAsso, directement depuis la page Tombola de notre site. Vous pouvez également en acheter sur place le jour de l\'événement, le 03 octobre 2026 à Vielle-Saint-Girons. Le tirage au sort aura lieu en public lors de la journée de lancement, en présence des participants et des partenaires.',
+      },
+      {
+        type: 'heading',
+        text: 'À quoi servent les fonds récoltés ?',
+      },
+      {
+        type: 'paragraph',
+        text: 'Les recettes de la tombola financent directement les actions de la recyclerie : collectes et logistique territoriale (35 %), diagnostic et reconditionnement informatique et végétal (25 %), stockage et traçabilité (15 %), redistribution solidaire et ateliers de sensibilisation (15 %), communication locale (10 %). Chaque billet acheté contribue concrètement à ces actions.',
+      },
+      {
+        type: 'paragraph',
+        text: 'L\'association Ressources est une association loi 1901 à but non lucratif, basée à Vielle-Saint-Girons (Landes, 40560). La transparence financière fait partie de nos engagements fondateurs. Un bilan de l\'événement sera publié sur nos actualités après le 03 octobre 2026.',
+      },
+    ],
+  },
+
   // ── Actualité associative ──
   {
     slug: 'evenement-lancement-03-octobre-2026',

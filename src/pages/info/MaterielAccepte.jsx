@@ -48,7 +48,7 @@ export default function MaterielAccepte() {
             <p className="text-sm text-terre/70 leading-relaxed">
               Nous acceptons le matériel <strong>fonctionnel ou en panne</strong>.
               Même un appareil cassé peut servir pour ses composants. En cas de doute,
-              appelez-nous au <a href="tel:+33660200388" className="text-ocre hover:underline">06.60.20.03.88</a>.
+              contactez-nous par email.
             </p>
           </div>
 

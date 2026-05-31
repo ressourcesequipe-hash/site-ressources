@@ -60,8 +60,7 @@ export default function Territoire() {
                 <p className="text-white/65 text-sm leading-relaxed mb-4">
                   80 allée des Cigales<br />40560 Vielle-Saint-Girons<br />Landes (40)
                 </p>
-                <div className="border-t border-white/10 pt-4 space-y-1">
-                  <a href="tel:+33660200388" className="block text-sm text-white/60 hover:text-ocre transition-colors">06.60.20.03.88</a>
+                <div className="border-t border-white/10 pt-4">
                   <a href="mailto:ressources.equipe@gmail.com" className="block text-sm text-white/60 hover:text-ocre transition-colors">ressources.equipe@gmail.com</a>
                 </div>
               </div>

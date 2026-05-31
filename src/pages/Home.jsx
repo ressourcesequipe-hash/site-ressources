@@ -641,6 +641,43 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ══════════════ CTA DON ══════════════ */}
+      <section className="relative overflow-hidden py-16 md:py-20"
+        style={{ background: 'linear-gradient(135deg, #2B3520 0%, #3D4A2D 50%, #4a5935 100%)' }}>
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ocre/50 to-transparent" aria-hidden />
+        <div className="absolute inset-0 opacity-[0.025]"
+          style={{ backgroundImage: 'radial-gradient(circle, #C8973A 1px, transparent 1px)', backgroundSize: '28px 28px' }} aria-hidden />
+        <div className="absolute right-0 top-0 w-96 h-96 rounded-bl-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.10), transparent 65%)' }} aria-hidden />
+
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <p className="font-sans text-ocre text-xs font-semibold tracking-[0.22em] uppercase mb-4">
+            Soutenir financièrement
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl text-white leading-tight mb-4">
+            Votre don finance l'action<br />
+            <span style={{
+              background: 'linear-gradient(135deg, #C8973A, #D4AA5A)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>sur le territoire landais</span>
+          </h2>
+          <p className="text-white/50 text-sm leading-relaxed max-w-md mx-auto mb-8">
+            Chaque contribution soutient le tri, la collecte, le reconditionnement
+            et la redistribution solidaire dans les Landes.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link to="/soutenir/don/" className="btn-ocre shadow-ocre-glow">
+              Faire un don
+            </Link>
+            <Link to="/soutenir/" className="border border-white/25 text-white/75 px-7 py-3.5 text-sm font-medium hover:border-white/50 hover:text-white transition-all duration-200">
+              Autres façons de soutenir
+            </Link>
+          </div>
+        </div>
+      </section>
     </Layout>
   )
 }

@@ -64,8 +64,7 @@ export default function CeQueNousAcceptons() {
             <p className="font-sans text-sm font-semibold text-terre mb-2">En cas de doute ?</p>
             <p className="text-sm text-terre/60 leading-relaxed">
               Contactez-nous avant de vous déplacer. Nous vous confirmerons si
-              ce que vous souhaitez donner entre dans le cadre de notre collecte.{' '}
-              <a href="tel:+33660200388" className="text-ocre hover:underline">06.60.20.03.88</a>
+              ce que vous souhaitez donner entre dans le cadre de notre collecte.
             </p>
           </div>
 

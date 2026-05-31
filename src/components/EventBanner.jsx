@@ -73,17 +73,24 @@ export default function EventBanner() {
             </span>
           </div>
 
-          {/* CTA */}
-          <Link
-            to="/evenement-lancement-03-octobre-2026/"
-            className="shrink-0 group relative inline-flex items-center gap-1.5 border border-ocre/60 text-ocre px-4 py-1.5 text-[11px] font-semibold tracking-wider uppercase font-sans overflow-hidden transition-all duration-300 hover:border-ocre hover:shadow-sm hover:shadow-ocre/20 whitespace-nowrap rounded-sm"
-          >
-            <span className="absolute inset-0 bg-ocre translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300" aria-hidden />
-            <span className="relative group-hover:text-white transition-colors duration-300">Découvrir</span>
-            <svg className="relative w-3 h-3 group-hover:text-white transition-all duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
+          {/* CTAs */}
+          <div className="flex items-center gap-2 shrink-0">
+            <Link
+              to="/evenement-lancement-03-octobre-2026/"
+              className="group relative inline-flex items-center gap-1.5 border border-white/20 text-white/65 px-3 py-1.5 text-[11px] font-semibold tracking-wider uppercase font-sans overflow-hidden transition-all duration-300 hover:border-white/50 hover:text-white whitespace-nowrap rounded-sm"
+            >
+              Découvrir
+            </Link>
+            <Link
+              to="/soutenir/tombola/"
+              className="group relative inline-flex items-center gap-1.5 bg-ocre text-white px-4 py-1.5 text-[11px] font-semibold tracking-wider uppercase font-sans overflow-hidden transition-all duration-300 hover:bg-ocre-dark hover:shadow-sm hover:shadow-ocre/30 whitespace-nowrap rounded-sm"
+            >
+              <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/><path d="M8 7V5a2 2 0 0 0-4 0v2"/>
+              </svg>
+              Billets tombola
+            </Link>
+          </div>
         </div>
       </div>
 

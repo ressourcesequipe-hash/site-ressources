@@ -7,28 +7,43 @@ import { useReveal } from '../hooks/useReveal'
 const eventSchema = {
   '@context': 'https://schema.org',
   '@type': 'Event',
-  name: 'Événement de lancement — Association Ressources',
-  startDate: '2026-10-03',
-  endDate: '2026-10-03',
+  name: 'Événement de lancement — Association Ressources · Tombola solidaire & Challenge collecte',
+  startDate: '2026-10-03T10:00:00+02:00',
+  endDate: '2026-10-03T18:00:00+02:00',
   eventStatus: 'https://schema.org/EventScheduled',
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
   location: {
     '@type': 'Place',
-    name: 'Vielle-Saint-Girons',
+    name: 'Vielle-Saint-Girons — 80 allée des Cigales',
     address: {
       '@type': 'PostalAddress',
+      streetAddress: '80 allée des Cigales',
       addressLocality: 'Vielle-Saint-Girons',
       postalCode: '40560',
       addressCountry: 'FR',
     },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 43.9516,
+      longitude: -1.3019,
+    },
   },
-  description:
-    "Journée de lancement de l'association Ressources — recyclerie informatique et végétale solidaire dans les Landes. Challenge collecte 1 tonne, tombola solidaire, festivités.",
+  description: "Journée de lancement de l'association Ressources — recyclerie informatique et végétale solidaire dans les Landes. Challenge collecte 1 tonne de matériel informatique, tombola solidaire avec plus de 7 000 € de lots offerts par les partenaires locaux, festivités à Vielle-Saint-Girons (40560).",
+  image: 'https://www.association-ressources.fr/logo.png',
   organizer: {
-    '@type': 'Organization',
+    '@type': 'NGO',
     name: 'Association Ressources',
     url: 'https://www.association-ressources.fr',
+    email: 'ressources.equipe@gmail.com',
   },
+  offers: {
+    '@type': 'Offer',
+    name: 'Billets de tombola solidaire',
+    url: 'https://www.helloasso.com/associations/ressources-association/evenements/evenement-ressources-tirage-public-de-la-tombola',
+    availability: 'https://schema.org/InStock',
+    validFrom: '2026-09-01',
+  },
+  keywords: 'tombola solidaire Landes, recyclerie informatique, réemploi numérique, Vielle-Saint-Girons',
 }
 
 export default function Evenement() {

@@ -8,9 +8,9 @@ const BREADCRUMBS = [
 ]
 
 const EQUIPE = [
-  { nom: 'Sandrine VESTRIS', role: 'Présidente', tel: '06.60.20.03.88', initiale: 'S', desc: 'Porteuse du projet depuis l\'origine, Sandrine anime le collectif et coordonne les partenariats institutionnels avec les communes et intercommunalités.' },
-  { nom: 'Boris LALANNE', role: 'Référent projet — filière informatique', tel: '06.62.66.04.84', initiale: 'B', desc: 'Boris pilote la conception et le déploiement de la filière informatique : collecte, reconditionnement, partenariats techniques et inclusion numérique.' },
-  { nom: 'Rose MAURY', role: 'Secrétaire', tel: '07.86.67.58.27', initiale: 'R', desc: 'Rose assure la vie associative : convocations, comptes-rendus, gestion des adhésions et des inscriptions bénévoles, communication avec les adhérents.' },
+  { nom: 'Sandrine VESTRIS', role: 'Présidente', initiale: 'S', desc: 'Porteuse du projet depuis l\'origine, Sandrine anime le collectif et coordonne les partenariats institutionnels avec les communes et intercommunalités.' },
+  { nom: 'Boris LALANNE', role: 'Référent projet — filière informatique', initiale: 'B', desc: 'Boris pilote la conception et le déploiement de la filière informatique : collecte, reconditionnement, partenariats techniques et inclusion numérique.' },
+  { nom: 'Rose MAURY', role: 'Secrétaire & Trésorière', initiale: 'R', desc: 'Rose assure la vie associative : convocations, comptes-rendus, gestion des adhésions et des inscriptions bénévoles, communication avec les adhérents.' },
 ]
 
 export default function Gouvernance() {
@@ -37,17 +37,14 @@ export default function Gouvernance() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <h2 className="font-serif text-2xl text-terre mb-8">Le bureau</h2>
           <div className="grid sm:grid-cols-3 gap-6 mb-14">
-            {EQUIPE.map(({ nom, role, tel, initiale, desc }) => (
+            {EQUIPE.map(({ nom, role, initiale, desc }) => (
               <div key={nom} className="bg-beige-light border border-beige-dark p-6">
                 <div className="w-12 h-12 rounded-full bg-kaki flex items-center justify-center mb-4">
                   <span className="font-serif text-white text-xl font-bold">{initiale}</span>
                 </div>
                 <p className="font-serif text-xl text-terre mb-0.5">{nom}</p>
                 <p className="text-xs text-ocre font-semibold tracking-wider uppercase mb-4">{role}</p>
-                <p className="text-sm text-terre/55 leading-relaxed mb-4">{desc}</p>
-                <a href={`tel:+33${tel.replace(/\./g, '').slice(1)}`} className="text-sm text-terre/60 hover:text-ocre transition-colors font-mono">
-                  {tel}
-                </a>
+                <p className="text-sm text-terre/55 leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>

@@ -7,19 +7,16 @@ const EQUIPE = [
   {
     nom: 'Sandrine VESTRIS',
     role: 'Présidente',
-    tel: '06.60.20.03.88',
     desc: 'Porteuse du projet depuis l\'origine, Sandrine anime le collectif et coordonne les partenariats institutionnels.',
   },
   {
     nom: 'Boris LALANNE',
     role: 'Référent projet',
-    tel: '06.62.66.04.84',
     desc: 'Boris pilote la filière informatique : collecte, reconditionnement, partenariats techniques.',
   },
   {
     nom: 'Rose MAURY',
-    role: 'Secrétaire',
-    tel: '07.86.67.58.27',
+    role: 'Secrétaire & Trésorière',
     desc: 'Rose assure la vie associative, les inscriptions bénévoles et la communication.',
   },
 ]
@@ -145,10 +142,7 @@ export default function Association() {
                 </div>
                 <p className="font-serif text-lg text-terre mb-0.5">{nom}</p>
                 <p className="text-xs text-ocre font-semibold tracking-wider uppercase mb-3">{role}</p>
-                <p className="text-sm text-terre/55 leading-relaxed mb-4">{desc}</p>
-                <a href={`tel:${tel.replace(/\./g, '')}`} className="text-sm text-terre/60 hover:text-ocre transition-colors">
-                  {tel}
-                </a>
+                <p className="text-sm text-terre/55 leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
