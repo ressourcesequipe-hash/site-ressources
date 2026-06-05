@@ -23,8 +23,8 @@ const templates = {
     ]),
   }),
   donMateriel: (d) => ({
-    subject: '📦 Demande d\'enlèvement matériel — Ressources',
-    html: row('Demande d\'enlèvement', [
+    subject: "📦 Demande d'enlèvement matériel — Ressources",
+    html: row("Demande d'enlèvement", [
       ['Nom', d.nom], ['Téléphone', d.telephone], ['Email', d.email],
       ['Adresse', d.adresse], ['Matériel', d.materiel],
     ]),
@@ -49,12 +49,44 @@ function row(title, fields) {
   </div>`
 }
 
+async function parseBody(req) {
+  if (req.body && typeof req.body === 'object') return req.body
+  return new Promise((resolve, reject) => {
+    let data = ''
+    req.on('data', chunk => { data += chunk })
+    req.on('end', () => {
+      try { resolve(JSON.parse(data)) } catch (e) { reject(e) }
+    })
+    req.on('error', reject)
+  })
+}
+
 export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+
+  if (req.method === 'OPTIONS') return res.status(200).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
-  const { type, ...data } = req.body
+  if (!BREVO_API_KEY) {
+    console.error('BREVO_API_KEY manquante')
+    return res.status(500).json({ error: 'Configuration manquante' })
+  }
+
+  let body
+  try {
+    body = await parseBody(req)
+  } catch (e) {
+    console.error('Body parse error:', e)
+    return res.status(400).json({ error: 'Body invalide' })
+  }
+
+  const { type, ...data } = body
+  console.log('Formulaire reçu:', type, Object.keys(data))
+
   const tpl = templates[type]
-  if (!tpl) return res.status(400).json({ error: 'Type inconnu' })
+  if (!tpl) return res.status(400).json({ error: 'Type inconnu: ' + type })
 
   const { subject, html } = tpl(data)
 
@@ -75,13 +107,14 @@ export default async function handler(req, res) {
 
     if (!r.ok) {
       const err = await r.text()
-      console.error('Brevo error:', err)
-      return res.status(500).json({ error: 'Erreur envoi email' })
+      console.error('Brevo HTTP', r.status, err)
+      return res.status(500).json({ error: 'Erreur envoi email', detail: err })
     }
 
+    console.log('Email envoyé OK:', subject)
     return res.status(200).json({ ok: true })
   } catch (e) {
-    console.error(e)
-    return res.status(500).json({ error: 'Erreur serveur' })
+    console.error('Fetch error:', e.message)
+    return res.status(500).json({ error: 'Erreur serveur', detail: e.message })
   }
 }
