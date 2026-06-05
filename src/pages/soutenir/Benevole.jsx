@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
@@ -83,30 +84,57 @@ export default function Benevole() {
           {/* Formulaire inscription */}
           <div className="bg-kaki-pale border border-kaki/15 p-8">
             <h2 className="font-serif text-2xl text-terre mb-6">Inscription bénévole</h2>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <input type="text" required className="input-field" placeholder="Prénom & nom *" />
-                <input type="email" required className="input-field" placeholder="Email *" />
-              </div>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <input type="tel" className="input-field" placeholder="Téléphone" />
-                <input type="text" className="input-field" placeholder="Commune" />
-              </div>
-              <select className="input-field">
-                <option value="">Mission souhaitée (principale)</option>
-                <option>Collecte & manutention</option>
-                <option>Diagnostic & reconditionnement</option>
-                <option>Filière végétale</option>
-                <option>Communication & événements</option>
-                <option>Logistique & transport</option>
-                <option>Polyvalent·e</option>
-              </select>
-              <textarea rows={3} className="input-field resize-none" placeholder="Compétences particulières, motivations, disponibilités…" />
-              <button type="submit" className="btn-ocre">Envoyer ma candidature bénévole</button>
-            </form>
+            <BenevoleForm />
           </div>
         </div>
       </section>
     </Layout>
+  )
+}
+
+function BenevoleForm() {
+  const [form, setForm] = useState({ nom: '', email: '', telephone: '', commune: '', mission: '', message: '' })
+  const [status, setStatus] = useState(null)
+  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setStatus('loading')
+    try {
+      const r = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'benevole', ...form }),
+      })
+      setStatus(r.ok ? 'ok' : 'error')
+    } catch { setStatus('error') }
+  }
+
+  if (status === 'ok') return (
+    <p className="text-sm text-kaki font-medium py-3">Candidature envoyée ! Nous vous contacterons prochainement.</p>
+  )
+  return (
+    <form className="space-y-4" onSubmit={handleSubmit}>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <input type="text" required className="input-field" placeholder="Prénom & nom *" value={form.nom} onChange={set('nom')} disabled={status === 'loading'} />
+        <input type="email" required className="input-field" placeholder="Email *" value={form.email} onChange={set('email')} disabled={status === 'loading'} />
+      </div>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <input type="tel" className="input-field" placeholder="Téléphone" value={form.telephone} onChange={set('telephone')} disabled={status === 'loading'} />
+        <input type="text" className="input-field" placeholder="Commune" value={form.commune} onChange={set('commune')} disabled={status === 'loading'} />
+      </div>
+      <select className="input-field" value={form.mission} onChange={set('mission')} disabled={status === 'loading'}>
+        <option value="">Mission souhaitée (principale)</option>
+        <option>Collecte & manutention</option>
+        <option>Diagnostic & reconditionnement</option>
+        <option>Filière végétale</option>
+        <option>Communication & événements</option>
+        <option>Logistique & transport</option>
+        <option>Polyvalent·e</option>
+      </select>
+      <textarea rows={3} className="input-field resize-none" placeholder="Compétences particulières, motivations, disponibilités…" value={form.message} onChange={set('message')} disabled={status === 'loading'} />
+      {status === 'error' && <p className="text-xs text-red-500">Une erreur est survenue, veuillez réessayer.</p>}
+      <button type="submit" className="btn-ocre" disabled={status === 'loading'}>{status === 'loading' ? 'Envoi…' : 'Envoyer ma candidature bénévole'}</button>
+    </form>
   )
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
@@ -69,24 +70,7 @@ export default function NousRejoindre() {
             <p className="text-sm text-terre/60 mb-6">
               Un question, une proposition, une envie de vous impliquer — écrivez-nous.
             </p>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <input type="text" required className="input-field" placeholder="Prénom & nom *" />
-                <input type="email" required className="input-field" placeholder="Email *" />
-              </div>
-              <input type="text" className="input-field" placeholder="Commune" />
-              <select className="input-field">
-                <option value="">Type d'engagement souhaité</option>
-                <option>Bénévolat — filière informatique</option>
-                <option>Bénévolat — filière végétale</option>
-                <option>Bénévolat — événements</option>
-                <option>Mécénat / Sponsoring</option>
-                <option>Partenariat institutionnel</option>
-                <option>Autre</option>
-              </select>
-              <textarea rows={3} className="input-field resize-none" placeholder="Votre message…" />
-              <button type="submit" className="btn-ocre">Envoyer</button>
-            </form>
+            <ContactForm />
           </div>
         </div>
       </section>
@@ -99,5 +83,49 @@ export default function NousRejoindre() {
         </div>
       </section>
     </Layout>
+  )
+}
+
+function ContactForm() {
+  const [form, setForm] = useState({ nom: '', email: '', commune: '', engagement: '', message: '' })
+  const [status, setStatus] = useState(null)
+  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setStatus('loading')
+    try {
+      const r = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'rejoindre', ...form }),
+      })
+      setStatus(r.ok ? 'ok' : 'error')
+    } catch { setStatus('error') }
+  }
+
+  if (status === 'ok') return (
+    <p className="text-sm text-kaki font-medium py-3">Message envoyé ! Nous vous répondrons rapidement.</p>
+  )
+  return (
+    <form className="space-y-4" onSubmit={handleSubmit}>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <input type="text" required className="input-field" placeholder="Prénom & nom *" value={form.nom} onChange={set('nom')} disabled={status === 'loading'} />
+        <input type="email" required className="input-field" placeholder="Email *" value={form.email} onChange={set('email')} disabled={status === 'loading'} />
+      </div>
+      <input type="text" className="input-field" placeholder="Commune" value={form.commune} onChange={set('commune')} disabled={status === 'loading'} />
+      <select className="input-field" value={form.engagement} onChange={set('engagement')} disabled={status === 'loading'}>
+        <option value="">Type d'engagement souhaité</option>
+        <option>Bénévolat — filière informatique</option>
+        <option>Bénévolat — filière végétale</option>
+        <option>Bénévolat — événements</option>
+        <option>Mécénat / Sponsoring</option>
+        <option>Partenariat institutionnel</option>
+        <option>Autre</option>
+      </select>
+      <textarea rows={3} className="input-field resize-none" placeholder="Votre message…" value={form.message} onChange={set('message')} disabled={status === 'loading'} />
+      {status === 'error' && <p className="text-xs text-red-500">Une erreur est survenue, veuillez réessayer.</p>}
+      <button type="submit" className="btn-ocre" disabled={status === 'loading'}>{status === 'loading' ? 'Envoi…' : 'Envoyer'}</button>
+    </form>
   )
 }

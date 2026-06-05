@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
@@ -137,31 +138,7 @@ export default function CommentDonner() {
           {/* Formulaire enlèvement */}
           <div>
             <h2 className="font-serif text-2xl text-terre mb-6">Demander un enlèvement</h2>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-medium text-terre/60 mb-1.5">Prénom & nom *</label>
-                  <input type="text" required className="input-field" />
-                </div>
-                <div>
-                  <label className="block text-xs font-medium text-terre/60 mb-1.5">Téléphone *</label>
-                  <input type="tel" required className="input-field" />
-                </div>
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-terre/60 mb-1.5">Email *</label>
-                <input type="email" required className="input-field" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-terre/60 mb-1.5">Adresse d'enlèvement *</label>
-                <input type="text" required className="input-field" placeholder="Adresse + commune" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-terre/60 mb-1.5">Matériel à donner *</label>
-                <textarea rows={3} required className="input-field resize-none" placeholder="Ex : 2 ordinateurs portables, 1 écran, des câbles…" />
-              </div>
-              <button type="submit" className="btn-ocre">Envoyer la demande</button>
-            </form>
+            <DonMaterielForm />
           </div>
         </div>
       </section>
@@ -178,5 +155,56 @@ export default function CommentDonner() {
         </div>
       </section>
     </Layout>
+  )
+}
+
+function DonMaterielForm() {
+  const [form, setForm] = useState({ nom: '', telephone: '', email: '', adresse: '', materiel: '' })
+  const [status, setStatus] = useState(null)
+  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setStatus('loading')
+    try {
+      const r = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'donMateriel', ...form }),
+      })
+      setStatus(r.ok ? 'ok' : 'error')
+    } catch { setStatus('error') }
+  }
+
+  if (status === 'ok') return (
+    <p className="text-sm text-kaki font-medium py-3">Demande envoyée ! Nous vous contacterons pour organiser l'enlèvement.</p>
+  )
+  return (
+    <form className="space-y-4" onSubmit={handleSubmit}>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-medium text-terre/60 mb-1.5">Prénom & nom *</label>
+          <input type="text" required className="input-field" value={form.nom} onChange={set('nom')} disabled={status === 'loading'} />
+        </div>
+        <div>
+          <label className="block text-xs font-medium text-terre/60 mb-1.5">Téléphone *</label>
+          <input type="tel" required className="input-field" value={form.telephone} onChange={set('telephone')} disabled={status === 'loading'} />
+        </div>
+      </div>
+      <div>
+        <label className="block text-xs font-medium text-terre/60 mb-1.5">Email *</label>
+        <input type="email" required className="input-field" value={form.email} onChange={set('email')} disabled={status === 'loading'} />
+      </div>
+      <div>
+        <label className="block text-xs font-medium text-terre/60 mb-1.5">Adresse d'enlèvement *</label>
+        <input type="text" required className="input-field" placeholder="Adresse + commune" value={form.adresse} onChange={set('adresse')} disabled={status === 'loading'} />
+      </div>
+      <div>
+        <label className="block text-xs font-medium text-terre/60 mb-1.5">Matériel à donner *</label>
+        <textarea rows={3} required className="input-field resize-none" placeholder="Ex : 2 ordinateurs portables, 1 écran, des câbles…" value={form.materiel} onChange={set('materiel')} disabled={status === 'loading'} />
+      </div>
+      {status === 'error' && <p className="text-xs text-red-500">Une erreur est survenue, veuillez réessayer.</p>}
+      <button type="submit" className="btn-ocre" disabled={status === 'loading'}>{status === 'loading' ? 'Envoi…' : 'Envoyer la demande'}</button>
+    </form>
   )
 }

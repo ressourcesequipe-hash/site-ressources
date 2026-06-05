@@ -272,36 +272,57 @@ function HighlightCard({ num, label, title, desc, accent, delay = 0 }) {
 }
 
 function ContactForm() {
+  const [form, setForm] = useState({ prenom: '', nom: '', email: '', commune: '', message: '' })
+  const [status, setStatus] = useState(null)
+  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setStatus('loading')
+    try {
+      const r = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'evenement', ...form }),
+      })
+      setStatus(r.ok ? 'ok' : 'error')
+    } catch { setStatus('error') }
+  }
+
+  if (status === 'ok') return (
+    <p className="text-sm text-kaki font-medium py-3">Inscription enregistrée ! Nous vous tiendrons informé·e de l'événement.</p>
+  )
   return (
-    <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+    <form className="space-y-4" onSubmit={handleSubmit}>
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-sans font-medium text-terre/60 mb-1.5">Prénom *</label>
-          <input type="text" required className="input-field rounded-lg" placeholder="Votre prénom" />
+          <input type="text" required className="input-field rounded-lg" placeholder="Votre prénom" value={form.prenom} onChange={set('prenom')} disabled={status === 'loading'} />
         </div>
         <div>
           <label className="block text-xs font-sans font-medium text-terre/60 mb-1.5">Nom *</label>
-          <input type="text" required className="input-field rounded-lg" placeholder="Votre nom" />
+          <input type="text" required className="input-field rounded-lg" placeholder="Votre nom" value={form.nom} onChange={set('nom')} disabled={status === 'loading'} />
         </div>
       </div>
       <div>
         <label className="block text-xs font-sans font-medium text-terre/60 mb-1.5">Email *</label>
-        <input type="email" required className="input-field rounded-lg" placeholder="votre@email.fr" />
+        <input type="email" required className="input-field rounded-lg" placeholder="votre@email.fr" value={form.email} onChange={set('email')} disabled={status === 'loading'} />
       </div>
       <div>
         <label className="block text-xs font-sans font-medium text-terre/60 mb-1.5">Commune</label>
-        <input type="text" className="input-field rounded-lg" placeholder="Votre commune" />
+        <input type="text" className="input-field rounded-lg" placeholder="Votre commune" value={form.commune} onChange={set('commune')} disabled={status === 'loading'} />
       </div>
       <div>
         <label className="block text-xs font-sans font-medium text-terre/60 mb-1.5">Message (facultatif)</label>
-        <textarea rows={3} className="input-field resize-none rounded-lg" placeholder="Une question, une idée…" />
+        <textarea rows={3} className="input-field resize-none rounded-lg" placeholder="Une question, une idée…" value={form.message} onChange={set('message')} disabled={status === 'loading'} />
       </div>
       <p className="text-xs text-terre/40 leading-relaxed">
         Vos données sont utilisées uniquement pour vous informer sur l'événement.
         Conformément au RGPD, vous pouvez demander leur suppression à tout moment.
       </p>
-      <button type="submit" className="btn-ocre w-full text-center rounded-lg">
-        Je m'inscris à la newsletter événement
+      {status === 'error' && <p className="text-xs text-red-500">Une erreur est survenue, veuillez réessayer.</p>}
+      <button type="submit" className="btn-ocre w-full text-center rounded-lg" disabled={status === 'loading'}>
+        {status === 'loading' ? 'Envoi…' : 'Je m\'inscris à la newsletter événement'}
       </button>
     </form>
   )
