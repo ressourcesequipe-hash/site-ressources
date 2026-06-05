@@ -1,6 +1,6 @@
 const BREVO_API_KEY = process.env.BREVO_API_KEY
 const DEST_EMAIL = 'ressources.equipe@gmail.com'
-const SENDER = { name: 'Site Ressources', email: 'no-reply@ressources-landes.fr' }
+const SENDER = { name: 'Site Ressources', email: 'borislalanne@gmail.com' }
 
 const templates = {
   newsletter: (d) => ({
