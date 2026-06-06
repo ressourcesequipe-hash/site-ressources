@@ -25,7 +25,7 @@ export default function SEO({
     description: 'Recyclerie informatique et végétale solidaire à Vielle-Saint-Girons (Landes, 40560). Association loi 1901 fondée en 2025.',
     url: BASE_URL,
     logo: `${BASE_URL}/logo.png`,
-    email: 'ressources.equipe@gmail.com',
+    email: 'contact@ressourcesrecyclerie.fr',
     address: {
       '@type': 'PostalAddress',
       streetAddress: '80 allée des Cigales',

@@ -109,9 +109,9 @@ export default function Footer() {
 
             <div className="space-y-3">
               <p className="text-white/30 text-[10px] tracking-[0.18em] uppercase font-semibold">Contact</p>
-              <a href="mailto:ressources.equipe@gmail.com" className="flex items-center gap-2 text-sm text-white/55 hover:text-ocre transition-colors group">
+              <a href="mailto:contact@ressourcesrecyclerie.fr" className="flex items-center gap-2 text-sm text-white/55 hover:text-ocre transition-colors group">
                 <MailIcon />
-                ressources.equipe@gmail.com
+                contact@ressourcesrecyclerie.fr
               </a>
               <p className="flex items-start gap-2 text-xs text-white/35 leading-relaxed pt-1">
                 <PinIcon />

@@ -71,7 +71,7 @@ export default function Mecene() {
                     </li>
                   ))}
                 </ul>
-                <a href="mailto:ressources.equipe@gmail.com" className={accent ? 'btn-ocre text-sm' : 'btn-kaki text-sm'}>
+                <a href="mailto:contact@ressourcesrecyclerie.fr" className={accent ? 'btn-ocre text-sm' : 'btn-kaki text-sm'}>
                   {cta}
                 </a>
               </div>

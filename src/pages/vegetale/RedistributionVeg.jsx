@@ -60,7 +60,7 @@ export default function RedistributionVeg() {
               La redistribution végétale démarrera avec l'ouverture de la filière
               en septembre 2026. Contactez-nous dès maintenant pour manifester votre intérêt.
             </p>
-            <a href="mailto:ressources.equipe@gmail.com" className="btn-kaki text-sm">
+            <a href="mailto:contact@ressourcesrecyclerie.fr" className="btn-kaki text-sm">
               Exprimer son intérêt
             </a>
           </div>

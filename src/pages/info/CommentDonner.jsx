@@ -112,7 +112,7 @@ export default function CommentDonner() {
               </div>
               <div className="shrink-0 flex flex-col gap-2">
                 <a
-                  href="mailto:ressources.equipe@gmail.com"
+                  href="mailto:contact@ressourcesrecyclerie.fr"
                   className="inline-flex items-center gap-2 text-sm text-ocre hover:underline font-medium"
                 >
                   <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>

@@ -99,7 +99,7 @@ export default function Beneficiaires() {
               mairies, associations référentes) ou directement auprès de l'association.
               Le processus de demande sera formalisé lors de l'ouverture officielle en septembre 2026.
             </p>
-            <a href="mailto:ressources.equipe@gmail.com" className="btn-ocre text-sm">
+            <a href="mailto:contact@ressourcesrecyclerie.fr" className="btn-ocre text-sm">
               Nous contacter pour une demande
             </a>
           </div>

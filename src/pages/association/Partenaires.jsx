@@ -202,7 +202,7 @@ export default function Partenaires() {
                 acteurs sociaux : Ressources est ouverte aux échanges permettant de
                 renforcer l'impact local du projet.
               </p>
-              <a href="mailto:ressources.equipe@gmail.com" className="btn-ocre text-sm">
+              <a href="mailto:contact@ressourcesrecyclerie.fr" className="btn-ocre text-sm">
                 Proposer un échange
               </a>
             </div>

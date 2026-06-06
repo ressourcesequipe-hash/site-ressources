@@ -269,7 +269,7 @@ export const ARTICLES = [
       },
       {
         type: 'paragraph',
-        text: 'Quelle que soit la forme de votre soutien, chaque contribution compte pour faire vivre la recyclerie solidaire des Landes. Contactez l\'association à ressources.equipe@gmail.com pour en savoir plus ou pour toute question.',
+        text: 'Quelle que soit la forme de votre soutien, chaque contribution compte pour faire vivre la recyclerie solidaire des Landes. Contactez l\'association à contact@ressourcesrecyclerie.fr pour en savoir plus ou pour toute question.',
       },
     ],
   },

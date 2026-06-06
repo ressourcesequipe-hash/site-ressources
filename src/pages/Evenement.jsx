@@ -34,7 +34,7 @@ const eventSchema = {
     '@type': 'NGO',
     name: 'Association Ressources',
     url: 'https://www.association-ressources.fr',
-    email: 'ressources.equipe@gmail.com',
+    email: 'contact@ressourcesrecyclerie.fr',
   },
   offers: {
     '@type': 'Offer',
@@ -225,8 +225,8 @@ export default function Evenement() {
           <div className="mt-10 text-center text-sm text-terre/40">
             <p>
               Questions ?{' '}
-              <a href="mailto:ressources.equipe@gmail.com" className="text-ocre hover:underline">
-                ressources.equipe@gmail.com
+              <a href="mailto:contact@ressourcesrecyclerie.fr" className="text-ocre hover:underline">
+                contact@ressourcesrecyclerie.fr
               </a>
             </p>
           </div>

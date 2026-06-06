@@ -113,7 +113,7 @@ export default function Association() {
                 { label: 'Siège social', val: '80 allée des Cigales, 40560 Vielle-Saint-Girons' },
                 { label: 'Démarrage pilote', val: 'Septembre 2026' },
                 { label: 'Territoire d\'action', val: 'CC Côte Landes Nature + CC MACS' },
-                { label: 'Contact', val: 'ressources.equipe@gmail.com' },
+                { label: 'Contact', val: 'contact@ressourcesrecyclerie.fr' },
               ].map(({ label, val }) => (
                 <div key={label} className="flex gap-4 py-3 border-b border-beige-dark last:border-0">
                   <span className="text-xs text-terre/40 font-sans uppercase tracking-wider w-32 shrink-0 pt-0.5">

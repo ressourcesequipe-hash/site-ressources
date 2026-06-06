@@ -87,8 +87,8 @@ export default function Don() {
                   Faire un don en ligne
                 </button>
                 <div className="space-y-2 text-sm border-t border-ocre/15 pt-4">
-                  <a href="mailto:ressources.equipe@gmail.com" className="block text-ocre hover:underline">
-                    ressources.equipe@gmail.com
+                  <a href="mailto:contact@ressourcesrecyclerie.fr" className="block text-ocre hover:underline">
+                    contact@ressourcesrecyclerie.fr
                   </a>
 
                 </div>

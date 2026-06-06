@@ -133,7 +133,7 @@ export default function Soutenir() {
             compétences bénévoles spécifiques, dons matériels, relais communication…
           </p>
           <a
-            href="mailto:ressources.equipe@gmail.com"
+            href="mailto:contact@ressourcesrecyclerie.fr"
             className="btn-outline-ocre"
           >
             Nous contacter
