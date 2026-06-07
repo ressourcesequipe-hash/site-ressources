@@ -38,7 +38,7 @@ export default function Beneficiaires() {
 
           {/* Principe */}
           <div className="mb-12">
-            <h2 className="font-serif text-2xl text-terre mb-6">Une vente solidaire, pas une redistribution</h2>
+            <h2 className="font-serif text-2xl text-terre mb-6">Une vente solidaire</h2>
             <p className="text-terre/65 leading-relaxed mb-4">
               Notre modèle repose sur la <strong className="text-terre">revalorisation</strong> :
               les équipements collectés sont reconditionnés par des bénévoles compétents,
