@@ -1,27 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.association-ressources.fr/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.association-ressources.fr/evenement-lancement-17-octobre-2026/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.association-ressources.fr/recyclerie-informatique/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.association-ressources.fr/recyclerie-informatique/comment-donner/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.association-ressources.fr/recyclerie-informatique/materiel-accepte/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.association-ressources.fr/recyclerie-informatique/reconditionnement/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.association-ressources.fr/recyclerie-informatique/effacement-donnees/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.association-ressources.fr/recyclerie-informatique/beneficiaires/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.association-ressources.fr/recyclerie-vegetale/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.association-ressources.fr/recyclerie-vegetale/comment-donner/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.association-ressources.fr/recyclerie-vegetale/ce-que-nous-acceptons/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.association-ressources.fr/recyclerie-vegetale/redistribution/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.association-ressources.fr/recyclerie-vegetale/partenaires-vegetaux/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.association-ressources.fr/association/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.association-ressources.fr/association/gouvernance/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.association-ressources.fr/association/territoire/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.association-ressources.fr/association/partenaires/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.association-ressources.fr/association/actualites/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.association-ressources.fr/association/nous-rejoindre/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.association-ressources.fr/soutenir/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.association-ressources.fr/soutenir/tombola/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.association-ressources.fr/soutenir/benevole/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.association-ressources.fr/soutenir/mecene/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.association-ressources.fr/soutenir/don/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/association/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/soutenir/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/contact/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/evenement-lancement-03-octobre-2026/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/recyclerie-informatique/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/recyclerie-informatique/comment-donner/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/recyclerie-informatique/materiel-accepte/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/recyclerie-informatique/reconditionnement/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/recyclerie-informatique/effacement-donnees/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/recyclerie-informatique/beneficiaires/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/recyclerie-vegetale/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/recyclerie-vegetale/comment-donner/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/recyclerie-vegetale/ce-que-nous-acceptons/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/recyclerie-vegetale/redistribution/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/recyclerie-vegetale/partenaires-vegetaux/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/soutenir/benevole/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/soutenir/mecene/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.ressourcesrecyclerie.fr/soutenir/tombola/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
