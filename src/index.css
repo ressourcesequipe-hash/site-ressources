@@ -16,10 +16,10 @@
 
   h1, h2, h3, h4 { @apply font-serif; }
 
-  ::selection { background-color: #726E24; color: #fff; }
+  ::selection { background-color: #C8973A; color: #fff; }
 
   :focus-visible {
-    outline: 2px solid #726E24;
+    outline: 2px solid #C8973A;
     outline-offset: 2px;
   }
 
@@ -27,7 +27,7 @@
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #726E24, #404C2F);
+    background: linear-gradient(to bottom, #C8973A, #3D4A2D);
     border-radius: 10px;
   }
 }
@@ -68,7 +68,7 @@
            border-2 border-ocre text-ocre font-sans font-medium px-7 py-3 text-sm tracking-wide
            overflow-hidden transition-all duration-300
            hover:text-white hover:-translate-y-0.5 hover:shadow-md active:scale-95;
-    background: linear-gradient(to right, #726E24 50%, transparent 50%);
+    background: linear-gradient(to right, #C8973A 50%, transparent 50%);
     background-size: 200% 100%;
     background-position: right;
   }
@@ -131,7 +131,7 @@
 
   /* ── Gradient text ── */
   .text-gradient {
-    background: linear-gradient(135deg, #726E24 0%, #9B9730 50%, #524F18 100%);
+    background: linear-gradient(135deg, #C8973A 0%, #D4AA5A 50%, #A07828 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -208,11 +208,11 @@
 
   /* ── Mesh gradient bg ── */
   .mesh-hero {
-    background-color: #EFEBDF;
+    background-color: #F7F3ED;
     background-image:
-      radial-gradient(ellipse 80% 60% at 70% 20%, rgba(114,110,36,0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 70% at 90% 80%, rgba(64,76,47,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 10% 60%, rgba(114,110,36,0.06) 0%, transparent 60%);
+      radial-gradient(ellipse 80% 60% at 70% 20%, rgba(200,151,58,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 70% at 90% 80%, rgba(61,74,45,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 10% 60%, rgba(200,151,58,0.06) 0%, transparent 60%);
   }
 
   /* ── Clip-path card reveal ── */
@@ -223,6 +223,6 @@
   .clip-reveal.is-visible { clip-path: inset(0 0% 0 0); }
 
   /* ── Glow shadows ── */
-  .shadow-ocre-glow { box-shadow: 0 8px 32px -4px rgba(114,110,36,0.30); }
-  .shadow-kaki-glow { box-shadow: 0 8px 32px -4px rgba(64,76,47,0.25); }
+  .shadow-ocre-glow { box-shadow: 0 8px 32px -4px rgba(200,151,58,0.25); }
+  .shadow-kaki-glow { box-shadow: 0 8px 32px -4px rgba(61,74,45,0.25); }
 }

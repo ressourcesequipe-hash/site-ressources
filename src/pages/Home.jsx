@@ -94,7 +94,7 @@ export default function Home() {
 
           {/* Right panel */}
           <div className="absolute right-0 top-0 w-[42%] h-full"
-            style={{ background: 'linear-gradient(135deg, transparent 0%, rgba(64,76,47,0.03) 100%)', clipPath: 'polygon(12% 0, 100% 0, 100% 100%, 0% 100%)' }} />
+            style={{ background: 'linear-gradient(135deg, transparent 0%, rgba(61,74,45,0.03) 100%)', clipPath: 'polygon(12% 0, 100% 0, 100% 100%, 0% 100%)' }} />
 
           {/* Rotating rings */}
           <div className="absolute right-10 top-10 w-[480px] h-[480px] rounded-full border border-ocre/10 animate-spin-slow" />
@@ -104,9 +104,9 @@ export default function Home() {
 
           {/* Glow orbs */}
           <div className="absolute right-16 top-12 w-96 h-96 rounded-full animate-pulse-soft"
-            style={{ background: 'radial-gradient(circle, rgba(114,110,36,0.10) 0%, transparent 70%)' }} />
+            style={{ background: 'radial-gradient(circle, rgba(200,151,58,0.10) 0%, transparent 70%)' }} />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full"
-            style={{ background: 'radial-gradient(circle, rgba(64,76,47,0.07) 0%, transparent 70%)' }} />
+            style={{ background: 'radial-gradient(circle, rgba(61,74,45,0.07) 0%, transparent 70%)' }} />
 
           {/* Floating particles */}
           {[
@@ -164,7 +164,7 @@ export default function Home() {
                 Recyclerie solidaire
                 <br />
                 <span className="italic" style={{
-                  background: 'linear-gradient(135deg, #726E24 0%, #9B9730 60%, #726E24 100%)',
+                  background: 'linear-gradient(135deg, #C8973A 0%, #D4AA5A 60%, #C8973A 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -252,7 +252,7 @@ export default function Home() {
                 <div key={label} className="flex items-baseline gap-2 group">
                   <span className="font-serif text-2xl leading-none group-hover:text-ocre transition-colors duration-300"
                     style={{
-                      background: 'linear-gradient(135deg, #726E24, #9B9730)',
+                      background: 'linear-gradient(135deg, #C8973A, #D4AA5A)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
@@ -330,7 +330,7 @@ export default function Home() {
               <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-ocre via-ocre-light to-ocre/20" />
               {/* Corner glow */}
               <div className="absolute top-0 right-0 w-48 h-48 rounded-bl-full transition-all duration-700 group-hover:w-64 group-hover:h-64"
-                style={{ background: 'radial-gradient(circle at top right, rgba(114,110,36,0.12), transparent 70%)' }} />
+                style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.12), transparent 70%)' }} />
               {/* Big bg number */}
               <div className="absolute bottom-4 right-6 font-serif text-[9rem] leading-none text-white/[0.035] select-none pointer-events-none" aria-hidden>01</div>
               {/* Diagonal hover overlay */}
@@ -345,7 +345,7 @@ export default function Home() {
                   </div>
                   <div className="text-right">
                     <p className="font-serif text-4xl leading-none"
-                      style={{ background: 'linear-gradient(135deg, #726E24, #9B9730)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                      style={{ background: 'linear-gradient(135deg, #C8973A, #D4AA5A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                       120
                     </p>
                     <p className="font-sans text-[10px] text-white/35 tracking-wide mt-1">équipements / an</p>
@@ -379,10 +379,10 @@ export default function Home() {
             </div>
 
             {/* Végétale */}
-            <div className="group relative bg-kaki-light text-terre p-8 md:p-14 overflow-hidden transition-all duration-500 hover:shadow-2xl">
+            <div className="group relative bg-kaki-pale text-terre p-8 md:p-14 overflow-hidden transition-all duration-500 hover:shadow-2xl">
               <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-kaki via-kaki-light to-kaki/20" />
               <div className="absolute top-0 right-0 w-48 h-48 rounded-bl-full transition-all duration-700 group-hover:w-64 group-hover:h-64"
-                style={{ background: 'radial-gradient(circle at top right, rgba(64,76,47,0.07), transparent 70%)' }} />
+                style={{ background: 'radial-gradient(circle at top right, rgba(61,74,45,0.07), transparent 70%)' }} />
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{ background: 'linear-gradient(135deg, rgba(238,240,234,0.8) 0%, transparent 60%)' }} />
               <div className="absolute bottom-4 right-6 font-serif text-[9rem] leading-none text-kaki/[0.05] select-none pointer-events-none" aria-hidden>02</div>
@@ -431,7 +431,7 @@ export default function Home() {
 
       {/* ══════════════ IMPACT ══════════════ */}
       <section className="py-20 md:py-28 relative overflow-hidden" ref={impact.ref}
-        style={{ background: '#EDECCE' }}>
+        style={{ background: 'linear-gradient(135deg, #EDE5D8 0%, #F0E8DA 50%, #D5C9B5 100%)' }}>
         <div className="absolute inset-0 opacity-[0.02]"
           style={{ backgroundImage: 'radial-gradient(circle, #404C2F 1px, transparent 1px)', backgroundSize: '24px 24px' }} aria-hidden />
 
@@ -468,7 +468,7 @@ export default function Home() {
             {/* Animated connector */}
             <div className="hidden lg:block absolute top-[22px] left-[22px] right-[22px] h-px overflow-hidden" aria-hidden>
               <div className={`h-full transition-all duration-1000 delay-300 ${steps.visible ? 'w-full' : 'w-0'}`}
-                style={{ background: 'linear-gradient(to right, #726E24, #9B9730, rgba(114,110,36,0.2))' }} />
+                style={{ background: 'linear-gradient(to right, #C8973A, #D4AA5A, rgba(200,151,58,0.2))' }} />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-4">
@@ -518,7 +518,7 @@ export default function Home() {
               <h2 className="font-serif text-3xl md:text-4xl text-terre mb-4">
                 Événement de lancement<br />
                 <span style={{
-                  background: 'linear-gradient(135deg, #726E24, #9B9730)',
+                  background: 'linear-gradient(135deg, #C8973A, #D4AA5A)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -547,7 +547,7 @@ export default function Home() {
             }}>
               {/* Halo */}
               <div className="absolute -inset-8 rounded-3xl blur-3xl pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse, rgba(114,110,36,0.12), transparent 70%)' }} aria-hidden />
+                style={{ background: 'radial-gradient(ellipse, rgba(200,151,58,0.12), transparent 70%)' }} aria-hidden />
 
               <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-kaki/25"
                 style={{ background: 'linear-gradient(135deg, #2B3520 0%, #404C2F 60%, #4a5935 100%)' }}>
@@ -555,9 +555,9 @@ export default function Home() {
                 <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-ocre to-transparent" />
                 {/* Decorative corners */}
                 <div className="absolute top-0 right-0 w-40 h-40 rounded-bl-full"
-                  style={{ background: 'radial-gradient(circle at top right, rgba(114,110,36,0.12), transparent 60%)' }} />
+                  style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.12), transparent 60%)' }} />
                 <div className="absolute bottom-0 left-0 w-28 h-28 rounded-tr-full"
-                  style={{ background: 'radial-gradient(circle at bottom left, rgba(114,110,36,0.07), transparent 60%)' }} />
+                  style={{ background: 'radial-gradient(circle at bottom left, rgba(200,151,58,0.07), transparent 60%)' }} />
 
                 <div className="relative p-10 md:p-12">
                   <p className="font-sans text-ocre text-[10px] tracking-[0.22em] uppercase font-semibold mb-5">
@@ -579,7 +579,7 @@ export default function Home() {
                   <div className="border-t border-white/10 pt-6">
                     <p className="text-[10px] text-white/35 uppercase tracking-widest mb-1.5">Lots à gagner</p>
                     <p className="font-serif text-3xl"
-                      style={{ background: 'linear-gradient(135deg, #726E24, #9B9730)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                      style={{ background: 'linear-gradient(135deg, #C8973A, #D4AA5A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                       +7 000 €
                     </p>
                   </div>
@@ -647,9 +647,9 @@ export default function Home() {
         style={{ background: 'linear-gradient(135deg, #2B3520 0%, #404C2F 50%, #4a5935 100%)' }}>
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ocre/50 to-transparent" aria-hidden />
         <div className="absolute inset-0 opacity-[0.025]"
-          style={{ backgroundImage: 'radial-gradient(circle, #726E24 1px, transparent 1px)', backgroundSize: '28px 28px' }} aria-hidden />
+          style={{ backgroundImage: 'radial-gradient(circle, #C8973A 1px, transparent 1px)', backgroundSize: '28px 28px' }} aria-hidden />
         <div className="absolute right-0 top-0 w-96 h-96 rounded-bl-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle at top right, rgba(114,110,36,0.10), transparent 65%)' }} aria-hidden />
+          style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.10), transparent 65%)' }} aria-hidden />
 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <p className="font-sans text-ocre text-xs font-semibold tracking-[0.22em] uppercase mb-4">
@@ -658,7 +658,7 @@ export default function Home() {
           <h2 className="font-serif text-3xl md:text-4xl text-white leading-tight mb-4">
             Votre don finance l'action<br />
             <span style={{
-              background: 'linear-gradient(135deg, #726E24, #9B9730)',
+              background: 'linear-gradient(135deg, #C8973A, #D4AA5A)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -695,7 +695,7 @@ function ImpactCounter({ value, suffix = '', label, index = 0 }) {
       <div className="relative mb-4">
         <p className="font-serif text-5xl md:text-6xl leading-none tabular-nums group-hover:scale-105 transition-transform duration-300 inline-block"
           style={{
-            background: 'linear-gradient(135deg, #726E24 0%, #9B9730 50%, #524F18 100%)',
+            background: 'linear-gradient(135deg, #C8973A 0%, #D4AA5A 50%, #A07828 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
@@ -726,7 +726,7 @@ function EventFeature({ icon, title, desc }) {
 /* ── Icônes SVG minimalistes ── */
 function IconReemploi() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#726E24" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <polyline points="23 4 23 10 17 10" />
       <polyline points="1 20 1 14 7 14" />
       <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
@@ -735,14 +735,14 @@ function IconReemploi() {
 }
 function IconSolidarite() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#726E24" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
     </svg>
   )
 }
 function IconProximite() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#726E24" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
       <circle cx="12" cy="9" r="2.5" />
     </svg>
@@ -750,7 +750,7 @@ function IconProximite() {
 }
 function IconChallenge() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#726E24" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <circle cx="12" cy="8" r="6" />
       <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
     </svg>
@@ -758,7 +758,7 @@ function IconChallenge() {
 }
 function IconTombola() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#726E24" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <rect x="2" y="7" width="20" height="14" rx="2" />
       <path d="M16 7V5a2 2 0 0 0-4 0v2" />
       <path d="M8 7V5a2 2 0 0 0-4 0v2" />
@@ -769,7 +769,7 @@ function IconTombola() {
 }
 function IconLieu() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#726E24" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
       <circle cx="12" cy="9" r="2.5" />
     </svg>
@@ -779,9 +779,9 @@ function IconLieu() {
 function ComputerIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden>
-      <rect x="4" y="6" width="32" height="22" rx="2" stroke="#726E24" strokeWidth="2"/>
-      <line x1="12" y1="34" x2="28" y2="34" stroke="#726E24" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="20" y1="28" x2="20" y2="34" stroke="#726E24" strokeWidth="2"/>
+      <rect x="4" y="6" width="32" height="22" rx="2" stroke="#C8973A" strokeWidth="2"/>
+      <line x1="12" y1="34" x2="28" y2="34" stroke="#C8973A" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="20" y1="28" x2="20" y2="34" stroke="#C8973A" strokeWidth="2"/>
     </svg>
   )
 }
