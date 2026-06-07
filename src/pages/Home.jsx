@@ -393,12 +393,12 @@ export default function Home() {
                     <PlantIcon />
                   </div>
                   <div className="text-right">
-                    <p className="font-serif text-4xl text-kaki leading-none">1 000</p>
+                    <p className="font-serif text-4xl leading-none" style={{ color: '#6c7c49' }}>1 000</p>
                     <p className="font-sans text-[10px] text-terre/35 tracking-wide mt-1">plantes / an</p>
                   </div>
                 </div>
 
-                <p className="font-sans text-kaki text-[10px] font-bold tracking-[0.22em] uppercase mb-3">Filière végétale</p>
+                <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase mb-3" style={{ color: '#6c7c49' }}>Filière végétale</p>
                 <h3 className="font-serif text-2xl md:text-[1.75rem] text-terre mb-4 leading-snug">
                   Vos plantes méritent<br />un nouvel avenir
                 </h3>
@@ -411,14 +411,19 @@ export default function Home() {
 
                 <div className="flex flex-wrap gap-2 mb-9">
                   {['Collecte', 'Soin', 'Redistribution'].map(t => (
-                    <span key={t} className="text-[10px] font-sans font-medium text-kaki/65 border border-kaki/20 px-2.5 py-1 tracking-wide hover:border-kaki/50 hover:text-kaki transition-all duration-150">
+                    <span key={t} className="text-[10px] font-sans font-medium px-2.5 py-1 tracking-wide transition-all duration-150"
+                      style={{ color: '#6c7c49', border: '1px solid rgba(108,124,73,0.35)' }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(108,124,73,0.7)'; e.currentTarget.style.color = '#4e5e35'; }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(108,124,73,0.35)'; e.currentTarget.style.color = '#6c7c49'; }}>
                       {t}
                     </span>
                   ))}
                 </div>
 
                 <div className="flex flex-wrap gap-3">
-                  <Link to="/recyclerie-vegetale/comment-donner/" className="btn-kaki text-sm">Je donne des plantes</Link>
+                  <Link to="/recyclerie-vegetale/comment-donner/" className="text-sm inline-flex items-center justify-center gap-2 font-sans font-medium px-7 py-3.5 tracking-wide transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg text-white" style={{ backgroundColor: '#6c7c49' }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = '#4e5e35'}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = '#6c7c49'}>Je donne des plantes</Link>
                   <Link to="/recyclerie-vegetale/" className="inline-flex items-center gap-2 border-2 border-kaki text-kaki font-sans font-medium px-6 py-2.5 text-sm tracking-wide transition-all duration-300 hover:bg-kaki hover:text-white hover:-translate-y-0.5">
                     En savoir plus
                   </Link>
