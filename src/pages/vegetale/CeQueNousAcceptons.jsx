@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
 import { IconFeuille, IconFleur, IconPot, IconPlante, IconJardinage, IconMaison } from '../../components/Icons'
+import { GinkgoLeaves, BrancheFeuilles } from '../../components/BotanicalDecor'
 
 const BREADCRUMBS = [
   { label: 'Recyclerie Végétale', href: '/recyclerie-vegetale/' },
@@ -17,7 +18,9 @@ export default function CeQueNousAcceptons() {
         canonical="/recyclerie-vegetale/ce-que-nous-acceptons/"
       />
 
-      <section style={{ backgroundColor: '#EDECCE', borderColor: 'rgba(108,124,73,0.1)' }} className="py-12 md:py-16 border-b">
+      <section style={{ backgroundColor: '#EDECCE', borderColor: 'rgba(108,124,73,0.1)' }} className="py-12 md:py-16 border-b relative overflow-hidden">
+        <GinkgoLeaves className="absolute top-2 right-8 w-28 opacity-50 pointer-events-none select-none" />
+        <BrancheFeuilles className="absolute bottom-0 left-4 w-16 opacity-40 pointer-events-none select-none" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase mb-3" style={{ color: '#6c7c49' }}>
             Recyclerie végétale

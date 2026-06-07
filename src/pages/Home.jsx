@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import { useReveal } from '../hooks/useReveal'
+import { BlobBeige, BlobVert, FeuillsDispers } from '../components/BotanicalDecor'
 
 /* ── Count-up hook ── */
 function useCountUp(target, duration = 2000) {
@@ -107,6 +108,10 @@ export default function Home() {
             style={{ background: 'radial-gradient(circle, rgba(200,151,58,0.10) 0%, transparent 70%)' }} />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full"
             style={{ background: 'radial-gradient(circle, rgba(61,74,45,0.07) 0%, transparent 70%)' }} />
+          {/* Botanical decor */}
+          <BlobBeige className="absolute -bottom-10 -left-16 w-72 opacity-70" />
+          <BlobVert className="absolute top-10 right-[38%] w-48 opacity-40" />
+          <FeuillsDispers className="absolute bottom-16 right-12 w-36 opacity-30" />
 
           {/* Floating particles */}
           {[
