@@ -49,6 +49,7 @@ export default function SEO({
   return (
     <Helmet>
       <title>{fullTitle}</title>
+      <meta name="google-site-verification" content="DN1eDha7pey432a-MItukzXMscgSSwmEqSDJj4fX6jM" />
       <meta name="description" content={description} />
       {canonical && <link rel="canonical" href={`${BASE_URL}${canonical}`} />}
 
