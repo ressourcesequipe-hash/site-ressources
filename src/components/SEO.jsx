@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 
-const BASE_URL = 'https://www.association-ressources.fr' // ← à mettre à jour lors du changement de domaine
+const BASE_URL = 'https://www.ressourcesrecyclerie.fr'
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`
 
 export default function SEO({
@@ -19,31 +19,79 @@ export default function SEO({
 
   const orgSchema = {
     '@context': 'https://schema.org',
-    '@type': ['Organization', 'NGO'],
+    '@type': ['LocalBusiness', 'NGO'],
+    '@id': `${BASE_URL}/#organization`,
     name: 'Association Ressources',
     alternateName: 'Ressources Recyclerie Solidaire',
     description: 'Recyclerie informatique et végétale solidaire à Vielle-Saint-Girons (Landes, 40560). Association loi 1901 fondée en 2025.',
     url: BASE_URL,
-    logo: `${BASE_URL}/logo.png`,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${BASE_URL}/logos/20260605_210203_5980.png`,
+    },
+    image: `${BASE_URL}/og-image.png`,
     email: 'contact@ressourcesrecyclerie.fr',
     address: {
       '@type': 'PostalAddress',
       streetAddress: '80 allée des Cigales',
       addressLocality: 'Vielle-Saint-Girons',
       postalCode: '40560',
+      addressRegion: 'Nouvelle-Aquitaine',
       addressCountry: 'FR',
     },
-    areaServed: { '@type': 'AdministrativeArea', name: 'Landes (40)' },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 43.9497,
+      longitude: -1.3158,
+    },
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Landes' },
+      { '@type': 'AdministrativeArea', name: 'Communauté de Communes Côte Landes Nature' },
+      { '@type': 'AdministrativeArea', name: 'Communauté de Communes MACS' },
+    ],
+    priceRange: '€',
     foundingDate: '2025',
     nonprofitStatus: 'NonprofitType',
-    taxID: 'Association reconnue d\'intérêt général',
-    knowsAbout: ['réemploi informatique', 'recyclerie végétale', 'inclusion numérique', 'économie circulaire'],
+    knowsAbout: ['réemploi informatique', 'recyclerie végétale', 'inclusion numérique', 'économie circulaire', 'reconditionnement'],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Services de la recyclerie Ressources',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Collecte de matériel informatique',
+            url: `${BASE_URL}/recyclerie-informatique/comment-donner/`,
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Collecte de végétaux et matériel de jardin',
+            url: `${BASE_URL}/recyclerie-vegetale/comment-donner/`,
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Vente solidaire d\'équipements reconditionnés',
+            url: `${BASE_URL}/recyclerie-informatique/beneficiaires/`,
+          },
+        },
+      ],
+    },
     potentialAction: {
       '@type': 'DonateAction',
       target: `${BASE_URL}/soutenir/don/`,
       name: 'Faire un don à l\'association Ressources',
     },
-    sameAs: [],
+    sameAs: [
+      'https://www.instagram.com/recyclerie.ressources',
+      'https://www.linkedin.com/company/ressources-recyclerie',
+    ],
   }
 
   return (

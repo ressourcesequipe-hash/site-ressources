@@ -26,6 +26,8 @@ import Benevole from './pages/soutenir/Benevole'
 import Mecene from './pages/soutenir/Mecene'
 import Don from './pages/soutenir/Don'
 import Contact from './pages/Contact'
+import MentionsLegales from './pages/MentionsLegales'
+import Confidentialite from './pages/Confidentialite'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -64,6 +66,8 @@ export default function App() {
         <Route path="/soutenir/mecene/" element={<Mecene />} />
         <Route path="/soutenir/don/" element={<Don />} />
         <Route path="/contact/" element={<Contact />} />
+        <Route path="/mentions-legales/" element={<MentionsLegales />} />
+        <Route path="/confidentialite/" element={<Confidentialite />} />
       </Routes>
     </BrowserRouter>
   )

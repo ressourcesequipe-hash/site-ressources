@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const SILOS = [
   {
@@ -177,19 +177,9 @@ export default function Footer() {
             © 2025–2026 Association Ressources · Loi 1901 · SIRET en cours d'attribution
           </p>
           <div className="flex flex-wrap gap-4">
-            {[
-              { href: '#', label: 'Mentions légales' },
-              { href: '#', label: 'Confidentialité' },
-              { href: '/sitemap.xml', label: 'Plan du site' },
-            ].map(({ href, label }) => (
-              <a
-                key={label}
-                href={href}
-                className="text-[11px] text-white/30 hover:text-white/60 transition-colors"
-              >
-                {label}
-              </a>
-            ))}
+            <Link to="/mentions-legales/" className="text-[11px] text-white/30 hover:text-white/60 transition-colors">Mentions légales</Link>
+            <Link to="/confidentialite/" className="text-[11px] text-white/30 hover:text-white/60 transition-colors">Confidentialité</Link>
+            <a href="/sitemap.xml" className="text-[11px] text-white/30 hover:text-white/60 transition-colors">Plan du site</a>
           </div>
         </div>
       </div>
