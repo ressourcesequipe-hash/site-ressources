@@ -8,6 +8,33 @@ const BREADCRUMBS = [
   { label: 'Acheter du matériel reconditionné' },
 ]
 
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Quels équipements reconditionnés sont disponibles à la vente ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Ordinateurs portables et fixes, tablettes, smartphones, écrans et périphériques. Les stocks dépendent des dons reçus. Tous les appareils sont testés et reconditionnés avant vente.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Quelle garantie sur le matériel reconditionné par Ressources ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Nous offrons une garantie de bon fonctionnement au moment de la vente. En cas de défaut constaté rapidement après l\'achat, nous étudions chaque situation au cas par cas.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Puis-je donner mon appareil et en racheter un reconditionné ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Oui, tout à fait. Vous donnez votre ancien matériel et vous pouvez acheter un équipement reconditionné par d\'autres donateurs à prix solidaire.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Les données des anciens propriétaires sont-elles effacées avant la vente ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Absolument. Chaque équipement passe par un effacement certifié de ses données avant tout reconditionnement ou vente.' },
+    },
+  ],
+}
+
 export default function Beneficiaires() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
@@ -15,6 +42,7 @@ export default function Beneficiaires() {
         title="Acheter un Ordinateur Reconditionné Landes | Ressources"
         description="Achetez un ordinateur, tablette ou smartphone reconditionné à prix solidaire dans les Landes (40). L'association Ressources propose des équipements remis en état, bien en dessous du prix du marché."
         canonical="/recyclerie-informatique/beneficiaires/"
+        schema={FAQ_SCHEMA}
       />
 
       <section className="bg-kaki-pale py-12 md:py-16 border-b border-kaki/10">

@@ -8,6 +8,33 @@ const BREADCRUMBS = [
   { label: 'Vente solidaire' },
 ]
 
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Quel est le prix des végétaux vendus par la recyclerie Ressources ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Les prix sont fixés en fonction de l\'état des plantes et des tarifs du marché local, avec une réduction solidaire. Les détails seront communiqués à l\'ouverture de la filière en septembre 2026.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Peut-on réserver des plantes à l\'avance ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Oui, il sera possible d\'exprimer votre intérêt pour certains types de végétaux. Contactez-nous pour être ajouté à notre liste de préférence.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'La vente de végétaux se fait-elle sur place ou par livraison ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'La vente se fait principalement sur le point de collecte de Vielle-Saint-Girons (Landes). Pour des volumes importants, un arrangement peut être envisagé.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Que se passe-t-il si les plantes données sont en mauvais état ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Nos bénévoles effectuent un tri et une remise en état. Les végétaux vendus sont en état satisfaisant. Ceux qui ne peuvent pas être récupérés sont compostés.' },
+    },
+  ],
+}
+
 export default function RedistributionVeg() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
@@ -15,6 +42,7 @@ export default function RedistributionVeg() {
         title="Acheter des Plantes à Prix Solidaire Landes | Recyclerie Végétale Ressources"
         description="Achetez plantes, pots et outils de jardin à prix solidaire dans les Landes (40). La recyclerie végétale Ressources propose les végétaux collectés à la vente sur le territoire landais. Vielle-Saint-Girons."
         canonical="/recyclerie-vegetale/redistribution/"
+        schema={FAQ_SCHEMA}
       />
 
       <section style={{ backgroundColor: "#EDECCE", borderColor: 'rgba(108,124,73,0.1)' }} className="py-12 md:py-16 border-b relative overflow-hidden">

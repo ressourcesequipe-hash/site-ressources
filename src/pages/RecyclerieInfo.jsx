@@ -11,6 +11,38 @@ const PAGES_FILLES = [
   { to: '/recyclerie-informatique/beneficiaires/', title: 'Acheter du matériel', desc: 'Acquérir un équipement reconditionné à prix solidaire', Icon: IconPartenaires },
 ]
 
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Quels appareils puis-je donner à la recyclerie informatique ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Ordinateurs portables et fixes, tablettes, smartphones, écrans, imprimantes, câbles et accessoires. Voir la page "Matériel accepté" pour la liste complète.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Que deviennent mes données personnelles quand je donne un appareil ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Chaque appareil passe par un effacement certifié de ses données avant tout reconditionnement. Vous recevez une confirmation d\'effacement sur demande.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Puis-je acheter un équipement reconditionné chez Ressources ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Oui. Les équipements reconditionnés sont vendus à prix solidaire, bien en dessous du marché. Contactez-nous pour connaître les stocks disponibles.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Mon équipement est-il trop vieux pour être donné ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Pas nécessairement. Même des appareils anciens peuvent être valorisés pour des usages simples ou en pièces détachées. En cas de doute, contactez-nous avant de vous déplacer.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Comment se passe un enlèvement à domicile ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Vous remplissez le formulaire avec une description du matériel. Nous vous recontactons pour convenir d\'un créneau. L\'enlèvement est gratuit et sans engagement.' },
+    },
+  ],
+}
+
 export default function RecyclerieInfo() {
   return (
     <Layout>
@@ -18,6 +50,7 @@ export default function RecyclerieInfo() {
         title="Recyclerie Informatique Solidaire Landes | Ressources"
         description="Donnez votre ordinateur, tablette ou smartphone dans les Landes (40). Ressources reconditionne et revend à prix solidaire. Point de collecte à Vielle-Saint-Girons (40560)."
         canonical="/recyclerie-informatique/"
+        schema={FAQ_SCHEMA}
       />
 
       {/* Hero silo */}
