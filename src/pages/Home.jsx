@@ -794,9 +794,9 @@ function ComputerIcon() {
 function PlantIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden>
-      <path d="M20 34V18" stroke="#404C2F" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M20 22C20 22 12 18 10 10C18 10 22 16 22 22" fill="#404C2F" fillOpacity="0.2" stroke="#404C2F" strokeWidth="1.5" strokeLinejoin="round"/>
-      <path d="M20 26C20 26 28 22 30 14C22 14 18 20 20 26" fill="#404C2F" fillOpacity="0.15" stroke="#404C2F" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M20 34V18" stroke="#6c7c49" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M20 22C20 22 12 18 10 10C18 10 22 16 22 22" fill="#6c7c49" fillOpacity="0.2" stroke="#6c7c49" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M20 26C20 26 28 22 30 14C22 14 18 20 20 26" fill="#6c7c49" fillOpacity="0.15" stroke="#6c7c49" strokeWidth="1.5" strokeLinejoin="round"/>
     </svg>
   )
 }
