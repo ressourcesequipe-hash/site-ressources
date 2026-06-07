@@ -691,7 +691,7 @@ function ImpactCounter({ value, suffix = '', label, index = 0 }) {
 
   return (
     <div ref={ref}
-      className="bg-beige flex flex-col items-center justify-center text-center px-4 py-10 md:py-14 group hover:bg-white transition-colors duration-300 cursor-default">
+      className="flex flex-col items-center justify-center text-center px-4 py-10 md:py-14 group transition-colors duration-300 cursor-default" style={{ backgroundColor: '#E5E4D5' }}>
       <div className="relative mb-4">
         <p className="font-serif text-5xl md:text-6xl leading-none tabular-nums group-hover:scale-105 transition-transform duration-300 inline-block"
           style={{
