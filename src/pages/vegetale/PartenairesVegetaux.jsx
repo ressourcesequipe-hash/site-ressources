@@ -17,9 +17,9 @@ export default function PartenairesVegetaux() {
         canonical="/recyclerie-vegetale/partenaires-vegetaux/"
       />
 
-      <section className="bg-kaki-pale py-12 md:py-16 border-b border-kaki/10">
+      <section className="bg-kaki-pale py-12 md:py-16 border-b" style={{ borderColor: 'rgba(108,124,73,0.1)' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <p className="font-sans text-kaki text-xs font-semibold tracking-[0.2em] uppercase mb-3">
+          <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase mb-3" style={{ color: '#6c7c49' }}>
             Recyclerie végétale
           </p>
           <h1 className="font-serif text-3xl sm:text-4xl text-terre mb-4">
@@ -54,14 +54,14 @@ export default function PartenairesVegetaux() {
                 desc: 'Vous relayez nos actions sur vos réseaux et auprès de votre clientèle. Idéal pour tout commerce local.',
               },
             ].map(({ titre, desc }) => (
-              <div key={titre} className="border-l-2 border-kaki pl-5 py-2">
+              <div key={titre} className="pl-5 py-2" style={{ borderLeft: '2px solid #6c7c49' }}>
                 <h3 className="font-serif text-lg text-terre mb-2">{titre}</h3>
                 <p className="text-sm text-terre/60 leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
 
-          <div className="bg-kaki text-white p-8 mb-10">
+          <div className="text-white p-8 mb-10" style={{ backgroundColor: '#6c7c49' }}>
             <h2 className="font-serif text-2xl text-white mb-4">Votre structure souhaite s'engager ?</h2>
             <p className="text-white/65 text-sm leading-relaxed mb-6">
               Contactez-nous pour discuter d'un partenariat végétal adapté à votre situation.
@@ -93,9 +93,11 @@ export default function PartenairesVegetaux() {
                 },
               ].map(({ q, a }) => (
                 <details key={q} className="border border-beige group">
-                  <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none font-sans text-sm font-semibold text-terre hover:text-kaki transition-colors">
+                  <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none font-sans text-sm font-semibold text-terre transition-colors"
+                    onMouseEnter={e => e.currentTarget.style.color = '#6c7c49'}
+                    onMouseLeave={e => e.currentTarget.style.color = ''}>
                     {q}
-                    <span className="shrink-0 text-kaki/50 group-open:rotate-180 transition-transform duration-200">▾</span>
+                    <span className="shrink-0 group-open:rotate-180 transition-transform duration-200" style={{ color: 'rgba(108,124,73,0.5)' }}>▾</span>
                   </summary>
                   <p className="px-5 pb-5 text-sm text-terre/60 leading-relaxed border-t border-beige pt-4">{a}</p>
                 </details>
@@ -104,7 +106,9 @@ export default function PartenairesVegetaux() {
           </div>
 
           <div className="pt-8">
-            <Link to="/recyclerie-vegetale/" className="text-sm text-kaki hover:text-ocre transition-colors">
+            <Link to="/recyclerie-vegetale/" className="text-sm transition-colors" style={{ color: '#6c7c49' }}
+              onMouseEnter={e => e.currentTarget.style.color = '#C8973A'}
+              onMouseLeave={e => e.currentTarget.style.color = '#6c7c49'}>
               ← Retour à la recyclerie végétale
             </Link>
           </div>
@@ -148,7 +152,7 @@ function PartenaireForm() {
       </div>
       <textarea rows={2} className="input-field resize-none" placeholder="Type de partenariat envisagé…" value={form.partenariat} onChange={set('partenariat')} disabled={status === 'loading'} />
       {status === 'error' && <p className="text-xs text-red-300">Une erreur est survenue, veuillez réessayer.</p>}
-      <button type="submit" className="btn-ocre text-sm" disabled={status === 'loading'}>
+      <button type="submit" className="btn-veg text-sm" disabled={status === 'loading'}>
         {status === 'loading' ? 'Envoi…' : 'Nous contacter'}
       </button>
     </form>

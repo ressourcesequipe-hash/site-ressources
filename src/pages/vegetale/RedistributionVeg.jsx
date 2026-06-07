@@ -17,9 +17,9 @@ export default function RedistributionVeg() {
         canonical="/recyclerie-vegetale/redistribution/"
       />
 
-      <section className="bg-kaki-pale py-12 md:py-16 border-b border-kaki/10">
+      <section className="bg-kaki-pale py-12 md:py-16 border-b" style={{ borderColor: 'rgba(108,124,73,0.1)' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <p className="font-sans text-kaki text-xs font-semibold tracking-[0.2em] uppercase mb-3">
+          <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase mb-3" style={{ color: '#6c7c49' }}>
             Recyclerie végétale
           </p>
           <h1 className="font-serif text-3xl sm:text-4xl text-terre mb-4">
@@ -44,8 +44,8 @@ export default function RedistributionVeg() {
                 { num: '2', titre: 'Remise en état', desc: 'Les végétaux sont soignés et les matériels nettoyés par nos bénévoles avant mise en vente.' },
                 { num: '3', titre: 'Vente à prix solidaire', desc: 'Vous achetez à un prix inférieur au marché. Les recettes financent les frais de fonctionnement de l\'association.' },
               ].map(({ num, titre, desc }) => (
-                <div key={num} className="border-t-2 border-kaki pt-5">
-                  <span className="font-serif text-3xl text-kaki/25 block mb-3 leading-none">{num}</span>
+                <div key={num} className="pt-5" style={{ borderTop: '2px solid #6c7c49' }}>
+                  <span className="font-serif text-3xl block mb-3 leading-none" style={{ color: 'rgba(108,124,73,0.25)' }}>{num}</span>
                   <h3 className="font-serif text-lg text-terre mb-2">{titre}</h3>
                   <p className="text-sm text-terre/55 leading-relaxed">{desc}</p>
                 </div>
@@ -64,7 +64,7 @@ export default function RedistributionVeg() {
               { icon: <IconProximite className="w-5 h-5" />, titre: 'Sites partenaires', desc: 'Campings et sites engagés dans notre réseau végétal bénéficient d\'un accès prioritaire aux stocks.' },
             ].map(({ icon, titre, desc }) => (
               <div key={titre} className="flex gap-4 bg-beige-light border border-beige p-5">
-                <div className="w-9 h-9 shrink-0 border border-kaki/20 bg-kaki/5 flex items-center justify-center text-kaki" aria-hidden>{icon}</div>
+                <div className="w-9 h-9 shrink-0 flex items-center justify-center" style={{ border: '1px solid rgba(108,124,73,0.2)', background: 'rgba(108,124,73,0.05)', color: '#6c7c49' }} aria-hidden>{icon}</div>
                 <div>
                   <p className="font-sans text-sm font-semibold text-terre mb-1">{titre}</p>
                   <p className="text-xs text-terre/55 leading-relaxed">{desc}</p>
@@ -73,15 +73,15 @@ export default function RedistributionVeg() {
             ))}
           </div>
 
-          <div className="bg-kaki-pale border border-kaki/15 p-6 mb-8">
+          <div className="p-6 mb-8" style={{ backgroundColor: '#eef2e8', border: '1px solid rgba(108,124,73,0.15)' }}>
             <h2 className="font-serif text-xl text-terre mb-3">Quand démarre la vente solidaire ?</h2>
             <p className="text-sm text-terre/65 leading-relaxed mb-4">
               La filière végétale ouvre en septembre 2026. Contactez-nous dès maintenant
               pour manifester votre intérêt ou être tenu informé.
             </p>
-            <a href="mailto:contact@ressourcesrecyclerie.fr" className="btn-kaki text-sm">
+            <Link to="/contact/" className="btn-veg text-sm">
               Manifester son intérêt
-            </a>
+            </Link>
           </div>
 
           <div className="border-t border-beige pt-10">
@@ -106,9 +106,11 @@ export default function RedistributionVeg() {
                 },
               ].map(({ q, a }) => (
                 <details key={q} className="border border-beige group">
-                  <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none font-sans text-sm font-semibold text-terre hover:text-kaki transition-colors">
+                  <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none font-sans text-sm font-semibold text-terre transition-colors"
+                    onMouseEnter={e => e.currentTarget.style.color = '#6c7c49'}
+                    onMouseLeave={e => e.currentTarget.style.color = ''}>
                     {q}
-                    <span className="shrink-0 text-kaki/50 group-open:rotate-180 transition-transform duration-200">▾</span>
+                    <span className="shrink-0 group-open:rotate-180 transition-transform duration-200" style={{ color: 'rgba(108,124,73,0.5)' }}>▾</span>
                   </summary>
                   <p className="px-5 pb-5 text-sm text-terre/60 leading-relaxed border-t border-beige pt-4">{a}</p>
                 </details>
@@ -117,7 +119,9 @@ export default function RedistributionVeg() {
           </div>
 
           <div className="pt-8">
-            <Link to="/recyclerie-vegetale/" className="text-sm text-kaki hover:text-ocre transition-colors">
+            <Link to="/recyclerie-vegetale/" className="text-sm transition-colors" style={{ color: '#6c7c49' }}
+              onMouseEnter={e => e.currentTarget.style.color = '#C8973A'}
+              onMouseLeave={e => e.currentTarget.style.color = '#6c7c49'}>
               ← Retour à la recyclerie végétale
             </Link>
           </div>

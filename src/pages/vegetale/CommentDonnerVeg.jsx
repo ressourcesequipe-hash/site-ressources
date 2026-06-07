@@ -16,9 +16,9 @@ export default function CommentDonnerVeg() {
         canonical="/recyclerie-vegetale/comment-donner/"
       />
 
-      <section className="bg-kaki-pale py-12 md:py-16 border-b border-kaki/10">
+      <section className="bg-kaki-pale py-12 md:py-16 border-b" style={{ borderColor: 'rgba(108,124,73,0.1)' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <p className="font-sans text-kaki text-xs font-semibold tracking-[0.2em] uppercase mb-3">
+          <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase mb-3" style={{ color: '#6c7c49' }}>
             Recyclerie végétale
           </p>
           <h1 className="font-serif text-3xl sm:text-4xl text-terre mb-4">
@@ -40,7 +40,7 @@ export default function CommentDonnerVeg() {
               { titre: 'Remise directe', desc: 'Contactez-nous pour convenir d\'une remise directe, notamment pour de grandes quantités ou du matériel encombrant.' },
               { titre: 'Partenaires végétaux', desc: 'Communes, campings, jardineries partenaires — certains acceptent le dépôt de végétaux via notre réseau.' },
             ].map(({ titre, desc }) => (
-              <div key={titre} className="border-l-2 border-kaki pl-5">
+              <div key={titre} className="pl-5" style={{ borderLeft: '2px solid #6c7c49' }}>
                 <h2 className="font-serif text-lg text-terre mb-2">{titre}</h2>
                 <p className="text-sm text-terre/60 leading-relaxed">{desc}</p>
               </div>
@@ -48,7 +48,7 @@ export default function CommentDonnerVeg() {
           </div>
 
           {/* Contact */}
-          <div className="bg-kaki-pale border border-kaki/15 p-6 mb-8">
+          <div className="p-6 mb-8" style={{ backgroundColor: '#eef2e8', border: '1px solid rgba(108,124,73,0.15)' }}>
             <h2 className="font-serif text-xl text-terre mb-3">Nous contacter pour un don végétal</h2>
             <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -58,7 +58,7 @@ export default function CommentDonnerVeg() {
               <input type="email" className="input-field" placeholder="Email *" required />
               <input type="text" className="input-field" placeholder="Commune" />
               <textarea rows={2} className="input-field resize-none" placeholder="Décrivez ce que vous souhaitez donner (plantes, pots, outils…)" />
-              <button type="submit" className="btn-kaki">Envoyer</button>
+              <button type="submit" className="btn-veg">Envoyer</button>
             </form>
           </div>
 
@@ -66,7 +66,9 @@ export default function CommentDonnerVeg() {
             <Link to="/recyclerie-vegetale/ce-que-nous-acceptons/" className="btn-outline-ocre text-sm">
               Ce que nous acceptons
             </Link>
-            <Link to="/recyclerie-vegetale/" className="text-sm text-kaki hover:text-ocre transition-colors pt-3.5">
+            <Link to="/recyclerie-vegetale/" className="text-sm transition-colors pt-3.5" style={{ color: '#6c7c49' }}
+              onMouseEnter={e => e.currentTarget.style.color = '#C8973A'}
+              onMouseLeave={e => e.currentTarget.style.color = '#6c7c49'}>
               ← Retour à la recyclerie végétale
             </Link>
           </div>

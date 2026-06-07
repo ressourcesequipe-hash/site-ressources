@@ -158,6 +158,29 @@
            cursor-default;
   }
 
+  /* ── Végétale theme ── */
+  .btn-veg {
+    @apply relative inline-flex items-center justify-center gap-2
+           text-white font-sans font-medium px-7 py-3.5 text-sm tracking-wide
+           overflow-hidden transition-all duration-300
+           hover:-translate-y-0.5 active:scale-95;
+    background-color: #6c7c49;
+  }
+  .btn-veg:hover { background-color: #4e5e35; box-shadow: 0 10px 15px -3px rgba(108,124,73,0.3); }
+
+  .btn-outline-veg {
+    @apply relative inline-flex items-center justify-center gap-2
+           font-sans font-medium px-7 py-3 text-sm tracking-wide
+           overflow-hidden transition-all duration-300
+           hover:-translate-y-0.5 hover:text-white active:scale-95;
+    border: 2px solid #6c7c49;
+    color: #6c7c49;
+    background: linear-gradient(to right, #6c7c49 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right;
+  }
+  .btn-outline-veg:hover { background-position: left; color: #fff; }
+
   .impact-card {
     background-color: #E5E4D5;
     transition: background-color 0.3s;

@@ -20,27 +20,27 @@ export default function RecyclerieVegetale() {
       />
 
       {/* Hero silo végétal */}
-      <section className="bg-kaki-pale py-14 md:py-20 relative overflow-hidden border-b border-kaki/10">
-        <div className="absolute top-0 left-0 w-full h-1 bg-kaki" />
-        <div className="absolute right-0 bottom-0 w-96 h-96 bg-kaki/5 rounded-tl-full pointer-events-none" aria-hidden />
+      <section className="bg-kaki-pale py-14 md:py-20 relative overflow-hidden border-b border-[#6c7c49]/10">
+        <div className="absolute top-0 left-0 w-full h-1 bg-[#6c7c49]" />
+        <div className="absolute right-0 bottom-0 w-96 h-96 rounded-tl-full pointer-events-none" style={{ background: 'rgba(108,124,73,0.05)' }} aria-hidden />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
-          <p className="font-sans text-kaki text-xs font-semibold tracking-[0.2em] uppercase mb-4">
+          <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase mb-4" style={{ color: '#6c7c49' }}>
             Filière végétale
           </p>
           <h1 className="font-serif text-4xl sm:text-5xl text-terre leading-tight mb-4">
             Recyclerie végétale<br />solidaire dans les Landes
           </h1>
-          <div className="w-12 h-0.5 bg-kaki mb-6" />
+          <div className="w-12 h-0.5 mb-6" style={{ backgroundColor: '#6c7c49' }} />
           <p className="text-terre/65 max-w-xl leading-relaxed mb-8">
             Plantes, contenants, outils et matériels de jardinage collectés
             et proposés à la vente solidaire sur le territoire des Landes.
             Parce que vos végétaux méritent un nouvel avenir — et un nouveau propriétaire.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link to="/recyclerie-vegetale/comment-donner/" className="btn-kaki">
+            <Link to="/recyclerie-vegetale/comment-donner/" className="btn-veg">
               Je donne des plantes
             </Link>
-            <Link to="/recyclerie-vegetale/redistribution/" className="inline-block border-2 border-kaki text-kaki font-sans font-medium px-7 py-3 text-sm tracking-wide transition-all hover:bg-kaki hover:text-white">
+            <Link to="/recyclerie-vegetale/redistribution/" className="btn-outline-veg">
               Vente solidaire
             </Link>
           </div>
@@ -51,7 +51,7 @@ export default function RecyclerieVegetale() {
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="mb-10">
-            <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-kaki mb-4">
+            <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: '#6c7c49' }}>
               Explorer la filière
             </p>
             <h2 className="font-serif text-3xl text-terre">Tout savoir sur la recyclerie végétale</h2>
@@ -61,11 +61,16 @@ export default function RecyclerieVegetale() {
               <Link
                 key={to}
                 to={to}
-                className="group card-base p-6 flex gap-4 border-l-4 border-transparent hover:border-kaki transition-all"
+                className="group card-base p-6 flex gap-4 border-l-4 border-transparent transition-all"
+                style={{}}
+                onMouseEnter={e => e.currentTarget.style.borderLeftColor = '#6c7c49'}
+                onMouseLeave={e => e.currentTarget.style.borderLeftColor = 'transparent'}
               >
-                <div className="w-10 h-10 shrink-0 border border-kaki/20 bg-kaki/5 flex items-center justify-center text-kaki transition-all duration-200 group-hover:bg-kaki/15 group-hover:border-kaki/40" aria-hidden><Icon className="w-5 h-5" /></div>
+                <div className="w-10 h-10 shrink-0 flex items-center justify-center transition-all duration-200"
+                  style={{ border: '1px solid rgba(108,124,73,0.2)', background: 'rgba(108,124,73,0.05)', color: '#6c7c49' }}
+                  aria-hidden><Icon className="w-5 h-5" /></div>
                 <div>
-                  <h3 className="font-serif text-lg text-terre mb-1.5 group-hover:text-kaki transition-colors">
+                  <h3 className="font-serif text-lg text-terre mb-1.5 transition-colors group-hover:text-[#6c7c49]">
                     {title}
                   </h3>
                   <p className="text-sm text-terre/55 leading-relaxed">{desc}</p>
@@ -81,13 +86,13 @@ export default function RecyclerieVegetale() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div>
-              <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-kaki mb-4">
+              <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: '#6c7c49' }}>
                 Notre démarche
               </p>
               <h2 className="font-serif text-3xl text-terre mb-4">
                 Pourquoi une recyclerie végétale ?
               </h2>
-              <div className="w-10 h-0.5 bg-kaki mb-6" />
+              <div className="w-10 h-0.5 mb-6" style={{ backgroundColor: '#6c7c49' }} />
               <p className="text-terre/65 leading-relaxed mb-4">
                 Dans les Landes, de nombreux foyers, campings, communes et commerces
                 se retrouvent avec des plantes ou du matériel de jardin dont ils
@@ -99,7 +104,7 @@ export default function RecyclerieVegetale() {
                 à prix solidaire — bien en dessous du marché. Les recettes contribuent
                 à financer le projet associatif.
               </p>
-              <Link to="/recyclerie-vegetale/ce-que-nous-acceptons/" className="btn-kaki">
+              <Link to="/recyclerie-vegetale/ce-que-nous-acceptons/" className="btn-veg">
                 Voir ce que nous acceptons
               </Link>
             </div>
@@ -109,8 +114,8 @@ export default function RecyclerieVegetale() {
                 { icon: <IconReemploi className="w-5 h-5" />, title: 'Zéro gaspillage', desc: 'Chaque plante, contenant et outil récupéré évite un déchet et un achat neuf.' },
                 { icon: <IconSolidarite className="w-5 h-5" />, title: 'Circuit court', desc: 'La filière végétale crée du lien entre donateurs et acheteurs solidaires du territoire.' },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 bg-white p-5 border border-kaki/10">
-                  <div className="w-9 h-9 shrink-0 border border-kaki/20 bg-kaki/5 flex items-center justify-center text-kaki" aria-hidden>{icon}</div>
+                <div key={title} className="flex gap-4 bg-white p-5" style={{ border: '1px solid rgba(108,124,73,0.1)' }}>
+                  <div className="w-9 h-9 shrink-0 flex items-center justify-center" style={{ border: '1px solid rgba(108,124,73,0.2)', background: 'rgba(108,124,73,0.05)', color: '#6c7c49' }} aria-hidden>{icon}</div>
                   <div>
                     <p className="font-sans text-sm font-semibold text-terre mb-1">{title}</p>
                     <p className="text-xs text-terre/55 leading-relaxed">{desc}</p>
