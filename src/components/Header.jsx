@@ -168,13 +168,13 @@ export default function Header() {
           <Link to="/" className="flex items-center gap-3 shrink-0 group">
             <div className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center transition-all duration-300 group-hover:scale-105 mx-2 my-1">
               <img
-                src="/logo.png"
+                src="/logos/20260605_210203_5980.png"
                 alt="Logo Ressources Recyclerie"
                 className="w-full h-full object-contain drop-shadow-sm"
               />
             </div>
             <div className="leading-tight">
-              <span className="block font-serif text-base md:text-lg text-terre font-semibold tracking-tight transition-colors group-hover:text-ocre duration-200">
+              <span className="block font-sans text-base md:text-lg text-terre font-bold tracking-tight transition-colors group-hover:text-ocre duration-200">
                 Ressources
               </span>
               <span className="block text-[10px] text-terre/45 tracking-[0.18em] uppercase font-sans">
