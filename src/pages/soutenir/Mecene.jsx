@@ -46,7 +46,7 @@ export default function Mecene() {
               {
                 tier: 'Sponsor',
                 engagement: 'Soutien financier',
-                avantages: ['Logo sur le site et les supports', 'Mention prioritaire lors des événements', 'Présence visuelle lors du 17 octobre', 'Attestation fiscale de don'],
+                avantages: ['Logo sur le site et les supports', 'Mention prioritaire lors des événements', 'Présence visuelle lors du 03 octobre', 'Attestation fiscale de don'],
                 cta: 'Nous contacter',
                 accent: true,
               },
