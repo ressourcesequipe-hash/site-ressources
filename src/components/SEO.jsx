@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async'
+import { useEffect } from 'react'
 
 const BASE_URL = 'https://www.ressourcesrecyclerie.fr'
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`
@@ -12,6 +13,11 @@ export default function SEO({
   ogImage = null,
 }) {
   const fullTitle = title || 'Ressources | Recyclerie solidaire dans les Landes (40)'
+
+  // Fallback direct — garantit la mise à jour de l'onglet même si Helmet est lent
+  useEffect(() => {
+    document.title = fullTitle
+  }, [fullTitle])
 
   const image = ogImage || DEFAULT_OG_IMAGE
 
