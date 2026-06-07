@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
@@ -13,7 +13,7 @@ export default function Benevole() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Devenir bénévole — association Ressources Landes"
+        title="Devenir Bénévole Recyclerie Solidaire Landes | Association Ressources"
         description="Rejoignez l'équipe bénévole de l'association Ressources dans les Landes. Collecte, reconditionnement, végétal, événements — contribuez selon vos disponibilités."
         canonical="/soutenir/benevole/"
       />
@@ -138,3 +138,4 @@ function BenevoleForm() {
     </form>
   )
 }
+

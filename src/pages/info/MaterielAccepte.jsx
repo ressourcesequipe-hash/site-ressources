@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
 import { IconOrdinateur, IconEcran, IconMobile, IconConsole, IconCable, IconImprimante } from '../../components/Icons'
@@ -21,7 +21,7 @@ export default function MaterielAccepte() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Matériel informatique accepté — don dans les Landes"
+        title="Matériel Informatique Accepté en Don — Landes | Ressources"
         description="Liste complète du matériel informatique que nous collectons dans les Landes : ordinateurs, écrans, smartphones, tablettes, câbles, consoles. Association Ressources (40560)."
         canonical="/recyclerie-informatique/materiel-accepte/"
       />
@@ -111,4 +111,6 @@ export default function MaterielAccepte() {
     </Layout>
   )
 }
+
+
 

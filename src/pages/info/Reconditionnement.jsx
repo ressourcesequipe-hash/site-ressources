@@ -50,7 +50,7 @@ export default function Reconditionnement() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Reconditionnement informatique solidaire — les 6 étapes"
+        title="Reconditionnement Informatique Solidaire Landes | Ressources"
         description="Découvrez les 6 étapes de la filière informatique de l'association Ressources : collecte, tri, effacement des données, diagnostic, reconditionnement et redistribution solidaire dans les Landes."
         canonical="/recyclerie-informatique/reconditionnement/"
       />
@@ -123,3 +123,4 @@ export default function Reconditionnement() {
     </Layout>
   )
 }
+

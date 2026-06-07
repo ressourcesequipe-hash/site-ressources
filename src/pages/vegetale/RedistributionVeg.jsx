@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
 import { IconFamille, IconMaison, IconEcole, IconPartenaires, IconGlobe, IconProximite } from '../../components/Icons'
@@ -12,8 +12,8 @@ export default function RedistributionVeg() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Vente solidaire de végétaux dans les Landes — association Ressources"
-        description="Achetez des plantes, contenants et matériels de jardin à prix solidaire dans les Landes (40). L'association Ressources propose les végétaux collectés à la vente, avec quelques mises à disposition pour les collectivités partenaires."
+        title="Acheter des Plantes à Prix Solidaire Landes | Recyclerie Végétale Ressources"
+        description="Achetez plantes, pots et outils de jardin à prix solidaire dans les Landes (40). La recyclerie végétale Ressources propose les végétaux collectés à la vente sur le territoire landais. Vielle-Saint-Girons."
         canonical="/recyclerie-vegetale/redistribution/"
       />
 
@@ -131,4 +131,5 @@ export default function RedistributionVeg() {
     </Layout>
   )
 }
+
 

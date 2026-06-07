@@ -15,8 +15,8 @@ export default function RecyclerieInfo() {
   return (
     <Layout>
       <SEO
-        title="Recyclerie informatique solidaire dans les Landes"
-        description="Donnez votre ordinateur, tablette ou smartphone dans les Landes (40). L'association Ressources reconditionne les équipements pour l'inclusion numérique sur le territoire landais."
+        title="Recyclerie Informatique Solidaire Landes | Ressources"
+        description="Donnez votre ordinateur, tablette ou smartphone dans les Landes (40). Ressources reconditionne et revend à prix solidaire. Point de collecte à Vielle-Saint-Girons (40560)."
         canonical="/recyclerie-informatique/"
       />
 

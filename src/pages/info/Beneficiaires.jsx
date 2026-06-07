@@ -12,7 +12,7 @@ export default function Beneficiaires() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Acheter du matériel informatique reconditionné dans les Landes"
+        title="Acheter un Ordinateur Reconditionné Landes | Ressources"
         description="Achetez un ordinateur, tablette ou smartphone reconditionné à prix solidaire dans les Landes (40). L'association Ressources propose des équipements remis en état, bien en dessous du prix du marché."
         canonical="/recyclerie-informatique/beneficiaires/"
       />
@@ -163,3 +163,4 @@ export default function Beneficiaires() {
     </Layout>
   )
 }
+

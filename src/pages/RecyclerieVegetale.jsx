@@ -14,8 +14,8 @@ export default function RecyclerieVegetale() {
   return (
     <Layout>
       <SEO
-        title="Recyclerie végétale solidaire dans les Landes"
-        description="Donnez vos plantes, contenants et outils de jardin dans les Landes (40). L'association Ressources redistribue vos végétaux aux habitants et structures du territoire landais."
+        title="Recyclerie Végétale Solidaire Landes | Ressources"
+        description="Donnez vos plantes, pots et outils de jardin dans les Landes (40). Ressources propose vos végétaux à la vente solidaire sur le territoire landais. Vielle-Saint-Girons (40560)."
         canonical="/recyclerie-vegetale/"
       />
 

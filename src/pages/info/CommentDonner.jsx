@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
@@ -12,7 +12,7 @@ export default function CommentDonner() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Comment donner son matériel informatique dans les Landes"
+        title="Donner son Matériel Informatique dans les Landes | Ressources"
         description="Donnez votre ordinateur, tablette ou smartphone dans les Landes (40). Points de collecte, enlèvement à domicile, démarche simplifiée — association Ressources, Vielle-Saint-Girons."
         canonical="/recyclerie-informatique/comment-donner/"
       />
@@ -208,4 +208,6 @@ function DonMaterielForm() {
     </form>
   )
 }
+
+
 

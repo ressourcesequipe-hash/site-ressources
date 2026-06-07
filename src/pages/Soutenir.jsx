@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import { IconTombola, IconNousRejoindre, IconEntreprise, IconDon } from '../components/Icons'
@@ -46,8 +46,8 @@ export default function Soutenir() {
   return (
     <Layout>
       <SEO
-        title="Soutenir l'association Ressources — recyclerie solidaire Landes"
-        description="Soutenez l'association Ressources dans les Landes : tombola solidaire, bénévolat, mécénat ou don. Votre soutien finance la recyclerie informatique et végétale du territoire landais."
+        title="Soutenir la Recyclerie Solidaire Landes | Association Ressources"
+        description="Aidez la recyclerie Ressources dans les Landes : tombola, bénévolat, mécénat ou don. Chaque soutien finance la recyclerie informatique et végétale solidaire du territoire landais (40)."
         canonical="/soutenir/"
       />
 
@@ -181,3 +181,4 @@ export default function Soutenir() {
     </Layout>
   )
 }
+

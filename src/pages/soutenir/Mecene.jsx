@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
 
@@ -11,7 +11,7 @@ export default function Mecene() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Mécénat & partenariat — association Ressources Landes"
+        title="Mécénat & Partenariat Recyclerie Solidaire Landes | Association Ressources"
         description="Associez votre entreprise au projet de recyclerie solidaire des Landes. Mécénat, sponsoring, partenariat local — plusieurs formules disponibles avec l'association Ressources."
         canonical="/soutenir/mecene/"
       />
@@ -94,3 +94,4 @@ export default function Mecene() {
     </Layout>
   )
 }
+

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
@@ -60,7 +60,7 @@ export default function Evenement() {
   return (
     <Layout>
       <SEO
-        title="Événement de lancement — 03 octobre 2026"
+        title="Lancement Recyclerie Solidaire Landes — 03 octobre 2026 | Ressources"
         description="Rejoignez le lancement de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons (Landes). Challenge collecte 1 tonne de matériel, tombola solidaire avec plus de 7 000 € de lots, festivités."
         canonical="/evenement-lancement-03-octobre-2026/"
         type="event"
@@ -327,3 +327,4 @@ function ContactForm() {
     </form>
   )
 }
+

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
 
@@ -11,8 +11,8 @@ export default function CommentDonnerVeg() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Comment donner ses plantes dans les Landes"
-        description="Donnez vos plantes, contenants et outils de jardin dans les Landes (40). L'association Ressources les redistribue solidairement sur le territoire. Vielle-Saint-Girons."
+        title="Donner des Plantes dans les Landes — Recyclerie Végétale | Ressources"
+        description="Donnez vos plantes, contenants et outils de jardin dans les Landes (40). Ressources collecte et propose vos végétaux à la vente solidaire sur le territoire landais. Vielle-Saint-Girons (40560)."
         canonical="/recyclerie-vegetale/comment-donner/"
       />
 
@@ -78,4 +78,5 @@ export default function CommentDonnerVeg() {
     </Layout>
   )
 }
+
 

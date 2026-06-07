@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
@@ -12,8 +12,8 @@ export default function PartenairesVegetaux() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Partenaires végétaux — recyclerie végétale Landes"
-        description="Rejoignez le réseau de partenaires végétaux de l'association Ressources dans les Landes. Communes, campings, pépinières, fleuristes — devenez point de collecte ou point de vente solidaire."
+        title="Partenaires Végétaux — Recyclerie Végétale Solidaire Landes | Ressources"
+        description="Communes, campings, pépinières, fleuristes des Landes : rejoignez la recyclerie végétale Ressources. Devenez point de collecte ou de vente solidaire sur le territoire landais (40)."
         canonical="/recyclerie-vegetale/partenaires-vegetaux/"
       />
 
@@ -159,4 +159,5 @@ function PartenaireForm() {
     </form>
   )
 }
+
 

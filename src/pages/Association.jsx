@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import { IconEquipe, IconTerritoire, IconPartenaires, IconActualites, IconNousRejoindre } from '../components/Icons'
@@ -33,8 +33,8 @@ export default function Association() {
   return (
     <Layout>
       <SEO
-        title="Association Ressources — recyclerie solidaire Vielle-Saint-Girons"
-        description="L'association Ressources (loi 1901, fondée 2025) porte un projet de recyclerie informatique et végétale solidaire à Vielle-Saint-Girons, dans les Landes (40560)."
+        title="Association Ressources — Recyclerie Solidaire Landes (40)"
+        description="Ressources est une association loi 1901 qui porte une recyclerie informatique et végétale solidaire dans les Landes (40) à Vielle-Saint-Girons. Réemploi, économie circulaire, lien social."
         canonical="/association/"
       />
 
@@ -175,3 +175,4 @@ export default function Association() {
     </Layout>
   )
 }
+

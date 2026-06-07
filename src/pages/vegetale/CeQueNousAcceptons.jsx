@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
 import { IconFeuille, IconFleur, IconPot, IconPlante, IconJardinage, IconMaison } from '../../components/Icons'
@@ -12,8 +12,8 @@ export default function CeQueNousAcceptons() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Végétaux et matériels acceptés — recyclerie végétale Landes"
-        description="Liste des végétaux et matériels acceptés par la recyclerie végétale de l'association Ressources dans les Landes : plantes, contenants, outils, mobilier de jardin."
+        title="Plantes et Matériels Acceptés — Recyclerie Végétale Landes | Ressources"
+        description="Quels végétaux et matériels de jardin la recyclerie Ressources accepte-t-elle dans les Landes ? Plantes, pots, outils, mobilier de jardin — liste complète. Vielle-Saint-Girons (40560)."
         canonical="/recyclerie-vegetale/ce-que-nous-acceptons/"
       />
 
@@ -77,4 +77,5 @@ export default function CeQueNousAcceptons() {
     </Layout>
   )
 }
+
 
