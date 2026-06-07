@@ -137,7 +137,7 @@ export default function RecyclerieVegetale() {
             Vous gérez un espace vert, une pépinière, un commerce ou un site touristique ?
             Devenez partenaire de collecte ou de redistribution végétale.
           </p>
-          <Link to="/recyclerie-vegetale/partenaires-vegetaux/" className="btn-outline-ocre text-sm">
+          <Link to="/recyclerie-vegetale/partenaires-vegetaux/" className="btn-outline-veg text-sm">
             Devenir partenaire végétal
           </Link>
         </div>

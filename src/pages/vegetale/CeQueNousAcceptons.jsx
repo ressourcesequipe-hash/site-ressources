@@ -17,9 +17,9 @@ export default function CeQueNousAcceptons() {
         canonical="/recyclerie-vegetale/ce-que-nous-acceptons/"
       />
 
-      <section className="bg-kaki-pale py-12 md:py-16 border-b border-kaki/10">
+      <section style={{ backgroundColor: '#EDECCE', borderColor: 'rgba(108,124,73,0.1)' }} className="py-12 md:py-16 border-b">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <p className="font-sans text-kaki text-xs font-semibold tracking-[0.2em] uppercase mb-3">
+          <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase mb-3" style={{ color: '#6c7c49' }}>
             Recyclerie végétale
           </p>
           <h1 className="font-serif text-3xl sm:text-4xl text-terre mb-4">
@@ -45,13 +45,13 @@ export default function CeQueNousAcceptons() {
             ].map(({ icon, titre, items }) => (
               <div key={titre} className="bg-beige-light border border-beige-dark p-5">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 border border-kaki/20 bg-kaki/5 flex items-center justify-center text-kaki shrink-0" aria-hidden>{icon}</div>
+                  <div className="w-8 h-8 flex items-center justify-center shrink-0" style={{ border: '1px solid rgba(108,124,73,0.2)', background: 'rgba(108,124,73,0.05)', color: '#6c7c49' }} aria-hidden>{icon}</div>
                   <h2 className="font-serif text-base text-terre">{titre}</h2>
                 </div>
                 <ul className="space-y-1.5">
                   {items.map((item) => (
                     <li key={item} className="flex items-start gap-2 text-sm text-terre/65">
-                      <span className="text-kaki mt-1 shrink-0 text-xs">✓</span>
+                      <span className="mt-1 shrink-0 text-xs" style={{ color: '#6c7c49' }}>✓</span>
                       {item}
                     </li>
                   ))}
@@ -68,7 +68,7 @@ export default function CeQueNousAcceptons() {
             </p>
           </div>
 
-          <Link to="/recyclerie-vegetale/comment-donner/" className="btn-kaki text-sm">
+          <Link to="/recyclerie-vegetale/comment-donner/" className="btn-veg text-sm">
             Je veux donner mes végétaux
           </Link>
         </div>
