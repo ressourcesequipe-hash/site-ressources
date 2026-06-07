@@ -1,5 +1,8 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/((?!sitemap\\.xml|robots\\.txt|logos/|botanicals/|.*\\.(png|jpg|jpeg|svg|ico|webp|css|js|json|xml|txt|woff|woff2)).*)",
+      "destination": "/index.html"
+    }
   ]
 }
