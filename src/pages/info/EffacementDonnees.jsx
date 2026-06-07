@@ -17,7 +17,7 @@ export default function EffacementDonnees() {
         canonical="/recyclerie-informatique/effacement-donnees/"
       />
 
-      <section className="bg-kaki-pale py-12 md:py-16 border-b border-kaki/10">
+      <section className="py-12 md:py-16 border-b border-kaki/10" style={{ backgroundColor: "#E5E4D5" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <p className="font-sans text-ocre text-xs font-semibold tracking-[0.2em] uppercase mb-3">
             Sécurité & RGPD
@@ -91,3 +91,4 @@ export default function EffacementDonnees() {
     </Layout>
   )
 }
+
