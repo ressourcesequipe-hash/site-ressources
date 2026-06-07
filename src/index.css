@@ -157,6 +157,12 @@
            hover:border-ocre/40 hover:bg-ocre/5 hover:text-terre
            cursor-default;
   }
+
+  .impact-card {
+    background-color: #E5E4D5;
+    transition: background-color 0.3s;
+  }
+  .impact-card:hover { background-color: #ffffff; }
 }
 
 @layer utilities {
