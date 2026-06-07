@@ -19,7 +19,7 @@ export default function EventBanner() {
   return (
     <div
       className={`relative overflow-hidden z-50 transition-all duration-500 ${visible ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}`}
-      style={{ background: 'linear-gradient(135deg, #2B3520 0%, #3D4A2D 50%, #4a5935 100%)' }}
+      style={{ background: 'linear-gradient(135deg, #2B3520 0%, #404C2F 50%, #4a5935 100%)' }}
     >
       {/* Ligne accent top */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ocre/70 to-transparent" />
@@ -28,7 +28,7 @@ export default function EventBanner() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'linear-gradient(105deg, transparent 40%, rgba(200,151,58,0.07) 50%, transparent 60%)',
+          background: 'linear-gradient(105deg, transparent 40%, rgba(114,110,36,0.07) 50%, transparent 60%)',
           backgroundSize: '200% 100%',
           animation: 'shimmer 4s linear infinite',
         }}

@@ -161,7 +161,7 @@ export default function RecyclerieInfo() {
       </section>
 
       {/* Contact enlèvement */}
-      <section className="py-14 md:py-20 bg-kaki-pale">
+      <section className="py-14 md:py-20 bg-beige">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-8">
             <p className="section-label">Vous avez beaucoup de matériel ?</p>
