@@ -431,7 +431,7 @@ export default function Home() {
 
       {/* ══════════════ IMPACT ══════════════ */}
       <section className="py-20 md:py-28 relative overflow-hidden" ref={impact.ref}
-        style={{ background: 'linear-gradient(135deg, #EDE5D8 0%, #F0E8DA 50%, #D5C9B5 100%)' }}>
+        style={{ background: '#E5E4D5' }}>
         <div className="absolute inset-0 opacity-[0.02]"
           style={{ backgroundImage: 'radial-gradient(circle, #404C2F 1px, transparent 1px)', backgroundSize: '24px 24px' }} aria-hidden />
 
