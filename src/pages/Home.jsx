@@ -379,7 +379,7 @@ export default function Home() {
             </div>
 
             {/* Végétale */}
-            <div className="group relative bg-kaki-pale text-terre p-8 md:p-14 overflow-hidden transition-all duration-500 hover:shadow-2xl">
+            <div className="group relative text-terre p-8 md:p-14 overflow-hidden transition-all duration-500 hover:shadow-2xl" style={{ backgroundColor: '#C4C28F' }}>
               <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-kaki via-kaki-light to-kaki/20" />
               <div className="absolute top-0 right-0 w-48 h-48 rounded-bl-full transition-all duration-700 group-hover:w-64 group-hover:h-64"
                 style={{ background: 'radial-gradient(circle at top right, rgba(61,74,45,0.07), transparent 70%)' }} />
