@@ -81,6 +81,12 @@ export default function Footer() {
               >
                 Faire un don
               </Link>
+              <Link
+                to="/contact/"
+                className="border border-white/40 text-white px-6 py-2.5 text-sm font-medium hover:border-white hover:bg-white/10 transition-all duration-200 whitespace-nowrap"
+              >
+                Nous contacter
+              </Link>
             </div>
           </div>
         </div>

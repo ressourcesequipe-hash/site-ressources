@@ -6,7 +6,7 @@ import { IconPlante, IconPot, IconNousRejoindre, IconFeuille, IconGlobe, IconRee
 const PAGES_FILLES = [
   { to: '/recyclerie-vegetale/comment-donner/', title: 'Comment donner', desc: 'Démarche de don, points de collecte végétale', Icon: IconPlante },
   { to: '/recyclerie-vegetale/ce-que-nous-acceptons/', title: 'Ce que nous acceptons', desc: 'Plantes, contenants, outils et matériels de jardin', Icon: IconPot },
-  { to: '/recyclerie-vegetale/redistribution/', title: 'Redistribution', desc: 'Qui peut bénéficier des plantes et matériels collectés', Icon: IconNousRejoindre },
+  { to: '/recyclerie-vegetale/redistribution/', title: 'Vente solidaire', desc: 'Acheter des plantes et matériels collectés à prix solidaire', Icon: IconNousRejoindre },
   { to: '/recyclerie-vegetale/partenaires-vegetaux/', title: 'Partenaires végétaux', desc: 'Communes, campings, pépinières et fleuristes partenaires', Icon: IconFeuille },
 ]
 
@@ -33,15 +33,15 @@ export default function RecyclerieVegetale() {
           <div className="w-12 h-0.5 bg-kaki mb-6" />
           <p className="text-terre/65 max-w-xl leading-relaxed mb-8">
             Plantes, contenants, outils et matériels de jardinage collectés
-            et redistribués solidairement aux habitants, communes et structures
-            du territoire des Landes. Parce que vos végétaux méritent un nouvel avenir.
+            et proposés à la vente solidaire sur le territoire des Landes.
+            Parce que vos végétaux méritent un nouvel avenir — et un nouveau propriétaire.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link to="/recyclerie-vegetale/comment-donner/" className="btn-kaki">
               Je donne des plantes
             </Link>
             <Link to="/recyclerie-vegetale/redistribution/" className="inline-block border-2 border-kaki text-kaki font-sans font-medium px-7 py-3 text-sm tracking-wide transition-all hover:bg-kaki hover:text-white">
-              Qui peut bénéficier ?
+              Vente solidaire
             </Link>
           </div>
         </div>
@@ -94,9 +94,10 @@ export default function RecyclerieVegetale() {
                 n'ont plus l'usage. Plutôt que de jeter, donnez !
               </p>
               <p className="text-terre/65 leading-relaxed mb-6">
-                La filière végétale de Ressources crée un circuit court solidaire :
-                les végétaux collectés sont redistribués à des personnes, familles
-                et structures du territoire qui en ont besoin ou qui le souhaitent.
+                La filière végétale de Ressources crée un circuit court local :
+                les végétaux collectés sont remis en état puis proposés à la vente
+                à prix solidaire — bien en dessous du marché. Les recettes contribuent
+                à financer le projet associatif.
               </p>
               <Link to="/recyclerie-vegetale/ce-que-nous-acceptons/" className="btn-kaki">
                 Voir ce que nous acceptons
@@ -106,7 +107,7 @@ export default function RecyclerieVegetale() {
               {[
                 { icon: <IconGlobe className="w-5 h-5" />, title: 'Réemploi local', desc: 'Vos végétaux restent sur le territoire, au profit des habitants des Landes.' },
                 { icon: <IconReemploi className="w-5 h-5" />, title: 'Zéro gaspillage', desc: 'Chaque plante, contenant et outil récupéré évite un déchet et un achat neuf.' },
-                { icon: <IconSolidarite className="w-5 h-5" />, title: 'Lien social', desc: 'La filière végétale crée des rencontres et du lien entre donateurs et bénéficiaires.' },
+                { icon: <IconSolidarite className="w-5 h-5" />, title: 'Circuit court', desc: 'La filière végétale crée du lien entre donateurs et acheteurs solidaires du territoire.' },
               ].map(({ icon, title, desc }) => (
                 <div key={title} className="flex gap-4 bg-white p-5 border border-kaki/10">
                   <div className="w-9 h-9 shrink-0 border border-kaki/20 bg-kaki/5 flex items-center justify-center text-kaki" aria-hidden>{icon}</div>

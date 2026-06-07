@@ -5,23 +5,23 @@ export default {
     extend: {
       colors: {
         ocre: {
-          DEFAULT: '#C8973A',
-          light: '#D4AA5A',
-          dark: '#A07828',
-          pale: '#FDF0DC',
+          DEFAULT: '#726E24',
+          light: '#9B9730',
+          dark: '#524F18',
+          pale: '#EDECCE',
         },
         kaki: {
-          DEFAULT: '#3D4A2D',
-          light: '#556040',
+          DEFAULT: '#404C2F',
+          light: '#C4C28F',
           dark: '#2B3520',
-          pale: '#EEF0EA',
+          pale: '#EFEBDF',
         },
         beige: {
-          DEFAULT: '#EDE5D8',
-          light: '#F7F3ED',
-          dark: '#D5C9B5',
+          DEFAULT: '#E5E4D5',
+          light: '#EFEBDF',
+          dark: '#C4C28F',
         },
-        terre: '#2C2A26',
+        terre: '#2B3520',
       },
       fontFamily: {
         serif: ['"Playfair Display"', 'Georgia', 'serif'],

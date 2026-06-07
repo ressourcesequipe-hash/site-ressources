@@ -8,7 +8,7 @@ const PAGES_FILLES = [
   { to: '/recyclerie-informatique/materiel-accepte/', title: 'Matériel accepté', desc: 'Liste complète des équipements que nous collectons', Icon: IconOrdinateur },
   { to: '/recyclerie-informatique/reconditionnement/', title: 'Notre processus', desc: 'Les 6 étapes de la filière, de la collecte à la redistribution', Icon: IconOutil },
   { to: '/recyclerie-informatique/effacement-donnees/', title: 'Sécurité des données', desc: 'Effacement certifié, traçabilité, conformité RGPD', Icon: IconSecurite },
-  { to: '/recyclerie-informatique/beneficiaires/', title: 'Qui peut bénéficier', desc: 'Personnes et structures prioritaires sur notre territoire', Icon: IconPartenaires },
+  { to: '/recyclerie-informatique/beneficiaires/', title: 'Acheter du matériel', desc: 'Acquérir un équipement reconditionné à prix solidaire', Icon: IconPartenaires },
 ]
 
 export default function RecyclerieInfo() {
@@ -34,15 +34,15 @@ export default function RecyclerieInfo() {
           <div className="w-12 h-0.5 bg-ocre mb-6" />
           <p className="text-white/65 max-w-xl leading-relaxed mb-8">
             Vos équipements hors d'usage ou inutilisés — ordinateurs, tablettes, smartphones —
-            sont collectés, reconditionnés et redistribués à des personnes et structures
-            qui en ont besoin sur le territoire landais.
+            sont collectés, reconditionnés par des bénévoles qualifiés, puis revendus
+            à prix solidaire, bien en dessous du marché.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link to="/recyclerie-informatique/comment-donner/" className="btn-ocre">
               Je donne du matériel
             </Link>
             <Link to="/recyclerie-informatique/beneficiaires/" className="btn-outline-white">
-              Qui peut bénéficier ?
+              Acheter du matériel reconditionné
             </Link>
           </div>
         </div>
@@ -113,6 +113,48 @@ export default function RecyclerieInfo() {
                 <h3 className="font-serif text-lg text-terre mb-2">{title}</h3>
                 <p className="text-sm text-terre/55 leading-relaxed">{desc}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 bg-white border-t border-beige">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="mb-8">
+            <p className="section-label">Questions fréquentes</p>
+            <h2 className="font-serif text-3xl text-terre">Tout ce que vous voulez savoir</h2>
+          </div>
+          <div className="space-y-4">
+            {[
+              {
+                q: 'Quels appareils puis-je donner ?',
+                a: 'Ordinateurs portables et fixes, tablettes, smartphones, écrans, imprimantes, câbles et accessoires. Voir la page "Matériel accepté" pour la liste complète.',
+              },
+              {
+                q: 'Que deviennent mes données personnelles ?',
+                a: 'Chaque appareil passe par un effacement certifié de ses données avant tout reconditionnement. Vous recevez une confirmation d\'effacement sur demande.',
+              },
+              {
+                q: 'Puis-je acheter un équipement reconditionné ?',
+                a: 'Oui ! C\'est même l\'un des objectifs principaux de la filière. Les équipements reconditionnés sont vendus à prix solidaire, bien en dessous du marché. Contactez-nous pour connaître les stocks disponibles.',
+              },
+              {
+                q: 'Mon équipement est-il trop vieux pour être donné ?',
+                a: 'Pas nécessairement. Même des appareils anciens peuvent être valorisés pour des usages simples ou en pièces détachées. En cas de doute, contactez-nous avant de vous déplacer.',
+              },
+              {
+                q: 'Comment se passe un enlèvement à domicile ?',
+                a: 'Vous remplissez le formulaire ci-dessous avec une description du matériel. Nous vous recontactons pour convenir d\'un créneau. L\'enlèvement est gratuit et sans engagement.',
+              },
+            ].map(({ q, a }) => (
+              <details key={q} className="border border-beige group">
+                <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none font-sans text-sm font-semibold text-terre hover:text-ocre transition-colors">
+                  {q}
+                  <span className="shrink-0 text-ocre/50 group-open:rotate-180 transition-transform duration-200">▾</span>
+                </summary>
+                <p className="px-5 pb-5 text-sm text-terre/60 leading-relaxed border-t border-beige pt-4">{a}</p>
+              </details>
             ))}
           </div>
         </div>

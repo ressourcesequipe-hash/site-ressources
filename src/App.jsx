@@ -25,6 +25,7 @@ import Tombola from './pages/soutenir/Tombola'
 import Benevole from './pages/soutenir/Benevole'
 import Mecene from './pages/soutenir/Mecene'
 import Don from './pages/soutenir/Don'
+import Contact from './pages/Contact'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -62,6 +63,7 @@ export default function App() {
         <Route path="/soutenir/benevole/" element={<Benevole />} />
         <Route path="/soutenir/mecene/" element={<Mecene />} />
         <Route path="/soutenir/don/" element={<Don />} />
+        <Route path="/contact/" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   )

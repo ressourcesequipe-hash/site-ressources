@@ -124,6 +124,44 @@ export default function Soutenir() {
         </div>
       </section>
 
+      {/* FAQ soutien */}
+      <section className="py-16 bg-white border-t border-beige">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="mb-8">
+            <p className="section-label">Questions fréquentes</p>
+            <h2 className="font-serif text-3xl text-terre">Soutenir l'association</h2>
+          </div>
+          <div className="space-y-4">
+            {[
+              {
+                q: 'Les dons sont-ils déductibles des impôts ?',
+                a: 'Les dons à une association d\'intérêt général ouvrent droit à une réduction d\'impôt de 66 % du montant versé pour les particuliers (dans la limite de 20 % du revenu imposable). Une attestation fiscale vous est délivrée. Ce statut est en cours d\'obtention pour l\'association Ressources.',
+              },
+              {
+                q: 'Comment devenir bénévole ?',
+                a: 'Remplissez le formulaire sur la page "Devenir bénévole". Nous cherchons des profils variés : informatique, jardinage, logistique, communication, comptabilité. Aucune compétence particulière n\'est exigée pour beaucoup de missions.',
+              },
+              {
+                q: 'Mon entreprise peut-elle devenir mécène ?',
+                a: 'Oui. Les entreprises mécènes bénéficient d\'une réduction d\'impôt de 60 % du don dans la limite de 0,5 % du CA HT (CGI art. 238 bis). Plusieurs formules sont disponibles : don matériel, sponsoring, partenariat annuel.',
+              },
+              {
+                q: 'Puis-je participer à la tombola sans venir à l\'événement ?',
+                a: 'Oui, des billets de tombola peuvent être achetés en ligne ou auprès de nos partenaires locaux. Le tirage se fait lors de l\'événement du 03 octobre 2026 à Vielle-Saint-Girons.',
+              },
+            ].map(({ q, a }) => (
+              <details key={q} className="border border-beige group">
+                <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none font-sans text-sm font-semibold text-terre hover:text-ocre transition-colors">
+                  {q}
+                  <span className="shrink-0 text-ocre/50 group-open:rotate-180 transition-transform duration-200">▾</span>
+                </summary>
+                <p className="px-5 pb-5 text-sm text-terre/60 leading-relaxed border-t border-beige pt-4">{a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact */}
       <section className="py-14 bg-beige-light">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
@@ -132,12 +170,12 @@ export default function Soutenir() {
             Nous sommes ouverts à toute forme de soutien : mise à disposition de locaux,
             compétences bénévoles spécifiques, dons matériels, relais communication…
           </p>
-          <a
-            href="mailto:contact@ressourcesrecyclerie.fr"
+          <Link
+            to="/contact/"
             className="btn-outline-ocre"
           >
             Nous contacter
-          </a>
+          </Link>
         </div>
       </section>
     </Layout>

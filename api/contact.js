@@ -36,6 +36,13 @@ const templates = {
       ['Commune', d.commune || '—'], ['Message', d.message || '—'],
     ]),
   }),
+  contact: (d) => ({
+    subject: `📩 Nouveau message — ${d.sujet || 'Contact général'}`,
+    html: row('Message de contact', [
+      ['Nom', d.nom], ['Email', d.email], ['Téléphone', d.telephone || '—'],
+      ['Sujet', d.sujet || '—'], ['Message', d.message],
+    ]),
+  }),
 }
 
 function row(title, fields) {
