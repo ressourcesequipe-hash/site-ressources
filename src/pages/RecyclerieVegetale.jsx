@@ -20,7 +20,7 @@ export default function RecyclerieVegetale() {
       />
 
       {/* Hero silo végétal */}
-      <section className="bg-kaki-pale py-14 md:py-20 relative overflow-hidden border-b border-[#6c7c49]/10">
+      <section style={{ backgroundColor: "#EDECCE" }} className="py-14 md:py-20 relative overflow-hidden border-b border-[#6c7c49]/10">
         <div className="absolute top-0 left-0 w-full h-1 bg-[#6c7c49]" />
         <div className="absolute right-0 bottom-0 w-96 h-96 rounded-tl-full pointer-events-none" style={{ background: 'rgba(108,124,73,0.05)' }} aria-hidden />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
@@ -82,7 +82,7 @@ export default function RecyclerieVegetale() {
       </section>
 
       {/* Pourquoi une filière végétale */}
-      <section className="py-16 md:py-20 bg-kaki-pale">
+      <section className="py-16 md:py-20" style={{ backgroundColor: '#EDECCE' }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div>

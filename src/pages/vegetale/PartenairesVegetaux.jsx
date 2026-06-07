@@ -17,7 +17,7 @@ export default function PartenairesVegetaux() {
         canonical="/recyclerie-vegetale/partenaires-vegetaux/"
       />
 
-      <section className="bg-kaki-pale py-12 md:py-16 border-b" style={{ borderColor: 'rgba(108,124,73,0.1)' }}>
+      <section style={{ backgroundColor: "#EDECCE" }} className="py-12 md:py-16 border-b" style={{ borderColor: 'rgba(108,124,73,0.1)' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase mb-3" style={{ color: '#6c7c49' }}>
             Recyclerie végétale
