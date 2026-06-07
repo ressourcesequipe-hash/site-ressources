@@ -11,9 +11,7 @@ export default function SEO({
   schema = null,
   ogImage = null,
 }) {
-  const fullTitle = title
-    ? `${title} — Ressources, recyclerie solidaire Landes`
-    : 'Ressources — Recyclerie solidaire dans les Landes (40)'
+  const fullTitle = title || 'Ressources | Recyclerie solidaire dans les Landes (40)'
 
   const image = ogImage || DEFAULT_OG_IMAGE
 
