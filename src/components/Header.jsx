@@ -174,7 +174,7 @@ export default function Header() {
               />
             </div>
             <div className="leading-tight">
-              <span className="block font-sans text-base md:text-lg text-terre font-bold tracking-tight transition-colors group-hover:text-ocre duration-200">
+              <span className="block font-sans text-base md:text-lg text-terre font-semibold tracking-tight transition-colors group-hover:text-ocre duration-200">
                 Ressources
               </span>
               <span className="block text-[10px] text-terre/45 tracking-[0.18em] uppercase font-sans">
