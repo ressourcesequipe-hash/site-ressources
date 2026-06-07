@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
-import { BrancheFeuilles, FeuillsDispers } from '../../components/BotanicalDecor'
 
 const BREADCRUMBS = [
   { label: 'Recyclerie Végétale', href: '/recyclerie-vegetale/' },
@@ -18,8 +17,7 @@ export default function CommentDonnerVeg() {
       />
 
       <section style={{ backgroundColor: "#EDECCE", borderColor: 'rgba(108,124,73,0.1)' }} className="py-12 md:py-16 border-b relative overflow-hidden">
-        <BrancheFeuilles className="absolute top-0 right-6 w-20 opacity-55 pointer-events-none select-none" />
-        <FeuillsDispers className="absolute bottom-2 right-32 w-24 opacity-45 pointer-events-none select-none" />
+
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase mb-3" style={{ color: '#6c7c49' }}>
             Recyclerie végétale
@@ -80,3 +78,4 @@ export default function CommentDonnerVeg() {
     </Layout>
   )
 }
+

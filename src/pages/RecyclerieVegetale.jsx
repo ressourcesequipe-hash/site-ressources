@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import { IconPlante, IconPot, IconNousRejoindre, IconFeuille, IconGlobe, IconReemploi, IconSolidarite } from '../components/Icons'
-import { BrancheFeuilles, EucalyptusStem, GinkgoLeaves, FeuillsDispers } from '../components/BotanicalDecor'
 
 const PAGES_FILLES = [
   { to: '/recyclerie-vegetale/comment-donner/', title: 'Comment donner', desc: 'Démarche de don, points de collecte végétale', Icon: IconPlante },
@@ -23,9 +22,8 @@ export default function RecyclerieVegetale() {
       {/* Hero silo végétal */}
       <section style={{ backgroundColor: "#EDECCE" }} className="py-14 md:py-20 relative overflow-hidden border-b border-[#6c7c49]/10">
         <div className="absolute top-0 left-0 w-full h-1 bg-[#6c7c49]" />
-        <BrancheFeuilles className="absolute top-0 right-8 w-24 opacity-60 pointer-events-none select-none" />
-        <EucalyptusStem className="absolute bottom-0 left-6 w-16 opacity-50 pointer-events-none select-none" />
-        <FeuillsDispers className="absolute bottom-6 right-32 w-28 opacity-50 pointer-events-none select-none" />
+
+
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
           <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase mb-4" style={{ color: '#6c7c49' }}>
             Filière végétale
@@ -86,8 +84,7 @@ export default function RecyclerieVegetale() {
 
       {/* Pourquoi une filière végétale */}
       <section className="py-16 md:py-20 relative overflow-hidden" style={{ backgroundColor: '#EDECCE' }}>
-        <GinkgoLeaves className="absolute top-6 right-4 w-32 opacity-40 pointer-events-none select-none" />
-        <EucalyptusStem className="absolute bottom-0 left-2 w-14 opacity-35 pointer-events-none select-none" />
+
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div>
@@ -150,3 +147,4 @@ export default function RecyclerieVegetale() {
     </Layout>
   )
 }
+
