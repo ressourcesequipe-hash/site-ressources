@@ -28,7 +28,7 @@ const eventSchema = {
       longitude: -1.3019,
     },
   },
-  description: "Journée de lancement de l'association Ressources — recyclerie informatique et végétale solidaire dans les Landes. Challenge collecte 1 tonne de matériel informatique, tombola solidaire avec plus de 7 000 € de lots offerts par les partenaires locaux, festivités à Vielle-Saint-Girons (40560).",
+  description: "Journée de lancement de l'association Ressources — recyclerie informatique et végétale solidaire dans les Landes. Challenge collecte 1/2 tonne de matériel informatique, tombola solidaire avec plus de 3 000 € de lots offerts par les partenaires locaux, festivités à Vielle-Saint-Girons (40560).",
   image: 'https://www.association-ressources.fr/logo.png',
   organizer: {
     '@type': 'NGO',
@@ -61,7 +61,7 @@ export default function Evenement() {
     <Layout>
       <SEO
         title="Lancement Recyclerie Solidaire Landes — 03 octobre 2026 | Ressources"
-        description="Rejoignez le lancement de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons (Landes). Challenge collecte 1 tonne de matériel, tombola solidaire avec plus de 7 000 € de lots, festivités."
+        description="Rejoignez le lancement de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons (Landes). Challenge collecte 1/2 tonne de matériel, tombola solidaire avec plus de 3 000 € de lots, festivités."
         canonical="/evenement-lancement-03-octobre-2026/"
         type="event"
         schema={eventSchema}
@@ -114,8 +114,8 @@ export default function Evenement() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { num: '01', label: 'Challenge collecte', title: '1 tonne de matériel', desc: "Apportez vos équipements informatiques ce jour-là. Objectif : 1 000 kg collectés en une journée pour marquer le démarrage de la filière.", accent: 'ocre', delay: 0 },
-              { num: '02', label: 'Tombola solidaire', title: 'Plus de 7 000 € de lots', desc: 'Des lots d\'une valeur totale estimée à plus de 7 000 €, offerts par nos partenaires locaux. Chaque billet soutient directement la recyclerie.', accent: 'ocre', delay: 100 },
+              { num: '01', label: 'Challenge collecte', title: '1/2 tonne de matériel', desc: "Apportez vos équipements informatiques ce jour-là. Objectif : 500 kg collectés en une journée pour marquer le démarrage de la filière.", accent: 'ocre', delay: 0 },
+              { num: '02', label: 'Tombola solidaire', title: 'Plus de 3 000 € de lots', desc: 'Des lots d\'une valeur totale estimée à plus de 3 000 €, offerts par nos partenaires locaux. Chaque billet soutient directement la recyclerie.', accent: 'ocre', delay: 100 },
               { num: '03', label: 'Festivités', title: 'Une journée en commun', desc: "Rencontrez l'équipe, découvrez le projet, échangez avec les partenaires. Un moment de convivialité ancré dans le territoire.", accent: 'kaki', delay: 200 },
             ].map((card) => (
               <HighlightCard key={card.num} {...card} />
@@ -141,7 +141,7 @@ export default function Evenement() {
               </p>
               <div className="bg-gradient-to-br from-ocre-pale to-beige border border-ocre/20 p-6 mb-6 rounded-xl">
                 <p className="font-sans text-xs text-ocre font-semibold tracking-wider uppercase mb-2">Objectif</p>
-                <p className="font-serif text-4xl text-ocre mb-1">+7 000 € de lots</p>
+                <p className="font-serif text-4xl text-ocre mb-1">+3 000 € de lots</p>
                 <p className="text-sm text-terre/50">à gagner lors du tirage au sort</p>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -177,7 +177,7 @@ export default function Evenement() {
           <div className={`transition-all duration-700 ${challenge.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <p className="section-label text-ocre">Challenge collecte</p>
             <h2 className="font-serif text-3xl md:text-5xl text-white mb-6">
-              1 tonne de matériel informatique
+              1/2 tonne de matériel informatique
             </h2>
             <div className="w-12 h-0.5 bg-ocre mx-auto mb-8" />
             <p className="text-white/65 max-w-xl mx-auto leading-relaxed mb-10">

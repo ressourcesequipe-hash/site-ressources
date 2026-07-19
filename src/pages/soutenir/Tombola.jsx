@@ -55,8 +55,8 @@ export default function Tombola() {
     <Layout breadcrumbs={BREADCRUMBS}>
       <TombolaModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
       <SEO
-        title="Tombola solidaire Landes 2026 — 7 000 € de lots · Association Ressources"
-        description="Participez à la tombola solidaire de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons. Achetez vos billets en ligne, soutenez la recyclerie solidaire des Landes et tentez de gagner plus de 7 000 € de lots offerts par nos partenaires locaux."
+        title="Tombola solidaire Landes 2026 — 3 000 € de lots · Association Ressources"
+        description="Participez à la tombola solidaire de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons. Achetez vos billets en ligne, soutenez la recyclerie solidaire des Landes et tentez de gagner plus de 3 000 € de lots offerts par nos partenaires locaux."
         canonical="/soutenir/tombola/"
         schema={faqSchema}
       />
@@ -87,11 +87,11 @@ export default function Tombola() {
               Lots à gagner
             </p>
             <p className="font-serif text-5xl md:text-7xl text-ocre leading-none mb-2">
-              +7 000 €
+              +3 000 €
             </p>
             <p className="font-sans text-xl text-terre/60 mb-2">de lots offerts par nos partenaires</p>
             <p className="text-sm text-terre/50 max-w-md mx-auto mb-6">
-              Des lots d'une valeur totale estimée à plus de 7 000 €, sélectionnés avec
+              Des lots d'une valeur totale estimée à plus de 3 000 €, sélectionnés avec
               nos partenaires locaux. Annonce complète en septembre 2026.
             </p>
             <button onClick={() => setModalOpen(true)} className="btn-ocre">
@@ -147,7 +147,7 @@ export default function Tombola() {
             <h2 className="font-serif text-xl text-terre mb-3">Les lots à gagner</h2>
             <p className="text-sm text-terre/60 leading-relaxed">
               Les lots sont en cours de définition avec nos partenaires locaux.
-              Des lots d'une valeur totale estimée à plus de 7 000 € seront mis en jeu.
+              Des lots d'une valeur totale estimée à plus de 3 000 € seront mis en jeu.
               Restez informé·e en vous inscrivant à notre newsletter ou en consultant
               nos actualités. Annonce prévue pour septembre 2026.
             </p>

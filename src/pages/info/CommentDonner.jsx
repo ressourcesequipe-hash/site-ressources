@@ -52,7 +52,7 @@ export default function CommentDonner() {
                 num: '3',
                 title: 'Événement du 03 octobre',
                 desc: 'Apportez votre matériel directement lors de notre journée de lancement à Vielle-Saint-Girons.',
-                note: 'Challenge 1 tonne',
+                note: 'Challenge 1/2 tonne',
               },
             ].map(({ num, title, desc, note }) => (
               <div key={num} className="border-t-2 border-ocre pt-6">
