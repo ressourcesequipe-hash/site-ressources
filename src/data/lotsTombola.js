@@ -96,21 +96,22 @@ export const PARTENAIRES = [
   { nom: 'Naturellement Nomade', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Chez Paulette', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Linxe Pizza', logo: null, ville: 'Linxe' },
-  { nom: 'Restaurant La Ferme d’Huchet', logo: null, ville: null },
-  { nom: 'Restaurant Léontine', logo: null, ville: null },
+  { nom: 'Restaurant La Ferme d’Huchet', logo: null, ville: 'Vielle-Saint-Girons' },
+  { nom: 'Restaurant Léontine', logo: null, ville: 'Léon' },
   { nom: 'La Boucherie de Léon', logo: null, ville: 'Léon' },
   { nom: 'Épicerie 5', logo: null, ville: 'Léon' },
   { nom: 'La Linxoise', logo: null, ville: 'Linxe' },
   { nom: 'Olivier de Léon', logo: null, ville: 'Léon' },
-  { nom: 'Les Jardins Bio du Médoc', logo: null, ville: null },
-  { nom: 'Atelier Saint-Antoine', logo: null, ville: null },
+  { nom: 'Les Jardins Bio du Médoc', logo: null, ville: 'Le Temple (Gironde)' },
+  // Atelier itinérant : présent au marché de Linxe le vendredi matin.
+  { nom: 'Atelier Saint-Antoine', logo: null, ville: 'Linxe' },
   { nom: 'Maison Lassalle — Bijouterie', logo: null, ville: 'Dax' },
   { nom: 'Wild Marcel', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Bain 2 Soleil', logo: null, ville: 'Léon' },
 
-  { nom: 'Rose M la Céramique', logo: null, ville: null },
+  { nom: 'Rose M la Céramique', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Cécilou Ceramics', logo: null, ville: 'Vielle-Saint-Girons' },
-  { nom: 'Kallista Création', logo: null, ville: null },
+  { nom: 'Kallista Création', logo: null, ville: 'Lacanau' },
 ]
 
 // Un partenaire peut être mis en attente en lui ajoutant statut: 'a-confirmer'.
