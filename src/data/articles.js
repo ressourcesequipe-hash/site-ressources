@@ -26,6 +26,7 @@ export const ARTICLES = [
     dateLabel: 'Septembre 2026',
     readingTime: '5 min',
     featured: true,
+    // image: '/photos/mon-fichier.jpg', imageAlt: 'Description de la photo',
     image: null,
     content: [
       {

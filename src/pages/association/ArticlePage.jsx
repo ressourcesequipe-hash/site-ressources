@@ -44,6 +44,8 @@ export default function ArticlePage() {
         title={`${article.title} — Ressources Recyclerie Landes`}
         description={article.excerpt}
         canonical={`/association/actualites/${article.slug}/`}
+        type="article"
+        {...(article.image ? { ogImage: `https://www.ressourcesrecyclerie.fr${article.image}` } : {})}
       />
 
       {/* Hero article */}
@@ -81,11 +83,23 @@ export default function ArticlePage() {
       <section className="py-14 md:py-20 bg-white" ref={body.ref}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
 
-          {/* Image placeholder */}
+          {/* Visuel de couverture */}
           {article.image && (
-            <div className="mb-10 rounded-xl overflow-hidden">
-              <img src={article.image} alt={article.title} className="w-full h-64 object-cover" />
-            </div>
+            <figure className="mb-10">
+              <div className="rounded-xl overflow-hidden">
+                <img
+                  src={article.image}
+                  alt={article.imageAlt || article.title}
+                  loading="lazy"
+                  className="w-full h-64 md:h-80 object-cover"
+                />
+              </div>
+              {article.imageCredit && (
+                <figcaption className="text-xs text-terre/40 mt-2 italic">
+                  {article.imageCredit}
+                </figcaption>
+              )}
+            </figure>
           )}
 
           {/* Contenu */}

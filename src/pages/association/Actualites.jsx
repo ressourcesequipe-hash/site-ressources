@@ -198,6 +198,19 @@ function FeaturedCard({ article }) {
       <div className="absolute bottom-0 left-0 w-32 h-32"
         style={{ background: 'radial-gradient(circle at bottom left, rgba(200,151,58,0.06), transparent 65%)' }} aria-hidden />
 
+      {/* Visuel — affiché uniquement si l'article à la une a une image */}
+      {article.image && (
+        <div className="relative overflow-hidden">
+          <img
+            src={article.image}
+            alt={article.imageAlt || article.title}
+            loading="lazy"
+            className="w-full h-52 md:h-64 object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-kaki-dark via-kaki-dark/30 to-transparent" aria-hidden />
+        </div>
+      )}
+
       <div className="relative p-8 md:p-10">
         <div className="flex flex-wrap items-center gap-3 mb-5">
           <span className="inline-flex items-center gap-1.5 bg-ocre/20 border border-ocre/30 px-3 py-1 text-[10px] font-sans font-semibold tracking-[0.15em] uppercase text-ocre">
@@ -251,6 +264,18 @@ function ArticleCard({ article, index, visible }) {
         transition: `opacity 0.6s ease ${index * 80}ms, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${index * 80}ms, box-shadow 0.3s ease, border-color 0.3s ease`,
       }}
     >
+      {/* Visuel — affiché uniquement si l'article a une image */}
+      {article.image && (
+        <div className="-mx-6 -mt-6 mb-5 overflow-hidden rounded-t-xl">
+          <img
+            src={article.image}
+            alt={article.imageAlt || article.title}
+            loading="lazy"
+            className="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+      )}
+
       {/* Top accent */}
       <div className="h-0.5 w-8 bg-ocre/40 mb-5 transition-all duration-300 group-hover:w-16 group-hover:bg-ocre" />
 
