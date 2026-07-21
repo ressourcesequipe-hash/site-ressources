@@ -38,6 +38,7 @@ export default {
         'spin-slow': 'spin 30s linear infinite',
         'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
         'gradient-x': 'gradientX 8s ease infinite',
+        'marquee': 'marquee 60s linear infinite',
       },
       keyframes: {
         fadeInUp: {
@@ -71,6 +72,10 @@ export default {
         gradientX: {
           '0%,100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
+        },
+        marquee: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
         },
       },
       transitionDuration: {
