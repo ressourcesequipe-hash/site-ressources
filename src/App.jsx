@@ -21,6 +21,7 @@ import Partenaires from './pages/association/Partenaires'
 import Actualites from './pages/association/Actualites'
 import ArticlePage from './pages/association/ArticlePage'
 import NousRejoindre from './pages/association/NousRejoindre'
+import Presse from './pages/association/Presse'
 import Tombola from './pages/soutenir/Tombola'
 import Benevole from './pages/soutenir/Benevole'
 import Mecene from './pages/soutenir/Mecene'
@@ -60,6 +61,7 @@ export default function App() {
         <Route path="/association/actualites/" element={<Actualites />} />
         <Route path="/association/actualites/:slug/" element={<ArticlePage />} />
         <Route path="/association/nous-rejoindre/" element={<NousRejoindre />} />
+        <Route path="/association/presse/" element={<Presse />} />
         <Route path="/soutenir/" element={<Soutenir />} />
         <Route path="/soutenir/tombola/" element={<Tombola />} />
         <Route path="/soutenir/benevole/" element={<Benevole />} />

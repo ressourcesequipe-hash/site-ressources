@@ -2,6 +2,7 @@ import { useState, useMemo, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import NewsletterForm from '../../components/NewsletterForm'
 import { ARTICLES, CATEGORIES, getFeaturedArticle, getArticlesByCategory } from '../../data/articles'
 import { useReveal } from '../../hooks/useReveal'
 
@@ -289,40 +290,3 @@ function ArticleCard({ article, index, visible }) {
   )
 }
 
-function NewsletterForm() {
-  const [email, setEmail] = useState('')
-  const [status, setStatus] = useState(null)
-
-  async function handleSubmit(e) {
-    e.preventDefault()
-    setStatus('loading')
-    try {
-      const r = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'newsletter', email }),
-      })
-      setStatus(r.ok ? 'ok' : 'error')
-    } catch { setStatus('error') }
-  }
-
-  if (status === 'ok') return (
-    <p className="text-sm text-kaki font-medium py-3">Merci ! Votre inscription a bien été transmise.</p>
-  )
-  return (
-    <>
-      <form className="flex flex-wrap gap-3" onSubmit={handleSubmit}>
-        <input
-          type="email" required value={email} onChange={e => setEmail(e.target.value)}
-          className="input-field flex-1 min-w-56" placeholder="votre@email.fr"
-          disabled={status === 'loading'}
-        />
-        <button type="submit" className="btn-kaki text-sm shrink-0" disabled={status === 'loading'}>
-          {status === 'loading' ? 'Envoi…' : 'S\'abonner'}
-        </button>
-      </form>
-      {status === 'error' && <p className="text-xs text-red-500 mt-2">Une erreur est survenue, veuillez réessayer.</p>}
-      <p className="text-[11px] text-terre/35 mt-3 text-center">Pas de spam. Désabonnement possible à tout moment.</p>
-    </>
-  )
-}

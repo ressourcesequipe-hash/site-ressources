@@ -31,6 +31,7 @@ const SILOS = [
       { to: '/association/partenaires/', label: 'Partenaires' },
       { to: '/association/actualites/', label: 'Actualités' },
       { to: '/association/nous-rejoindre/', label: 'Nous rejoindre' },
+      { to: '/association/presse/', label: 'Espace presse' },
     ],
   },
   {
@@ -119,6 +120,10 @@ export default function Footer() {
                 <MailIcon />
                 contact@ressourcesrecyclerie.fr
               </a>
+              <a href="tel:+33662660484" className="flex items-center gap-2 text-sm text-white/55 hover:text-ocre transition-colors">
+                <PhoneIcon />
+                06 62 66 04 84
+              </a>
               <p className="flex items-start gap-2 text-xs text-white/35 leading-relaxed pt-1">
                 <PinIcon />
                 80 allée des Cigales<br />40560 Vielle-Saint-Girons
@@ -127,7 +132,7 @@ export default function Footer() {
 
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://www.instagram.com/recyclerie.ressources"
+                href="https://www.instagram.com/ressources.recyclerie"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram Ressources Recyclerie"

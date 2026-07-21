@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState, useCallback } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import NewsletterForm from '../components/NewsletterForm'
 import { useReveal } from '../hooks/useReveal'
 
 /* ── Count-up hook ── */
@@ -50,9 +51,10 @@ const STEPS = [
 
 const IMPACT = [
   { value: 120,  suffix: '',  label: 'équipements à collecter' },
-  { value: 100,  suffix: '%', label: 'réemployés ou valorisés' },
-  { value: 1000, suffix: '',  label: 'plantes redistribuées' },
-  { value: 3,    suffix: '',  label: 'communes partenaires' },
+  { value: 80,   suffix: '%', label: 'réemployés ou valorisés' },
+  { value: 1000, suffix: '',  label: 'plantes à redistribuer' },
+  { value: 5,    suffix: '',  label: 'communes partenaires' },
+  { value: 2,    suffix: '',  label: 'communautés de communes' },
   { value: 8,    suffix: '',  label: 'bénévoles réguliers' },
 ]
 
@@ -235,18 +237,22 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Mini stats */}
+            {/* Mini stats — objectifs de la première année, jamais des résultats acquis */}
             <div
-              className="flex flex-wrap gap-x-10 gap-y-4 pt-8 border-t border-kaki/10"
+              className="pt-8 border-t border-kaki/10"
               style={{
                 opacity: heroVisible ? 1 : 0,
                 transition: 'opacity 0.7s ease 0.55s',
               }}
             >
+              <p className="font-sans text-[10px] font-semibold tracking-[0.18em] uppercase text-terre/35 mb-4">
+                Nos objectifs — première année
+              </p>
+              <div className="flex flex-wrap gap-x-10 gap-y-4">
               {[
-                { val: '120', label: 'équipements / an' },
-                { val: '1 000', label: 'plantes redistribuées' },
-                { val: '3', label: 'communes partenaires' },
+                { val: '120', label: 'équipements à collecter' },
+                { val: '1 000', label: 'plantes à redistribuer' },
+                { val: '5', label: 'communes partenaires' },
               ].map(({ val, label }) => (
                 <div key={label} className="flex items-baseline gap-2 group">
                   <span className="font-serif text-2xl leading-none group-hover:text-ocre transition-colors duration-300"
@@ -261,6 +267,7 @@ export default function Home() {
                   <span className="font-sans text-xs text-terre/40">{label}</span>
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </div>
@@ -679,6 +686,24 @@ export default function Home() {
             <Link to="/soutenir/" className="border border-white/25 text-white/75 px-7 py-3.5 text-sm font-medium hover:border-white/50 hover:text-white transition-all duration-200">
               Autres façons de soutenir
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="py-14 md:py-16 bg-beige-light border-t border-beige-dark">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
+          <p className="section-label">Restons en contact</p>
+          <h2 className="font-serif text-2xl md:text-3xl text-terre mb-3">
+            Suivez le lancement de la recyclerie
+          </h2>
+          <p className="text-sm text-terre/60 leading-relaxed mb-7 max-w-lg mx-auto">
+            Ouverture de la billetterie de la tombola, dévoilement des lots,
+            points de collecte, appels à bénévoles : recevez les actualités de
+            l'association, sans plus.
+          </p>
+          <div className="max-w-md mx-auto text-left">
+            <NewsletterForm />
           </div>
         </div>
       </section>
