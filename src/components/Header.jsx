@@ -7,6 +7,7 @@ const NAV = [
     label: 'Recyclerie Informatique',
     children: [
       { to: '/recyclerie-informatique/comment-donner/', label: 'Comment donner ?' },
+      { to: '/defi-collecte/', label: 'Défi collecte 1/2 tonne' },
       { to: '/recyclerie-informatique/materiel-accepte/', label: 'Matériel accepté' },
       { to: '/recyclerie-informatique/reconditionnement/', label: 'Reconditionnement' },
       { to: '/recyclerie-informatique/effacement-donnees/', label: 'Effacement des données' },

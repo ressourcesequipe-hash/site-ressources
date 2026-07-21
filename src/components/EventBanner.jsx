@@ -65,7 +65,9 @@ export default function EventBanner() {
             </span>
             <span className="hidden md:flex items-center gap-2 text-white/45 text-xs font-sans">
               <span className="w-px h-3 bg-white/20" />
-              Challenge 1/2 tonne
+              <Link to="/defi-collecte/" className="hover:text-white transition-colors">
+                Challenge 1/2 tonne
+              </Link>
               <span className="w-px h-3 bg-white/20" />
               <span className="text-ocre/80">+ de 30 lots</span>
               <span className="w-px h-3 bg-white/20" />

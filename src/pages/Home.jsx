@@ -545,9 +545,14 @@ export default function Home() {
                 <EventFeature icon={<IconTombola />} title="Tombola solidaire" desc="Plus de 30 lots offerts par nos partenaires locaux" />
                 <EventFeature icon={<IconLieu />} title="Vielle-Saint-Girons, Landes" desc="Dans les locaux et espaces partenaires de la commune" />
               </div>
-              <Link to="/evenement-lancement-03-octobre-2026/" className="btn-ocre shadow-ocre-glow">
-                Je participe à l'événement
-              </Link>
+              <div className="flex flex-wrap gap-4">
+                <Link to="/evenement-lancement-03-octobre-2026/" className="btn-ocre shadow-ocre-glow">
+                  Je participe à l'événement
+                </Link>
+                <Link to="/defi-collecte/" className="btn-outline-ocre">
+                  Le défi collecte
+                </Link>
+              </div>
             </div>
 
             {/* Visual card */}
