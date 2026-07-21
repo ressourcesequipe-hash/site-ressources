@@ -190,7 +190,7 @@ export default function Home() {
               }}
             >
               Une initiative citoyenne née à Vielle-Saint-Girons, pour le réemploi
-              et l'inclusion sur le territoire des Landes. Loi 1901, fondée en 2025.
+              et l'inclusion sur le territoire des Landes. Loi 1901, fondée en 2026.
             </p>
 
             {/* Value chips */}
@@ -541,7 +541,7 @@ export default function Home() {
                 de l'association Ressources à Vielle-Saint-Girons. Venez nombreux !
               </p>
               <div className="space-y-4 mb-9">
-                <EventFeature icon={<IconChallenge />} title="Challenge collecte — 1/2 tonne" desc="Objectif collecte de matériel informatique pour la journée" />
+                <EventFeature icon={<IconChallenge />} title="Challenge collecte — 1/2 tonne" desc="500 kg à réunir du 1er septembre au 3 octobre, dans les points de collecte du territoire" />
                 <EventFeature icon={<IconTombola />} title="Tombola solidaire" desc="Plus de 30 lots offerts par nos partenaires locaux" />
                 <EventFeature icon={<IconLieu />} title="Vielle-Saint-Girons, Landes" desc="Dans les locaux et espaces partenaires de la commune" />
               </div>

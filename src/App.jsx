@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Home from './pages/Home'
 import Evenement from './pages/Evenement'
+import DefiCollecte from './pages/DefiCollecte'
 import RecyclerieInfo from './pages/RecyclerieInfo'
 import RecyclerieVegetale from './pages/RecyclerieVegetale'
 import Association from './pages/Association'
@@ -43,6 +44,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/evenement-lancement-03-octobre-2026/" element={<Evenement />} />
+        <Route path="/defi-collecte/" element={<DefiCollecte />} />
         <Route path="/recyclerie-informatique/" element={<RecyclerieInfo />} />
         <Route path="/recyclerie-informatique/comment-donner/" element={<CommentDonner />} />
         <Route path="/recyclerie-informatique/materiel-accepte/" element={<MaterielAccepte />} />

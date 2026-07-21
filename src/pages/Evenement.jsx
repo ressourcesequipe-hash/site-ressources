@@ -114,7 +114,7 @@ export default function Evenement() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { num: '01', label: 'Challenge collecte', title: '1/2 tonne de matériel', desc: "Apportez vos équipements informatiques ce jour-là. Objectif : 500 kg collectés en une journée pour marquer le démarrage de la filière.", accent: 'ocre', delay: 0 },
+              { num: '01', label: 'Challenge collecte', title: '1/2 tonne de matériel', desc: "Lancé le 1er septembre dans les points de collecte du territoire, le défi s'achève par la pesée finale du 3 octobre. Objectif : 500 kg au total.", accent: 'ocre', delay: 0 },
               { num: '02', label: 'Tombola solidaire', title: 'Plus de 30 lots', desc: 'Plus de 30 lots offerts par les commerçants, artisans et producteurs du territoire. Chaque billet soutient directement la recyclerie.', accent: 'ocre', delay: 100 },
               { num: '03', label: 'Festivités', title: 'Une journée en commun', desc: "Rencontrez l'équipe, découvrez le projet, échangez avec les partenaires. Un moment de convivialité ancré dans le territoire.", accent: 'kaki', delay: 200 },
             ].map((card) => (
@@ -181,9 +181,10 @@ export default function Evenement() {
             </h2>
             <div className="w-12 h-0.5 bg-ocre mx-auto mb-8" />
             <p className="text-white/65 max-w-xl mx-auto leading-relaxed mb-10">
-              Le 03 octobre 2026, mobilisez-vous ! Apportez vos équipements informatiques
-              hors d'usage ou dont vous n'avez plus besoin. Ordinateurs, écrans, câbles,
-              smartphones, tablettes… tout est bon.
+              Dès le 1<sup>er</sup> septembre, déposez vos équipements informatiques hors
+              d'usage ou dont vous n'avez plus besoin dans l'un des points de collecte du
+              territoire. Tout est pesé au fil des semaines, jusqu'à la pesée finale du
+              03 octobre. Ordinateurs, écrans, câbles, smartphones, tablettes… tout est bon.
             </p>
             <div className="grid sm:grid-cols-3 gap-6 mb-10 text-left max-w-2xl mx-auto">
               {[
@@ -201,9 +202,17 @@ export default function Evenement() {
                 </div>
               ))}
             </div>
-            <Link to="/recyclerie-informatique/comment-donner/" className="btn-ocre rounded-lg">
-              Je prépare ma donation
-            </Link>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link to="/defi-collecte/" className="btn-ocre rounded-lg">
+                Tout savoir sur le défi collecte
+              </Link>
+              <Link
+                to="/recyclerie-informatique/comment-donner/"
+                className="border border-white/25 text-white/75 px-6 py-3 text-sm font-medium rounded-lg hover:border-white/50 hover:text-white transition-all duration-200"
+              >
+                Je prépare ma donation
+              </Link>
+            </div>
           </div>
         </div>
       </section>

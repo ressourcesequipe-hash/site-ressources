@@ -48,7 +48,7 @@ export default function Association() {
           </h1>
           <div className="decorative-line" />
           <p className="text-terre/65 max-w-xl leading-relaxed">
-            Fondée en 2025 selon la loi 1901, l'association Ressources est née à
+            Fondée en 2026 selon la loi 1901, l'association Ressources est née à
             Vielle-Saint-Girons dans les Landes. Son ambition : créer un modèle
             de réemploi solidaire pour l'informatique et le végétal, au service du territoire.
           </p>
@@ -109,7 +109,7 @@ export default function Association() {
             <div className="space-y-3">
               {[
                 { label: 'Statut', val: 'Association loi 1901' },
-                { label: 'Fondée en', val: '2025' },
+                { label: 'Fondée en', val: '2026' },
                 { label: 'Siège social', val: '80 allée des Cigales, 40560 Vielle-Saint-Girons' },
                 { label: 'Démarrage pilote', val: 'Septembre 2026' },
                 { label: 'Territoire d\'action', val: 'CC Côte Landes Nature + CC MACS' },

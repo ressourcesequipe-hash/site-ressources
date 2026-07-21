@@ -38,7 +38,7 @@ export const ARTICLES = [
       },
       {
         type: 'paragraph',
-        text: 'Née à Vielle-Saint-Girons en 2025, l\'association Ressources se structure autour d\'une filière informatique solidaire. Le projet se construit progressivement, en lien avec les collectivités et les partenaires locaux : communes, syndicats intercommunaux, associations de solidarité.',
+        text: 'Née à Vielle-Saint-Girons en 2026, l\'association Ressources se structure autour d\'une filière informatique solidaire. Le projet se construit progressivement, en lien avec les collectivités et les partenaires locaux : communes, syndicats intercommunaux, associations de solidarité.',
       },
       {
         type: 'heading',
@@ -194,7 +194,7 @@ export const ARTICLES = [
     content: [
       {
         type: 'paragraph',
-        text: 'Depuis sa création en 2025, l\'association Ressources construit progressivement les bases opérationnelles de son projet. Le premier semestre 2026 a été consacré à la consolidation des partenariats institutionnels et à la mobilisation de l\'équipe bénévole.',
+        text: 'Depuis sa création au début de l\'année 2026, l\'association Ressources construit progressivement les bases opérationnelles de son projet. Ces premiers mois ont été consacrés à la consolidation des partenariats institutionnels et à la mobilisation de l\'équipe bénévole.',
       },
       {
         type: 'heading',
