@@ -111,7 +111,7 @@ export default function Footer() {
             </Link>
 
             <p className="text-sm text-white/50 leading-relaxed mb-8 max-w-xs">
-              Association loi 1901 fondée en 2026 à Vielle-Saint-Girons (Landes).
+              Association loi 1901 fondée en 2025 à Vielle-Saint-Girons (Landes).
               Réemploi, inclusion numérique et proximité territoriale.
             </p>
 
@@ -180,7 +180,7 @@ export default function Footer() {
       <div className="border-t border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
           <p className="text-[11px] text-white/30">
-            © 2026 Association Ressources · Loi 1901 · SIRET en cours d'attribution
+            © 2025–2026 Association Ressources · Loi 1901 · SIRET en cours d'attribution
           </p>
           <div className="flex flex-wrap gap-4">
             <Link to="/mentions-legales/" className="text-[11px] text-white/30 hover:text-white/60 transition-colors">Mentions légales</Link>

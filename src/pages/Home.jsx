@@ -190,7 +190,7 @@ export default function Home() {
               }}
             >
               Une initiative citoyenne née à Vielle-Saint-Girons, pour le réemploi
-              et l'inclusion sur le territoire des Landes. Loi 1901, fondée en 2026.
+              et l'inclusion sur le territoire des Landes. Loi 1901, fondée en 2025.
             </p>
 
             {/* Value chips */}

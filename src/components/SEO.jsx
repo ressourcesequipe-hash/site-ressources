@@ -27,7 +27,7 @@ export default function SEO({
     '@id': `${BASE_URL}/#organization`,
     name: 'Association Ressources',
     alternateName: 'Ressources Recyclerie Solidaire',
-    description: 'Recyclerie informatique et végétale solidaire à Vielle-Saint-Girons (Landes, 40560). Association loi 1901 fondée en 2026.',
+    description: 'Recyclerie informatique et végétale solidaire à Vielle-Saint-Girons (Landes, 40560). Association loi 1901 fondée en 2025.',
     url: BASE_URL,
     logo: {
       '@type': 'ImageObject',
@@ -54,7 +54,7 @@ export default function SEO({
       { '@type': 'AdministrativeArea', name: 'Communauté de Communes MACS' },
     ],
     priceRange: '€',
-    foundingDate: '2026',
+    foundingDate: '2025',
     nonprofitStatus: 'NonprofitType',
     knowsAbout: ['réemploi informatique', 'recyclerie végétale', 'inclusion numérique', 'économie circulaire', 'reconditionnement'],
     hasOfferCatalog: {

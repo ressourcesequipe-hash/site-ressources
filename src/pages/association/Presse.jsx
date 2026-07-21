@@ -9,7 +9,8 @@ const BREADCRUMBS = [
 
 const REPERES = [
   { cle: 'Nom', valeur: 'Ressources — recyclerie solidaire' },
-  { cle: 'Statut', valeur: 'Association loi 1901, fondée en 2026' },
+  { cle: 'Statut', valeur: 'Association loi 1901, fondée en 2025' },
+  { cle: 'Projet recyclerie', valeur: 'Lancé en 2026' },
   { cle: 'Siège', valeur: '80 allée des Cigales, 40560 Vielle-Saint-Girons' },
   { cle: 'Territoire', valeur: 'Côte landaise, Marensin, Born, Marsan' },
   { cle: 'Filières', valeur: 'Réemploi informatique et recyclerie végétale' },
