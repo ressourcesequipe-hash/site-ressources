@@ -72,6 +72,8 @@ export const LOTS_CONFIRMES = [
   { lot: 'Bon d’achat', partenaire: 'La Linxoise', categorie: 'commerce', valeur: 10, detail: '1 bon' },
 ]
 
+export const PRIX_BILLET = 5
+
 // Points de vente physiques des billets.
 // adresse : renseigner la rue dès qu'elle est vérifiée — le lien carte utilise
 // une recherche par nom + commune tant qu'elle est absente, pour ne rien inventer.

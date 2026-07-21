@@ -237,6 +237,30 @@ export default function Home() {
               </Link>
             </div>
 
+            {/* Tombola — action immédiate, mise en avant avant l'événement */}
+            <div
+              className="flex flex-wrap items-center gap-x-5 gap-y-2 -mt-10 mb-16"
+              style={{
+                opacity: heroVisible ? 1 : 0,
+                transition: 'opacity 0.7s ease 0.5s',
+              }}
+            >
+              <Link
+                to="/soutenir/tombola/"
+                className="group inline-flex items-center gap-2 font-sans text-sm text-ocre-dark hover:text-ocre transition-colors"
+              >
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ocre opacity-60" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-ocre" />
+                </span>
+                <span className="font-semibold">Tombola solidaire — billet à 5 €</span>
+                <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+              </Link>
+              <span className="font-sans text-xs text-terre/45">
+                Plus de 30 lots · tirage le 03 octobre
+              </span>
+            </div>
+
             {/* Mini stats — objectifs de la première année, jamais des résultats acquis */}
             <div
               className="pt-8 border-t border-kaki/10"

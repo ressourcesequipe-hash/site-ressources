@@ -4,6 +4,7 @@ import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
 import TombolaModal from '../../components/TombolaModal'
 import PartenairesTombola from '../../components/PartenairesTombola'
+import CompteARebours from '../../components/CompteARebours'
 import {
   LIBELLE_EN_COURS,
   LOTS_PODIUM,
@@ -11,6 +12,7 @@ import {
   LOT_PRINCIPAL,
   NOMBRE_LOTS_ARRONDI,
   POINTS_VENTE,
+  PRIX_BILLET,
   RESUME_CATEGORIES,
   formatEuros,
   lienCarte,
@@ -49,7 +51,7 @@ const faqSchema = {
       name: 'Quel est le prix d\'un billet de tombola ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Le tarif est précisé directement sur la billetterie HelloAsso. Plusieurs billets peuvent être achetés pour augmenter ses chances.',
+        text: 'Un billet coûte 5 €. Vous pouvez en acheter plusieurs pour augmenter vos chances. L\'intégralité des fonds soutient la recyclerie solidaire.',
       },
     },
   ],
@@ -68,7 +70,7 @@ export default function Tombola() {
       <TombolaModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
       <SEO
         title="Tombola solidaire Landes 2026 — plus de 30 lots · Association Ressources"
-        description="Participez à la tombola solidaire de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons. Billets en ligne ou chez nos commerçants partenaires : plus de 30 lots offerts par les commerçants, artisans et producteurs du territoire landais."
+        description="Participez à la tombola solidaire de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons. Billet à 5 €, en ligne ou chez nos commerçants partenaires : plus de 30 lots offerts par les commerçants, artisans et producteurs du territoire landais."
         canonical="/soutenir/tombola/"
         schema={faqSchema}
       />
@@ -83,10 +85,11 @@ export default function Tombola() {
           <h1 className="font-serif text-3xl sm:text-4xl text-white mb-4">
             Tombola solidaire — 03 octobre 2026
           </h1>
-          <p className="text-white/65 max-w-xl leading-relaxed">
+          <p className="text-white/65 max-w-xl leading-relaxed mb-7">
             Participez à une grande tombola solidaire et soutenez le lancement
             de la recyclerie informatique et végétale Ressources dans les Landes.
           </p>
+          <CompteARebours variant="clair" />
         </div>
       </section>
 
@@ -102,13 +105,22 @@ export default function Tombola() {
               Plus de {NOMBRE_LOTS_ARRONDI} lots
             </p>
             <p className="font-sans text-xl text-terre/60 mb-2">offerts par nos partenaires locaux</p>
-            <p className="text-sm text-terre/50 max-w-md mx-auto mb-6">
+            <p className="text-sm text-terre/50 max-w-md mx-auto mb-7">
               Et notre podium s'enrichit encore : de nouvelles dotations nous
               rejoignent chaque semaine d'ici au 03 octobre.
             </p>
-            <button onClick={() => setModalOpen(true)} className="btn-ocre">
-              Acheter mes billets maintenant
-            </button>
+
+            {/* Prix du billet */}
+            <div className="inline-flex items-baseline gap-2 border-y border-ocre/25 px-6 py-3 mb-7">
+              <span className="font-serif text-3xl text-ocre leading-none">{PRIX_BILLET} €</span>
+              <span className="font-sans text-sm text-terre/55">le billet</span>
+            </div>
+
+            <div>
+              <button onClick={() => setModalOpen(true)} className="btn-ocre">
+                Acheter mes billets maintenant
+              </button>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-10 mb-12">
@@ -158,8 +170,8 @@ export default function Tombola() {
           <div className="bg-beige-light border border-beige-dark p-6 md:p-8 mb-12">
             <h2 className="font-serif text-2xl text-terre mb-2">Où acheter vos billets ?</h2>
             <p className="text-sm text-terre/60 leading-relaxed mb-7 max-w-2xl">
-              En ligne à tout moment, ou en espèces chez l'un de nos commerçants
-              partenaires du territoire.
+              Le billet est à {PRIX_BILLET} €. En ligne à tout moment, ou en espèces
+              chez l'un de nos commerçants partenaires du territoire.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-5">
@@ -428,7 +440,7 @@ export default function Tombola() {
                 },
                 {
                   q: 'Quel est le prix d\'un billet ?',
-                  r: 'Le tarif est précisé directement sur la billetterie HelloAsso. Plusieurs billets peuvent être achetés pour augmenter ses chances.',
+                  r: 'Un billet coûte 5 €. Vous pouvez en acheter plusieurs pour augmenter vos chances. L\'intégralité des fonds soutient la recyclerie solidaire.',
                 },
               ].map(({ q, r }) => (
                 <div key={q} className="border-l-2 border-ocre/25 pl-5 py-1">

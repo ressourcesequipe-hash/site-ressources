@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import CompteARebours from '../components/CompteARebours'
 import { useReveal } from '../hooks/useReveal'
 
 const eventSchema = {
@@ -106,6 +107,10 @@ export default function Evenement() {
             Une journée festive et solidaire pour célébrer le lancement officiel
             de l'association Ressources — recyclerie informatique et végétale du territoire landais.
           </p>
+
+          <div className={`mt-9 transition-all duration-700 delay-500 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <CompteARebours variant="clair" />
+          </div>
         </div>
       </section>
 
