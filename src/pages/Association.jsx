@@ -27,6 +27,7 @@ const PAGES_FILLES = [
   { to: '/association/partenaires/', Icon: IconPartenaires, title: 'Partenaires', desc: 'Partenaires institutionnels et locaux' },
   { to: '/association/actualites/', Icon: IconActualites, title: 'Actualités', desc: 'Le fil d\'actualités de l\'association' },
   { to: '/association/nous-rejoindre/', Icon: IconNousRejoindre, title: 'Nous rejoindre', desc: 'Bénévolat, mécénat, partenariat' },
+  { to: '/association/presse/', Icon: IconActualites, title: 'Espace presse', desc: 'Repères, angles et contact pour les journalistes' },
 ]
 
 export default function Association() {

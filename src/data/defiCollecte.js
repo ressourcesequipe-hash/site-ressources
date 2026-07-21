@@ -21,6 +21,20 @@ export const POINTS_COLLECTE = [
     type: 'Point permanent',
     statut: 'confirme',
   },
+  {
+    nom: 'E.Leclerc',
+    ville: 'Soustons',
+    adresse: null,
+    type: 'Point partenaire',
+    statut: 'confirme',
+  },
+  {
+    nom: 'E.Leclerc Express',
+    ville: 'Linxe',
+    adresse: null,
+    type: 'Point partenaire',
+    statut: 'confirme',
+  },
 ]
 
 export const POINTS_CONFIRMES = POINTS_COLLECTE.filter(

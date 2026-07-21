@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import NewsletterForm from '../components/NewsletterForm'
+import PointCollecteForm from '../components/PointCollecteForm'
 import {
   ACCEPTE,
   DEFI,
@@ -11,6 +12,15 @@ import {
 } from '../data/defiCollecte'
 
 const BREADCRUMBS = [{ label: 'Défi collecte — 1/2 tonne' }]
+
+// Défilement doux vers le formulaire. On ne bloque volontairement pas le
+// comportement natif du lien : si scrollIntoView échoue, le saut d'ancre du
+// navigateur amène malgré tout au bon endroit.
+function versFormulaire() {
+  document
+    .getElementById('devenir-point-collecte')
+    ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -92,6 +102,12 @@ export default function DefiCollecte() {
                 ? `collectés sur ${DEFI.objectifKg} kg`
                 : `premières pesées à partir du ${DEFI.debut}`}
             </span>
+          </div>
+
+          <div className="mt-8">
+            <a href="#devenir-point-collecte" onClick={versFormulaire} className="btn-ocre text-sm">
+              Devenir point de collecte
+            </a>
           </div>
         </div>
       </section>
@@ -206,39 +222,38 @@ export default function DefiCollecte() {
             </div>
 
             <p className="text-sm text-terre/50 italic">
-              D'autres points de collecte ouvriront d'ici au 1er septembre. Inscrivez-vous
-              à la newsletter ci-dessous pour être averti dès qu'un point ouvre près de chez vous.
+              D'autres points de collecte ouvriront d'ici au 1er septembre.{' '}
+              <a href="#devenir-point-collecte" onClick={versFormulaire} className="text-ocre not-italic hover:underline">
+                Vous souhaitez en accueillir un ?
+              </a>
             </p>
           </div>
 
           {/* Accueillir un point de collecte */}
-          <div className="bg-kaki text-white p-6 md:p-8 mb-12 relative overflow-hidden">
-            <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-ocre to-transparent" aria-hidden />
-            <div className="relative max-w-xl">
-              <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
-                Entreprises & communes
-              </p>
-              <h2 className="font-serif text-2xl text-white mb-3">
-                Accueillez un point de collecte
-              </h2>
-              <p className="text-sm text-white/60 leading-relaxed mb-6">
-                Vous disposez d'un espace accessible dans vos locaux ? Nous
-                fournissons le contenant et assurons la collecte du matériel.
-                C'est un geste concret pour le territoire, et l'occasion d'associer
-                vos équipes à une démarche solidaire.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <a href="tel:+33662660484" className="btn-ocre text-sm">
-                  06 62 66 04 84
-                </a>
-                <a
-                  href="mailto:contact@ressourcesrecyclerie.fr"
-                  className="border border-white/25 text-white/75 px-6 py-3 text-sm font-medium hover:border-white/50 hover:text-white transition-all duration-200"
-                >
-                  Nous écrire
-                </a>
-              </div>
-            </div>
+          <div id="devenir-point-collecte" className="border border-beige-dark bg-beige-light p-6 md:p-8 mb-12 scroll-mt-24">
+            <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
+              Entreprises, commerces & communes
+            </p>
+            <h2 className="font-serif text-2xl text-terre mb-3">
+              Devenez point de collecte
+            </h2>
+            <p className="text-sm text-terre/65 leading-relaxed mb-7 max-w-2xl">
+              Vous disposez d'un espace accessible dans vos locaux ? Nous fournissons
+              le contenant et la signalétique, et nous assurons la collecte du
+              matériel. C'est un geste concret pour le territoire, et l'occasion
+              d'associer vos équipes et vos clients à une démarche solidaire.
+            </p>
+
+            <PointCollecteForm />
+
+            <p className="text-xs text-terre/45 mt-6 pt-5 border-t border-beige-dark">
+              Vous préférez en parler de vive voix ?{' '}
+              <a href="tel:+33662660484" className="text-ocre hover:underline">06 62 66 04 84</a>
+              {' '}·{' '}
+              <a href="mailto:contact@ressourcesrecyclerie.fr" className="text-ocre hover:underline">
+                contact@ressourcesrecyclerie.fr
+              </a>
+            </p>
           </div>
 
           {/* Newsletter */}

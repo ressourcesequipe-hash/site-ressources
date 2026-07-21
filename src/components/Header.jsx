@@ -33,6 +33,7 @@ const NAV = [
       { to: '/association/partenaires/', label: 'Partenaires' },
       { to: '/association/actualites/', label: 'Actualités' },
       { to: '/association/nous-rejoindre/', label: 'Nous rejoindre' },
+      { to: '/association/presse/', label: 'Espace presse' },
     ],
   },
   {

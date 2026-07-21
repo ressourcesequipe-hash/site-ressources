@@ -36,6 +36,15 @@ const templates = {
       ['Commune', d.commune || '—'], ['Message', d.message || '—'],
     ]),
   }),
+  pointCollecte: (d) => ({
+    subject: '📍 Candidature point de collecte — Ressources',
+    html: row('Nouveau point de collecte proposé', [
+      ['Structure', d.structure], ['Nom du contact', d.nom],
+      ['Email', d.email], ['Téléphone', d.telephone || '—'],
+      ['Commune', d.commune], ['Type de structure', d.type || '—'],
+      ['Message', d.message || '—'],
+    ]),
+  }),
   contact: (d) => ({
     subject: `📩 Nouveau message — ${d.sujet || 'Contact général'}`,
     html: row('Message de contact', [
