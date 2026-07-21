@@ -12,17 +12,23 @@ export const CATEGORIES = [
 ]
 
 // Le gros lot, mis en vedette en haut de la page.
+// statut 'en-cours' : la dotation n'est pas encore acquise — son intitulé réel
+// n'est pas publié, seul un libellé d'attente s'affiche. Retirer le statut le
+// jour où l'accord écrit du partenaire est obtenu.
 export const LOT_PRINCIPAL = {
   numero: '1',
   titre: 'Le gros lot',
   lot: 'Un séjour sur la côte landaise pour 4 personnes',
   detail: 'Hébergement pour 4 personnes',
+  statut: 'en-cours',
 }
+
+export const LIBELLE_EN_COURS = 'En cours de finalisation'
 
 export const LOTS_CONFIRMES = [
   // Séjours & expériences
-  { lot: 'Un week-end romantique', partenaire: null, categorie: 'sejours', valeur: 250, detail: 'Séjour pour 2 personnes' },
-  { lot: 'Vol en montgolfière', partenaire: 'Sud Ouest Montgolfière', categorie: 'sejours', valeur: 200, detail: '1 vol' },
+  { lot: 'Un week-end romantique', partenaire: null, categorie: 'sejours', valeur: 250, detail: 'Séjour pour 2 personnes', statut: 'en-cours' },
+  { lot: 'Vol en montgolfière', partenaire: 'Sud Ouest Montgolfière', categorie: 'sejours', valeur: 200, detail: '1 vol · départ en Béarn' },
   { lot: 'Séance découverte de surf', partenaire: 'Max Respect', categorie: 'sejours', valeur: 35, detail: '1 séance de 2 h' },
 
   // Informatique reconditionnée
@@ -87,7 +93,8 @@ export const lienCarte = ({ nom, ville, adresse }) =>
 // Ne jamais reprendre ici les téléphones et e-mails du tableau de bord : ce sont
 // des coordonnées personnelles, la page est publique.
 export const PARTENAIRES = [
-  { nom: 'Sud Ouest Montgolfière', logo: null, ville: null },
+  // Décollage depuis le lac du Gabas, en Béarn — hors Landes.
+  { nom: 'Sud Ouest Montgolfière', logo: null, ville: 'Lourenties (Béarn)' },
   { nom: 'E.Leclerc Soustons', logo: null, ville: 'Soustons' },
   { nom: 'E.Leclerc Express Linxe', logo: null, ville: 'Linxe' },
   { nom: 'La Cyclerie de Léon', logo: null, ville: 'Léon' },
@@ -148,7 +155,25 @@ export const LOTS_PODIUM = LOTS_PUBLIES
 
 export const LOTS_SECONDAIRES = LOTS_PUBLIES.filter((lot) => !estSurPodium(lot))
 
+// Résumé par catégorie affiché à la place du détail chiffré des petits lots,
+// tant que la billetterie n'est pas lancée. Repasser au détail en réutilisant
+// LOTS_SECONDAIRES dans la page.
+export const RESUME_CATEGORIES = CATEGORIES.map(({ id, label }) => ({
+  id,
+  label,
+  nombre: LOTS_SECONDAIRES.filter((lot) => lot.categorie === id).length,
+})).filter(({ nombre }) => nombre > 0)
+
 export const NB_LOTS_CONFIRMES = LOTS_PUBLIES.length
+
+// Lots réellement acquis : on exclut ceux encore en cours de finalisation,
+// y compris le gros lot. Arrondi à la dizaine inférieure pour l'accroche, afin
+// qu'elle reste vraie sans avoir à la retoucher à chaque nouvelle dotation.
+const NB_LOTS_ACQUIS =
+  LOTS_PUBLIES.filter(({ statut }) => statut !== 'en-cours').length +
+  (LOT_PRINCIPAL.statut === 'en-cours' ? 0 : 1)
+
+export const NOMBRE_LOTS_ARRONDI = Math.floor(NB_LOTS_ACQUIS / 10) * 10
 
 export const VALEUR_CONFIRMEE = LOTS_PUBLIES.reduce(
   (total, { valeur }) => total + (valeur || 0),

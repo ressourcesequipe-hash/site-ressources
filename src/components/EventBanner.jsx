@@ -67,7 +67,7 @@ export default function EventBanner() {
               <span className="w-px h-3 bg-white/20" />
               Challenge 1/2 tonne
               <span className="w-px h-3 bg-white/20" />
-              <span className="text-ocre/80">+3 000 € de lots</span>
+              <span className="text-ocre/80">+ de 30 lots</span>
               <span className="w-px h-3 bg-white/20" />
               Vielle-Saint-Girons
             </span>

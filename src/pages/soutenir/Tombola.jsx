@@ -5,12 +5,13 @@ import SEO from '../../components/SEO'
 import TombolaModal from '../../components/TombolaModal'
 import PartenairesTombola from '../../components/PartenairesTombola'
 import {
-  CATEGORIES,
+  LIBELLE_EN_COURS,
   LOTS_PODIUM,
   LOTS_SECONDAIRES,
   LOT_PRINCIPAL,
-  NB_LOTS_CONFIRMES,
+  NOMBRE_LOTS_ARRONDI,
   POINTS_VENTE,
+  RESUME_CATEGORIES,
   formatEuros,
   lienCarte,
 } from '../../data/lotsTombola'
@@ -66,8 +67,8 @@ export default function Tombola() {
     <Layout breadcrumbs={BREADCRUMBS}>
       <TombolaModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
       <SEO
-        title="Tombola solidaire Landes 2026 — 3 000 € de lots · Association Ressources"
-        description="Participez à la tombola solidaire de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons. Achetez vos billets en ligne, soutenez la recyclerie solidaire des Landes et tentez de gagner plus de 3 000 € de lots offerts par nos partenaires locaux."
+        title="Tombola solidaire Landes 2026 — plus de 30 lots · Association Ressources"
+        description="Participez à la tombola solidaire de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons. Billets en ligne ou chez nos commerçants partenaires : plus de 30 lots offerts par les commerçants, artisans et producteurs du territoire landais."
         canonical="/soutenir/tombola/"
         schema={faqSchema}
       />
@@ -98,12 +99,12 @@ export default function Tombola() {
               Lots à gagner
             </p>
             <p className="font-serif text-5xl md:text-7xl text-ocre leading-none mb-2">
-              +3 000 €
+              Plus de {NOMBRE_LOTS_ARRONDI} lots
             </p>
-            <p className="font-sans text-xl text-terre/60 mb-2">de lots offerts par nos partenaires</p>
+            <p className="font-sans text-xl text-terre/60 mb-2">offerts par nos partenaires locaux</p>
             <p className="text-sm text-terre/50 max-w-md mx-auto mb-6">
-              Des lots d'une valeur totale estimée à plus de 3 000 €, sélectionnés avec
-              nos partenaires locaux. Annonce complète en septembre 2026.
+              Et notre podium s'enrichit encore : de nouvelles dotations nous
+              rejoignent chaque semaine d'ici au 03 octobre.
             </p>
             <button onClick={() => setModalOpen(true)} className="btn-ocre">
               Acheter mes billets maintenant
@@ -234,88 +235,96 @@ export default function Tombola() {
               </div>
 
               <div className="border-t-2 border-ocre/50 pt-5 max-w-2xl">
-                <h3 className="font-serif text-2xl md:text-3xl text-white leading-snug mb-2">
-                  {LOT_PRINCIPAL.lot}
-                </h3>
-                <p className="text-xs text-white/45 font-sans tracking-wide">
-                  {LOT_PRINCIPAL.detail}
-                </p>
+                {LOT_PRINCIPAL.statut === 'en-cours' ? (
+                  <>
+                    <h3 className="font-serif text-2xl md:text-3xl text-white/90 leading-snug mb-2">
+                      {LIBELLE_EN_COURS}
+                    </h3>
+                    <p className="text-sm text-white/50 font-sans leading-relaxed">
+                      Notre plus beau lot sera dévoilé ici d'ici au 03 octobre.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="font-serif text-2xl md:text-3xl text-white leading-snug mb-2">
+                      {LOT_PRINCIPAL.lot}
+                    </h3>
+                    <p className="text-xs text-white/45 font-sans tracking-wide">
+                      {LOT_PRINCIPAL.detail}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
 
           {/* Podium — lots à 200 € et plus */}
           <div className="grid sm:grid-cols-2 gap-5 mb-12">
-            {LOTS_PODIUM.map(({ lot, partenaire, valeur, detail }, i) => (
-              <div
-                key={`${lot}-${partenaire}-${i}`}
-                className="group border border-beige-dark border-t-2 border-t-ocre bg-beige-light p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-              >
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <span className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre">
-                    Lot n° {i + 2}
-                  </span>
-                  <span className="font-serif text-2xl text-ocre leading-none">
-                    {formatEuros(valeur)}
-                  </span>
+            {LOTS_PODIUM.map(({ lot, partenaire, valeur, detail, statut }, i) => {
+              const enCours = statut === 'en-cours'
+              return (
+                <div
+                  key={`${lot}-${partenaire}-${i}`}
+                  className={`group border p-6 transition-all duration-300 ${
+                    enCours
+                      ? 'border-dashed border-kaki/25 bg-kaki-pale/50'
+                      : 'border-beige-dark border-t-2 border-t-ocre bg-beige-light hover:shadow-lg hover:-translate-y-1'
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <span
+                      className={`font-sans text-[10px] font-bold tracking-[0.2em] uppercase ${
+                        enCours ? 'text-terre/35' : 'text-ocre'
+                      }`}
+                    >
+                      Lot n° {i + 2}
+                    </span>
+                    {!enCours && (
+                      <span className="font-serif text-2xl text-ocre leading-none">
+                        {formatEuros(valeur)}
+                      </span>
+                    )}
+                  </div>
+
+                  {enCours ? (
+                    <>
+                      <h3 className="font-serif text-xl text-terre/55 leading-snug mb-1.5">
+                        {LIBELLE_EN_COURS}
+                      </h3>
+                      <p className="text-xs text-terre/40">Dévoilement prochain</p>
+                    </>
+                  ) : (
+                    <>
+                      <h3 className="font-serif text-xl text-terre leading-snug mb-1.5">{lot}</h3>
+                      <p className="text-xs text-terre/50">
+                        {partenaire ? partenaire : 'Partenaire à confirmer'}
+                        {detail ? ` · ${detail}` : ''}
+                      </p>
+                    </>
+                  )}
                 </div>
-                <h3 className="font-serif text-xl text-terre leading-snug mb-1.5">{lot}</h3>
-                <p className="text-xs text-terre/50">
-                  {partenaire ? partenaire : 'Partenaire à confirmer'}
-                  {detail ? ` · ${detail}` : ''}
-                </p>
-              </div>
-            ))}
+              )
+            })}
           </div>
 
-          {/* Liste des lots */}
+          {/* Résumé des autres lots — détail dévoilé au lancement */}
           <div className="mb-12">
-            <h2 className="font-serif text-2xl text-terre mb-2">Les autres lots à gagner</h2>
-            <p className="text-sm text-terre/60 leading-relaxed mb-8 max-w-2xl">
-              {LOTS_SECONDAIRES.length} dotations supplémentaires, offertes par les
-              commerçants, artisans et producteurs du territoire landais.
+            <h2 className="font-serif text-2xl text-terre mb-2">
+              Et {LOTS_SECONDAIRES.length} autres lots à gagner
+            </h2>
+            <p className="text-sm text-terre/60 leading-relaxed mb-7 max-w-2xl">
+              Offerts par les commerçants, artisans, restaurateurs et producteurs
+              du territoire. Le détail complet sera dévoilé à l'ouverture de la
+              billetterie.
             </p>
 
-            <div className="space-y-8">
-              {CATEGORIES.map(({ id, label }) => {
-                const lots = LOTS_SECONDAIRES.filter((l) => l.categorie === id)
-                if (!lots.length) return null
-                return (
-                  <div key={id}>
-                    <div className="flex items-baseline gap-3 border-b border-beige-dark pb-2 mb-4">
-                      <h3 className="font-serif text-lg text-terre">{label}</h3>
-                      <span className="font-sans text-xs text-terre/45">
-                        {lots.length} lot{lots.length > 1 ? 's' : ''}
-                      </span>
-                    </div>
-                    <ul className="space-y-2.5">
-                      {lots.map(({ lot, partenaire, valeur, detail }, i) => (
-                        <li
-                          key={`${lot}-${partenaire}-${i}`}
-                          className="flex items-start justify-between gap-4 border-l-2 border-ocre/25 pl-4 py-1"
-                        >
-                          <div className="min-w-0">
-                            <p className="font-sans text-sm text-terre leading-snug">{lot}</p>
-                            <p className="text-xs text-terre/50 mt-0.5">
-                              {partenaire ? partenaire : 'Partenaire à confirmer'}
-                              {detail ? ` · ${detail}` : ''}
-                            </p>
-                          </div>
-                          <span
-                            className={`shrink-0 font-sans text-xs px-2.5 py-1 whitespace-nowrap ${
-                              valeur
-                                ? 'bg-ocre-pale text-ocre font-semibold'
-                                : 'bg-beige-light text-terre/45'
-                            }`}
-                          >
-                            {valeur ? formatEuros(valeur) : 'à confirmer'}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )
-              })}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {RESUME_CATEGORIES.map(({ id, label, nombre }) => (
+                <div key={id} className="border-t-2 border-ocre/30 bg-beige-light px-5 py-4">
+                  <p className="font-serif text-2xl text-ocre leading-none mb-1.5">{nombre}</p>
+                  <p className="font-sans text-sm text-terre/70 leading-snug">{label}</p>
+                </div>
+              ))}
             </div>
           </div>
 

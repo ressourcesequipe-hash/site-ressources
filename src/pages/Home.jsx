@@ -297,7 +297,7 @@ export default function Home() {
                 03 octobre 2026 — Vielle-Saint-Girons
               </h2>
               <p className="text-white/50 text-sm">
-                Challenge collecte · 1/2 tonne de matériel · Plus de 3 000 € de lots · Tombola solidaire
+                Challenge collecte · 1/2 tonne de matériel · Plus de 30 lots · Tombola solidaire
               </p>
             </div>
             <Link to="/evenement-lancement-03-octobre-2026/" className="btn-outline-white shrink-0">
@@ -535,7 +535,7 @@ export default function Home() {
               </p>
               <div className="space-y-4 mb-9">
                 <EventFeature icon={<IconChallenge />} title="Challenge collecte — 1/2 tonne" desc="Objectif collecte de matériel informatique pour la journée" />
-                <EventFeature icon={<IconTombola />} title="Tombola solidaire" desc="Plus de 3 000 € de lots offerts par nos partenaires locaux" />
+                <EventFeature icon={<IconTombola />} title="Tombola solidaire" desc="Plus de 30 lots offerts par nos partenaires locaux" />
                 <EventFeature icon={<IconLieu />} title="Vielle-Saint-Girons, Landes" desc="Dans les locaux et espaces partenaires de la commune" />
               </div>
               <Link to="/evenement-lancement-03-octobre-2026/" className="btn-ocre shadow-ocre-glow">
@@ -584,7 +584,7 @@ export default function Home() {
                     <p className="text-[10px] text-white/35 uppercase tracking-widest mb-1.5">Lots à gagner</p>
                     <p className="font-serif text-3xl"
                       style={{ background: 'linear-gradient(135deg, #C8973A, #D4AA5A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                      +3 000 €
+                      + de 30
                     </p>
                   </div>
                 </div>

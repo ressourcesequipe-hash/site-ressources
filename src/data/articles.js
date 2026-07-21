@@ -249,7 +249,7 @@ export const ARTICLES = [
       },
       {
         type: 'paragraph',
-        text: 'Pour les amateurs de sensations fortes, la tombola solidaire est une façon festive de soutenir l\'association tout en tentant de gagner l\'un des nombreux lots offerts par les partenaires locaux — une dotation estimée à plus de 3 000 €. Les billets sont disponibles en ligne et sur place le jour de l\'événement à Vielle-Saint-Girons. Le tirage au sort se déroule en public le 03 octobre 2026.',
+        text: 'Pour les amateurs de sensations fortes, la tombola solidaire est une façon festive de soutenir l\'association tout en tentant de gagner l\'un des nombreux lots offerts par les partenaires locaux — plus de 30 dotations. Les billets sont disponibles en ligne et sur place le jour de l\'événement à Vielle-Saint-Girons. Le tirage au sort se déroule en public le 03 octobre 2026.',
       },
       {
         type: 'heading',
@@ -277,8 +277,8 @@ export const ARTICLES = [
   // ── Article tombola ──
   {
     slug: 'tombola-solidaire-recyclerie-landes-2026',
-    title: 'Tombola solidaire : soutenez la recyclerie Ressources et tentez de gagner plus de 3 000 € de lots',
-    excerpt: 'Le 03 octobre 2026 à Vielle-Saint-Girons, l\'association Ressources organise une grande tombola solidaire. Plus de 3 000 € de lots offerts par nos partenaires locaux, et des fonds directement investis dans la recyclerie informatique et végétale des Landes.',
+    title: 'Tombola solidaire : soutenez la recyclerie Ressources et tentez de gagner plus de 30 lots',
+    excerpt: 'Le 03 octobre 2026 à Vielle-Saint-Girons, l\'association Ressources organise une grande tombola solidaire. Plus de 30 lots offerts par nos partenaires locaux, et des fonds directement investis dans la recyclerie informatique et végétale des Landes.',
     category: 'evenements',
     date: '2026-09-05',
     dateLabel: 'Septembre 2026',
@@ -300,11 +300,11 @@ export const ARTICLES = [
       },
       {
         type: 'heading',
-        text: 'Plus de 3 000 € de lots à gagner',
+        text: 'Plus de 30 lots à gagner',
       },
       {
         type: 'paragraph',
-        text: 'Nos partenaires locaux — commerçants, artisans, entreprises et structures du territoire landais — ont répondu présent pour constituer une dotation exceptionnelle estimée à plus de 3 000 €. Les lots seront annoncés en détail courant septembre 2026. Restez connectés sur nos actualités pour la révélation complète.',
+        text: 'Nos partenaires locaux — commerçants, artisans, entreprises et structures du territoire landais — ont répondu présent pour constituer une dotation exceptionnelle de plus de 30 lots. Les lots seront annoncés en détail courant septembre 2026. Restez connectés sur nos actualités pour la révélation complète.',
       },
       {
         type: 'heading',
@@ -333,7 +333,7 @@ export const ARTICLES = [
   {
     slug: 'evenement-lancement-03-octobre-2026',
     title: 'Événement de lancement — 03 octobre 2026 à Vielle-Saint-Girons',
-    excerpt: 'L\'association Ressources organise sa grande journée de lancement le 03 octobre 2026 à Vielle-Saint-Girons. Au programme : challenge collecte 1/2 tonne, tombola solidaire avec plus de 3 000 € de lots, et festivités.',
+    excerpt: 'L\'association Ressources organise sa grande journée de lancement le 03 octobre 2026 à Vielle-Saint-Girons. Au programme : challenge collecte 1/2 tonne, tombola solidaire avec plus de 30 lots, et festivités.',
     category: 'evenements',
     date: '2026-09-01',
     dateLabel: 'Septembre 2026',
