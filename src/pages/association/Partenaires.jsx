@@ -22,10 +22,10 @@ const GROUPES = [
       },
       {
         nom: 'SITCOM40',
-        label: 'PARTENARIAT EN COURS DE FORMALISATION',
-        labelColor: 'kaki',
+        label: 'PARTENARIAT CONVENU',
+        labelColor: 'ocre',
         logo: '/logos/logo-sitcom40.svg',
-        desc: 'Des échanges sont engagés avec le SITCOM40 pour structurer une coopération autour de la collecte et du réemploi.',
+        desc: 'Un partenariat a été convenu avec le SITCOM40 pour l\'installation de points de collecte de matériel informatique dans deux déchèteries du département.',
         lien: null,
       },
     ],

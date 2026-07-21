@@ -27,6 +27,15 @@ export const POINTS_CONFIRMES = POINTS_COLLECTE.filter(
   ({ statut }) => statut === 'confirme',
 )
 
+// Partenariat SITCOM40 : points de collecte en déchèterie.
+// Renseigner `decheteries` avec les communes dès qu'elles sont arrêtées ;
+// la page les affiche alors nommément à la place de la mention générique.
+export const PARTENARIAT_SITCOM = {
+  nom: 'SITCOM Côte Sud des Landes',
+  nombre: 2,
+  decheteries: [],
+}
+
 export const ACCEPTE = [
   'Ordinateurs portables et fixes',
   'Écrans, claviers, souris',
