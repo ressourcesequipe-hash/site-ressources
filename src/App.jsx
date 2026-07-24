@@ -5,6 +5,7 @@ import Evenement from './pages/Evenement'
 import DefiCollecte from './pages/DefiCollecte'
 import RecyclerieInfo from './pages/RecyclerieInfo'
 import RecyclerieVegetale from './pages/RecyclerieVegetale'
+import Ateliers from './pages/Ateliers'
 import Association from './pages/Association'
 import Soutenir from './pages/Soutenir'
 import CommentDonner from './pages/info/CommentDonner'
@@ -56,6 +57,7 @@ export default function App() {
         <Route path="/recyclerie-vegetale/ce-que-nous-acceptons/" element={<CeQueNousAcceptons />} />
         <Route path="/recyclerie-vegetale/redistribution/" element={<RedistributionVeg />} />
         <Route path="/recyclerie-vegetale/partenaires-vegetaux/" element={<PartenairesVegetaux />} />
+        <Route path="/ateliers/" element={<Ateliers />} />
         <Route path="/association/" element={<Association />} />
         <Route path="/association/gouvernance/" element={<Gouvernance />} />
         <Route path="/association/territoire/" element={<Territoire />} />

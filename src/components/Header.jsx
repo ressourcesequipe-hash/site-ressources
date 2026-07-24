@@ -25,6 +25,10 @@ const NAV = [
     ],
   },
   {
+    to: '/ateliers/',
+    label: 'Ateliers',
+  },
+  {
     to: '/association/',
     label: "L'Association",
     children: [
@@ -57,6 +61,23 @@ function DropdownItem({ item }) {
   const handleMouseLeave = () => { timeoutRef.current = setTimeout(() => setOpen(false), 120) }
 
   useEffect(() => () => clearTimeout(timeoutRef.current), [])
+
+  const hasChildren = Array.isArray(item.children) && item.children.length > 0
+
+  if (!hasChildren) {
+    return (
+      <NavLink
+        to={item.to}
+        className={({ isActive }) =>
+          `relative flex items-center font-sans text-sm transition-colors duration-200 whitespace-nowrap py-1 ${
+            isActive ? 'text-ocre font-medium' : 'text-terre/65 hover:text-terre'
+          }`
+        }
+      >
+        {item.label}
+      </NavLink>
+    )
+  }
 
   return (
     <div ref={ref} className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
@@ -236,7 +257,9 @@ export default function Header() {
       >
         <div className="bg-beige-light/95 backdrop-blur-xl border-t border-beige/80 overflow-y-auto max-h-[calc(85vh-64px)]">
           <nav className="max-w-7xl mx-auto px-4 py-3" aria-label="Navigation mobile">
-            {NAV.map((item) => (
+            {NAV.map((item) => {
+              const hasChildren = Array.isArray(item.children) && item.children.length > 0
+              return (
               <div key={item.to} className="border-b border-beige/70 last:border-0">
                 <div className="flex items-center justify-between">
                   <NavLink
@@ -249,6 +272,7 @@ export default function Header() {
                   >
                     {item.label}
                   </NavLink>
+                  {hasChildren && (
                   <button
                     onClick={() => toggleSection(item.label)}
                     aria-label={`${openSection === item.label ? 'Fermer' : 'Ouvrir'} ${item.label}`}
@@ -263,8 +287,10 @@ export default function Header() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
+                  )}
                 </div>
 
+                {hasChildren && (
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${
                     openSection === item.label ? 'max-h-96 pb-2' : 'max-h-0'
@@ -285,8 +311,10 @@ export default function Header() {
                     </NavLink>
                   ))}
                 </div>
+                )}
               </div>
-            ))}
+              )
+            })}
 
             <div className="pt-4 pb-3">
               <Link
