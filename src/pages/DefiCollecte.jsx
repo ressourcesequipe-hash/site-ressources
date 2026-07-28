@@ -186,14 +186,21 @@ export default function DefiCollecte() {
             </p>
 
             <ul className="space-y-3 mb-6">
-              {POINTS_CONFIRMES.map(({ nom, ville, adresse, type }) => (
+              {POINTS_CONFIRMES.map(({ nom, ville, adresse, type, mention }) => (
                 <li
                   key={`${nom}-${ville}`}
                   className="border-l-2 border-ocre bg-beige-light p-5"
                 >
-                  <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-ocre mb-1">
-                    {type}
-                  </p>
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-ocre">
+                      {type}
+                    </p>
+                    {mention && (
+                      <span className="font-sans text-[10px] font-medium text-kaki-light bg-kaki-pale border border-kaki/20 px-2 py-0.5 rounded-full">
+                        {mention}
+                      </span>
+                    )}
+                  </div>
                   <p className="font-serif text-lg text-terre leading-snug">{nom}</p>
                   <p className="text-sm text-terre/55 mt-0.5">
                     {adresse ? `${adresse} · ` : ''}

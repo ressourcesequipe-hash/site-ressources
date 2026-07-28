@@ -13,6 +13,8 @@ export const DEFI = {
 
 // Points de collecte du défi.
 // statut : 'confirme' (affiché) ou 'a-venir' (compté mais non nommé).
+// mention : précision affichée en pastille à côté du type (facultatif).
+//   Retirer la mention dès que le point est formalisé.
 export const POINTS_COLLECTE = [
   {
     nom: 'Association Ressources',
@@ -27,6 +29,7 @@ export const POINTS_COLLECTE = [
     adresse: null,
     type: 'Point partenaire',
     statut: 'confirme',
+    mention: 'En cours de formalisation',
   },
   {
     nom: 'E.Leclerc Express',
@@ -34,6 +37,7 @@ export const POINTS_COLLECTE = [
     adresse: null,
     type: 'Point partenaire',
     statut: 'confirme',
+    mention: 'En cours de formalisation',
   },
 ]
 
