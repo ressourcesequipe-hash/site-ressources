@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react'
 
 export default function EventBanner() {
   const [dismissed, setDismissed] = useState(
-    () => sessionStorage.getItem('event-banner-dismissed') === '1'
+    // Garde pour le prérendu au build : sessionStorage n'existe pas côté Node.
+    () => typeof window !== 'undefined' && sessionStorage.getItem('event-banner-dismissed') === '1'
   )
   const [visible, setVisible] = useState(false)
 

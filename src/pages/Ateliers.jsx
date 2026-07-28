@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import { useReveal } from '../hooks/useReveal'
+import { Faq } from '../components/ateliers/AtelierUI'
+import { SOUS_PAGES, TERRITOIRE, serviceSchema, faqSchema, graph } from '../data/ateliers'
 
 /* ── Petit wrapper d'apparition au scroll (idiome du site) ── */
 function Reveal({ children, className = '' }) {
@@ -91,30 +93,32 @@ const STEPS = [
 
 const LIEUX = ['Commune & intercommunalité', 'Médiathèque', 'Établissement scolaire ou social', 'Locaux d\'entreprise', 'Structure associative', 'Salon · forum · événement', 'Groupe constitué']
 
-/* ── Schema.org Service ── */
-const SERVICE_SCHEMA = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Ateliers de sensibilisation et de réemploi — Association Ressources',
-  serviceType: 'Ateliers de sensibilisation au réemploi numérique et végétal',
-  provider: { '@type': 'NGO', name: 'Association Ressources', url: 'https://www.ressourcesrecyclerie.fr' },
-  areaServed: { '@type': 'AdministrativeArea', name: 'Landes' },
-  description: "Ateliers de sensibilisation et de mise en pratique autour du réemploi numérique, du végétal et de la réduction des déchets, pour collectivités, entreprises, écoles et grand public dans les Landes.",
-  audience: [
-    { '@type': 'Audience', audienceType: 'Collectivités et structures publiques' },
-    { '@type': 'Audience', audienceType: 'Entreprises (RSE)' },
-    { '@type': 'Audience', audienceType: 'Grand public et adhérents' },
-  ],
-}
+const FAQ = [
+  { q: 'Quels types d\'ateliers proposez-vous ?', r: "Deux grandes familles : les ateliers numériques (comprendre l'impact du numérique, diagnostiquer une panne, réparer ou réemployer) et les ateliers végétaux (rempotage, bouturage, sauvetage de plantes, compostage). Chacun se décline en format court, en mise en pratique ou en cycle de plusieurs séances." },
+  { q: 'Combien coûte un atelier ?', r: "Les ateliers sont proposés sur devis, selon le public, la durée, le lieu et le format retenu. Lorsque la commune ou l'entreprise finance l'intervention, l'atelier est gratuit pour les participants." },
+  { q: 'Où interviennent vos ateliers ?', r: `Dans les Landes : mairie, médiathèque, établissement scolaire ou social, locaux d'entreprise, structure associative, salon ou événement. Nous intervenons en priorité autour de ${TERRITOIRE.ville} et sur les communautés de communes ${TERRITOIRE.intercos.join(' et ')}.` },
+  { q: 'Faut-il des connaissances préalables pour participer ?', r: "Non, aucun prérequis. Nos ateliers s'adressent à des publics non spécialistes, du débutant complet à l'utilisateur curieux. Le contenu est ajusté au niveau réel des participants." },
+  { q: 'Qui peut faire appel à vous ?', r: "Les collectivités et structures publiques, les entreprises dans le cadre de leur démarche RSE, les établissements scolaires et péri-scolaires, ainsi que les associations et groupes constitués. Une programmation grand public est en préparation." },
+  { q: 'Peut-on associer un atelier à une collecte ?', r: "Oui, c'est la formule la plus efficace : l'atelier apporte la pédagogie, la collecte transforme l'intention en gestes concrets. Le matériel collecté est ensuite reconditionné et redistribué localement." },
+]
+
+const PAGE_SCHEMA = graph(
+  serviceSchema({
+    name: 'Ateliers de sensibilisation au réemploi — Association Ressources',
+    description: "Ateliers de sensibilisation et de mise en pratique autour du réemploi numérique, du végétal et de la réduction des déchets, pour collectivités, entreprises, écoles et grand public dans les Landes.",
+    url: '/ateliers/',
+  }),
+  faqSchema(FAQ)
+)
 
 export default function Ateliers() {
   return (
     <Layout>
       <SEO
-        title="Ateliers de sensibilisation au réemploi numérique et végétal — Ressources, Landes"
-        description="Ateliers construits sur mesure autour du réemploi numérique, du végétal et de la réduction des déchets. Pour collectivités, entreprises (RSE), écoles et grand public dans les Landes. Sur devis."
+        title="Ateliers de sensibilisation au réemploi dans les Landes — Ressources"
+        description="Ateliers de sensibilisation au réemploi numérique et végétal dans les Landes : réparation informatique, bouturage, rempotage, compostage. Pour les collectivités, entreprises (RSE), écoles et grand public. Sur devis."
         canonical="/ateliers/"
-        schema={SERVICE_SCHEMA}
+        schema={PAGE_SCHEMA}
       />
 
       {/* HERO — silo kaki */}
@@ -126,13 +130,13 @@ export default function Ateliers() {
             Ateliers & interventions
           </p>
           <h1 className="font-serif text-4xl sm:text-5xl text-white leading-tight mb-4">
-            Des ateliers construits<br />autour de vos besoins
+            Ateliers de sensibilisation{' '}<br className="hidden sm:block" />au réemploi dans les Landes
           </h1>
           <div className="w-12 h-0.5 bg-ocre mb-6" />
-          <p className="text-white/65 max-w-xl leading-relaxed mb-8">
+          <p className="text-white/65 max-w-2xl leading-relaxed mb-8">
             Comprendre, expérimenter, agir. Ressources conçoit et anime des ateliers autour du
-            réemploi numérique, du végétal et de la réduction des déchets — adaptés à votre
-            public, votre lieu et vos objectifs.
+            réemploi informatique, du végétal et de la réduction des déchets — construits autour
+            de votre public, de votre lieu et de vos objectifs.
           </p>
           <div className="flex flex-wrap gap-4 mb-7">
             <Link to="/contact/" className="btn-ocre">Demander un devis <IconArrow className="w-4 h-4" /></Link>
@@ -146,12 +150,53 @@ export default function Ateliers() {
         </div>
       </section>
 
-      {/* LA CARTE — formats phares */}
+      {/* SILO — accès aux 5 sous-pages */}
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Reveal className="max-w-2xl mb-10">
+            <p className="section-label">Nos ateliers</p>
+            <h2 className="font-serif text-3xl sm:text-4xl text-terre mb-3">
+              Ateliers numériques, ateliers végétaux : pour qui, pour quoi ?
+            </h2>
+            <p className="text-terre/60 leading-relaxed">
+              Deux thématiques, plusieurs publics. Chaque page détaille les contenus, les formats
+              et les modalités d'intervention.
+            </p>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
+            {SOUS_PAGES.map((p) => {
+              const isNum = p.theme === 'num'
+              return (
+                <Reveal key={p.to} className="h-full">
+                  <Link
+                    to={p.to}
+                    className="group relative bg-white border border-beige p-6 flex flex-col h-full hover:-translate-y-1 hover:shadow-lg hover:border-beige-dark transition-all duration-300"
+                  >
+                    <span className={`absolute top-0 left-0 right-0 h-0.5 ${isNum ? 'bg-ocre' : 'bg-kaki'}`} />
+                    <p className={`font-sans text-[10.5px] font-bold tracking-widest uppercase mb-3 ${isNum ? 'text-ocre' : 'text-kaki'}`}>
+                      {p.type === 'theme' ? 'Thématique' : 'Public'}
+                    </p>
+                    <h3 className="font-serif text-xl text-terre mb-2 leading-snug group-hover:text-ocre-dark transition-colors">{p.titre}</h3>
+                    <p className="text-sm text-terre/60 leading-relaxed flex-grow mb-4">{p.resume}</p>
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-ocre">
+                      En savoir plus
+                      <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7-7 7M21 12H3" /></svg>
+                    </span>
+                  </Link>
+                </Reveal>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* LA CARTE — formats phares */}
+      <section className="py-16 md:py-20 bg-beige-light">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <Reveal className="max-w-2xl mb-10">
             <p className="section-label">Nos formats</p>
-            <h2 className="font-serif text-3xl sm:text-4xl text-terre mb-3">Des points de départ concrets</h2>
+            <h2 className="font-serif text-3xl sm:text-4xl text-terre mb-3">Nos ateliers phares</h2>
             <p className="text-terre/60 leading-relaxed">
               Voici nos formats phares. Chacun est un point de départ : durée, contenu et
               modalités s'adaptent ensuite à votre projet.
@@ -216,7 +261,7 @@ export default function Ateliers() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Reveal className="max-w-2xl mb-10">
             <p className="section-label">Nos thématiques</p>
-            <h2 className="font-serif text-3xl sm:text-4xl text-terre mb-3">Deux univers, une même logique de réemploi</h2>
+            <h2 className="font-serif text-3xl sm:text-4xl text-terre mb-3">Les thématiques de nos ateliers</h2>
             <p className="text-terre/60 leading-relaxed">
               Chaque intervention peut associer plusieurs de ces thématiques selon les besoins du groupe.
             </p>
@@ -225,7 +270,7 @@ export default function Ateliers() {
             <Reveal>
               <div className="bg-ocre-pale border border-ocre/20 p-8 h-full">
                 <h3 className="font-serif text-2xl text-ocre-dark mb-1.5 flex items-center gap-2.5">
-                  <IconEcran className="w-6 h-6" /> Numérique
+                  <IconEcran className="w-6 h-6" /> Ateliers numériques
                 </h3>
                 <p className="text-sm text-terre/60 mb-5">Mieux comprendre ses équipements pour les faire durer, plutôt que les remplacer.</p>
                 <div className="flex flex-wrap gap-2">
@@ -233,12 +278,15 @@ export default function Ateliers() {
                     <span key={t} className="text-sm bg-white border border-ocre/30 text-ocre-dark px-3 py-1.5 rounded-full">{t}</span>
                   ))}
                 </div>
+                <Link to="/ateliers/numerique/" className="inline-flex items-center gap-2 text-sm font-medium text-ocre-dark hover:underline mt-5">
+                  Voir les ateliers numériques <IconArrow className="w-4 h-4" />
+                </Link>
               </div>
             </Reveal>
             <Reveal>
               <div className="bg-kaki-pale border border-kaki/15 p-8 h-full">
                 <h3 className="font-serif text-2xl text-kaki mb-1.5 flex items-center gap-2.5">
-                  <IconFeuille className="w-6 h-6" /> Plantes
+                  <IconFeuille className="w-6 h-6" /> Ateliers végétaux
                 </h3>
                 <p className="text-sm text-terre/60 mb-5">Prendre soin, transmettre et réemployer : plantes, pots, contenants et matières organiques.</p>
                 <div className="flex flex-wrap gap-2">
@@ -249,6 +297,9 @@ export default function Ateliers() {
                 <p className="text-sm text-terre/60 mt-5 pt-4 border-t border-dashed border-kaki/25">
                   <b className="text-kaki">Un fil saisonnier :</b> rempotage au printemps → bouturage → entretien l'été → compostage à l'automne → préparer la saison suivante. Le cycle suit le rythme du vivant.
                 </p>
+                <Link to="/ateliers/vegetal/" className="inline-flex items-center gap-2 text-sm font-medium text-kaki hover:underline mt-4">
+                  Voir les ateliers végétaux <IconArrow className="w-4 h-4" />
+                </Link>
               </div>
             </Reveal>
           </div>
@@ -260,7 +311,7 @@ export default function Ateliers() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Reveal className="max-w-2xl mb-10">
             <p className="section-label">À qui s'adressent nos ateliers</p>
-            <h2 className="font-serif text-3xl sm:text-4xl text-terre mb-3">Une offre adaptée à chaque public</h2>
+            <h2 className="font-serif text-3xl sm:text-4xl text-terre mb-3">Des ateliers pour les collectivités, les entreprises et les écoles</h2>
             <p className="text-terre/60 leading-relaxed">Sur-mesure pour les structures, sur inscription pour les particuliers.</p>
           </Reveal>
           <div className="grid md:grid-cols-3 gap-6">
@@ -292,7 +343,7 @@ export default function Ateliers() {
                     <li key={li} className="flex items-start gap-2.5 text-sm text-terre/70"><span className="w-1.5 h-1.5 rounded-full bg-ocre-light mt-1.5 shrink-0" />{li}</li>
                   ))}
                 </ul>
-                <Link to="/contact/" className="btn-ocre text-sm w-full">Demander un devis</Link>
+                <Link to="/ateliers/collectivites/" className="btn-ocre text-sm w-full">Notre offre pour les collectivités</Link>
               </div>
             </Reveal>
 
@@ -306,11 +357,26 @@ export default function Ateliers() {
                     <li key={li} className="flex items-start gap-2.5 text-sm text-terre/70"><span className="w-1.5 h-1.5 rounded-full bg-kaki/40 mt-1.5 shrink-0" />{li}</li>
                   ))}
                 </ul>
-                <Link to="/contact/" className="btn-kaki text-sm w-full">Construire une action RSE</Link>
+                <Link to="/ateliers/entreprises/" className="btn-kaki text-sm w-full">Notre offre RSE pour les entreprises</Link>
               </div>
             </Reveal>
 
           </div>
+
+          <Reveal className="mt-6">
+            <div className="bg-white border border-beige border-t-2 border-t-kaki p-7 flex flex-col sm:flex-row sm:items-center gap-5 justify-between">
+              <div>
+                <p className="font-sans text-xs font-bold tracking-widest uppercase text-kaki mb-2">Écoles & péri-scolaire</p>
+                <h3 className="font-serif text-2xl text-terre mb-2">Interventions en milieu scolaire</h3>
+                <p className="text-sm text-terre/60 leading-relaxed max-w-2xl">
+                  Du primaire au lycée : faire comprendre le réemploi aux élèves en le leur mettant
+                  entre les mains — démonter un ordinateur, bouturer une plante, voir ce que
+                  deviennent les objets.
+                </p>
+              </div>
+              <Link to="/ateliers/ecoles/" className="btn-kaki text-sm shrink-0">Notre offre pour les écoles</Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -355,7 +421,13 @@ export default function Ateliers() {
             ))}
           </div>
           <div>
-            <p className="section-label">Où ?</p>
+            <h3 className="font-serif text-2xl text-terre mb-2">Où interviennent nos ateliers ?</h3>
+            <p className="text-sm text-terre/60 leading-relaxed max-w-3xl mb-5">
+              Nous nous déplaçons dans les Landes, en priorité autour de {TERRITOIRE.ville} ({TERRITOIRE.codePostal})
+              et sur les communautés de communes {TERRITOIRE.intercos.join(' et ')} — {TERRITOIRE.communes.slice(0, 4).join(', ')}
+              {' '}et les communes voisines. Découvrez{' '}
+              <Link to="/association/territoire/" className="text-ocre-dark underline hover:text-ocre">notre territoire d'intervention</Link>.
+            </p>
             <div className="flex flex-wrap gap-2.5 mt-2">
               {LIEUX.map((l) => (
                 <span key={l} className="text-sm text-kaki bg-beige-light border border-beige-dark px-4 py-2 rounded-full">{l}</span>
@@ -364,6 +436,8 @@ export default function Ateliers() {
           </div>
         </div>
       </section>
+
+      <Faq items={FAQ} title="Questions fréquentes sur nos ateliers" />
 
       {/* CTA FINAL */}
       <section className="py-16 md:py-24 bg-ocre-pale border-t border-ocre/20">

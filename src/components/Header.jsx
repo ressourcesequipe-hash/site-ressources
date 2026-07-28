@@ -27,6 +27,13 @@ const NAV = [
   {
     to: '/ateliers/',
     label: 'Ateliers',
+    children: [
+      { to: '/ateliers/numerique/', label: 'Ateliers numériques' },
+      { to: '/ateliers/vegetal/', label: 'Ateliers végétaux' },
+      { to: '/ateliers/collectivites/', label: 'Pour les collectivités' },
+      { to: '/ateliers/entreprises/', label: 'Pour les entreprises (RSE)' },
+      { to: '/ateliers/ecoles/', label: 'Pour les écoles' },
+    ],
   },
   {
     to: '/association/',

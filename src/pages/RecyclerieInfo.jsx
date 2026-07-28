@@ -128,6 +128,22 @@ export default function RecyclerieInfo() {
         </div>
       </section>
 
+      {/* Ateliers — maillage vers le silo */}
+      <section className="py-12 bg-beige-light border-y border-beige-dark">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row md:items-center gap-6 justify-between">
+          <div>
+            <p className="section-label">Aller plus loin</p>
+            <h2 className="font-serif text-2xl text-terre mb-2">Nos ateliers de réemploi informatique</h2>
+            <p className="text-sm text-terre/60 leading-relaxed max-w-2xl">
+              Au-delà de la collecte, Ressources anime des ateliers pour comprendre l'impact du
+              numérique, identifier une panne simple et choisir entre réparer, réutiliser ou
+              recycler — pour les habitants, les collectivités, les entreprises et les écoles.
+            </p>
+          </div>
+          <Link to="/ateliers/numerique/" className="btn-ocre text-sm shrink-0">Découvrir les ateliers</Link>
+        </div>
+      </section>
+
       {/* Garanties */}
       <section className="py-16 md:py-20 bg-beige">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">

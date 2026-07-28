@@ -82,6 +82,22 @@ export default function RecyclerieVegetale() {
         </div>
       </section>
 
+      {/* Ateliers — maillage vers le silo */}
+      <section className="py-12 bg-beige-light border-y border-beige-dark">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row md:items-center gap-6 justify-between">
+          <div>
+            <p className="section-label">Aller plus loin</p>
+            <h2 className="font-serif text-2xl text-terre mb-2">Nos ateliers de bouturage et de rempotage</h2>
+            <p className="text-sm text-terre/60 leading-relaxed max-w-2xl">
+              Apprendre à multiplier ses plantes, réemployer pots et contenants, sauver une plante
+              fragilisée et composter : des ateliers accessibles à tous, en séance ponctuelle ou
+              en cycle saisonnier.
+            </p>
+          </div>
+          <Link to="/ateliers/vegetal/" className="btn-veg text-sm shrink-0">Découvrir les ateliers</Link>
+        </div>
+      </section>
+
       {/* Pourquoi une filière végétale */}
       <section className="py-16 md:py-20 relative overflow-hidden" style={{ backgroundColor: '#EDECCE' }}>
 
