@@ -29,7 +29,7 @@ const FAQ = [
   { q: 'Peut-on apporter son propre ordinateur en panne ?', r: "Oui, c'est même encouragé pour la séance pratique. Les participants peuvent apporter leur ordinateur, tablette ou périphérique. Ressources peut aussi fournir du matériel issu de ses collectes si vous préférez." },
   { q: 'Combien de temps dure un atelier numérique ?', r: "Le format de sensibilisation dure environ 1 heure. Complété d'une mise en pratique, comptez 1 h 30 à une demi-journée. La durée s'ajuste au public et au temps dont vous disposez." },
   { q: 'Quel est le tarif d\'un atelier ?', r: "Les ateliers sont proposés sur devis, selon le public, la durée et le lieu d'intervention. Pour les habitants, l'atelier peut être financé par la collectivité et proposé gratuitement aux participants." },
-  { q: 'Où se déroulent les ateliers numériques ?', r: "Dans les Landes : en mairie, médiathèque, établissement scolaire ou social, locaux d'entreprise, ou lors d'un événement. Nous nous déplaçons sur le territoire, notamment sur les communautés de communes Côte Landes Nature et MACS." },
+  { q: 'Où se déroulent les ateliers numériques ?', r: "Partout dans les Landes : en mairie, médiathèque, établissement scolaire ou social, locaux d'entreprise, ou lors d'un événement. Nous nous déplaçons sur l'ensemble du département, communes rurales comme urbaines." },
   { q: 'Mes données personnelles sont-elles protégées ?', r: "Oui. L'effacement des données est un pilier de notre travail de reconditionnement, et le sujet est abordé en atelier. Les appareils confiés à la recyclerie font l'objet d'un effacement sécurisé avant toute remise en circulation." },
 ]
 

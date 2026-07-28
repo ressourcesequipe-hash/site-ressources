@@ -15,13 +15,14 @@
 
 export const BASE_URL = 'https://www.ressourcesrecyclerie.fr'
 
-/* Ancrage géographique — repris dans les textes et les schemas */
+/* Ancrage géographique — repris dans les textes et les schemas.
+   Volontairement ouvert : l'association intervient sur l'ensemble des Landes
+   et les départements limitrophes, sans restriction à quelques communes. */
 export const TERRITOIRE = {
   ville: 'Vielle-Saint-Girons',
   departement: 'Landes',
   codePostal: '40560',
-  intercos: ['Côte Landes Nature', 'MACS'],
-  communes: ['Léon', 'Linxe', 'Castets', 'Saint-Julien-en-Born', 'Lit-et-Mixe', 'Soustons'],
+  perimetre: 'l\'ensemble du département des Landes',
 }
 
 export const SOUS_PAGES = [
@@ -106,7 +107,7 @@ export function serviceSchema({ name, description, url, audienceType }) {
     },
     areaServed: [
       { '@type': 'AdministrativeArea', name: 'Landes' },
-      ...TERRITOIRE.intercos.map((n) => ({ '@type': 'AdministrativeArea', name: n })),
+      { '@type': 'AdministrativeArea', name: 'Nouvelle-Aquitaine' },
     ],
     ...(audienceType && { audience: { '@type': 'Audience', audienceType } }),
   }

@@ -96,7 +96,7 @@ const LIEUX = ['Commune & intercommunalité', 'Médiathèque', 'Établissement s
 const FAQ = [
   { q: 'Quels types d\'ateliers proposez-vous ?', r: "Deux grandes familles : les ateliers numériques (comprendre l'impact du numérique, diagnostiquer une panne, réparer ou réemployer) et les ateliers végétaux (rempotage, bouturage, sauvetage de plantes, compostage). Chacun se décline en format court, en mise en pratique ou en cycle de plusieurs séances." },
   { q: 'Combien coûte un atelier ?', r: "Les ateliers sont proposés sur devis, selon le public, la durée, le lieu et le format retenu. Lorsque la commune ou l'entreprise finance l'intervention, l'atelier est gratuit pour les participants." },
-  { q: 'Où interviennent vos ateliers ?', r: `Dans les Landes : mairie, médiathèque, établissement scolaire ou social, locaux d'entreprise, structure associative, salon ou événement. Nous intervenons en priorité autour de ${TERRITOIRE.ville} et sur les communautés de communes ${TERRITOIRE.intercos.join(' et ')}.` },
+  { q: 'Où interviennent vos ateliers ?', r: `Partout dans les Landes : mairie, médiathèque, établissement scolaire ou social, locaux d'entreprise, structure associative, salon ou événement. Basés à ${TERRITOIRE.ville}, nous nous déplaçons sur l'ensemble du département et étudions volontiers les demandes des départements limitrophes.` },
   { q: 'Faut-il des connaissances préalables pour participer ?', r: "Non, aucun prérequis. Nos ateliers s'adressent à des publics non spécialistes, du débutant complet à l'utilisateur curieux. Le contenu est ajusté au niveau réel des participants." },
   { q: 'Qui peut faire appel à vous ?', r: "Les collectivités et structures publiques, les entreprises dans le cadre de leur démarche RSE, les établissements scolaires et péri-scolaires, ainsi que les associations et groupes constitués. Une programmation grand public est en préparation." },
   { q: 'Peut-on associer un atelier à une collecte ?', r: "Oui, c'est la formule la plus efficace : l'atelier apporte la pédagogie, la collecte transforme l'intention en gestes concrets. Le matériel collecté est ensuite reconditionné et redistribué localement." },
@@ -423,9 +423,9 @@ export default function Ateliers() {
           <div>
             <h3 className="font-serif text-2xl text-terre mb-2">Où interviennent nos ateliers ?</h3>
             <p className="text-sm text-terre/60 leading-relaxed max-w-3xl mb-5">
-              Nous nous déplaçons dans les Landes, en priorité autour de {TERRITOIRE.ville} ({TERRITOIRE.codePostal})
-              et sur les communautés de communes {TERRITOIRE.intercos.join(' et ')} — {TERRITOIRE.communes.slice(0, 4).join(', ')}
-              {' '}et les communes voisines. Découvrez{' '}
+              Basés à {TERRITOIRE.ville} ({TERRITOIRE.codePostal}), nous nous déplaçons sur {TERRITOIRE.perimetre},
+              communes rurales comme urbaines — et étudions volontiers les demandes des départements
+              limitrophes. Découvrez{' '}
               <Link to="/association/territoire/" className="text-ocre-dark underline hover:text-ocre">notre territoire d'intervention</Link>.
             </p>
             <div className="flex flex-wrap gap-2.5 mt-2">

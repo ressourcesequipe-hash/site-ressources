@@ -30,7 +30,7 @@ const BILAN = [
 const FAQ = [
   { q: 'Combien coûte une intervention pour une commune ?', r: "Chaque dispositif est chiffré sur devis, en fonction du nombre d'ateliers, de la mise en place ou non d'un point de collecte, et de la durée de l'accompagnement. Contactez-nous pour recevoir une proposition adaptée à votre budget." },
   { q: 'Les ateliers sont-ils payants pour les habitants ?', r: "Non. Lorsque la commune finance le dispositif, les ateliers sont proposés gratuitement aux habitants. C'est la formule que nous recommandons pour toucher les publics les plus éloignés." },
-  { q: 'Quelles communes couvrez-vous ?', r: `Nous intervenons dans les Landes, en priorité sur les communautés de communes ${TERRITOIRE.intercos.join(' et ')}, autour de ${TERRITOIRE.ville}. Nous étudions toute demande sur le département.` },
+  { q: 'Quelles communes couvrez-vous ?', r: `Nous intervenons sur ${TERRITOIRE.perimetre}, sans restriction : communes rurales comme urbaines, du littoral à l'intérieur, et jusqu'aux départements limitrophes. Basés à ${TERRITOIRE.ville}, nous nous déplaçons partout dans les Landes — les modalités de déplacement sont définies avec vous et intégrées au devis.` },
   { q: 'Que doit fournir la commune ?', r: "Un lieu adapté (salle communale, médiathèque, tiers-lieu), un relais de communication auprès des habitants pour mobiliser les participants, et le soutien financier du dispositif. Nous apportons l'animation, le matériel pédagogique et les équipements." },
   { q: 'Recevons-nous un bilan de l\'opération ?', r: "Oui. Selon le dispositif retenu, nous transmettons un bilan précisant le nombre de participants, les équipements collectés et reconditionnés, l'estimation des déchets évités et la satisfaction des participants — des éléments directement valorisables dans votre communication." },
   { q: 'Peut-on associer l\'atelier à une collecte ?', r: "Oui, c'est même la formule la plus efficace : l'atelier crée l'occasion et la pédagogie, la collecte transforme l'intention en gestes concrets. Les équipements collectés sont ensuite reconditionnés et redistribués localement." },
@@ -139,14 +139,16 @@ export default function AteliersCollectivites() {
           <SectionHead
             label="Territoire"
             h2="Où nous intervenons dans les Landes"
-            intro={`Basée à ${TERRITOIRE.ville} (${TERRITOIRE.codePostal}), l'association intervient prioritairement sur les communautés de communes ${TERRITOIRE.intercos.join(' et ')}, et étudie toute demande sur le département.`}
+            intro={`Basée à ${TERRITOIRE.ville} (${TERRITOIRE.codePostal}), l'association intervient sur ${TERRITOIRE.perimetre} — communes rurales comme urbaines, du littoral à l'intérieur. Nous nous déplaçons partout dans les Landes, et étudions volontiers les demandes des départements limitrophes.`}
           />
           <Reveal>
-            <div className="flex flex-wrap gap-2.5">
-              {TERRITOIRE.communes.map((c) => (
-                <span key={c} className="text-sm text-kaki bg-beige-light border border-beige-dark px-4 py-2 rounded-full">{c}</span>
-              ))}
-              <span className="text-sm text-terre/50 px-2 py-2">et les communes voisines…</span>
+            <div className="bg-beige-light border border-beige-dark p-6 sm:p-7">
+              <p className="text-sm text-terre/70 leading-relaxed">
+                <b className="text-kaki">Votre commune n'est pas voisine de la nôtre ?</b> Ce n'est pas
+                un obstacle. Les modalités de déplacement sont simplement définies avec vous en amont,
+                et intégrées au devis. Parlez-nous de votre projet : nous vous dirons rapidement ce
+                qu'il est possible d'organiser.
+              </p>
             </div>
           </Reveal>
           <p className="text-sm text-terre/60 leading-relaxed mt-8">
