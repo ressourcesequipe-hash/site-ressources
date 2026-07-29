@@ -261,9 +261,16 @@ export default function Tombola() {
                     <h3 className="font-serif text-2xl md:text-3xl text-white leading-snug mb-2">
                       {LOT_PRINCIPAL.lot}
                     </h3>
-                    <p className="text-xs text-white/45 font-sans tracking-wide">
-                      {LOT_PRINCIPAL.detail}
-                    </p>
+                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      {LOT_PRINCIPAL.valeur && (
+                        <span className="font-serif text-2xl text-ocre leading-none">
+                          {formatEuros(LOT_PRINCIPAL.valeur)}
+                        </span>
+                      )}
+                      <p className="text-xs text-white/45 font-sans tracking-wide">
+                        {LOT_PRINCIPAL.detail}
+                      </p>
+                    </div>
                   </>
                 )}
               </div>

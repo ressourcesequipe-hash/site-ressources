@@ -1,5 +1,5 @@
 // Lots de la tombola solidaire du 03 octobre 2026.
-// Source : Suivi_lots_tombola_RESSOURCES au 21/07/2026.
+// Source : Suivi_lots_tombola_RESSOURCES au 21/07/2026 (révision du 29/07).
 // valeur = null lorsque le montant reste à confirmer avec le partenaire.
 
 export const CATEGORIES = [
@@ -12,23 +12,27 @@ export const CATEGORIES = [
 ]
 
 // Le gros lot, mis en vedette en haut de la page.
-// statut 'en-cours' : la dotation n'est pas encore acquise — son intitulé réel
-// n'est pas publié, seul un libellé d'attente s'affiche. Retirer le statut le
-// jour où l'accord écrit du partenaire est obtenu.
+// Dotation validée au 21/07/2026, dévoilée le 29/07 sur accord de Boris.
+// Offerte par des particuliers : leur nom n'est pas publié, comme pour les
+// autres dons privés de la page.
+// Pour remasquer le lot (si le bien, actuellement en vente, était cédé),
+// rajouter `statut: 'en-cours'` : la page réaffiche alors LIBELLE_EN_COURS.
 export const LOT_PRINCIPAL = {
   numero: '1',
   titre: 'Le gros lot',
-  lot: 'Un séjour sur la côte landaise pour 4 personnes',
-  detail: 'Hébergement pour 4 personnes',
-  statut: 'en-cours',
+  lot: 'Un séjour en villa pour 4 personnes',
+  detail: 'Don d’un particulier',
+  valeur: 1500,
 }
 
 export const LIBELLE_EN_COURS = 'En cours de finalisation'
 
 export const LOTS_CONFIRMES = [
   // Séjours & expériences
-  { lot: 'Un week-end romantique', partenaire: null, categorie: 'sejours', valeur: 250, detail: 'Séjour pour 2 personnes', statut: 'en-cours' },
   { lot: 'Vol en montgolfière', partenaire: 'Sud Ouest Montgolfière', categorie: 'sejours', valeur: 200, detail: '1 vol · départ en Béarn' },
+  { lot: 'Randonnée découverte d’1 h', partenaire: 'Jet Landes Family', categorie: 'sejours', valeur: 120, detail: '1 bon' },
+  { lot: 'Découverte du surfcasting', partenaire: 'Pêcheur de Capbreton', categorie: 'sejours', valeur: 100, detail: '1 bon cadeau' },
+  { lot: 'Découverte de la pêche en mer', partenaire: 'Cap Pêche Loisirs', categorie: 'sejours', valeur: 80, detail: '1 bon cadeau · sortie de 2 h' },
   { lot: 'Séance découverte de surf', partenaire: 'Max Respect', categorie: 'sejours', valeur: 35, detail: '1 séance de 2 h' },
 
   // Informatique reconditionnée
@@ -38,10 +42,11 @@ export const LOTS_CONFIRMES = [
   { lot: 'Ordinateur de bureau reconditionné', partenaire: 'Ressources', categorie: 'informatique', valeur: 200, detail: '1 équipement', podium: false },
 
   // Loisirs & bien-être
+  { lot: 'Vélo de ville avec son panier', partenaire: 'Joe Bike', categorie: 'loisirs', valeur: 398, detail: '1 vélo · à retirer au magasin' },
   { lot: 'Location de vélos pour 2 personnes', partenaire: 'La Cyclerie de Léon', categorie: 'loisirs', valeur: 70, detail: '1 location' },
   { lot: 'Location de vélos pour 2 personnes', partenaire: 'La Cyclerie de Léon', categorie: 'loisirs', valeur: 70, detail: '1 location' },
   { lot: 'Massage crânien', partenaire: 'Naturellement Nomade', categorie: 'loisirs', valeur: 55, detail: '1 prestation' },
-  { lot: 'Bon cadeau base de loisirs Evad’Sport', partenaire: 'Centrenautique', categorie: 'loisirs', valeur: 50.5, detail: '3 entrées' },
+  { lot: 'Entrées à la base de loisirs', partenaire: 'Evad’Sport', categorie: 'loisirs', valeur: 50.5, detail: '3 entrées' },
 
   // Artisanat & créations
   { lot: 'Céramiques faites main', partenaire: 'Rose M la Céramique', categorie: 'artisanat', valeur: 80, detail: '1 lot' },
@@ -52,23 +57,26 @@ export const LOTS_CONFIRMES = [
   // Dotation offerte par une particulière. Son nom n'est pas publié sans son accord.
   { lot: 'Carton de 6 bouteilles de Jurançon moelleux', partenaire: 'Don d’un particulier', categorie: 'gourmand', valeur: 70, detail: '6 bouteilles' },
   { lot: 'Bon d’achat', partenaire: 'Chez Paulette', categorie: 'gourmand', valeur: 60, detail: '1 bon' },
+  { lot: 'Deux plateaux de 12 huîtres et leur verre de vin', partenaire: 'Maison Labadie', categorie: 'gourmand', valeur: 34, detail: '2 bons de dégustation' },
   { lot: 'Deux pizzas', partenaire: 'Linxe Pizza', categorie: 'gourmand', valeur: 32, detail: '1 lot de 2 pizzas' },
   { lot: 'Lot de 3 bouteilles de Côtes de Gascogne', partenaire: 'Olivier de Léon', categorie: 'gourmand', valeur: 30, detail: '3 bouteilles' },
+  { lot: 'Dégustation d’huîtres pour 2 personnes au lac d’Hossegor', partenaire: 'Maison Labadie', categorie: 'gourmand', valeur: 22, detail: '1 bon cadeau' },
+  { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: 20, detail: '3 kg' },
+  { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: 20, detail: '3 kg' },
+  { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: 20, detail: '3 kg' },
+  { lot: 'Panier garni du Sud-Ouest', partenaire: 'Les 4’s LINX', categorie: 'gourmand', valeur: 20, detail: '1 panier' },
   { lot: 'Deux menus', partenaire: 'Restaurant La Ferme d’Huchet', categorie: 'gourmand', valeur: null, detail: '1 lot de 2 menus' },
   { lot: 'Bon cadeau', partenaire: 'Restaurant Léontine', categorie: 'gourmand', valeur: null, detail: '1 bon cadeau' },
-  { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: null, detail: '3 kg' },
-  { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: null, detail: '3 kg' },
-  { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: null, detail: '3 kg' },
 
   // Bons d'achat & commerces
   { lot: 'Bon d’achat', partenaire: 'E.Leclerc Soustons', categorie: 'commerce', valeur: 100, detail: '1 bon' },
   { lot: 'Bon d’achat', partenaire: 'E.Leclerc Express Linxe', categorie: 'commerce', valeur: 50, detail: '1 bon' },
   { lot: 'Bon d’achat', partenaire: 'Atelier Saint-Antoine', categorie: 'commerce', valeur: 40, detail: '1 bon' },
   { lot: 'Bon d’achat', partenaire: 'Wild Marcel', categorie: 'commerce', valeur: 30, detail: '1 bon' },
-  { lot: 'Bon d’achat', partenaire: 'Maison Lassalle — Bijouterie', categorie: 'commerce', valeur: 30, detail: '1 bon' },
+  { lot: 'Bon d’achat', partenaire: 'Maison Lassalle — Artisan Joaillier', categorie: 'commerce', valeur: 30, detail: '1 bon' },
   { lot: 'Bon d’achat', partenaire: 'Bain 2 Soleil', categorie: 'commerce', valeur: 30, detail: '1 bon' },
-  { lot: 'Bon d’achat', partenaire: 'Épicerie 5', categorie: 'commerce', valeur: 20, detail: '1 bon' },
-  { lot: 'Bon d’achat', partenaire: 'La Boucherie de Léon', categorie: 'commerce', valeur: 20, detail: '1 bon' },
+  { lot: 'Bon d’achat', partenaire: 'Épicerie 5', categorie: 'commerce', valeur: 30, detail: '1 bon' },
+  { lot: 'Bon d’achat', partenaire: 'La Boucherie de Léon', categorie: 'commerce', valeur: 30, detail: '1 bon' },
   { lot: 'Bon d’achat', partenaire: 'La Linxoise', categorie: 'commerce', valeur: 10, detail: '1 bon' },
 ]
 
@@ -101,10 +109,17 @@ export const PARTENAIRES = [
   { nom: 'E.Leclerc Soustons', logo: null, ville: 'Soustons' },
   { nom: 'E.Leclerc Express Linxe', logo: null, ville: 'Linxe' },
   { nom: 'La Cyclerie de Léon', logo: null, ville: 'Léon' },
-  { nom: 'Centrenautique', logo: null, ville: 'Soustons' },
+  // Commune issue de l'adresse de retrait du lot (40150 Soorts-Hossegor).
+  { nom: 'Joe Bike', logo: null, ville: 'Soorts-Hossegor' },
+  { nom: 'Jet Landes Family', logo: null, ville: 'Capbreton' },
+  { nom: 'Pêcheur de Capbreton', logo: null, ville: 'Capbreton' },
+  { nom: 'Cap Pêche Loisirs', logo: null, ville: null },
+  { nom: 'Evad’Sport', logo: null, ville: null },
   { nom: 'Max Respect', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Naturellement Nomade', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Chez Paulette', logo: null, ville: 'Vielle-Saint-Girons' },
+  { nom: 'Maison Labadie', logo: null, ville: 'Hossegor' },
+  { nom: 'Les 4’s LINX', logo: null, ville: null },
   { nom: 'Linxe Pizza', logo: null, ville: 'Linxe' },
   { nom: 'Restaurant La Ferme d’Huchet', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Restaurant Léontine', logo: null, ville: 'Léon' },
@@ -115,7 +130,7 @@ export const PARTENAIRES = [
   { nom: 'Les Jardins Bio du Médoc', logo: null, ville: 'Le Temple (Gironde)' },
   // Atelier itinérant : présent au marché de Linxe le vendredi matin.
   { nom: 'Atelier Saint-Antoine', logo: null, ville: 'Linxe' },
-  { nom: 'Maison Lassalle — Bijouterie', logo: null, ville: 'Dax' },
+  { nom: 'Maison Lassalle — Artisan Joaillier', logo: null, ville: 'Dax' },
   { nom: 'Wild Marcel', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Bain 2 Soleil', logo: null, ville: 'Léon' },
 
