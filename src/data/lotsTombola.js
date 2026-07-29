@@ -71,7 +71,7 @@ export const LOTS_CONFIRMES = [
   { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: 20, detail: '3 kg' },
   { lot: 'Panier garni du Sud-Ouest', partenaire: 'Les 4’S', categorie: 'gourmand', valeur: 20, detail: '1 panier' },
   { lot: 'Deux menus', partenaire: 'Restaurant La Ferme d’Huchet', categorie: 'gourmand', valeur: null, detail: '1 lot de 2 menus' },
-  { lot: 'Bon cadeau', partenaire: 'Restaurant Léontine', categorie: 'gourmand', valeur: null, detail: '1 bon cadeau' },
+  { lot: 'Bon cadeau', partenaire: 'Restaurant Léontine', categorie: 'gourmand', valeur: 25, detail: '1 bon cadeau' },
 
   // Bons d'achat & commerces
   { lot: 'Bon d’achat', partenaire: 'E.Leclerc Soustons', categorie: 'commerce', valeur: 100, detail: '1 bon' },
@@ -150,7 +150,7 @@ export const PARTENAIRES = [
 
   { nom: 'Rose M la Céramique', logo: '/logos/rose-m-ceramique.jpg', ville: 'Vielle-Saint-Girons', site: 'https://www.instagram.com/rosemlaceramique/' },
   { nom: 'Cécilou Ceramics', logo: null, ville: 'Vielle-Saint-Girons' },
-  { nom: 'Kallista Création', logo: '/logos/kallista-creation.png', ville: 'Lacanau' },
+  { nom: 'Kallista Création', logo: '/logos/kallista-creation.png', ville: 'Lacanau', site: 'https://www.instagram.com/kallista_creations/' },
 ]
 
 // Un partenaire peut être mis en attente en lui ajoutant statut: 'a-confirmer'.
