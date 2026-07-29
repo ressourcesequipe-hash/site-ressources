@@ -45,6 +45,11 @@ export const POINTS_CONFIRMES = POINTS_COLLECTE.filter(
   ({ statut }) => statut === 'confirme',
 )
 
+// Points réellement ouverts au dépôt : confirmés et sans réserve en cours.
+// Sert au compteur affiché en tête de section — il se met à jour tout seul
+// dès qu'une `mention` est retirée ci-dessus.
+export const POINTS_OUVERTS = POINTS_CONFIRMES.filter(({ mention }) => !mention)
+
 // Partenariat SITCOM40 : points de collecte en déchèterie.
 // Renseigner `decheteries` avec les communes dès qu'elles sont arrêtées ;
 // la page les affiche alors nommément à la place de la mention générique.

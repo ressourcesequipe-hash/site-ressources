@@ -78,8 +78,9 @@ export const PRIX_BILLET = 5
 // adresse : renseigner la rue dès qu'elle est vérifiée — le lien carte utilise
 // une recherche par nom + commune tant qu'elle est absente, pour ne rien inventer.
 export const POINTS_VENTE = [
-  { nom: 'E.Leclerc Express', ville: 'Linxe', adresse: null },
-  { nom: 'E.Leclerc', ville: 'Soustons', adresse: null },
+  { nom: 'Boulangerie La Linxoise', ville: 'Linxe', adresse: null },
+  { nom: 'Boulangerie La Linxoise', ville: 'Castets', adresse: null },
+  { nom: 'Boulangerie La Linxoise', ville: 'Lit-et-Mixe', adresse: null },
   { nom: 'Tabac Presse', ville: 'Linxe', adresse: null },
 ]
 

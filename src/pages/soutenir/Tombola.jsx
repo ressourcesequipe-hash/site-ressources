@@ -27,7 +27,7 @@ const faqSchema = {
       name: 'Où peut-on acheter des billets de tombola ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'En ligne via HelloAsso, ou en espèces chez nos commerçants partenaires : E.Leclerc Express à Linxe, E.Leclerc à Soustons et le Tabac Presse de Linxe. Il n\'est pas nécessaire d\'être présent à l\'événement : en cas de gain, nous vous contacterons directement pour organiser la remise de votre lot.',
+        text: 'En ligne via HelloAsso, ou en espèces chez nos commerçants partenaires : la Boulangerie La Linxoise à Linxe, Castets et Lit-et-Mixe, ainsi que le Tabac Presse de Linxe. Il n\'est pas nécessaire d\'être présent à l\'événement : en cas de gain, nous vous contacterons directement pour organiser la remise de votre lot.',
       },
     },
     {
@@ -428,7 +428,7 @@ export default function Tombola() {
               {[
                 {
                   q: 'Où peut-on acheter des billets ?',
-                  r: 'En ligne via HelloAsso, ou en espèces chez nos commerçants partenaires : E.Leclerc Express à Linxe, E.Leclerc à Soustons et le Tabac Presse de Linxe. Il n\'est pas nécessaire d\'être présent à l\'événement : en cas de gain, nous vous contacterons directement.',
+                  r: 'En ligne via HelloAsso, ou en espèces chez nos commerçants partenaires : la Boulangerie La Linxoise à Linxe, Castets et Lit-et-Mixe, ainsi que le Tabac Presse de Linxe. Il n\'est pas nécessaire d\'être présent à l\'événement : en cas de gain, nous vous contacterons directement.',
                 },
                 {
                   q: 'Comment se déroule le tirage au sort ?',

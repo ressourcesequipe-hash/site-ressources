@@ -9,6 +9,7 @@ import {
   ETAPES,
   PARTENARIAT_SITCOM,
   POINTS_CONFIRMES,
+  POINTS_OUVERTS,
 } from '../data/defiCollecte'
 
 const BREADCRUMBS = [{ label: 'Défi collecte — 1/2 tonne' }]
@@ -175,8 +176,7 @@ export default function DefiCollecte() {
             <div className="flex items-baseline gap-3 mb-2">
               <h2 className="font-serif text-2xl text-terre">Où déposer</h2>
               <span className="font-sans text-xs text-terre/45">
-                {POINTS_CONFIRMES.length} point{POINTS_CONFIRMES.length > 1 ? 's' : ''} confirmé
-                {POINTS_CONFIRMES.length > 1 ? 's' : ''}
+                {POINTS_OUVERTS.length} point{POINTS_OUVERTS.length > 1 ? 's' : ''} de collecte
               </span>
             </div>
             <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
