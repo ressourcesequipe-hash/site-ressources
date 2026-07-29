@@ -8,7 +8,11 @@ function CartePartenaire({ nom, logo, ville, site }) {
           <img
             src={logo}
             alt={`Logo ${nom}`}
-            loading="lazy"
+            // Pas de lazy-loading : le bandeau défile en continu et les logos
+            // apparaîtraient un par un. Ils sont redimensionnés à 160 px, le
+            // chargement immédiat de l'ensemble reste léger.
+            width="48"
+            height="48"
             className="max-w-full max-h-full object-contain"
           />
         ) : (
