@@ -13,7 +13,8 @@ function CartePartenaire({ nom, logo, ville, site }) {
             // chargement immédiat de l'ensemble reste léger.
             width="48"
             height="48"
-            className="max-w-full max-h-full object-contain"
+            className="max-w-full max-h-full object-contain transition-transform duration-300 ease-out
+                       group-hover/carte:scale-110 motion-reduce:transition-none"
           />
         ) : (
           <span className="font-serif text-lg text-ocre leading-none">{initiales(nom)}</span>
@@ -26,22 +27,51 @@ function CartePartenaire({ nom, logo, ville, site }) {
     </>
   )
 
-  return (
-    <li className="shrink-0 w-56 border border-beige-dark border-t-2 border-t-ocre/60 bg-white">
-      {site ? (
-        // tabIndex -1 : le bandeau est aria-hidden, on n'y piège pas le clavier.
-        <a
-          href={site}
-          target="_blank"
-          rel="noopener noreferrer"
-          tabIndex={-1}
-          className="flex items-center gap-4 p-5 transition-colors duration-200 hover:bg-beige-light"
-        >
-          {contenu}
-        </a>
-      ) : (
+  // Partenaire sans site : carte inerte, aucun effet au survol pour ne pas
+  // laisser croire qu'elle est cliquable.
+  if (!site) {
+    return (
+      <li className="shrink-0 w-56 border border-beige-dark border-t-2 border-t-ocre/60 bg-white">
         <div className="flex items-center gap-4 p-5">{contenu}</div>
-      )}
+      </li>
+    )
+  }
+
+  return (
+    <li
+      className="group/carte shrink-0 w-56 border border-beige-dark border-t-2 border-t-ocre/60 bg-white
+                 transition-all duration-300 ease-out
+                 hover:-translate-y-1 hover:border-ocre/40 hover:border-t-ocre
+                 hover:shadow-xl hover:shadow-terre/15
+                 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+    >
+      {/* tabIndex -1 : le bandeau est aria-hidden, on n'y piège pas le clavier. */}
+      <a
+        href={site}
+        target="_blank"
+        rel="noopener noreferrer"
+        tabIndex={-1}
+        className="relative flex items-center gap-4 p-5"
+      >
+        {contenu}
+
+        {/* Indice de lien externe, révélé au survol */}
+        <span
+          className="absolute top-2 right-2 text-ocre opacity-0 translate-x-1 translate-y-1
+                     transition-all duration-300 ease-out
+                     group-hover/carte:opacity-100 group-hover/carte:translate-x-0 group-hover/carte:translate-y-0"
+          aria-hidden
+        >
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M14 5h5v5M19 5l-7 7M18 14v5H5V6h5"
+            />
+          </svg>
+        </span>
+      </a>
     </li>
   )
 }
@@ -72,7 +102,9 @@ export default function PartenairesTombola() {
         }}
         aria-hidden
       >
-        <ul className="flex gap-4 w-max animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none motion-reduce:flex-wrap motion-reduce:w-full">
+        {/* py-3 : laisse la place au soulèvement et à l'ombre des cartes au
+            survol, que le overflow-hidden du parent rognerait sinon. */}
+        <ul className="flex gap-4 w-max py-3 animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none motion-reduce:flex-wrap motion-reduce:w-full">
           {defilement.map((partenaire, i) => (
             <CartePartenaire key={`${partenaire.nom}-${i}`} {...partenaire} />
           ))}

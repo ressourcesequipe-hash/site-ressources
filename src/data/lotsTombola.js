@@ -69,7 +69,7 @@ export const LOTS_CONFIRMES = [
   { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: 20, detail: '3 kg' },
   { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: 20, detail: '3 kg' },
   { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: 20, detail: '3 kg' },
-  { lot: 'Panier garni du Sud-Ouest', partenaire: 'Les 4’s LINX', categorie: 'gourmand', valeur: 20, detail: '1 panier' },
+  { lot: 'Panier garni du Sud-Ouest', partenaire: 'Les 4’S', categorie: 'gourmand', valeur: 20, detail: '1 panier' },
   { lot: 'Deux menus', partenaire: 'Restaurant La Ferme d’Huchet', categorie: 'gourmand', valeur: null, detail: '1 lot de 2 menus' },
   { lot: 'Bon cadeau', partenaire: 'Restaurant Léontine', categorie: 'gourmand', valeur: null, detail: '1 bon cadeau' },
 
@@ -123,7 +123,7 @@ export const PARTENAIRES = [
   { nom: 'Joe Bike', logo: '/logos/joe-bike.png', ville: 'Soorts-Hossegor' },
   { nom: 'Jet Landes Family', logo: '/logos/jet-landes-family.webp', ville: 'Capbreton', site: 'https://www.jetlandesfamily-capbreton.com/' },
   { nom: 'Pêcheur de Capbreton', logo: null, ville: 'Capbreton' },
-  { nom: 'Cap Pêche Loisirs', logo: '/logos/cap-peche-loisirs.png', ville: null, site: 'https://www.cappecheloisirs.com/' },
+  { nom: 'Cap Pêche Loisirs', logo: '/logos/cap-peche-loisirs.png', ville: 'Capbreton', site: 'https://www.cappecheloisirs.com/' },
   // Base de loisirs exploitée par Centrenautique, à Soustons (source : nom du
   // fichier logo fourni) — à confirmer avant d'ajouter le site.
   { nom: 'Evad’Sport', logo: '/logos/evad-sport.png', ville: 'Soustons' },
@@ -131,7 +131,9 @@ export const PARTENAIRES = [
   { nom: 'Naturellement Nomade', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Chez Paulette', logo: '/logos/chez-paulette.png', ville: 'Vielle-Saint-Girons' },
   { nom: 'Maison Labadie', logo: '/logos/maison-labadie.png', ville: 'Hossegor' },
-  { nom: 'Les 4’s LINX', logo: '/logos/les-4s-linx.jpg', ville: null },
+  // Enseigne « Les 4'S » (cave · bar à manger) : le « LINX » du fichier source
+  // désignait la commune, pas le nom. Orthographe confirmée par le logo.
+  { nom: 'Les 4’S', logo: '/logos/les-4s.jpg', ville: 'Linxe' },
   { nom: 'Linxe Pizza', logo: '/logos/linxe-pizza.jpg', ville: 'Linxe' },
   { nom: 'Restaurant La Ferme d’Huchet', logo: '/logos/ferme-huchet.jpg', ville: 'Vielle-Saint-Girons' },
   { nom: 'Restaurant Léontine', logo: '/logos/restaurant-leontine.png', ville: 'Léon' },
