@@ -115,40 +115,40 @@ export const lienCarte = ({ nom, ville, adresse }) =>
 export const PARTENAIRES = [
   // Décollage depuis le lac du Gabas, en Béarn — hors Landes.
   // logo : le fichier fourni était vide (métadonnées macOS) — à redemander.
-  { nom: 'Sud Ouest Montgolfière', logo: null, ville: 'Lourenties (Béarn)' },
-  { nom: 'E.Leclerc Soustons', logo: '/logos/leclerc.png', ville: 'Soustons' },
+  { nom: 'Sud Ouest Montgolfière', logo: null, ville: 'Lourenties (Béarn)', site: 'https://sudouest-montgolfiere.fr/' },
+  { nom: 'E.Leclerc Soustons', logo: '/logos/leclerc.png', ville: 'Soustons', site: 'https://www.e.leclerc/mag/e-leclerc-soustons' },
   { nom: 'E.Leclerc Express Linxe', logo: '/logos/leclerc.png', ville: 'Linxe' },
-  { nom: 'La Cyclerie de Léon', logo: '/logos/la-cyclerie-de-leon.png', ville: 'Léon' },
+  { nom: 'La Cyclerie de Léon', logo: '/logos/la-cyclerie-de-leon.png', ville: 'Léon', site: 'https://lacyclerie-leon.fr/' },
   // Commune issue de l'adresse de retrait du lot (40150 Soorts-Hossegor).
-  { nom: 'Joe Bike', logo: '/logos/joe-bike.png', ville: 'Soorts-Hossegor' },
+  { nom: 'Joe Bike', logo: '/logos/joe-bike.png', ville: 'Soorts-Hossegor', site: 'https://joebike.fr/' },
   { nom: 'Jet Landes Family', logo: '/logos/jet-landes-family.webp', ville: 'Capbreton', site: 'https://www.jetlandesfamily-capbreton.com/' },
+  // Aucun site ni logo (précisé dans le tableau de suivi).
   { nom: 'Pêcheur de Capbreton', logo: null, ville: 'Capbreton' },
   { nom: 'Cap Pêche Loisirs', logo: '/logos/cap-peche-loisirs.png', ville: 'Capbreton', site: 'https://www.cappecheloisirs.com/' },
-  // Base de loisirs exploitée par Centrenautique, à Soustons (source : nom du
-  // fichier logo fourni) — à confirmer avant d'ajouter le site.
-  { nom: 'Evad’Sport', logo: '/logos/evad-sport.png', ville: 'Soustons' },
-  { nom: 'Max Respect', logo: '/logos/max-respect.png', ville: 'Vielle-Saint-Girons' },
+  // Base de loisirs exploitée par Centrenautique, à Soustons.
+  { nom: 'Evad’Sport', logo: '/logos/evad-sport.png', ville: 'Soustons', site: 'https://www.centrenautique-soustons.com/' },
+  { nom: 'Max Respect', logo: '/logos/max-respect.png', ville: 'Vielle-Saint-Girons', site: 'https://www.max-respect.com/' },
   { nom: 'Naturellement Nomade', logo: null, ville: 'Vielle-Saint-Girons' },
-  { nom: 'Chez Paulette', logo: '/logos/chez-paulette.png', ville: 'Vielle-Saint-Girons' },
-  { nom: 'Maison Labadie', logo: '/logos/maison-labadie.png', ville: 'Hossegor' },
+  { nom: 'Chez Paulette', logo: '/logos/chez-paulette.png', ville: 'Vielle-Saint-Girons', site: 'https://www.instagram.com/chezpauletterotisserie/' },
+  { nom: 'Maison Labadie', logo: '/logos/maison-labadie.png', ville: 'Hossegor', site: 'https://www.instagram.com/maisonlabadie/' },
   // Enseigne « Les 4'S » (cave · bar à manger) : le « LINX » du fichier source
   // désignait la commune, pas le nom. Orthographe confirmée par le logo.
-  { nom: 'Les 4’S', logo: '/logos/les-4s.jpg', ville: 'Linxe' },
-  { nom: 'Linxe Pizza', logo: '/logos/linxe-pizza.jpg', ville: 'Linxe' },
-  { nom: 'Restaurant La Ferme d’Huchet', logo: '/logos/ferme-huchet.jpg', ville: 'Vielle-Saint-Girons' },
-  { nom: 'Restaurant Léontine', logo: '/logos/restaurant-leontine.png', ville: 'Léon' },
-  { nom: 'La Boucherie de Léon', logo: '/logos/boucherie-de-leon.jpg', ville: 'Léon' },
-  { nom: 'Épicerie 5', logo: '/logos/epicerie-5.jpg', ville: 'Léon' },
-  { nom: 'La Linxoise', logo: '/logos/la-linxoise.jpg', ville: 'Linxe' },
-  { nom: 'Olivier de Léon', logo: '/logos/olivier-de-leon.jpg', ville: 'Léon' },
-  { nom: 'Les Jardins Bio du Médoc', logo: '/logos/jardins-bio-du-medoc.png', ville: 'Le Temple (Gironde)' },
+  { nom: 'Les 4’S', logo: '/logos/les-4s.jpg', ville: 'Linxe', site: 'https://les4s.com/' },
+  { nom: 'Linxe Pizza', logo: '/logos/linxe-pizza.jpg', ville: 'Linxe', site: 'https://www.facebook.com/linxepizza' },
+  { nom: 'Restaurant La Ferme d’Huchet', logo: '/logos/ferme-huchet.jpg', ville: 'Vielle-Saint-Girons', site: 'https://www.facebook.com/lafermedhuchet/' },
+  { nom: 'Restaurant Léontine', logo: '/logos/restaurant-leontine.png', ville: 'Léon', site: 'https://www.instagram.com/leontinerestaurant/' },
+  { nom: 'La Boucherie de Léon', logo: '/logos/boucherie-de-leon.jpg', ville: 'Léon', site: 'https://www.facebook.com/Jerometurin2411/' },
+  { nom: 'Épicerie 5', logo: '/logos/epicerie-5.jpg', ville: 'Léon', site: 'https://www.instagram.com/epicerie.5/' },
+  { nom: 'La Linxoise', logo: '/logos/la-linxoise.jpg', ville: 'Linxe', site: 'https://www.instagram.com/la.linxoise__' },
+  { nom: 'Olivier de Léon', logo: '/logos/olivier-de-leon.jpg', ville: 'Léon', site: 'https://www.facebook.com/p/olivier-de-l%C3%A9on-100063292146573/' },
+  { nom: 'Les Jardins Bio du Médoc', logo: '/logos/jardins-bio-du-medoc.png', ville: 'Le Temple (Gironde)', site: 'https://jardinsbiodumedoc.fr/' },
   // Atelier itinérant : présent au marché de Linxe le vendredi matin.
   { nom: 'Atelier Saint-Antoine', logo: '/logos/atelier-saint-antoine.jpg', ville: 'Linxe', site: 'https://ateliersaintantoine.com/' },
-  { nom: 'Maison Lassalle — Artisan Joaillier', logo: '/logos/maison-lassalle.svg', ville: 'Dax' },
-  { nom: 'Wild Marcel', logo: '/logos/wild-marcel.jpg', ville: 'Vielle-Saint-Girons' },
+  { nom: 'Maison Lassalle — Artisan Joaillier', logo: '/logos/maison-lassalle.svg', ville: 'Dax', site: 'https://www.joaillerie-lassalle.com/' },
+  { nom: 'Wild Marcel', logo: '/logos/wild-marcel.jpg', ville: 'Vielle-Saint-Girons', site: 'https://www.instagram.com/wildmarcel_laboutique/' },
   { nom: 'Bain 2 Soleil', logo: null, ville: 'Léon' },
 
-  { nom: 'Rose M la Céramique', logo: '/logos/rose-m-ceramique.jpg', ville: 'Vielle-Saint-Girons' },
+  { nom: 'Rose M la Céramique', logo: '/logos/rose-m-ceramique.jpg', ville: 'Vielle-Saint-Girons', site: 'https://www.instagram.com/rosemlaceramique/' },
   { nom: 'Cécilou Ceramics', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Kallista Création', logo: '/logos/kallista-creation.png', ville: 'Lacanau' },
 ]
