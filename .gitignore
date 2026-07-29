@@ -5,3 +5,7 @@ dist-ssr
 *.local
 
 .vercel
+
+# Fichiers de metadonnees macOS (AppleDouble) — jamais de vraies images
+._*
+.DS_Store
