@@ -1,11 +1,16 @@
 import { PARTENAIRES_PUBLIES, initiales } from '../data/lotsTombola'
 
-function CartePartenaire({ nom, logo, ville }) {
-  return (
-    <li className="shrink-0 w-56 border border-beige-dark border-t-2 border-t-ocre/60 bg-white p-5 flex items-center gap-4">
+function CartePartenaire({ nom, logo, ville, site }) {
+  const contenu = (
+    <>
       <div className="w-12 h-12 shrink-0 flex items-center justify-center bg-ocre-pale">
         {logo ? (
-          <img src={logo} alt={`Logo ${nom}`} className="max-w-full max-h-full object-contain" />
+          <img
+            src={logo}
+            alt={`Logo ${nom}`}
+            loading="lazy"
+            className="max-w-full max-h-full object-contain"
+          />
         ) : (
           <span className="font-serif text-lg text-ocre leading-none">{initiales(nom)}</span>
         )}
@@ -14,6 +19,25 @@ function CartePartenaire({ nom, logo, ville }) {
         <p className="font-sans text-sm text-terre leading-snug">{nom}</p>
         {ville && <p className="text-xs text-terre/45 mt-0.5">{ville}</p>}
       </div>
+    </>
+  )
+
+  return (
+    <li className="shrink-0 w-56 border border-beige-dark border-t-2 border-t-ocre/60 bg-white">
+      {site ? (
+        // tabIndex -1 : le bandeau est aria-hidden, on n'y piège pas le clavier.
+        <a
+          href={site}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={-1}
+          className="flex items-center gap-4 p-5 transition-colors duration-200 hover:bg-beige-light"
+        >
+          {contenu}
+        </a>
+      ) : (
+        <div className="flex items-center gap-4 p-5">{contenu}</div>
+      )}
     </li>
   )
 }

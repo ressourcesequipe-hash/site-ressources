@@ -20,9 +20,14 @@ export const CATEGORIES = [
 export const LOT_PRINCIPAL = {
   numero: '1',
   titre: 'Le gros lot',
-  lot: 'Un séjour en villa pour 4 personnes',
+  lot: 'Un séjour d’une semaine en villa sur la côte landaise pour 4 personnes',
   detail: 'Don d’un particulier',
   valeur: 1500,
+  // Photo d'extérieur de la villa : déposer le fichier dans /public/lots/ puis
+  // renseigner le chemin ci-dessous (ex. '/lots/villa-cote-landaise.jpg').
+  // Tant que la valeur est null, le bandeau garde sa mise en forme actuelle.
+  photo: null,
+  photoAlt: 'Villa sur la côte landaise mise en jeu comme gros lot de la tombola',
 }
 
 export const LIBELLE_EN_COURS = 'En cours de finalisation'
@@ -99,6 +104,10 @@ export const lienCarte = ({ nom, ville, adresse }) =>
 
 // Les commerçants, artisans et producteurs qui offrent une dotation.
 // logo : chemin dans /public/logos/ — null tant que le logo n'a pas été fourni.
+//   Déposer le fichier dans public/logos/ (PNG ou SVG à fond transparent de
+//   préférence), puis renseigner par ex. logo: '/logos/joe-bike.png'.
+//   Sans logo, la carte affiche les initiales du partenaire : rien ne casse.
+// site : site web du partenaire — la carte devient alors cliquable.
 // ville : commune du partenaire — null tant qu'elle n'a pas été vérifiée.
 // Communes issues du tableau de bord interne tombola-ressources (21/07/2026).
 // Ne jamais reprendre ici les téléphones et e-mails du tableau de bord : ce sont
@@ -111,9 +120,9 @@ export const PARTENAIRES = [
   { nom: 'La Cyclerie de Léon', logo: null, ville: 'Léon' },
   // Commune issue de l'adresse de retrait du lot (40150 Soorts-Hossegor).
   { nom: 'Joe Bike', logo: null, ville: 'Soorts-Hossegor' },
-  { nom: 'Jet Landes Family', logo: null, ville: 'Capbreton' },
+  { nom: 'Jet Landes Family', logo: null, ville: 'Capbreton', site: 'https://www.jetlandesfamily-capbreton.com/' },
   { nom: 'Pêcheur de Capbreton', logo: null, ville: 'Capbreton' },
-  { nom: 'Cap Pêche Loisirs', logo: null, ville: null },
+  { nom: 'Cap Pêche Loisirs', logo: null, ville: null, site: 'https://www.cappecheloisirs.com/' },
   { nom: 'Evad’Sport', logo: null, ville: null },
   { nom: 'Max Respect', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Naturellement Nomade', logo: null, ville: 'Vielle-Saint-Girons' },
@@ -129,7 +138,7 @@ export const PARTENAIRES = [
   { nom: 'Olivier de Léon', logo: null, ville: 'Léon' },
   { nom: 'Les Jardins Bio du Médoc', logo: null, ville: 'Le Temple (Gironde)' },
   // Atelier itinérant : présent au marché de Linxe le vendredi matin.
-  { nom: 'Atelier Saint-Antoine', logo: null, ville: 'Linxe' },
+  { nom: 'Atelier Saint-Antoine', logo: null, ville: 'Linxe', site: 'https://ateliersaintantoine.com/' },
   { nom: 'Maison Lassalle — Artisan Joaillier', logo: null, ville: 'Dax' },
   { nom: 'Wild Marcel', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Bain 2 Soleil', logo: null, ville: 'Léon' },

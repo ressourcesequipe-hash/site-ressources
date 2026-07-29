@@ -257,21 +257,38 @@ export default function Tombola() {
                     </p>
                   </>
                 ) : (
-                  <>
-                    <h3 className="font-serif text-2xl md:text-3xl text-white leading-snug mb-2">
-                      {LOT_PRINCIPAL.lot}
-                    </h3>
-                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      {LOT_PRINCIPAL.valeur && (
-                        <span className="font-serif text-2xl text-ocre leading-none">
-                          {formatEuros(LOT_PRINCIPAL.valeur)}
-                        </span>
-                      )}
-                      <p className="text-xs text-white/45 font-sans tracking-wide">
-                        {LOT_PRINCIPAL.detail}
-                      </p>
+                  <div
+                    className={
+                      LOT_PRINCIPAL.photo
+                        ? 'grid md:grid-cols-[1fr_auto] gap-6 md:gap-8 items-center'
+                        : ''
+                    }
+                  >
+                    <div>
+                      <h3 className="font-serif text-2xl md:text-3xl text-white leading-snug mb-2">
+                        {LOT_PRINCIPAL.lot}
+                      </h3>
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                        {LOT_PRINCIPAL.valeur && (
+                          <span className="font-serif text-2xl text-ocre leading-none">
+                            {formatEuros(LOT_PRINCIPAL.valeur)}
+                          </span>
+                        )}
+                        <p className="text-xs text-white/45 font-sans tracking-wide">
+                          {LOT_PRINCIPAL.detail}
+                        </p>
+                      </div>
                     </div>
-                  </>
+
+                    {LOT_PRINCIPAL.photo && (
+                      <img
+                        src={LOT_PRINCIPAL.photo}
+                        alt={LOT_PRINCIPAL.photoAlt}
+                        loading="lazy"
+                        className="w-full md:w-72 lg:w-80 h-48 md:h-44 lg:h-48 object-cover border border-white/15 shadow-lg shadow-black/20"
+                      />
+                    )}
+                  </div>
                 )}
               </div>
             </div>
