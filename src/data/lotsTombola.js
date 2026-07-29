@@ -23,11 +23,11 @@ export const LOT_PRINCIPAL = {
   lot: 'Un séjour d’une semaine en villa sur la côte landaise pour 4 personnes',
   detail: 'Don d’un particulier',
   valeur: 1500,
-  // Photo d'extérieur de la villa : déposer le fichier dans /public/lots/ puis
-  // renseigner le chemin ci-dessous (ex. '/lots/villa-cote-landaise.jpg').
-  // Tant que la valeur est null, le bandeau garde sa mise en forme actuelle.
-  photo: null,
-  photoAlt: 'Villa sur la côte landaise mise en jeu comme gros lot de la tombola',
+  // Photo d'extérieur de la villa (fichier dans /public/lots/).
+  // Mettre à null pour revenir à un bandeau sans visuel.
+  photo: '/lots/villa-cote-landaise.jpg',
+  photoAlt:
+    'Villa avec piscine sur la côte landaise, gros lot de la tombola solidaire de l’association Ressources',
 }
 
 export const LIBELLE_EN_COURS = 'En cours de finalisation'

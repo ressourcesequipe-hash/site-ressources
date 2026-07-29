@@ -246,7 +246,13 @@ export default function Tombola() {
                 </span>
               </div>
 
-              <div className="border-t-2 border-ocre/50 pt-5 max-w-2xl">
+              <div
+                className={`border-t-2 border-ocre/50 pt-5 ${
+                  LOT_PRINCIPAL.photo && LOT_PRINCIPAL.statut !== 'en-cours'
+                    ? 'max-w-4xl'
+                    : 'max-w-2xl'
+                }`}
+              >
                 {LOT_PRINCIPAL.statut === 'en-cours' ? (
                   <>
                     <h3 className="font-serif text-2xl md:text-3xl text-white/90 leading-snug mb-2">
