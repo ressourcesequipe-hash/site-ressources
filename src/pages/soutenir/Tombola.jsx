@@ -429,22 +429,28 @@ export default function Tombola() {
 
           {/* À quoi servent les fonds */}
           <div className="bg-beige-light border border-beige-dark p-6 md:p-8 mb-12">
-            <h2 className="font-serif text-xl text-terre mb-5">À quoi servent les fonds récoltés ?</h2>
+            <h2 className="font-serif text-xl text-terre mb-2">À quoi servent les fonds récoltés ?</h2>
+            <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
+              La priorité de cette collecte est de créer le premier emploi de la
+              recyclerie : c'est ce qui permettra une présence régulière et durable
+              sur le territoire, pour la collecte, le reconditionnement et la
+              redistribution.
+            </p>
             <div className="space-y-3">
               {[
-                { pct: '35%', label: 'Collectes et logistique territoriale' },
-                { pct: '25%', label: 'Diagnostic, tri et reconditionnement informatique et végétal' },
-                { pct: '15%', label: 'Stockage sécurisé, manutention et traçabilité' },
-                { pct: '15%', label: 'Redistribution solidaire et ateliers de sensibilisation' },
-                { pct: '10%', label: 'Communication locale et mobilisation citoyenne' },
-              ].map(({ pct, label }) => (
+                { pct: '50%', label: 'Emploi — première embauche et pérennisation de l\'activité', lead: true },
+                { pct: '20%', label: 'Équipement de diagnostic, sécurisation des données et reconditionnement' },
+                { pct: '15%', label: 'Collecte, stockage, manutention et logistique' },
+                { pct: '10%', label: 'Redistribution solidaire et ateliers de sensibilisation' },
+                { pct: '5%', label: 'Communication et organisation de l\'événement' },
+              ].map(({ pct, label, lead }) => (
                 <div key={label} className="flex items-center gap-4">
-                  <span className="font-serif text-ocre text-lg w-12 shrink-0">{pct}</span>
+                  <span className={`font-serif text-lg w-12 shrink-0 ${lead ? 'text-ocre-dark' : 'text-ocre'}`}>{pct}</span>
                   <div className="flex-1">
                     <div className="h-1 bg-beige-dark rounded-full mb-1">
-                      <div className="h-full bg-ocre/60 rounded-full" style={{ width: pct }} />
+                      <div className={`h-full rounded-full ${lead ? 'bg-ocre' : 'bg-ocre/60'}`} style={{ width: pct }} />
                     </div>
-                    <p className="text-xs text-terre/60">{label}</p>
+                    <p className={`text-xs ${lead ? 'text-terre font-medium' : 'text-terre/60'}`}>{label}</p>
                   </div>
                 </div>
               ))}
