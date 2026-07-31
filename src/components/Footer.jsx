@@ -49,10 +49,10 @@ const SILOS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-kaki font-sans">
+    <footer className="bg-kaki-dark font-sans">
 
       {/* Pre-footer CTA */}
-      <div className="border-t border-b border-white/10 bg-kaki-dark">
+      <div className="border-t border-b border-white/10 bg-kaki">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-12">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
@@ -102,7 +102,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link to="/" className="inline-flex items-center gap-3 mb-6 group">
               <div className="w-10 h-10 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
-                <img src="/logos/20260605_210203_5980.png" alt="Logo Ressources Recyclerie" className="w-full h-full object-contain brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity" />
+                <img src="/logos/LOGO-RECYCLERIE.png" alt="Logo Ressources Recyclerie" className="w-full h-full object-contain brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity" />
               </div>
               <div>
                 <span className="block font-sans text-white text-base font-semibold">Ressources</span>

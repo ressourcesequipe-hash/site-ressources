@@ -31,7 +31,7 @@ export default function SEO({
     url: BASE_URL,
     logo: {
       '@type': 'ImageObject',
-      url: `${BASE_URL}/logos/20260605_210203_5980.png`,
+      url: `${BASE_URL}/logos/LOGO-RECYCLERIE.png`,
     },
     image: `${BASE_URL}/og-image.png`,
     email: 'contact@ressourcesrecyclerie.fr',

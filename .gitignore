@@ -9,3 +9,7 @@ dist-ssr
 # Fichiers de metadonnees macOS (AppleDouble) — jamais de vraies images
 ._*
 .DS_Store
+
+# Sources de design (visuels haute resolution, non utilisees par le site) —
+# gardees en local pour retravailler, jamais deployees.
+/design

@@ -53,9 +53,6 @@ const IMPACT = [
   { value: 120,  suffix: '',  label: 'équipements à collecter' },
   { value: 80,   suffix: '%', label: 'réemployés ou valorisés' },
   { value: 1000, suffix: '',  label: 'plantes à redistribuer' },
-  { value: 5,    suffix: '',  label: 'communes partenaires' },
-  { value: 2,    suffix: '',  label: 'communautés de communes' },
-  { value: 8,    suffix: '',  label: 'bénévoles réguliers' },
 ]
 
 const PARTENAIRES = ['SITCOM40', 'Mairie Vielle-Saint-Girons', 'CC Côte Landes Nature', 'CC MACS']
@@ -135,24 +132,6 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-24 md:py-32 lg:py-36 w-full">
           <div className="max-w-2xl lg:max-w-3xl">
 
-            {/* Badge */}
-            <div
-              className="inline-flex items-center gap-2.5 mb-8 px-4 py-2 border border-ocre/25 bg-ocre/[0.07] backdrop-blur-sm"
-              style={{
-                opacity: heroVisible ? 1 : 0,
-                transform: heroVisible ? 'translateY(0)' : 'translateY(16px)',
-                transition: 'opacity 0.7s ease, transform 0.7s ease',
-              }}
-            >
-              <span className="relative flex h-2 w-2 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ocre opacity-60" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-ocre" />
-              </span>
-              <span className="font-sans text-[11px] font-semibold tracking-[0.18em] uppercase text-ocre">
-                Initiative citoyenne · Vielle-Saint-Girons, Landes
-              </span>
-            </div>
-
             {/* Heading — clip-path reveal */}
             <div
               style={{
@@ -164,12 +143,9 @@ export default function Home() {
               <h1 className="font-serif text-[clamp(2.4rem,6vw,4.5rem)] text-terre leading-[1.06] mb-7 tracking-tight">
                 Recyclerie solidaire
                 <br />
-                <span className="italic" style={{
-                  background: 'linear-gradient(135deg, #C8973A 0%, #D4AA5A 60%, #C8973A 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}>
+                {/* Taille propre, plus petite que le h1 parent (69px) : environ
+                    75% de sa taille a chaque largeur d'ecran. */}
+                <span className="italic text-[clamp(1.8rem,4.5vw,3.4rem)]" style={{ color: '#90955F' }}>
                   dans les Landes
                 </span>
                 <br />
@@ -189,8 +165,7 @@ export default function Home() {
                 transition: 'opacity 0.8s ease 0.22s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.22s',
               }}
             >
-              Une initiative citoyenne née à Vielle-Saint-Girons, pour le réemploi
-              et l'inclusion sur le territoire des Landes. Loi 1901, fondée en 2025.
+              Une réponse apportée localement aux défis du réemploi
             </p>
 
             {/* Value chips */}
@@ -311,10 +286,11 @@ export default function Home() {
       </section>
 
       {/* ══════════════ BANDEAU ÉVÉNEMENT ══════════════ */}
-      <section className="relative bg-kaki text-white py-8 md:py-10 overflow-hidden">
+      <section className="relative bg-olive text-white py-8 md:py-10 overflow-hidden">
         <div className="absolute inset-0" style={{
-          background: 'linear-gradient(135deg, #2B3520 0%, #404C2F 50%, #556040 100%)',
+          background: 'linear-gradient(135deg, #59633F 0%, #6B7550 50%, #7D8862 100%)',
         }} aria-hidden />
+
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ocre/50 to-transparent" aria-hidden />
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" aria-hidden />
 
@@ -476,7 +452,7 @@ export default function Home() {
             <h2 className="font-serif text-3xl md:text-4xl text-terre">Nos objectifs d'impact</h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px bg-beige-dark/50 overflow-hidden rounded-xl shadow-xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-beige-dark/50 overflow-hidden rounded-xl shadow-xl">
             {IMPACT.map(({ value, label, suffix }, i) => (
               <ImpactCounter key={label} value={value} suffix={suffix} label={label} index={i} />
             ))}
@@ -684,10 +660,11 @@ export default function Home() {
 
       {/* ══════════════ CTA DON ══════════════ */}
       <section className="relative overflow-hidden py-16 md:py-20"
-        style={{ background: 'linear-gradient(135deg, #2B3520 0%, #404C2F 50%, #4a5935 100%)' }}>
+        style={{ background: 'linear-gradient(135deg, #59633F 0%, #6B7550 50%, #7D8862 100%)' }}>
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ocre/50 to-transparent" aria-hidden />
         <div className="absolute inset-0 opacity-[0.025]"
           style={{ backgroundImage: 'radial-gradient(circle, #C8973A 1px, transparent 1px)', backgroundSize: '28px 28px' }} aria-hidden />
+
         <div className="absolute right-0 top-0 w-96 h-96 rounded-bl-full pointer-events-none"
           style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.10), transparent 65%)' }} aria-hidden />
 

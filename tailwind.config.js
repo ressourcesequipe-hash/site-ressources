@@ -16,6 +16,14 @@ export default {
           dark: '#2B3520',
           pale: '#EEF0EA',
         },
+        // Vert olive moyen du bandeau HelloAsso : plus clair et plus doux que
+        // le kaki, c'est le fond sur lequel repose le feuillage en filigrane.
+        // light et dark sont les deux extremites du degrade de ces sections.
+        olive: {
+          DEFAULT: '#6B7550',
+          light: '#7D8862',
+          dark: '#59633F',
+        },
         beige: {
           DEFAULT: '#EDE5D8',
           light: '#F7F3ED',
