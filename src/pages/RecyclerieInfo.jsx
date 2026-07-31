@@ -128,6 +128,54 @@ export default function RecyclerieInfo() {
         </div>
       </section>
 
+      {/* Atelier — visages et mains derrière les chiffres */}
+      <section className="py-16 md:py-20 bg-beige-light border-y border-beige-dark">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div>
+              <p className="section-label">Dans l'atelier</p>
+              <h2 className="font-serif text-3xl text-terre mb-4">
+                Des bénévoles qualifiés, pas une chaîne industrielle
+              </h2>
+              <p className="text-terre/60 leading-relaxed mb-4">
+                Chaque appareil est ouvert, diagnostiqué et remis en état à la main.
+                François, notre référent technique, contrôle chaque carte mère, chaque
+                connectique, avant de valider un reconditionnement.
+              </p>
+              <p className="text-terre/60 leading-relaxed">
+                Ordinateurs, mais aussi consoles de jeux : tout ce qui peut repartir
+                vivre une seconde vie est retravaillé avec le même soin.
+              </p>
+            </div>
+            {/* Bento : Francois occupe la colonne de gauche sur 2 lignes (portrait,
+                on voit visage ET mains), les deux petites photos empilent a droite.
+                Hauteur totale calee sur celle du bloc de texte (mesuree ~266-292px
+                sur les largeurs lg+), via une hauteur fixe + grid-rows-2 au lieu
+                d'un aspect-ratio qui laissait les photos dicter leur propre taille. */}
+            <div className="grid grid-cols-2 grid-rows-2 gap-3 lg:h-[290px]">
+              <img
+                src="/photos/francois-atelier.webp"
+                alt="François, bénévole référent technique, au travail sur une carte mère d'ordinateur"
+                loading="lazy"
+                className="row-span-2 w-full h-full object-cover object-[center_18%] border border-beige-dark shadow-lg shadow-terre/10"
+              />
+              <img
+                src="/photos/mains-reparation.webp"
+                alt="Réparation minutieuse d'un composant informatique"
+                loading="lazy"
+                className="w-full h-full object-cover border border-beige-dark shadow-lg shadow-terre/10"
+              />
+              <img
+                src="/photos/console-reconditionnee.webp"
+                alt="Console de jeux portable reconditionnée, personnalisée par son propriétaire"
+                loading="lazy"
+                className="w-full h-full object-cover border border-beige-dark shadow-lg shadow-terre/10"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Ateliers — maillage vers le silo */}
       <section className="py-12 bg-beige-light border-y border-beige-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row md:items-center gap-6 justify-between">
