@@ -39,8 +39,8 @@ export default function CommentDonner() {
               {
                 num: '1',
                 title: 'Points de collecte',
-                desc: 'Déposez directement votre matériel à Vielle-Saint-Girons (80 allée des Cigales). D\'autres points partenaires à venir sur le territoire.',
-                note: 'Voir la carte ci-dessous',
+                desc: 'Notre point de collecte est en cours de validation. Contactez-nous pour connaître les modalités de dépôt sur le territoire.',
+                note: 'Nous contacter',
               },
               {
                 num: '2',
@@ -69,48 +69,27 @@ export default function CommentDonner() {
             <div className="flex items-center justify-between mb-5">
               <h2 className="font-serif text-2xl text-terre">Points de collecte</h2>
               <span className="font-sans text-xs font-semibold tracking-widest uppercase text-ocre bg-ocre/8 border border-ocre/20 px-3 py-1">
-                1 point actif
+                En cours de validation
               </span>
             </div>
 
-            {/* Carte OpenStreetMap */}
-            <div className="relative overflow-hidden border border-beige-dark mb-5" style={{ height: '360px' }}>
-              {/* Barre décorative */}
-              <div className="absolute top-0 inset-x-0 h-0.5 bg-ocre z-10" />
-              <iframe
-                title="Point de collecte — Vielle-Saint-Girons"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-1.3219%2C43.9416%2C-1.2819%2C43.9616&layer=mapnik&marker=43.9516%2C-1.3019"
-                style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
-                allowFullScreen
-                loading="lazy"
-              />
-              {/* Overlay lien OpenStreetMap */}
-              <div className="absolute bottom-2 right-2 z-10">
-                <a
-                  href="https://www.openstreetmap.org/?mlat=43.9516&mlon=-1.3019#map=17/43.9516/-1.3019"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[10px] text-terre/50 bg-white/90 border border-beige px-2 py-1 hover:text-ocre transition-colors"
-                >
-                  Agrandir la carte ↗
-                </a>
-              </div>
-            </div>
-
-            {/* Fiche du point de collecte */}
-            <div className="border-l-2 border-ocre bg-beige-light p-5 flex flex-col sm:flex-row sm:items-start gap-4">
+            {/* Emplacement en cours de confirmation : pas de carte tant que le point
+                n'est pas valide, pour ne pas orienter vers une adresse incertaine. */}
+            <div className="border-l-2 border-ocre bg-beige-light p-6 flex flex-col sm:flex-row sm:items-center gap-5">
               <div className="flex-1">
                 <p className="font-sans text-xs font-bold tracking-widest uppercase text-ocre mb-1">
                   Point de collecte principal
                 </p>
-                <p className="font-serif text-lg text-terre mb-1">
-                  Association Ressources — Vielle-Saint-Girons
+                <p className="font-serif text-lg text-terre mb-2">
+                  Localisation en cours de validation
                 </p>
                 <p className="text-sm text-terre/60 leading-relaxed">
-                  80 allée des Cigales<br />40560 Vielle-Saint-Girons (Landes)
+                  Le point de collecte à Vielle-Saint-Girons est en cours de confirmation.
+                  Pour toute collecte, contactez-nous directement : nous organisons ensemble
+                  un dépôt ou un enlèvement adapté à votre situation.
                 </p>
               </div>
-              <div className="shrink-0 flex flex-col gap-2">
+              <div className="shrink-0">
                 <a
                   href="mailto:contact@ressourcesrecyclerie.fr"
                   className="inline-flex items-center gap-2 text-sm text-ocre hover:underline font-medium"
@@ -119,17 +98,6 @@ export default function CommentDonner() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   Nous contacter
-                </a>
-                <a
-                  href="https://www.openstreetmap.org/?mlat=43.9516&mlon=-1.3019#map=17/43.9516/-1.3019"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-terre/50 hover:text-ocre transition-colors"
-                >
-                  <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  Itinéraire OpenStreetMap
                 </a>
               </div>
             </div>
