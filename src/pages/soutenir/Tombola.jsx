@@ -15,6 +15,7 @@ import {
   POINTS_VENTE,
   PRIX_BILLET,
   RESUME_CATEGORIES,
+  VALEUR_ARRONDIE,
   formatEuros,
   lienCarte,
 } from '../../data/lotsTombola'
@@ -72,8 +73,8 @@ export default function Tombola() {
       <TombolaModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
       <TousLesLotsModal isOpen={lotsOpen} onClose={() => setLotsOpen(false)} />
       <SEO
-        title="Tombola solidaire Landes 2026 — plus de 30 lots · Association Ressources"
-        description="Participez à la tombola solidaire de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons. Billet à 5 €, en ligne ou chez nos commerçants partenaires : plus de 30 lots offerts par les commerçants, artisans et producteurs du territoire landais."
+        title={`Tombola solidaire Landes 2026 — plus de ${VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots · Association Ressources`}
+        description={`Participez à la tombola solidaire de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons. Billet à ${PRIX_BILLET} €, en ligne ou chez nos commerçants partenaires : plus de ${VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots à gagner, répartis sur plus de ${NOMBRE_LOTS_ARRONDI} lots offerts par les commerçants, artisans et producteurs du territoire landais.`}
         canonical="/soutenir/tombola/"
         schema={faqSchema}
       />
@@ -92,7 +93,39 @@ export default function Tombola() {
             Participez à une grande tombola solidaire et soutenez le lancement
             de la recyclerie informatique et végétale Ressources dans les Landes.
           </p>
-          <CompteARebours variant="clair" />
+
+          {/* Bandeau de preuve : urgence, volume de lots, prix */}
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mb-7">
+            <CompteARebours variant="clair" />
+            <span className="hidden sm:block w-px h-8 bg-white/15" aria-hidden />
+            <p className="font-sans text-sm text-white/70">
+              <span className="text-white font-semibold">Plus de {VALEUR_ARRONDIE.toLocaleString('fr-FR')} €</span> de lots
+              à gagner, répartis sur <span className="text-white font-semibold">plus de {NOMBRE_LOTS_ARRONDI} lots</span>
+              <span className="text-white/30 mx-2">·</span>
+              <span className="text-white font-semibold">{PRIX_BILLET} €</span> le billet
+            </p>
+          </div>
+
+          {/* CTA principal */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4">
+            <button
+              onClick={() => setModalOpen(true)}
+              className="btn-ocre w-full sm:w-auto text-base px-9 py-4 shadow-lg shadow-black/20"
+            >
+              Je prends mes billets — {PRIX_BILLET} €
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+            <button onClick={() => setLotsOpen(true)} className="btn-outline-white w-full sm:w-auto">
+              Voir tous les lots
+            </button>
+          </div>
+
+          <p className="font-sans text-xs text-white/45 leading-relaxed">
+            Paiement sécurisé HelloAsso · Pas besoin d'être présent au tirage ·
+            100 % des fonds pour la recyclerie
+          </p>
         </div>
       </section>
 
@@ -105,9 +138,12 @@ export default function Tombola() {
               Lots à gagner
             </p>
             <p className="font-serif text-5xl md:text-7xl text-ocre leading-none mb-2">
-              Plus de {NOMBRE_LOTS_ARRONDI} lots
+              Plus de {VALEUR_ARRONDIE.toLocaleString('fr-FR')} €
             </p>
-            <p className="font-sans text-xl text-terre/60 mb-2">offerts par nos partenaires locaux</p>
+            <p className="font-sans text-xl text-terre/60 mb-2">
+              de lots à gagner, répartis sur plus de {NOMBRE_LOTS_ARRONDI} lots
+              offerts par nos partenaires locaux
+            </p>
             <p className="text-sm text-terre/50 max-w-md mx-auto mb-7">
               Et notre podium s'enrichit encore : de nouvelles dotations nous
               rejoignent chaque semaine d'ici au 03 octobre.

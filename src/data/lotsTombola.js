@@ -225,6 +225,14 @@ export const VALEUR_CONFIRMEE = LOTS_PUBLIES.reduce(
   0,
 )
 
+// Valeur de la dotation complète : les lots publiés + le gros lot, qui est
+// stocké à part et n'entre donc pas dans VALEUR_CONFIRMEE.
+export const VALEUR_TOTALE = VALEUR_CONFIRMEE + (LOT_PRINCIPAL.valeur || 0)
+
+// Arrondi au demi-millier inférieur pour l'accroche : elle reste vraie sans
+// avoir à la retoucher à chaque nouvelle dotation.
+export const VALEUR_ARRONDIE = Math.floor(VALEUR_TOTALE / 500) * 500
+
 export const formatEuros = (valeur) =>
   valeur % 1 === 0
     ? `${valeur.toLocaleString('fr-FR')} €`
