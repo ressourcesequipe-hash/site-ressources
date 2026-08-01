@@ -41,6 +41,13 @@ export function IconTombola({ className = 'w-5 h-5' }) {
   </svg>
 }
 
+export function IconTicket({ className = 'w-5 h-5' }) {
+  return <svg className={className} viewBox="0 0 24 24" {...defaults} aria-hidden>
+    <path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3.5a2.5 2.5 0 0 0 0-5V8z" />
+    <path d="M15 6v2M15 11v2M15 16v2" />
+  </svg>
+}
+
 export function IconEquipe({ className = 'w-5 h-5' }) {
   return <svg className={className} viewBox="0 0 24 24" {...defaults} aria-hidden>
     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />

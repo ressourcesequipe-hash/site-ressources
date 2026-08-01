@@ -198,7 +198,7 @@ export default function Header() {
           <Link to="/" className="flex items-center gap-3 shrink-0 group">
             <div className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center transition-all duration-300 group-hover:scale-105 mx-2 my-1">
               <img
-                src="/logos/LOGO-RECYCLERIE.png"
+                src="/logos/LOGO_ressources-recyclerie.png"
                 alt="Logo Ressources Recyclerie"
                 className="w-full h-full object-contain drop-shadow-sm"
               />

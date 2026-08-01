@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
-import { IconCollecte, IconOutil, IconPlante, IconMegaphone, IconTransport } from '../../components/Icons'
+import { IconCollecte, IconOutil, IconPlante, IconCalendar, IconTransport, IconTicket } from '../../components/Icons'
 
 const BREADCRUMBS = [
   { label: 'Soutenir', href: '/soutenir/' },
@@ -18,13 +18,14 @@ export default function Benevole() {
         canonical="/soutenir/benevole/"
       />
 
-      <section className="bg-kaki-pale py-12 md:py-16 border-b border-kaki/10">
+      <section className="bg-[#EDECCE] py-12 md:py-16 border-b border-kaki/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <p className="section-label">Bénévolat</p>
           <h1 className="font-serif text-3xl sm:text-4xl text-terre mb-4">Devenir bénévole</h1>
           <p className="text-terre/60 max-w-xl leading-relaxed">
-            Rejoignez les 8 bénévoles réguliers que nous recrutons pour le démarrage
-            de la filière en septembre 2026. Aucune expérience requise, formation assurée.
+            Rejoignez l'équipe de bénévoles réguliers ou ponctuels pour prendre part et
+            soutenir dès aujourd'hui le lancement de la recyclerie. Aucune expérience
+            requise, formation assurée.
           </p>
         </div>
       </section>
@@ -39,13 +40,19 @@ export default function Benevole() {
                   { icon: <IconCollecte className="w-5 h-5" />, titre: 'Collecte & manutention', desc: 'Participation aux collectes, réception et déchargement du matériel, organisation des stocks.' },
                   { icon: <IconOutil className="w-5 h-5" />, titre: 'Diagnostic & reconditionnement', desc: 'Tri, nettoyage, tests, reconditionnement des appareils informatiques. Formation technique fournie.' },
                   { icon: <IconPlante className="w-5 h-5" />, titre: 'Filière végétale', desc: 'Réception, soin et redistribution des plantes et matériels de jardinage collectés.' },
-                  { icon: <IconMegaphone className="w-5 h-5" />, titre: 'Communication & événements', desc: 'Aide à la communication, animation des événements, représentation de l\'association.' },
+                  { icon: <IconCalendar className="w-5 h-5" />, titre: 'Communication & événements', desc: 'Aide à la communication, animation des événements, représentation de l\'association.' },
                   { icon: <IconTransport className="w-5 h-5" />, titre: 'Logistique & transport', desc: 'Enlèvements chez les donateurs, livraisons aux bénéficiaires (véhicule souhaitable).' },
-                ].map(({ icon, titre, desc }) => (
+                  { icon: <IconTicket className="w-5 h-5" />, titre: 'Tombola & collecte de fonds', badge: 'Activité ponctuelle', desc: 'Appui à la vente des tickets de tombola lors des événements, tenue de stand, etc.' },
+                ].map(({ icon, titre, badge, desc }) => (
                   <div key={titre} className="flex gap-4">
                     <div className="w-9 h-9 shrink-0 border border-kaki/20 bg-kaki/5 flex items-center justify-center text-kaki" aria-hidden>{icon}</div>
                     <div>
-                      <p className="font-sans text-sm font-semibold text-terre mb-0.5">{titre}</p>
+                      <p className="font-sans text-sm font-semibold text-terre mb-0.5">
+                        {titre}
+                        {badge && (
+                          <span className="ml-2 align-middle font-normal text-[10px] tracking-wider uppercase text-kaki border border-kaki/25 bg-kaki/5 px-1.5 py-0.5">{badge}</span>
+                        )}
+                      </p>
                       <p className="text-xs text-terre/55 leading-relaxed">{desc}</p>
                     </div>
                   </div>
@@ -71,7 +78,7 @@ export default function Benevole() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-ocre-pale border border-ocre/20 p-5">
+              <div className="bg-[#E5E4D5] border border-ocre/20 p-5">
                 <p className="text-xs text-ocre font-semibold tracking-wider uppercase mb-2">Disponibilité</p>
                 <p className="text-sm text-terre/65 leading-relaxed">
                   Nous nous adaptons à vos disponibilités : quelques heures par mois
@@ -130,6 +137,7 @@ function BenevoleForm() {
         <option>Filière végétale</option>
         <option>Communication & événements</option>
         <option>Logistique & transport</option>
+        <option>Tombola & collecte de fonds</option>
         <option>Polyvalent·e</option>
       </select>
       <textarea rows={3} className="input-field resize-none" placeholder="Compétences particulières, motivations, disponibilités…" value={form.message} onChange={set('message')} disabled={status === 'loading'} />
