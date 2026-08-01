@@ -67,7 +67,6 @@ export const LOTS_CONFIRMES = [
   { lot: 'Deux plateaux de 12 huîtres et leur verre de vin', partenaire: 'Maison Labadie', categorie: 'gourmand', valeur: 34, detail: '2 bons de dégustation' },
   { lot: 'Deux pizzas', partenaire: 'Linxe Pizza', categorie: 'gourmand', valeur: 32, detail: '1 lot de 2 pizzas' },
   { lot: 'Lot de 3 bouteilles de Côtes de Gascogne', partenaire: 'Olivier de Léon', categorie: 'gourmand', valeur: 30, detail: '3 bouteilles' },
-  { lot: 'Dégustation d’huîtres pour 2 personnes au lac d’Hossegor', partenaire: 'Maison Labadie', categorie: 'gourmand', valeur: 22, detail: '1 bon cadeau' },
   { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: 20, detail: '3 kg' },
   { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: 20, detail: '3 kg' },
   { lot: 'Lot de 3 kg de myrtilles', partenaire: 'Les Jardins Bio du Médoc', categorie: 'gourmand', valeur: 20, detail: '3 kg' },
