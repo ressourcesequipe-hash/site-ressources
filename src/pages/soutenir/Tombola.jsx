@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
 import TombolaModal from '../../components/TombolaModal'
+import TousLesLotsModal from '../../components/TousLesLotsModal'
 import PartenairesTombola from '../../components/PartenairesTombola'
 import CompteARebours from '../../components/CompteARebours'
 import {
@@ -64,10 +65,12 @@ const BREADCRUMBS = [
 
 export default function Tombola() {
   const [modalOpen, setModalOpen] = useState(false)
+  const [lotsOpen, setLotsOpen] = useState(false)
 
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <TombolaModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <TousLesLotsModal isOpen={lotsOpen} onClose={() => setLotsOpen(false)} />
       <SEO
         title="Tombola solidaire Landes 2026 — plus de 30 lots · Association Ressources"
         description="Participez à la tombola solidaire de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons. Billet à 5 €, en ligne ou chez nos commerçants partenaires : plus de 30 lots offerts par les commerçants, artisans et producteurs du territoire landais."
@@ -349,15 +352,22 @@ export default function Tombola() {
             })}
           </div>
 
-          {/* Résumé des autres lots — détail dévoilé au lancement */}
+          {/* Accès à la liste complète — la billetterie étant ouverte, le détail
+              de tous les lots est désormais public. */}
+          <div className="text-center mb-12">
+            <button onClick={() => setLotsOpen(true)} className="btn-outline-ocre">
+              Voir la liste complète des lots
+            </button>
+          </div>
+
+          {/* Résumé des autres lots */}
           <div className="mb-12">
             <h2 className="font-serif text-2xl text-terre mb-2">
               Et {LOTS_SECONDAIRES.length} autres lots à gagner
             </h2>
             <p className="text-sm text-terre/60 leading-relaxed mb-7 max-w-2xl">
               Offerts par les commerçants, artisans, restaurateurs et producteurs
-              du territoire. Le détail complet sera dévoilé à l'ouverture de la
-              billetterie.
+              du territoire.
             </p>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

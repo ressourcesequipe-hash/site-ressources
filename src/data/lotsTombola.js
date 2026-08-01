@@ -39,10 +39,12 @@ export const LOTS_CONFIRMES = [
   { lot: 'Découverte du surfcasting', partenaire: 'Pêcheur de Capbreton', categorie: 'sejours', valeur: 100, detail: '1 bon cadeau' },
   { lot: 'Découverte de la pêche en mer', partenaire: 'Cap Pêche Loisirs', categorie: 'sejours', valeur: 80, detail: '1 bon cadeau · sortie de 2 h' },
   { lot: 'Séance découverte de surf', partenaire: 'Max Respect', categorie: 'sejours', valeur: 35, detail: '1 séance de 2 h' },
+  { lot: '1 nuit pour 2 personnes avec petit-déjeuner', partenaire: 'Moxy Bordeaux', categorie: 'sejours', valeur: 130, detail: '1 nuit pour 2 avec PDJ', podium: true },
 
   // Informatique reconditionnée
   { lot: 'Ordinateur gaming reconditionné', partenaire: 'Ressources', categorie: 'informatique', valeur: 500, detail: '1 équipement' },
-  { lot: 'Ordinateur portable reconditionné', partenaire: 'Ressources', categorie: 'informatique', valeur: 200, detail: '1 équipement' },
+  // L'ordinateur portable reconditionné est retire de la tombola : conserve
+  // pour un jeu annexe (demande du 2026-08-01).
   // Maintenu hors podium malgré sa valeur, pour ne pas y aligner trois ordinateurs.
   { lot: 'Ordinateur de bureau reconditionné', partenaire: 'Ressources', categorie: 'informatique', valeur: 200, detail: '1 équipement', podium: false },
 
@@ -128,6 +130,7 @@ export const PARTENAIRES = [
   // Base de loisirs exploitée par Centrenautique, à Soustons.
   { nom: 'Evad’Sport', logo: '/logos/evad-sport.png', ville: 'Soustons', site: 'https://www.centrenautique-soustons.com/' },
   { nom: 'Max Respect', logo: '/logos/max-respect.png', ville: 'Vielle-Saint-Girons', site: 'https://www.max-respect.com/' },
+  { nom: 'Moxy Bordeaux', logo: '/logos/MOXY.png', ville: 'Bordeaux (Gironde)', site: 'https://www.marriott.com/en-us/hotels/bodox-moxy-bordeaux/overview' },
   { nom: 'Naturellement Nomade', logo: null, ville: 'Vielle-Saint-Girons' },
   { nom: 'Chez Paulette', logo: '/logos/chez-paulette.png', ville: 'Vielle-Saint-Girons', site: 'https://www.instagram.com/chezpauletterotisserie/' },
   { nom: 'Maison Labadie', logo: '/logos/maison-labadie.png', ville: 'Hossegor', site: 'https://www.instagram.com/maisonlabadie/' },
@@ -176,7 +179,9 @@ export const initiales = (nom) => {
 // numérotés à la suite du gros lot.
 export const SEUIL_PODIUM = 200
 
-const estSurPodium = ({ valeur, podium }) => podium !== false && valeur >= SEUIL_PODIUM
+// podium: true force la mise en avant d'un lot sous le seuil (ex. partenariat
+// a valoriser malgre une valeur < 200 €) ; podium: false fait l'inverse.
+const estSurPodium = ({ valeur, podium }) => podium === true || (podium !== false && valeur >= SEUIL_PODIUM)
 
 // Seuls les lots dont le partenaire est confirmé sont affichés publiquement.
 const LOTS_PUBLIES = LOTS_CONFIRMES.filter(({ statut }) => statut !== 'a-confirmer')
@@ -187,14 +192,23 @@ export const LOTS_PODIUM = LOTS_PUBLIES
 
 export const LOTS_SECONDAIRES = LOTS_PUBLIES.filter((lot) => !estSurPodium(lot))
 
-// Résumé par catégorie affiché à la place du détail chiffré des petits lots,
-// tant que la billetterie n'est pas lancée. Repasser au détail en réutilisant
-// LOTS_SECONDAIRES dans la page.
+// Résumé par catégorie : nombre de lots secondaires, affiché sur la page.
 export const RESUME_CATEGORIES = CATEGORIES.map(({ id, label }) => ({
   id,
   label,
   nombre: LOTS_SECONDAIRES.filter((lot) => lot.categorie === id).length,
 })).filter(({ nombre }) => nombre > 0)
+
+// Detail complet des lots secondaires, groupe par categorie, pour la fenetre
+// « Voir tous les lots » ouverte depuis le podium. Les lots sont tries du plus
+// cher au moins cher ; ceux dont la valeur reste a confirmer passent en dernier.
+export const LOTS_PAR_CATEGORIE = CATEGORIES.map(({ id, label }) => ({
+  id,
+  label,
+  lots: LOTS_SECONDAIRES
+    .filter((lot) => lot.categorie === id)
+    .sort((a, b) => (b.valeur ?? -1) - (a.valeur ?? -1)),
+})).filter(({ lots }) => lots.length > 0)
 
 export const NB_LOTS_CONFIRMES = LOTS_PUBLIES.length
 
