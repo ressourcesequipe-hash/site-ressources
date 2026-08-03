@@ -11,6 +11,12 @@ export default function SEO({
   type = 'website',
   schema = null,
   ogImage = null,
+  // Les dimensions accompagnent l'image : og-cover.png fait 1200x630, mais une
+  // page peut fournir un visuel d'un autre format. Declarer de fausses valeurs
+  // fait mal cadrer l'apercu chez certains clients, d'ou ces props.
+  ogImageWidth = 1200,
+  ogImageHeight = 630,
+  ogImageAlt = 'Association Ressources — Recyclerie solidaire dans les Landes',
 }) {
   const fullTitle = title || 'Ressources | Recyclerie solidaire dans les Landes (40)'
 
@@ -113,9 +119,9 @@ export default function SEO({
       <meta property="og:locale" content="fr_FR" />
       <meta property="og:site_name" content="Association Ressources — Recyclerie solidaire Landes" />
       <meta property="og:image" content={image} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content="Association Ressources — Recyclerie solidaire dans les Landes" />
+      <meta property="og:image:width" content={String(ogImageWidth)} />
+      <meta property="og:image:height" content={String(ogImageHeight)} />
+      <meta property="og:image:alt" content={ogImageAlt} />
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />

@@ -77,6 +77,10 @@ export default function Tombola() {
         description={`Participez à la tombola solidaire de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons. Billet à ${PRIX_BILLET} €, en ligne ou chez nos commerçants partenaires : plus de ${VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots à gagner, répartis sur plus de ${NOMBRE_LOTS_ARRONDI} lots offerts par les commerçants, artisans et producteurs du territoire landais.`}
         canonical="/soutenir/tombola/"
         schema={faqSchema}
+        ogImage="https://www.ressourcesrecyclerie.fr/og-tombola.jpg"
+        ogImageWidth={1280}
+        ogImageHeight={720}
+        ogImageAlt={`Tombola solidaire de l'association Ressources — plus de ${VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots à gagner, billet à ${PRIX_BILLET} €, tirage le 03 octobre 2026`}
       />
 
       {/* Hero */}
@@ -145,8 +149,8 @@ export default function Tombola() {
               offerts par nos partenaires locaux
             </p>
             <p className="text-sm text-terre/50 max-w-md mx-auto mb-7">
-              Et notre podium s'enrichit encore : de nouvelles dotations nous
-              rejoignent chaque semaine d'ici au 03 octobre.
+              La dotation est complète : tous les lots mis en jeu le 03 octobre
+              sont dès maintenant visibles ci-dessous.
             </p>
 
             {/* Prix du billet */}
@@ -419,15 +423,14 @@ export default function Tombola() {
           {/* Partenaires */}
           <PartenairesTombola />
 
-          {/* Lots surprise à venir */}
+          {/* Dotation close : la liste ci-dessus est definitive. */}
           <div className="text-center border-y border-beige-dark py-8 mb-12">
             <p className="font-serif text-2xl md:text-3xl text-ocre mb-2">
-              Et d'autres lots surprise à venir !
+              Une dotation complète, grâce au territoire
             </p>
             <p className="text-sm text-terre/55 max-w-md mx-auto leading-relaxed">
-              De nouvelles dotations nous rejoignent chaque semaine grâce à la
-              mobilisation des partenaires locaux. Elles seront dévoilées ici
-              d'ici au 03 octobre.
+              Tous ces lots ont été offerts par les commerçants, artisans et
+              producteurs landais mobilisés autour de la recyclerie.
             </p>
           </div>
 

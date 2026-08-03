@@ -80,7 +80,7 @@ export default function Home() {
       />
 
       {/* ══════════════ HERO ══════════════ */}
-      <section className="relative mesh-hero noise-overlay overflow-hidden min-h-[92vh] flex items-center">
+      <section className="relative mesh-hero noise-overlay overflow-hidden md:min-h-[76vh] flex items-center">
 
         {/* Top accent */}
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-ocre/50 to-transparent" aria-hidden />
@@ -129,7 +129,7 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-24 md:py-32 lg:py-36 w-full">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20 w-full">
           <div className="max-w-2xl lg:max-w-3xl">
 
             {/* Heading — clip-path reveal */}
@@ -140,7 +140,7 @@ export default function Home() {
                 transition: 'opacity 0.8s ease 0.12s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.12s',
               }}
             >
-              <h1 className="font-serif text-[clamp(2.4rem,6vw,4.5rem)] text-terre leading-[1.06] mb-7 tracking-tight">
+              <h1 className="font-serif text-[clamp(2.4rem,6vw,4.5rem)] text-terre leading-[1.06] mb-5 tracking-tight">
                 Recyclerie solidaire
                 <br />
                 {/* Taille propre, plus petite que le h1 parent (69px) : environ
@@ -158,7 +158,7 @@ export default function Home() {
 
             {/* Description */}
             <p
-              className="text-base md:text-lg text-terre/55 leading-relaxed mb-10 max-w-lg"
+              className="text-base md:text-lg text-terre/55 leading-relaxed mb-6 max-w-lg"
               style={{
                 opacity: heroVisible ? 1 : 0,
                 transform: heroVisible ? 'translateY(0)' : 'translateY(20px)',
@@ -170,7 +170,7 @@ export default function Home() {
 
             {/* Value chips */}
             <div
-              className="flex flex-wrap gap-2.5 mb-12"
+              className="flex flex-wrap gap-2.5 mb-7"
               style={{
                 opacity: heroVisible ? 1 : 0,
                 transform: heroVisible ? 'translateY(0)' : 'translateY(16px)',
@@ -191,7 +191,7 @@ export default function Home() {
 
             {/* CTAs */}
             <div
-              className="flex flex-wrap gap-4 mb-16"
+              className="flex flex-wrap gap-4 mb-6"
               style={{
                 opacity: heroVisible ? 1 : 0,
                 transform: heroVisible ? 'translateY(0)' : 'translateY(16px)',
@@ -214,7 +214,7 @@ export default function Home() {
 
             {/* Tombola — action immédiate, mise en avant avant l'événement */}
             <div
-              className="flex flex-wrap items-center gap-x-5 gap-y-2 -mt-10 mb-16"
+              className="flex flex-wrap items-center gap-x-5 gap-y-2 mb-8"
               style={{
                 opacity: heroVisible ? 1 : 0,
                 transition: 'opacity 0.7s ease 0.5s',
@@ -238,13 +238,13 @@ export default function Home() {
 
             {/* Mini stats — objectifs de la première année, jamais des résultats acquis */}
             <div
-              className="pt-8 border-t border-kaki/10"
+              className="pt-6 border-t border-kaki/10"
               style={{
                 opacity: heroVisible ? 1 : 0,
                 transition: 'opacity 0.7s ease 0.55s',
               }}
             >
-              <p className="font-sans text-[10px] font-semibold tracking-[0.18em] uppercase text-terre/35 mb-4">
+              <p className="font-sans text-[10px] font-semibold tracking-[0.18em] uppercase text-terre/35 mb-3">
                 Nos objectifs — première année
               </p>
               <div className="flex flex-wrap gap-x-10 gap-y-4">
@@ -273,7 +273,7 @@ export default function Home() {
 
         {/* Scroll indicator */}
         <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 hidden md:flex"
+          className="absolute bottom-8 right-8 lg:right-12 flex-col items-center gap-2 hidden md:flex"
           style={{
             opacity: heroVisible ? 0.5 : 0,
             transition: 'opacity 1s ease 1.2s',
@@ -565,42 +565,24 @@ export default function Home() {
               <div className="absolute -inset-8 rounded-3xl blur-3xl pointer-events-none"
                 style={{ background: 'radial-gradient(ellipse, rgba(200,151,58,0.12), transparent 70%)' }} aria-hidden />
 
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-kaki/25"
-                style={{ background: 'linear-gradient(135deg, #2B3520 0%, #404C2F 60%, #4a5935 100%)' }}>
+              {/* La vignette porte deja le detail (lots, prix du billet, date) :
+                  le texte alternatif le restitue, l'image etant du pixel. */}
+              <Link
+                to="/soutenir/tombola/"
+                className="group relative block rounded-2xl overflow-hidden shadow-2xl shadow-kaki/25"
+              >
+                <img
+                  src="/photos/tombola-vignette.webp"
+                  width={1280}
+                  height={720}
+                  loading="lazy"
+                  decoding="async"
+                  alt="Tombola solidaire organisée par l'association Ressources pour l'inauguration de la recyclerie le 3 octobre 2026 : plus de 4 000 € de lots à gagner, ticket à 5 €."
+                  className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.03]"
+                />
                 {/* Top accent */}
-                <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-ocre to-transparent" />
-                {/* Decorative corners */}
-                <div className="absolute top-0 right-0 w-40 h-40 rounded-bl-full"
-                  style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.12), transparent 60%)' }} />
-                <div className="absolute bottom-0 left-0 w-28 h-28 rounded-tr-full"
-                  style={{ background: 'radial-gradient(circle at bottom left, rgba(200,151,58,0.07), transparent 60%)' }} />
-
-                <div className="relative p-10 md:p-12">
-                  <p className="font-sans text-ocre text-[10px] tracking-[0.22em] uppercase font-semibold mb-5">
-                    Samedi 03 octobre 2026
-                  </p>
-
-                  {/* Big date */}
-                  <div className="font-serif leading-none mb-6 select-none" aria-hidden
-                    style={{ fontSize: 'clamp(5rem, 12vw, 7rem)', color: 'rgba(255,255,255,0.06)' }}>
-                    03<br />OCT
-                  </div>
-
-                  <p className="font-serif text-xl text-white mb-2">Rejoignez-nous pour le lancement</p>
-                  <p className="text-white/45 text-sm leading-relaxed mb-7">
-                    Vielle-Saint-Girons (Landes, 40560)<br />
-                    Programme complet à venir
-                  </p>
-
-                  <div className="border-t border-white/10 pt-6">
-                    <p className="text-[10px] text-white/35 uppercase tracking-widest mb-1.5">Lots à gagner</p>
-                    <p className="font-serif text-3xl"
-                      style={{ background: 'linear-gradient(135deg, #C8973A, #D4AA5A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                      + de 30
-                    </p>
-                  </div>
-                </div>
-              </div>
+                <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-ocre to-transparent" aria-hidden />
+              </Link>
             </div>
           </div>
         </div>

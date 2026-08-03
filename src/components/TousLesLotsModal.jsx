@@ -139,7 +139,7 @@ export default function TousLesLotsModal({ isOpen, onClose }) {
 
         <div className="px-6 py-3 border-t border-beige bg-beige-light">
           <p className="text-xs text-terre/45 leading-snug">
-            De nouvelles dotations peuvent s'ajouter d'ici au 03 octobre.
+            Dotation complète : voici l'intégralité des lots mis en jeu.
             Tirage au sort en public à Vielle-Saint-Girons.
           </p>
         </div>
