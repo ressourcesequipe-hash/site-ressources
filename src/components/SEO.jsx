@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import { useEffect } from 'react'
 
 const BASE_URL = 'https://www.ressourcesrecyclerie.fr'
-const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`
+const DEFAULT_OG_IMAGE = `${BASE_URL}/og-cover.png`
 
 export default function SEO({
   title,
@@ -33,7 +33,7 @@ export default function SEO({
       '@type': 'ImageObject',
       url: `${BASE_URL}/logos/LOGO-RECYCLERIE.png`,
     },
-    image: `${BASE_URL}/og-image.png`,
+    image: `${BASE_URL}/og-cover.png`,
     email: 'contact@ressourcesrecyclerie.fr',
     address: {
       '@type': 'PostalAddress',
