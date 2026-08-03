@@ -137,7 +137,7 @@ export default function Tombola() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
           {/* Mise en avant lots */}
-          <div className="text-center bg-ocre-pale border border-ocre/20 p-10 mb-12">
+          <div id="lots" className="text-center bg-ocre-pale border border-ocre/20 p-10 mb-12 scroll-mt-24">
             <p className="font-sans text-xs text-ocre font-semibold tracking-widest uppercase mb-3">
               Lots à gagner
             </p>

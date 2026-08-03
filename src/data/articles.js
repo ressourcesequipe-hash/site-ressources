@@ -47,7 +47,7 @@ export const ARTICLES = [
       },
       {
         type: 'paragraph',
-        text: 'Le fonctionnement est simple : des points de collecte sont organisés sur le territoire pour récupérer les équipements inutilisés (ordinateurs, tablettes, smartphones). Ces appareils sont ensuite triés, diagnostiqués, sécurisés — avec effacement certifié des données personnelles — puis reconditionnés par des bénévoles formés avant d\'être redistribués à ceux qui en ont besoin.',
+        text: 'Le fonctionnement est simple : des points de collecte sont organisés sur le territoire pour récupérer les équipements inutilisés (ordinateurs, tablettes, smartphones). Ces appareils sont ensuite triés, diagnostiqués, sécurisés — avec effacement sécurisé des données personnelles — puis reconditionnés par des bénévoles formés avant d\'être redistribués à ceux qui en ont besoin.',
       },
       {
         type: 'heading',
@@ -98,7 +98,7 @@ export const ARTICLES = [
       },
       {
         type: 'paragraph',
-        text: 'L\'effacement certifié des données est une étape non négociable : avant toute redistribution, les disques durs sont effacés selon des standards reconnus, et un certificat peut être remis au donateur.',
+        text: 'L\'effacement sécurisé des données est une étape non négociable : avant toute redistribution, les disques durs sont effacés selon des standards reconnus, et un certificat peut être remis au donateur.',
       },
     ],
   },

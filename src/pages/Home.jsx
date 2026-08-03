@@ -4,6 +4,8 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import NewsletterForm from '../components/NewsletterForm'
 import { useReveal } from '../hooks/useReveal'
+import { COOPERATIONS_EN_COURS, PARTENAIRES_CONFIRMES } from '../data/partenaires'
+import { NOMBRE_LOTS_ARRONDI, PRIX_BILLET, VALEUR_ARRONDIE } from '../data/lotsTombola'
 
 /* ── Count-up hook ── */
 function useCountUp(target, duration = 2000) {
@@ -43,7 +45,7 @@ function useCountUp(target, duration = 2000) {
 const STEPS = [
   { num: '01', title: 'Collecter', desc: 'Points de collecte sur le territoire landais' },
   { num: '02', title: 'Trier', desc: 'Identification et qualification de chaque appareil' },
-  { num: '03', title: 'Sécuriser', desc: 'Effacement certifié et traçabilité des données' },
+  { num: '03', title: 'Sécuriser', desc: 'Effacement sécurisé et traçabilité des données' },
   { num: '04', title: 'Diagnostiquer', desc: 'Contrôle technique approfondi' },
   { num: '05', title: 'Reconditionner', desc: 'Remise en état et tests de fonctionnement' },
   { num: '06', title: 'Redistribuer', desc: 'Attribution solidaire sur le territoire' },
@@ -55,7 +57,9 @@ const IMPACT = [
   { value: 1000, suffix: '',  label: 'plantes à redistribuer' },
 ]
 
-const PARTENAIRES = ['SITCOM40', 'Mairie Vielle-Saint-Girons', 'CC Côte Landes Nature', 'CC MACS']
+// Volontairement pas de liste locale : les statuts viennent de data/partenaires.js,
+// pour qu'une structure en cours d'echange ne puisse pas apparaitre ici comme
+// partenaire etabli.
 
 /* ── Page ── */
 export default function Home() {
@@ -165,7 +169,8 @@ export default function Home() {
                 transition: 'opacity 0.8s ease 0.22s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.22s',
               }}
             >
-              Une réponse apportée localement aux défis du réemploi
+              Nous collectons, reconditionnons et remettons en circulation du
+              matériel informatique et des végétaux dans les Landes.
             </p>
 
             {/* Value chips */}
@@ -208,32 +213,37 @@ export default function Home() {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
-                Je donne des plantes
+                Participer au réemploi végétal
               </Link>
             </div>
 
-            {/* Tombola — action immédiate, mise en avant avant l'événement */}
+            {/* Parcours secondaires — les visiteurs n'arrivent pas tous avec la
+                meme intention. Entreprises/collectivites et donateurs financiers
+                ont leur entree ici, sans alourdir la hauteur du hero. */}
             <div
-              className="flex flex-wrap items-center gap-x-5 gap-y-2 mb-8"
+              className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-8"
               style={{
                 opacity: heroVisible ? 1 : 0,
                 transition: 'opacity 0.7s ease 0.5s',
               }}
             >
               <Link
-                to="/soutenir/tombola/"
-                className="group inline-flex items-center gap-2 font-sans text-sm text-ocre-dark hover:text-ocre transition-colors"
+                to="/ateliers/collectivites/"
+                className="group inline-flex items-center gap-1.5 font-sans text-sm text-kaki hover:text-ocre transition-colors"
               >
-                <span className="relative flex h-2 w-2 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ocre opacity-60" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-ocre" />
+                Organiser une collecte
+                <span className="text-xs text-terre/40 group-hover:text-ocre transition-colors">
+                  entreprise ou collectivité
                 </span>
-                <span className="font-semibold">Tombola solidaire — billet à 5 €</span>
                 <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
               </Link>
-              <span className="font-sans text-xs text-terre/45">
-                Plus de 30 lots · tirage le 03 octobre
-              </span>
+              <Link
+                to="/soutenir/don/"
+                className="group inline-flex items-center gap-1.5 font-sans text-sm text-kaki hover:text-ocre transition-colors"
+              >
+                Faire un don
+                <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+              </Link>
             </div>
 
             {/* Mini stats — objectifs de la première année, jamais des résultats acquis */}
@@ -285,33 +295,78 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════ BANDEAU ÉVÉNEMENT ══════════════ */}
-      <section className="relative bg-olive text-white py-8 md:py-10 overflow-hidden">
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(135deg, #59633F 0%, #6B7550 50%, #7D8862 100%)',
-        }} aria-hidden />
+      {/* ══════════════ TOMBOLA — CONVERSION PRINCIPALE ══════════════ */}
+      {/* Bloc prioritaire jusqu'au tirage : les visiteurs arrivant d'Instagram,
+          d'une affiche QR ou d'un partenaire doivent comprendre en un coup d'oeil
+          qu'une tombola est en cours et pouvoir acheter en quelques secondes.
+          Remplace l'ancien bandeau evenement, dont il reprend la date et le lieu. */}
+      <section className="relative text-white overflow-hidden" style={{
+        background: 'linear-gradient(135deg, #2B3520 0%, #3D4A2D 55%, #59633F 100%)',
+      }}>
+        <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-ocre to-transparent" aria-hidden />
+        <div className="absolute right-0 top-0 w-[38%] h-full pointer-events-none" aria-hidden
+          style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.14), transparent 65%)' }} />
 
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ocre/50 to-transparent" aria-hidden />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" aria-hidden />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-12">
+          <div className="grid lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-12 items-center">
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <p className="font-sans text-ocre text-[11px] tracking-[0.22em] uppercase font-semibold mb-2">
-                Événement de lancement
+            <div>
+              <p className="inline-flex items-center gap-2 font-sans text-ocre text-[11px] tracking-[0.22em] uppercase font-bold mb-3">
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ocre opacity-60" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-ocre" />
+                </span>
+                Grande tombola solidaire
               </p>
-              <h2 className="font-serif text-2xl md:text-3xl text-white mb-1">
-                03 octobre 2026 — Vielle-Saint-Girons
+
+              <h2 className="font-serif text-3xl md:text-4xl text-white mb-3 leading-tight">
+                Plus de {VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots à gagner
               </h2>
-              <p className="text-white/50 text-sm">
-                Challenge collecte · 1/2 tonne de matériel · Plus de 30 lots · Tombola solidaire
+
+              <p className="text-white/60 text-sm leading-relaxed mb-4 max-w-xl">
+                Villa sur la côte landaise · ordinateur gaming · vélo · vol en
+                montgolfière · séjours · restaurants · activités, et de nombreux
+                autres lots offerts par nos partenaires.
               </p>
+
+              <p className="font-sans text-sm text-white/75 mb-6">
+                <span className="text-ocre font-bold text-base">{PRIX_BILLET} €</span> le billet
+                <span className="text-white/25 mx-2">·</span>
+                Tirage au sort le 3 octobre 2026 à Vielle-Saint-Girons
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4">
+                <Link to="/soutenir/tombola/" className="btn-ocre shadow-ocre-glow">
+                  Je tente ma chance — {PRIX_BILLET} €
+                </Link>
+                <Link to="/soutenir/tombola/#lots" className="btn-outline-white">
+                  Découvrir tous les lots
+                </Link>
+                <Link
+                  to="/evenement-lancement-03-octobre-2026/"
+                  className="font-sans text-xs text-white/45 hover:text-white/80 transition-colors underline underline-offset-4"
+                >
+                  L'événement du 3 octobre
+                </Link>
+              </div>
             </div>
-            <Link to="/evenement-lancement-03-octobre-2026/" className="btn-outline-white shrink-0">
-              Découvrir l'événement
+
+            {/* Vignette — reprend visuellement les lots */}
+            <Link to="/soutenir/tombola/" className="group hidden lg:block rounded-xl overflow-hidden shadow-2xl shadow-black/25">
+              <img
+                src="/photos/tombola-vignette.webp"
+                width={1280}
+                height={720}
+                loading="lazy"
+                decoding="async"
+                alt=""
+                className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.03]"
+              />
             </Link>
           </div>
         </div>
+
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" aria-hidden />
       </section>
 
       {/* ══════════════ DEUX FILIÈRES ══════════════ */}
@@ -565,24 +620,42 @@ export default function Home() {
               <div className="absolute -inset-8 rounded-3xl blur-3xl pointer-events-none"
                 style={{ background: 'radial-gradient(ellipse, rgba(200,151,58,0.12), transparent 70%)' }} aria-hidden />
 
-              {/* La vignette porte deja le detail (lots, prix du billet, date) :
-                  le texte alternatif le restitue, l'image etant du pixel. */}
-              <Link
-                to="/soutenir/tombola/"
-                className="group relative block rounded-2xl overflow-hidden shadow-2xl shadow-kaki/25"
-              >
-                <img
-                  src="/photos/tombola-vignette.webp"
-                  width={1280}
-                  height={720}
-                  loading="lazy"
-                  decoding="async"
-                  alt="Tombola solidaire organisée par l'association Ressources pour l'inauguration de la recyclerie le 3 octobre 2026 : plus de 4 000 € de lots à gagner, ticket à 5 €."
-                  className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.03]"
-                />
-                {/* Top accent */}
+              {/* Carte evenement, et non la vignette tombola : celle-ci est deja
+                  affichee dans le bloc de conversion sous le hero. La montrer deux
+                  fois sur la meme page affaiblirait les deux emplacements. */}
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-kaki/25"
+                style={{ background: 'linear-gradient(135deg, #2B3520 0%, #404C2F 60%, #4a5935 100%)' }}>
                 <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-ocre to-transparent" aria-hidden />
-              </Link>
+                <div className="absolute top-0 right-0 w-40 h-40 rounded-bl-full" aria-hidden
+                  style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.12), transparent 60%)' }} />
+                <div className="absolute bottom-0 left-0 w-28 h-28 rounded-tr-full" aria-hidden
+                  style={{ background: 'radial-gradient(circle at bottom left, rgba(200,151,58,0.07), transparent 60%)' }} />
+
+                <div className="relative p-10 md:p-12">
+                  <p className="font-sans text-ocre text-[10px] tracking-[0.22em] uppercase font-semibold mb-5">
+                    Samedi 03 octobre 2026
+                  </p>
+
+                  <div className="font-serif leading-none mb-6 select-none" aria-hidden
+                    style={{ fontSize: 'clamp(5rem, 12vw, 7rem)', color: 'rgba(255,255,255,0.06)' }}>
+                    03<br />OCT
+                  </div>
+
+                  <p className="font-serif text-xl text-white mb-2">Rejoignez-nous pour le lancement</p>
+                  <p className="text-white/45 text-sm leading-relaxed mb-7">
+                    Vielle-Saint-Girons (Landes, 40560)<br />
+                    Programme complet à venir
+                  </p>
+
+                  <div className="border-t border-white/10 pt-6">
+                    <p className="text-[10px] text-white/35 uppercase tracking-widest mb-1.5">Lots à gagner</p>
+                    <p className="font-serif text-3xl"
+                      style={{ background: 'linear-gradient(135deg, #C8973A, #D4AA5A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                      + de {NOMBRE_LOTS_ARRONDI}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -618,17 +691,39 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Partenaires */}
-          <div className={`grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10 transition-all duration-700 delay-200 ${territoire.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-            {PARTENAIRES.map((p, i) => (
-              <div
-                key={p}
-                className="border border-beige-dark bg-beige-light flex items-center justify-center p-5 text-center rounded-xl hover:shadow-lg hover:border-ocre/25 hover:-translate-y-1.5 transition-all duration-300 cursor-default"
-                style={{ minHeight: 80, transitionDelay: `${i * 50}ms` }}
-              >
-                <p className="text-xs text-terre/45 font-sans font-medium leading-snug">{p}</p>
-              </div>
-            ))}
+          {/* Partenaires — deux blocs distincts : formalisé d'un côté, échanges
+              en cours de l'autre. Les mélanger laisserait croire à un partenariat
+              institutionnel là où il n'y a encore qu'une prise de contact. */}
+          <div className={`mb-10 transition-all duration-700 delay-200 ${territoire.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <p className="text-[10px] text-terre/35 tracking-[0.22em] uppercase font-sans mb-3 text-center">
+              Nos partenaires
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+              {PARTENAIRES_CONFIRMES.map(({ nom }, i) => (
+                <div
+                  key={nom}
+                  className="border border-beige-dark bg-beige-light flex items-center justify-center p-5 text-center rounded-xl hover:shadow-lg hover:border-ocre/25 hover:-translate-y-1.5 transition-all duration-300 cursor-default"
+                  style={{ minHeight: 80, transitionDelay: `${i * 50}ms` }}
+                >
+                  <p className="text-xs text-terre/45 font-sans font-medium leading-snug">{nom}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-[10px] text-terre/35 tracking-[0.22em] uppercase font-sans mb-3 text-center">
+              Échanges et coopérations en cours
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+              {COOPERATIONS_EN_COURS.map(({ nom }) => (
+                <div
+                  key={nom}
+                  className="border border-dashed border-beige-dark bg-transparent flex items-center justify-center p-4 text-center rounded-xl cursor-default"
+                  style={{ minHeight: 64 }}
+                >
+                  <p className="text-xs text-terre/35 font-sans leading-snug">{nom}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className={`text-center transition-all duration-700 delay-300 ${territoire.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>

@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import {
+  COOPERATIONS_EN_COURS,
+  MENTION_COOPERATIONS,
+  PARTENAIRES_CONFIRMES,
+} from '../../data/partenaires'
 
 const BREADCRUMBS = [
   { label: 'L\'Association', href: '/association/' },
@@ -68,14 +73,37 @@ export default function Territoire() {
           </div>
 
           <div className="bg-beige-light border border-beige-dark p-6 mb-8">
-            <h2 className="font-serif text-xl text-terre mb-3">Partenaires institutionnels</h2>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {['SITCOM40 — syndicat de collecte et traitement des déchets', 'Mairie de Vielle-Saint-Girons', 'CC Côte Landes Nature', 'CC MACS'].map((p) => (
-                <div key={p} className="flex items-center gap-2 text-sm text-terre/65">
-                  <span className="w-1.5 h-1.5 rounded-full bg-ocre shrink-0" />
-                  {p}
+            <h2 className="font-serif text-xl text-terre mb-3">Nos partenaires</h2>
+            <div className="grid sm:grid-cols-2 gap-3 mb-6">
+              {PARTENAIRES_CONFIRMES.map(({ nom, label }) => (
+                <div key={nom} className="flex items-start gap-2 text-sm text-terre/65">
+                  <span className="w-1.5 h-1.5 rounded-full bg-ocre shrink-0 mt-1.5" />
+                  <span>
+                    {nom}
+                    <span className="block text-xs text-terre/40">{label}</span>
+                  </span>
                 </div>
               ))}
+            </div>
+
+            <div className="border-t border-beige-dark pt-5">
+              <h3 className="font-sans text-xs font-bold tracking-[0.15em] uppercase text-terre/45 mb-2">
+                Échanges et coopérations en cours
+              </h3>
+              <p className="text-xs text-terre/50 leading-relaxed mb-3">
+                {MENTION_COOPERATIONS}
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {COOPERATIONS_EN_COURS.map(({ nom, label }) => (
+                  <div key={nom} className="flex items-start gap-2 text-sm text-terre/55">
+                    <span className="w-1.5 h-1.5 rounded-full bg-kaki/30 shrink-0 mt-1.5" />
+                    <span>
+                      {nom}
+                      <span className="block text-xs text-terre/35">{label}</span>
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 

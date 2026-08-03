@@ -48,7 +48,7 @@ const faqSchema = {
       name: 'Mes données personnelles sont-elles effacées ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Oui. Chaque support de stockage fait l\'objet d\'un effacement certifié avant tout reconditionnement, avec traçabilité. Vous pouvez aussi retirer vous-même le disque dur avant le dépôt.',
+        text: 'Oui. Chaque support de stockage fait l\'objet d\'un effacement sécurisé avant tout reconditionnement, avec traçabilité. Vous pouvez aussi retirer vous-même le disque dur avant le dépôt.',
       },
     },
     {
@@ -163,7 +163,7 @@ export default function DefiCollecte() {
             </ul>
             <p className="text-xs text-terre/50 leading-relaxed">
               Le matériel en panne est accepté : il est valorisé pour ses composants.
-              Vos données sont effacées de façon certifiée avant tout
+              Vos données sont effacées de façon sécurisée avant tout
               reconditionnement — vous pouvez aussi retirer le disque dur vous-même.{' '}
               <Link to="/recyclerie-informatique/effacement-donnees/" className="text-ocre hover:underline">
                 En savoir plus sur la sécurité des données
@@ -175,14 +175,24 @@ export default function DefiCollecte() {
           <div className="mb-12">
             <div className="flex items-baseline gap-3 mb-2">
               <h2 className="font-serif text-2xl text-terre">Où déposer</h2>
+              {/* Tant qu'aucun point n'est ouvert au depot libre, annoncer « 0 point
+                  de collecte » a cote d'une liste de trois serait incomprehensible :
+                  on compte alors les points en cours de validation. */}
               <span className="font-sans text-xs text-terre/45">
-                {POINTS_OUVERTS.length} point{POINTS_OUVERTS.length > 1 ? 's' : ''} de collecte
+                {POINTS_OUVERTS.length > 0
+                  ? `${POINTS_OUVERTS.length} point${POINTS_OUVERTS.length > 1 ? 's' : ''} de collecte`
+                  : `${POINTS_CONFIRMES.length} point${POINTS_CONFIRMES.length > 1 ? 's' : ''} en cours de validation`}
               </span>
             </div>
             <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
               Plusieurs entreprises et communes du territoire se sont portées
               volontaires pour accueillir un point de collecte. La liste est mise à
-              jour au fur et à mesure des confirmations.
+              jour au fur et à mesure des confirmations. Les points encore en cours
+              de validation n'accueillent pas de dépôt libre :{' '}
+              <Link to="/contact/" className="text-ocre hover:underline">
+                merci de nous contacter
+              </Link>{' '}
+              afin de convenir des modalités de remise du matériel.
             </p>
 
             <ul className="space-y-3 mb-6">

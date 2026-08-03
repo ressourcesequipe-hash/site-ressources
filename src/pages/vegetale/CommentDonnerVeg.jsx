@@ -36,7 +36,7 @@ export default function CommentDonnerVeg() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             {[
-              { titre: 'Points de collecte végétale', desc: 'Déposez vos plantes et matériels aux points de collecte partenaires. Lieux à confirmer pour l\'ouverture de septembre 2026.' },
+              { titre: 'Points de collecte végétale', desc: 'Nos points de collecte sont en cours de validation. Merci de nous contacter afin de convenir des modalités de remise du matériel.' },
               { titre: 'Événements de collecte', desc: 'Des journées de collecte végétale seront organisées ponctuellement sur le territoire. Suivez nos actualités pour les dates.' },
               { titre: 'Remise directe', desc: 'Contactez-nous pour convenir d\'une remise directe, notamment pour de grandes quantités ou du matériel encombrant.' },
               { titre: 'Partenaires végétaux', desc: 'Communes, campings, jardineries partenaires — certains acceptent le dépôt de végétaux via notre réseau.' },

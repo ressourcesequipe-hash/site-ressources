@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import {
+  COOPERATIONS_EN_COURS,
+  MENTION_COOPERATIONS,
+  PARTENAIRES_CONFIRMES,
+} from '../../data/partenaires'
 
 
 const BREADCRUMBS = [
@@ -8,61 +13,21 @@ const BREADCRUMBS = [
   { label: 'Partenaires' },
 ]
 
-const GROUPES = [
+// Deux blocs et non plus un regroupement par type : le statut prime sur la
+// nature de la structure, pour qu'aucune collectivite en cours d'echange ne
+// puisse etre lue comme un partenaire etabli.
+const BLOCS = [
   {
-    titre: 'Réseaux & partenaires opérationnels',
-    partenaires: [
-      {
-        nom: 'Réseau ReNAITRe',
-        label: 'RÉSEAU PROFESSIONNEL REJOINT',
-        labelColor: 'ocre',
-        logo: '/logos/logo-renaitre.png',
-        desc: 'Ressources rejoint le réseau ReNAITRe, réseau régional du réemploi solidaire en Nouvelle-Aquitaine.',
-        lien: 'https://www.reseau-renaitre.com/page/1502390-accueil',
-      },
-      {
-        nom: 'SITCOM40',
-        label: 'PARTENARIAT CONVENU',
-        labelColor: 'ocre',
-        logo: '/logos/logo-sitcom40.svg',
-        desc: 'Un partenariat a été convenu avec le SITCOM40 pour l\'installation de points de collecte de matériel informatique dans deux déchèteries du département.',
-        lien: null,
-      },
-    ],
+    titre: 'Nos partenaires',
+    intro: 'Structures avec lesquelles un partenariat est formalisé ou un réseau rejoint.',
+    accent: 'ocre',
+    partenaires: PARTENAIRES_CONFIRMES,
   },
   {
-    titre: 'Collectivités locales',
-    partenaires: [
-      {
-        nom: 'Mairie de Vielle-Saint-Girons',
-        label: 'PARTENAIRE LOCAL CONFIRMÉ',
-        labelColor: 'ocre',
-        logo: '/logos/logo-mairie-vsg.png',
-        desc: 'La commune de Vielle-Saint-Girons s\'est positionnée comme partenaire du lancement de Ressources sur son territoire.',
-        lien: null,
-      },
-    ],
-  },
-  {
-    titre: 'Intercommunalités',
-    partenaires: [
-      {
-        nom: 'CC Côte Landes Nature',
-        label: 'ÉCHANGE EN COURS',
-        labelColor: 'kaki',
-        logo: '/logos/logo-cln.png',
-        desc: 'Ressources souhaite développer des coopérations territoriales autour du réemploi, de l\'inclusion numérique et de la recyclerie végétale.',
-        lien: null,
-      },
-      {
-        nom: 'Territoire MACS',
-        label: 'PRÉSENTATION DU PROJET EN COURS',
-        labelColor: 'kaki',
-        logo: '/logos/logo-macs.png',
-        desc: 'Ressources engage une démarche de présentation du projet sur le territoire MACS afin d\'identifier de futures pistes de coopération locale.',
-        lien: null,
-      },
-    ],
+    titre: 'Échanges et coopérations territoriales en cours',
+    intro: MENTION_COOPERATIONS,
+    accent: 'kaki',
+    partenaires: COOPERATIONS_EN_COURS,
   },
 ]
 
@@ -97,27 +62,21 @@ export default function Partenaires() {
       <section className="py-14 md:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
 
-          <h2 className="font-serif text-2xl text-terre mb-8">
-            Soutiens et partenariats en cours
-          </h2>
-
-          <div className="space-y-12 mb-14">
-            {GROUPES.map(({ titre, partenaires }) => (
+          <div className="space-y-14 mb-14">
+            {BLOCS.map(({ titre, intro, accent, partenaires }) => (
               <div key={titre}>
-                {/* Titre de groupe */}
-                <div className="flex items-center gap-4 mb-6">
-                  <h3 className="font-sans text-xs font-bold tracking-[0.18em] uppercase text-terre/40 whitespace-nowrap">
-                    {titre}
-                  </h3>
-                  <div className="flex-1 h-px bg-beige-dark" />
-                </div>
+                {/* Titre de bloc */}
+                <h2 className="font-serif text-2xl text-terre mb-2">{titre}</h2>
+                <p className="text-sm text-terre/55 leading-relaxed mb-6 max-w-2xl">
+                  {intro}
+                </p>
 
                 {/* Cartes */}
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {partenaires.map(({ nom, label, labelColor, desc, lien, logo }) => (
+                  {partenaires.map(({ nom, label, categorie, desc, lien, logo }) => (
                     <div
                       key={nom}
-                      className={`group border-t-2 ${labelColor === 'ocre' ? 'border-ocre' : 'border-kaki/40'} border border-beige-dark bg-beige-light p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}
+                      className={`group border-t-2 ${accent === 'ocre' ? 'border-ocre' : 'border-kaki/40'} border border-beige-dark bg-beige-light p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}
                     >
                       {/* Logo */}
                       <div className="h-16 flex items-center mb-5">
@@ -133,11 +92,14 @@ export default function Partenaires() {
                         <span className="text-xs text-terre/40 font-sans font-medium tracking-wide hidden">{nom}</span>
                       </div>
 
-                      {/* Label statut */}
+                      {/* Label statut + categorie de structure */}
                       <p className={`text-[10px] font-sans font-bold tracking-[0.15em] uppercase mb-2 ${
-                        labelColor === 'ocre' ? 'text-ocre' : 'text-kaki/70'
+                        accent === 'ocre' ? 'text-ocre' : 'text-kaki/70'
                       }`}>
                         {label}
+                      </p>
+                      <p className="text-[10px] font-sans tracking-wide uppercase text-terre/35 mb-2">
+                        {categorie}
                       </p>
 
                       {/* Nom */}
@@ -174,8 +136,8 @@ export default function Partenaires() {
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               {[
-                { color: 'bg-ocre', label: 'Partenaire confirmé ou réseau rejoint' },
-                { color: 'bg-kaki/40', label: 'Échange ou démarche en cours' },
+                { color: 'bg-ocre', label: 'Partenariat formalisé ou réseau rejoint' },
+                { color: 'bg-kaki/40', label: 'Échange ou démarche en cours, sans partenariat formalisé' },
               ].map(({ color, label }) => (
                 <div key={label} className="flex items-center gap-2">
                   <span className={`w-2.5 h-2.5 rounded-full ${color} shrink-0`} />

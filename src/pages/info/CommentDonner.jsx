@@ -39,7 +39,7 @@ export default function CommentDonner() {
               {
                 num: '1',
                 title: 'Points de collecte',
-                desc: 'Notre point de collecte est en cours de validation. Contactez-nous pour connaître les modalités de dépôt sur le territoire.',
+                desc: 'Notre point de collecte est en cours de validation. Merci de nous contacter afin de convenir des modalités de remise du matériel.',
                 note: 'Nous contacter',
               },
               {
@@ -84,9 +84,10 @@ export default function CommentDonner() {
                   Localisation en cours de validation
                 </p>
                 <p className="text-sm text-terre/60 leading-relaxed">
-                  Le point de collecte à Vielle-Saint-Girons est en cours de confirmation.
-                  Pour toute collecte, contactez-nous directement : nous organisons ensemble
-                  un dépôt ou un enlèvement adapté à votre situation.
+                  Le point de collecte à Vielle-Saint-Girons est en cours de validation.
+                  Merci de nous contacter afin de convenir des modalités de remise du
+                  matériel : nous organisons ensemble un dépôt ou un enlèvement adapté
+                  à votre situation.
                 </p>
               </div>
               <div className="shrink-0">

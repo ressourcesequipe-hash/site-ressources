@@ -17,11 +17,14 @@ export const DEFI = {
 //   Retirer la mention dès que le point est formalisé.
 export const POINTS_COLLECTE = [
   {
+    // Pas d'adresse tant que le point n'est pas valide : l'afficher enverrait
+    // des donateurs sur place alors que la remise se convient au cas par cas.
     nom: 'Association Ressources',
     ville: 'Vielle-Saint-Girons',
-    adresse: '80 allée des Cigales',
+    adresse: null,
     type: 'Point permanent',
     statut: 'confirme',
+    mention: 'En cours de validation',
   },
   {
     nom: 'E.Leclerc',
@@ -86,6 +89,6 @@ export const ETAPES = [
   {
     num: '04',
     titre: 'Tout est revalorisé',
-    desc: 'Tri, effacement certifié des données, reconditionnement, puis redistribution solidaire sur le territoire.',
+    desc: 'Tri, effacement sécurisé des données, reconditionnement, puis redistribution solidaire sur le territoire.',
   },
 ]

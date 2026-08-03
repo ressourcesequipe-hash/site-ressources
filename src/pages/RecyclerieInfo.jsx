@@ -7,7 +7,7 @@ const PAGES_FILLES = [
   { to: '/recyclerie-informatique/comment-donner/', title: 'Comment donner', desc: 'Points de collecte, enlèvements, démarche simplifiée', Icon: IconCollecte },
   { to: '/recyclerie-informatique/materiel-accepte/', title: 'Matériel accepté', desc: 'Liste complète des équipements que nous collectons', Icon: IconOrdinateur },
   { to: '/recyclerie-informatique/reconditionnement/', title: 'Notre processus', desc: 'Les 6 étapes de la filière, de la collecte à la redistribution', Icon: IconOutil },
-  { to: '/recyclerie-informatique/effacement-donnees/', title: 'Sécurité des données', desc: 'Effacement certifié, traçabilité, conformité RGPD', Icon: IconSecurite },
+  { to: '/recyclerie-informatique/effacement-donnees/', title: 'Sécurité des données', desc: 'Effacement sécurisé, traçabilité, conformité RGPD', Icon: IconSecurite },
   { to: '/recyclerie-informatique/beneficiaires/', title: 'Acheter du matériel', desc: 'Acquérir un équipement reconditionné à prix solidaire', Icon: IconPartenaires },
 ]
 
@@ -23,7 +23,7 @@ const FAQ_SCHEMA = {
     {
       '@type': 'Question',
       name: 'Que deviennent mes données personnelles quand je donne un appareil ?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Chaque appareil passe par un effacement certifié de ses données avant tout reconditionnement. Vous recevez une confirmation d\'effacement sur demande.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Chaque appareil passe par un effacement sécurisé de ses données avant tout reconditionnement. Lorsque le traitement et le support le permettent, une attestation d\'effacement peut être établie sur demande.' },
     },
     {
       '@type': 'Question',
@@ -48,7 +48,7 @@ export default function RecyclerieInfo() {
     <Layout>
       <SEO
         title="Recyclerie Informatique Solidaire Landes | Ressources"
-        description="Donnez votre ordinateur, tablette ou smartphone dans les Landes (40). Ressources reconditionne et revend à prix solidaire. Point de collecte à Vielle-Saint-Girons (40560)."
+        description="Donnez votre ordinateur, tablette ou smartphone dans les Landes (40). Ressources reconditionne et revend à prix solidaire. Point de collecte à Vielle-Saint-Girons (40560) en cours de validation : contactez-nous pour convenir des modalités de remise."
         canonical="/recyclerie-informatique/"
         schema={FAQ_SCHEMA}
       />
@@ -201,7 +201,7 @@ export default function RecyclerieInfo() {
           </div>
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { icon: <IconSecurite className="w-6 h-6" />, title: 'Effacement certifié', desc: 'Toutes vos données sont effacées selon les normes avant tout reconditionnement ou recyclage.' },
+              { icon: <IconSecurite className="w-6 h-6" />, title: 'Effacement sécurisé', desc: 'Les données sont effacées selon un protocole adapté au type de support, avant tout reconditionnement ou recyclage.' },
               { icon: <IconTracabilite className="w-6 h-6" />, title: 'Traçabilité totale', desc: 'Chaque appareil est tracé de la collecte à la redistribution ou au recyclage responsable.' },
               { icon: <IconConformite className="w-6 h-6" />, title: 'Conformité RGPD', desc: 'Nos processus respectent le Règlement Général sur la Protection des Données.' },
             ].map(({ icon, title, desc }) => (
@@ -230,7 +230,7 @@ export default function RecyclerieInfo() {
               },
               {
                 q: 'Que deviennent mes données personnelles ?',
-                a: 'Chaque appareil passe par un effacement certifié de ses données avant tout reconditionnement. Vous recevez une confirmation d\'effacement sur demande.',
+                a: 'Chaque appareil passe par un effacement sécurisé de ses données avant tout reconditionnement. Lorsque le traitement et le support le permettent, une attestation d\'effacement peut être établie sur demande.',
               },
               {
                 q: 'Puis-je acheter un équipement reconditionné ?',

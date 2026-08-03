@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
 import { IconFamille, IconEcole, IconPartenaires, IconBriefcase, IconMaison, IconSenior } from '../../components/Icons'
+import { FINANCEMENT_PAR_LA_VENTE, VOIES_REMISE_CIRCULATION } from '../../data/redistribution'
 
 const BREADCRUMBS = [
   { label: 'Recyclerie Informatique', href: '/recyclerie-informatique/' },
@@ -20,7 +21,7 @@ const FAQ_SCHEMA = {
     {
       '@type': 'Question',
       name: 'Quelle garantie sur le matériel reconditionné par Ressources ?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Nous offrons une garantie de bon fonctionnement au moment de la vente. En cas de défaut constaté rapidement après l\'achat, nous étudions chaque situation au cas par cas.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Les équipements vendus par Ressources bénéficient des garanties légales applicables à la vente de biens d\'occasion ou reconditionnés. Les conditions générales de vente préciseront les modalités avant le lancement effectif des ventes.' },
     },
     {
       '@type': 'Question',
@@ -30,7 +31,7 @@ const FAQ_SCHEMA = {
     {
       '@type': 'Question',
       name: 'Les données des anciens propriétaires sont-elles effacées avant la vente ?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Absolument. Chaque équipement passe par un effacement certifié de ses données avant tout reconditionnement ou vente.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Absolument. Chaque équipement passe par un effacement sécurisé de ses données avant tout reconditionnement ou vente.' },
     },
   ],
 }
@@ -64,20 +65,33 @@ export default function Beneficiaires() {
       <section className="py-14 md:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
-          {/* Principe */}
+          {/* Principe — la vente est une voie parmi d'autres, pas le modèle entier */}
           <div className="mb-12">
-            <h2 className="font-serif text-2xl text-terre mb-6">Une vente solidaire</h2>
-            <p className="text-terre/65 leading-relaxed mb-4">
+            <h2 className="font-serif text-2xl text-terre mb-6">
+              La vente, une voie parmi plusieurs
+            </h2>
+            <p className="text-terre/65 leading-relaxed mb-6">
               Notre modèle repose sur la <strong className="text-terre">revalorisation</strong> :
               les équipements collectés sont reconditionnés par des bénévoles compétents,
-              puis vendus à des prix inférieurs au marché du reconditionné classique.
-              Cette approche permet à l'association de couvrir ses frais et d'assurer
-              la pérennité de la filière.
+              puis remis en circulation de plusieurs façons complémentaires.
             </p>
-            <p className="text-terre/65 leading-relaxed">
-              Quelques équipements peuvent faire l'objet d'une mise à disposition
-              pour des structures partenaires dans le cadre d'accords spécifiques.
-            </p>
+
+            <ul className="space-y-3 mb-6">
+              {VOIES_REMISE_CIRCULATION.map(({ titre, desc }) => (
+                <li key={titre} className="flex gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-ocre shrink-0 mt-2" aria-hidden />
+                  <p className="text-sm text-terre/60 leading-relaxed">
+                    <strong className="text-terre font-semibold">{titre}</strong> — {desc}
+                  </p>
+                </li>
+              ))}
+            </ul>
+
+            <div className="border-l-2 border-ocre bg-beige-light p-5">
+              <p className="text-sm text-terre/65 leading-relaxed">
+                {FINANCEMENT_PAR_LA_VENTE}
+              </p>
+            </div>
           </div>
 
           {/* Qui peut acheter */}
@@ -125,7 +139,7 @@ export default function Beneficiaires() {
               {[
                 { num: '1', title: 'Nous contacter', desc: 'Décrivez votre besoin (type d\'appareil, usage prévu) par email ou via le formulaire. Nous vérifions la disponibilité du stock.' },
                 { num: '2', title: 'Proposition et prix', desc: 'Nous vous proposons l\'équipement disponible correspondant à vos besoins, avec son prix solidaire et une description de son état.' },
-                { num: '3', title: 'Achat sur place', desc: 'La transaction se fait sur le point de collecte de Vielle-Saint-Girons. Un reçu vous est remis.' },
+                { num: '3', title: 'Remise de l\'équipement', desc: 'Notre point de collecte à Vielle-Saint-Girons est en cours de validation : nous convenons ensemble du lieu et des modalités de remise. Un reçu vous est remis.' },
                 { num: '4', title: 'Prise en main', desc: 'Nos bénévoles peuvent vous accompagner brièvement dans la prise en main de l\'équipement si nécessaire.' },
               ].map(({ num, title, desc }) => (
                 <div key={num} className="flex gap-4">
@@ -161,7 +175,7 @@ export default function Beneficiaires() {
                 },
                 {
                   q: 'Quelle garantie sur le matériel reconditionné ?',
-                  a: 'Nous offrons une garantie de bon fonctionnement au moment de la vente. En cas de défaut constaté rapidement après l\'achat, nous étudions chaque situation au cas par cas.',
+                  a: 'Les équipements vendus par Ressources bénéficient des garanties légales applicables à la vente de biens d\'occasion ou reconditionnés. Les conditions générales de vente préciseront les modalités avant le lancement effectif des ventes.',
                 },
                 {
                   q: 'Puis-je donner et racheter un équipement reconditionné ?',
@@ -169,7 +183,7 @@ export default function Beneficiaires() {
                 },
                 {
                   q: 'Les données des anciens propriétaires sont-elles effacées ?',
-                  a: 'Absolument. Chaque équipement passe par un effacement certifié de ses données avant tout reconditionnement ou vente. Voir notre page dédiée à la sécurité des données.',
+                  a: 'Absolument. Chaque équipement passe par un effacement sécurisé de ses données avant tout reconditionnement ou vente. Voir notre page dédiée à la sécurité des données.',
                 },
               ].map(({ q, a }) => (
                 <details key={q} className="border border-beige group">

@@ -25,7 +25,7 @@ const FAQ_SCHEMA = {
     {
       '@type': 'Question',
       name: 'La vente de végétaux se fait-elle sur place ou par livraison ?',
-      acceptedAnswer: { '@type': 'Answer', text: 'La vente se fait principalement sur le point de collecte de Vielle-Saint-Girons (Landes). Pour des volumes importants, un arrangement peut être envisagé.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Notre point de collecte à Vielle-Saint-Girons (Landes) est en cours de validation. Merci de nous contacter afin de convenir des modalités de remise. Pour des volumes importants, un arrangement peut être envisagé.' },
     },
     {
       '@type': 'Question',
@@ -127,7 +127,7 @@ export default function RedistributionVeg() {
                 },
                 {
                   q: 'La vente se fait-elle sur place ou par livraison ?',
-                  a: 'La vente se fait principalement sur le point de collecte de Vielle-Saint-Girons. Pour des volumes importants, un arrangement peut être envisagé.',
+                  a: 'Notre point de collecte à Vielle-Saint-Girons est en cours de validation. Merci de nous contacter afin de convenir des modalités de remise. Pour des volumes importants, un arrangement peut être envisagé.',
                 },
                 {
                   q: 'Que se passe-t-il si les plantes sont en mauvais état ?',

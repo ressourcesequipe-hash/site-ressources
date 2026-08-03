@@ -4,6 +4,9 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import CompteARebours from '../components/CompteARebours'
 import { useReveal } from '../hooks/useReveal'
+// Le prix vient de la meme source que la page tombola : une seule valeur a
+// changer si le tarif evolue, jamais deux pages a resynchroniser.
+import { PRIX_BILLET } from '../data/lotsTombola'
 
 const eventSchema = {
   '@context': 'https://schema.org',
@@ -41,6 +44,8 @@ const eventSchema = {
     '@type': 'Offer',
     name: 'Billets de tombola solidaire',
     url: 'https://www.helloasso.com/associations/ressources-association/evenements/evenement-ressources-tirage-public-de-la-tombola',
+    price: String(PRIX_BILLET),
+    priceCurrency: 'EUR',
     availability: 'https://schema.org/InStock',
     validFrom: '2026-09-01',
   },
@@ -147,7 +152,10 @@ export default function Evenement() {
               <div className="bg-gradient-to-br from-ocre-pale to-beige border border-ocre/20 p-6 mb-6 rounded-xl">
                 <p className="font-sans text-xs text-ocre font-semibold tracking-wider uppercase mb-2">Objectif</p>
                 <p className="font-serif text-4xl text-ocre mb-1">+ de 30 lots</p>
-                <p className="text-sm text-terre/50">à gagner lors du tirage au sort</p>
+                <p className="text-sm text-terre/50">
+                  à gagner lors du tirage au sort public, le samedi 3 octobre 2026
+                  à Vielle-Saint-Girons
+                </p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <Link to="/soutenir/tombola/" className="btn-ocre rounded-lg">En savoir plus sur la tombola</Link>
@@ -157,8 +165,8 @@ export default function Evenement() {
             <div className={`space-y-4 transition-all duration-700 delay-200 ${tombola.visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
               <h3 className="font-serif text-xl text-terre">Comment participer ?</h3>
               {[
-                { step: '1', text: 'Achetez vos billets de tombola (prix à définir)' },
-                { step: '2', text: 'Venez à l\'événement le 03 octobre 2026' },
+                { step: '1', text: `Achetez vos billets de tombola — ${PRIX_BILLET} € le billet` },
+                { step: '2', text: 'Tirage au sort public le samedi 3 octobre 2026 à Vielle-Saint-Girons — pas besoin d\'être présent pour gagner' },
                 { step: '3', text: 'Tentez de gagner l\'un des lots offerts par nos partenaires' },
                 { step: '4', text: 'Votre participation finance directement l\'association' },
               ].map(({ step, text }) => (

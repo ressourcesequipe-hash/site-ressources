@@ -23,8 +23,8 @@ const ETAPES = [
   {
     num: '03',
     titre: 'Sécuriser',
-    desc: 'Effacement certifié des données personnelles selon les normes NIST 800-88 et DoD 5220.22-M. Un certificat d\'effacement est émis pour chaque appareil traité.',
-    detail: 'Norme NIST 800-88 · Certificat d\'effacement · Conformité RGPD',
+    desc: 'Effacement sécurisé des données personnelles, selon un protocole adapté au type de support. Notre démarche s\'appuie notamment sur les recommandations du standard NIST SP 800-88 Rev. 2. Lorsque le traitement et le support le permettent, une attestation d\'effacement peut être établie.',
+    detail: 'NIST SP 800-88 Rev. 2 · Traçabilité · Démarche RGPD',
   },
   {
     num: '04',
@@ -40,9 +40,9 @@ const ETAPES = [
   },
   {
     num: '06',
-    titre: 'Redistribuer',
-    desc: 'Attribution solidaire aux bénéficiaires prioritaires : familles en situation précaire, structures d\'insertion, écoles, associations du territoire.',
-    detail: 'Bénéficiaires prioritaires · Territoire landais · Suivi post-attribution',
+    titre: 'Remettre en circulation',
+    desc: 'Plusieurs voies complémentaires : actions solidaires, remise à des bénéficiaires identifiés avec nos partenaires, vente à prix accessible au grand public, ou orientation vers d\'autres filières de réemploi.',
+    detail: 'Voies solidaires · Vente accessible · Territoire landais',
   },
 ]
 

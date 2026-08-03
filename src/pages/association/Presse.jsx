@@ -33,7 +33,7 @@ const ANGLES = [
   },
   {
     titre: 'L\'inclusion numérique en zone rurale',
-    desc: 'Un ordinateur reconditionné pour une famille, un senior ou une association du territoire, avec effacement certifié des données. Le sujet croise fracture numérique et pouvoir d\'achat sur un territoire peu dense.',
+    desc: 'Un ordinateur reconditionné pour une famille, un senior ou une association du territoire, avec effacement sécurisé des données. Le sujet croise fracture numérique et pouvoir d\'achat sur un territoire peu dense.',
   },
   {
     titre: 'Une mobilisation de commerçants locaux',

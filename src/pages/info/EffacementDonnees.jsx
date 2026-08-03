@@ -12,8 +12,8 @@ export default function EffacementDonnees() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Effacement certifié des données — don informatique sécurisé Landes"
-        description="Donnez votre ordinateur l'esprit tranquille. L'association Ressources garantit l'effacement certifié de vos données personnelles (RGPD) avant tout reconditionnement dans les Landes."
+        title="Effacement sécurisé des données — don informatique Landes"
+        description="Avant toute remise en circulation, l'association Ressources applique un protocole d'effacement sécurisé des données, appuyé sur les recommandations du standard NIST SP 800-88 Rev. 2, dans les Landes."
         canonical="/recyclerie-informatique/effacement-donnees/"
       />
 
@@ -23,11 +23,12 @@ export default function EffacementDonnees() {
             Sécurité & RGPD
           </p>
           <h1 className="font-serif text-3xl sm:text-4xl text-terre mb-4">
-            Vos données personnelles sont en sécurité
+            Effacement sécurisé des données
           </h1>
           <p className="text-terre/60 max-w-xl leading-relaxed">
-            Avant tout reconditionnement ou recyclage, nous effaçons intégralement
-            et de façon certifiée toutes les données présentes sur votre équipement.
+            Avant toute remise en circulation d'un équipement informatique,
+            Ressources applique un protocole d'effacement sécurisé adapté au type
+            de support concerné.
           </p>
         </div>
       </section>
@@ -36,13 +37,13 @@ export default function EffacementDonnees() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-10 mb-14">
             <div>
-              <h2 className="font-serif text-2xl text-terre mb-4">Notre processus d'effacement</h2>
+              <h2 className="font-serif text-2xl text-terre mb-4">Notre protocole d'effacement</h2>
               <div className="space-y-5">
                 {[
-                  { icon: <IconSecurite className="w-5 h-5" />, title: 'Effacement selon normes reconnues', desc: 'Nous appliquons les standards NIST SP 800-88 (écrasement multi-passes) sur tous les supports de stockage.' },
-                  { icon: <IconDocument className="w-5 h-5" />, title: 'Certificat d\'effacement', desc: 'Un certificat nominatif est émis pour chaque appareil traité, attestant l\'effacement complet des données.' },
-                  { icon: <IconTracabilite className="w-5 h-5" />, title: 'Traçabilité complète', desc: 'Chaque appareil est tracé de sa réception jusqu\'à sa redistribution ou son recyclage.' },
-                  { icon: <IconConformite className="w-5 h-5" />, title: 'Conformité RGPD', desc: 'Notre processus est conforme au Règlement Général sur la Protection des Données (RGPD/GDPR).' },
+                  { icon: <IconSecurite className="w-5 h-5" />, title: 'Protocole adapté au support', desc: 'Notre démarche s\'appuie notamment sur les recommandations du standard NIST SP 800-88 Rev. 2 relatives à la sanitisation des supports numériques. La méthode retenue dépend de la technologie du support (disque magnétique, SSD, mémoire embarquée).' },
+                  { icon: <IconDocument className="w-5 h-5" />, title: 'Attestation d\'effacement', desc: 'Lorsque le traitement et le support le permettent, une traçabilité de l\'opération peut être conservée et un certificat ou une attestation d\'effacement peut être établi. Indiquez-nous votre besoin au moment du don.' },
+                  { icon: <IconTracabilite className="w-5 h-5" />, title: 'Traçabilité du matériel', desc: 'Chaque appareil est tracé de sa réception jusqu\'à sa remise en circulation ou son orientation vers une filière de recyclage.' },
+                  { icon: <IconConformite className="w-5 h-5" />, title: 'Démarche RGPD', desc: 'Notre protocole s\'inscrit dans le cadre du Règlement Général sur la Protection des Données (RGPD).' },
                 ].map(({ icon, title, desc }) => (
                   <div key={title} className="flex gap-4">
                     <div className="w-9 h-9 shrink-0 border border-ocre/25 bg-ocre/5 flex items-center justify-center text-ocre mt-0.5" aria-hidden>{icon}</div>
@@ -58,12 +59,16 @@ export default function EffacementDonnees() {
               <div className="bg-beige-light border border-beige-dark p-6 mb-5">
                 <h3 className="font-serif text-lg text-terre mb-3">Que deviennent vos données ?</h3>
                 <p className="text-sm text-terre/65 leading-relaxed mb-3">
-                  Après effacement certifié, il est <strong className="text-terre">impossible</strong> de
-                  récupérer les données qui étaient sur votre appareil. C'est une garantie absolue.
+                  L'effacement sécurisé vise à rendre les données du support
+                  inexploitables avant toute remise en circulation. Le niveau
+                  atteint dépend de la technologie du support et de l'état de
+                  l'appareil, ce qui détermine la méthode appliquée.
                 </p>
                 <p className="text-sm text-terre/65 leading-relaxed">
-                  Si l'appareil est trop endommagé pour être effacé logiciellement,
-                  le disque dur est physiquement détruit avant tout autre traitement.
+                  Lorsque l'effacement sécurisé d'un support n'est pas techniquement
+                  possible ou présente un niveau de risque insuffisant, le support
+                  peut être orienté vers une procédure adaptée de destruction ou de
+                  traitement spécialisé.
                 </p>
               </div>
               <div className="bg-ocre-pale border border-ocre/20 p-6">

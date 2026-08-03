@@ -2,6 +2,7 @@
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import { IconEquipe, IconTerritoire, IconPartenaires, IconActualites, IconNousRejoindre } from '../components/Icons'
+import { FINANCEMENT_PAR_LA_VENTE, VOIES_REMISE_CIRCULATION } from '../data/redistribution'
 
 const EQUIPE = [
   {
@@ -80,6 +81,40 @@ export default function Association() {
                 <p className="text-sm text-terre/60 leading-relaxed">{desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Modèle de remise en circulation */}
+      <section className="py-16 md:py-20 bg-beige-light border-y border-beige-dark">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <p className="section-label">Notre modèle</p>
+          <h2 className="font-serif text-3xl text-terre mb-4">
+            Ce que deviennent les équipements collectés
+          </h2>
+          <div className="decorative-line" />
+          <p className="text-terre/65 leading-relaxed mb-8 max-w-2xl">
+            Ressources ne fonctionne pas selon une voie unique. Les équipements
+            collectés et reconditionnés sont remis en circulation de plusieurs
+            façons, complémentaires :
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-5 mb-8">
+            {VOIES_REMISE_CIRCULATION.map(({ titre, desc }, i) => (
+              <div key={titre} className="bg-white border border-beige-dark p-6">
+                <p className="font-serif text-2xl text-ocre/30 leading-none mb-3">
+                  {String(i + 1).padStart(2, '0')}
+                </p>
+                <h3 className="font-sans text-sm font-semibold text-terre mb-2">{titre}</h3>
+                <p className="text-sm text-terre/55 leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="border-l-2 border-ocre bg-white p-6">
+            <p className="text-sm text-terre/65 leading-relaxed">
+              {FINANCEMENT_PAR_LA_VENTE}
+            </p>
           </div>
         </div>
       </section>

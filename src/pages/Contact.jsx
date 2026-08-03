@@ -61,7 +61,7 @@ export default function Contact() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-xs text-terre/40 uppercase tracking-wider mb-0.5">Adresse</p>
+                      <p className="text-xs text-terre/40 uppercase tracking-wider mb-0.5">Siège social</p>
                       <p className="text-sm text-terre/75 leading-relaxed">
                         80 allée des Cigales<br />
                         40560 Vielle-Saint-Girons
