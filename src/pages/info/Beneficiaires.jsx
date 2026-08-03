@@ -117,20 +117,11 @@ export default function Beneficiaires() {
             </div>
           </div>
 
-          {/* Chiffres */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-            {[
-              { val: '120', label: 'équipements revendus par an (objectif)' },
-              { val: '100%', label: 'des appareils réemployés ou valorisés' },
-              { val: '-50%', label: 'en dessous du prix du marché en moyenne' },
-              { val: '3', label: 'communes partenaires à l\'ouverture' },
-            ].map(({ val, label }) => (
-              <div key={label} className="text-center bg-beige-light border border-beige-dark p-4">
-                <p className="font-serif text-3xl text-ocre leading-none mb-1">{val}</p>
-                <p className="text-xs text-terre/50 leading-snug">{label}</p>
-              </div>
-            ))}
-          </div>
+          {/* Pas de bloc de chiffres ici : sur une page de vente, des valeurs non
+              qualifiees se lisent comme un bilan alors que la recyclerie n'a pas
+              ouvert. Les objectifs de premiere annee sont affiches sur la page
+              d'accueil, sous un intitule qui dit explicitement que ce sont des
+              objectifs. Ne pas les reintroduire ici sans le meme cadrage. */}
 
           {/* Processus */}
           <div className="mb-10">
