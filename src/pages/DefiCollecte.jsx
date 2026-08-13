@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import NewsletterForm from '../components/NewsletterForm'
 import PointCollecteForm from '../components/PointCollecteForm'
+import EncartTombola from '../components/EncartTombola'
 import {
   ACCEPTE,
   DEFI,
@@ -114,7 +115,15 @@ export default function DefiCollecte() {
       </section>
 
       <section className="py-14 md:py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        {/* Conteneur élargi par rapport aux autres pages du site, pour loger la
+            colonne latérale sans trop resserrer le texte. Placement explicite
+            des trois blocs : sans lui, l'encart ne pourrait pas s'étendre sur
+            les deux rangées, et son défilement collant s'arrêterait au bas de
+            la première. En dessous de lg, tout retombe dans l'ordre du DOM et
+            l'encart s'intercale au milieu du fil. */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:grid lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-10">
+
+          <div className="lg:col-start-1 lg:row-start-1">
 
           {/* Pourquoi */}
           <div className="mb-12">
@@ -149,6 +158,18 @@ export default function DefiCollecte() {
               ))}
             </div>
           </div>
+
+          </div>
+
+          {/* Colonne latérale — promotion de la tombola */}
+          {/* top-32 : l'en-tête collant fait 112 px, en dessous l'encart passait
+              dessous. row-span-2 : sans lui l'encart cesserait de suivre au bas
+              de la première rangée. */}
+          <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-32 lg:self-start mb-12 lg:mb-0">
+            <EncartTombola />
+          </div>
+
+          <div className="lg:col-start-1 lg:row-start-2">
 
           {/* Ce que nous acceptons */}
           <div className="bg-beige-light border border-beige-dark p-6 md:p-8 mb-12">
@@ -292,6 +313,8 @@ export default function DefiCollecte() {
             <Link to="/recyclerie-informatique/materiel-accepte/" className="btn-outline-ocre">
               Matériel accepté en détail
             </Link>
+          </div>
+
           </div>
 
         </div>
