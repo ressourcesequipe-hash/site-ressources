@@ -75,8 +75,10 @@ export const LOTS_CONFIRMES = [
   { lot: 'Bon cadeau', partenaire: 'Restaurant Léontine', categorie: 'gourmand', valeur: 25, detail: '1 bon cadeau' },
 
   // Bons d'achat & commerces
-  { lot: 'Bon d’achat', partenaire: 'E.Leclerc Soustons', categorie: 'commerce', valeur: 100, detail: '1 bon' },
-  { lot: 'Bon d’achat', partenaire: 'E.Leclerc Express Linxe', categorie: 'commerce', valeur: 50, detail: '1 bon' },
+  // Dotation revue a la hausse le 13/08/2026 : deux cartes cadeaux de 150 €.
+  // podium: true car elles depassent desormais des lots deja mis en avant.
+  { lot: 'Carte cadeau', partenaire: 'E.Leclerc Soustons', categorie: 'commerce', valeur: 150, detail: '1 carte cadeau', podium: true },
+  { lot: 'Carte cadeau', partenaire: 'E.Leclerc Express Linxe', categorie: 'commerce', valeur: 150, detail: '1 carte cadeau', podium: true },
   { lot: 'Bon d’achat', partenaire: 'Atelier Saint-Antoine', categorie: 'commerce', valeur: 40, detail: '1 bon' },
   { lot: 'Bon d’achat', partenaire: 'Wild Marcel', categorie: 'commerce', valeur: 30, detail: '1 bon' },
   { lot: 'Bon d’achat', partenaire: 'Maison Lassalle — Artisan Joaillier', categorie: 'commerce', valeur: 30, detail: '1 bon' },
@@ -91,17 +93,42 @@ export const PRIX_BILLET = 5
 // Points de vente physiques des billets.
 // adresse : renseigner la rue dès qu'elle est vérifiée — le lien carte utilise
 // une recherche par nom + commune tant qu'elle est absente, pour ne rien inventer.
+// recherche : à renseigner quand le nom affiché est trop descriptif pour être
+// retrouvé tel quel sur la carte (« bureau de tabac », « épicerie »…).
+// coords : [latitude, longitude] de l'épingle sur la carte. Faute d'adresse
+// précise, ce sont les centres de bourg relevés sur Nominatim (OpenStreetMap)
+// le 13/08/2026 — à affiner commerce par commerce dès que les rues sont connues.
 export const POINTS_VENTE = [
-  { nom: 'Boulangerie La Linxoise', ville: 'Linxe', adresse: null },
-  { nom: 'Boulangerie La Linxoise', ville: 'Castets', adresse: null },
-  { nom: 'Boulangerie La Linxoise', ville: 'Lit-et-Mixe', adresse: null },
-  { nom: 'Tabac Presse', ville: 'Linxe', adresse: null },
+  { nom: 'Boulangerie La Linxoise', ville: 'Linxe', adresse: null, coords: [43.9218, -1.2477] },
+  { nom: 'Boulangerie La Linxoise', ville: 'Castets', adresse: null, coords: [43.8828, -1.1458] },
+  { nom: 'Boulangerie La Linxoise', ville: 'Lit-et-Mixe', adresse: null, coords: [44.0323, -1.2568] },
+  { nom: 'Le Moustache Café', ville: 'Tosse', adresse: null, coords: [43.6883, -1.3338] },
+  { nom: 'Le Magenta — bureau de tabac', ville: 'Soorts-Hossegor', adresse: null, recherche: 'Le Magenta', coords: [43.6584, -1.4262] },
+  { nom: 'Épicerie et restaurant du camping Capfun', ville: 'Saubion', adresse: null, recherche: 'Camping Capfun', coords: [43.6707, -1.3483] },
+  // Épingle posée sur le quartier des Estagnots, en bord d'océan, et non sur le
+  // bourg de Seignosse qui se trouve à 5 km à l'intérieur des terres.
+  { nom: 'Tabac Presse des Estagnots', ville: 'Seignosse', adresse: null, coords: [43.6858, -1.4347] },
 ]
 
-export const lienCarte = ({ nom, ville, adresse }) =>
+export const lienCarte = ({ nom, ville, adresse, recherche }) =>
   `https://www.openstreetmap.org/search?query=${encodeURIComponent(
-    [adresse, nom, ville, 'Landes'].filter(Boolean).join(' '),
+    [adresse, recherche || nom, ville, 'Landes'].filter(Boolean).join(' '),
   )}`
+
+// Énumération des points de vente en toutes lettres, construite depuis la liste
+// ci-dessus pour que la FAQ et son balisage schema.org ne dérivent jamais de
+// l'affichage. Les communes d'une même enseigne sont regroupées.
+const enumerer = (items) =>
+  items.length < 2
+    ? items.join('')
+    : `${items.slice(0, -1).join(', ')} et ${items[items.length - 1]}`
+
+export const POINTS_VENTE_TEXTE = enumerer(
+  [...POINTS_VENTE.reduce((parEnseigne, { nom, ville }) => {
+    parEnseigne.set(nom, [...(parEnseigne.get(nom) || []), ville])
+    return parEnseigne
+  }, new Map())].map(([nom, villes]) => `${nom} à ${enumerer(villes)}`),
+)
 
 // Les commerçants, artisans et producteurs qui offrent une dotation.
 // logo : chemin dans /public/logos/ — null tant que le logo n'a pas été fourni.

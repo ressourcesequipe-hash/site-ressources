@@ -6,6 +6,7 @@ import TombolaModal from '../../components/TombolaModal'
 import TousLesLotsModal from '../../components/TousLesLotsModal'
 import PartenairesTombola from '../../components/PartenairesTombola'
 import CompteARebours from '../../components/CompteARebours'
+import CartePointsVente from '../../components/CartePointsVente'
 import {
   LIBELLE_EN_COURS,
   LOTS_PODIUM,
@@ -13,6 +14,7 @@ import {
   LOT_PRINCIPAL,
   NOMBRE_LOTS_ARRONDI,
   POINTS_VENTE,
+  POINTS_VENTE_TEXTE,
   PRIX_BILLET,
   RESUME_CATEGORIES,
   VALEUR_ARRONDIE,
@@ -29,7 +31,7 @@ const faqSchema = {
       name: 'Où peut-on acheter des billets de tombola ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'En ligne via HelloAsso, ou en espèces chez nos commerçants partenaires : la Boulangerie La Linxoise à Linxe, Castets et Lit-et-Mixe, ainsi que le Tabac Presse de Linxe. Il n\'est pas nécessaire d\'être présent à l\'événement : en cas de gain, nous vous contacterons directement pour organiser la remise de votre lot.',
+        text: `En ligne via HelloAsso, ou en espèces chez nos commerçants partenaires — ${POINTS_VENTE.length} points de vente : ${POINTS_VENTE_TEXTE}. Il n'est pas nécessaire d'être présent à l'événement : en cas de gain, nous vous contacterons directement pour organiser la remise de votre lot.`,
       },
     },
     {
@@ -67,6 +69,9 @@ const BREADCRUMBS = [
 export default function Tombola() {
   const [modalOpen, setModalOpen] = useState(false)
   const [lotsOpen, setLotsOpen] = useState(false)
+  // Point de vente à mettre en avant sur la carte, choisi depuis la liste.
+  // Le jeton rend l'objet distinct à chaque clic, y compris sur la même ligne.
+  const [pointActif, setPointActif] = useState(null)
 
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
@@ -217,18 +222,22 @@ export default function Tombola() {
               chez l'un de nos commerçants partenaires du territoire.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-5">
+            {/* Empilement plutôt que deux colonnes : la liste des points de vente
+                s'allonge au fil des partenariats et déséquilibrait le bloc en ligne. */}
+            <div className="space-y-5">
               {/* En ligne */}
-              <div className="bg-kaki text-white p-6 flex flex-col">
-                <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
-                  En ligne · 24h/24
-                </p>
-                <h3 className="font-serif text-xl text-white mb-2">Billetterie HelloAsso</h3>
-                <p className="text-sm text-white/55 leading-relaxed mb-5 flex-1">
-                  Paiement sécurisé, billet reçu par e-mail. En cas de gain, nous
-                  vous contactons directement.
-                </p>
-                <button onClick={() => setModalOpen(true)} className="btn-ocre text-sm self-start">
+              <div className="bg-kaki text-white p-6 sm:flex sm:items-center sm:justify-between sm:gap-8">
+                <div className="mb-5 sm:mb-0">
+                  <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
+                    En ligne · 24h/24
+                  </p>
+                  <h3 className="font-serif text-xl text-white mb-2">Billetterie HelloAsso</h3>
+                  <p className="text-sm text-white/55 leading-relaxed max-w-md">
+                    Paiement sécurisé, billet reçu par e-mail. En cas de gain, nous
+                    vous contactons directement.
+                  </p>
+                </div>
+                <button onClick={() => setModalOpen(true)} className="btn-ocre text-sm shrink-0">
                   Acheter en ligne
                 </button>
               </div>
@@ -238,32 +247,55 @@ export default function Tombola() {
                 <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
                   Sur place · {POINTS_VENTE.length} points de vente
                 </p>
-                <h3 className="font-serif text-xl text-terre mb-4">Chez nos commerçants</h3>
-                <ul className="space-y-3">
-                  {POINTS_VENTE.map((point) => (
-                    <li
-                      key={`${point.nom}-${point.ville}`}
-                      className="flex items-start justify-between gap-3 border-l-2 border-ocre/30 pl-3"
-                    >
-                      <div className="min-w-0">
-                        <p className="font-sans text-sm text-terre leading-snug">{point.nom}</p>
-                        <p className="text-xs text-terre/50 mt-0.5">
-                          {point.adresse ? `${point.adresse} · ` : ''}
-                          {point.ville}
-                        </p>
-                      </div>
-                      <a
-                        href={lienCarte(point)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="shrink-0 text-xs text-ocre hover:underline font-sans whitespace-nowrap mt-0.5"
+                <h3 className="font-serif text-xl text-terre mb-5">Chez nos commerçants</h3>
+
+                {/* Liste et carte côte à côte : les numéros de la liste sont
+                    ceux des épingles, ce qui relie les deux sans légende. */}
+                <div className="grid lg:grid-cols-[1fr_1.05fr] gap-6 lg:gap-8">
+                  <ol className="space-y-3">
+                    {POINTS_VENTE.map((point, i) => (
+                      <li
+                        key={`${point.nom}-${point.ville}`}
+                        className="flex items-start gap-3"
                       >
-                        Y aller ↗
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-xs text-terre/45 mt-4 italic">
+                        <button
+                          type="button"
+                          onClick={() => setPointActif({ index: i, jeton: Date.now() })}
+                          aria-label={`Localiser ${point.nom} à ${point.ville} sur la carte`}
+                          className="group flex items-start gap-3 flex-1 min-w-0 text-left"
+                        >
+                          <span
+                            className="shrink-0 w-5 h-5 mt-0.5 rounded-full bg-ocre text-white font-sans text-[10px] font-bold flex items-center justify-center transition-colors group-hover:bg-ocre-dark"
+                            aria-hidden
+                          >
+                            {i + 1}
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block font-sans text-sm text-terre leading-snug transition-colors group-hover:text-ocre-dark">
+                              {point.nom}
+                            </span>
+                            <span className="block text-xs text-terre/50 mt-0.5">
+                              {point.adresse ? `${point.adresse} · ` : ''}
+                              {point.ville}
+                            </span>
+                          </span>
+                        </button>
+                        <a
+                          href={lienCarte(point)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="shrink-0 text-xs text-ocre hover:underline font-sans whitespace-nowrap mt-0.5"
+                        >
+                          Y aller ↗
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+
+                  <CartePointsVente pointActif={pointActif} />
+                </div>
+
+                <p className="text-xs text-terre/45 mt-5 italic">
                   D'autres points de vente s'ajouteront d'ici au 03 octobre.
                 </p>
               </div>
@@ -513,7 +545,7 @@ export default function Tombola() {
               {[
                 {
                   q: 'Où peut-on acheter des billets ?',
-                  r: 'En ligne via HelloAsso, ou en espèces chez nos commerçants partenaires : la Boulangerie La Linxoise à Linxe, Castets et Lit-et-Mixe, ainsi que le Tabac Presse de Linxe. Il n\'est pas nécessaire d\'être présent à l\'événement : en cas de gain, nous vous contacterons directement.',
+                  r: `En ligne via HelloAsso, ou en espèces chez nos commerçants partenaires — ${POINTS_VENTE.length} points de vente : ${POINTS_VENTE_TEXTE}. Il n'est pas nécessaire d'être présent à l'événement : en cas de gain, nous vous contacterons directement.`,
                 },
                 {
                   q: 'Comment se déroule le tirage au sort ?',

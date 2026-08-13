@@ -255,3 +255,83 @@
   .shadow-ocre-glow { box-shadow: 0 8px 32px -4px rgba(200,151,58,0.25); }
   .shadow-kaki-glow { box-shadow: 0 8px 32px -4px rgba(61,74,45,0.25); }
 }
+
+/* ──────────────────────────────────────────────────────────────
+   Carte des points de vente (Leaflet)
+
+   Hors @layer : la feuille de style de Leaflet est injectée à
+   l'exécution, donc après celle-ci. Les sélecteurs sont volontairement
+   portés par un parent (.leaflet-marker-pane, .carte-popup) pour passer
+   devant ses règles sans recourir à !important.
+   ────────────────────────────────────────────────────────────── */
+
+/* Épingle numérotée : le numéro renvoie à la liste affichée à côté. */
+.leaflet-marker-pane .epingle-point-vente {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: #C8973A;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(44, 42, 38, 0.4);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.leaflet-marker-pane .epingle-point-vente:hover,
+.leaflet-marker-pane .epingle-point-vente:focus-visible {
+  background: #A07828;
+  transform: scale(1.15);
+}
+
+/* Bulle d'un point de vente : angles vifs, comme le reste du site. */
+.carte-popup .leaflet-popup-content-wrapper {
+  border-radius: 0;
+  box-shadow: 0 6px 22px rgba(44, 42, 38, 0.25);
+}
+
+.carte-popup .leaflet-popup-content {
+  margin: 12px 15px;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.carte-popup .leaflet-popup-tip { box-shadow: none; }
+
+.popup-point-vente .popup-nom {
+  margin: 0 0 2px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #2C2A26;
+}
+
+.popup-point-vente .popup-ville {
+  margin: 0 0 9px;
+  font-size: 11px;
+  color: rgba(44, 42, 38, 0.55);
+}
+
+.popup-point-vente .popup-lien {
+  font-size: 11px;
+  font-weight: 500;
+  color: #C8973A;
+  text-decoration: none;
+}
+
+.popup-point-vente .popup-lien:hover { text-decoration: underline; }
+
+/* Mentions OpenStreetMap : obligatoires, mais discrètes. */
+.leaflet-container .leaflet-control-attribution {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  color: rgba(44, 42, 38, 0.55);
+}
+
+.leaflet-container .leaflet-control-attribution a { color: #A07828; }

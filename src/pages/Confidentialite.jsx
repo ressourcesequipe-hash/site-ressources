@@ -107,6 +107,33 @@ export default function Confidentialite() {
               </p>
             </div>
 
+            {/* Cartes OpenStreetMap */}
+            <div>
+              <h2 className="font-serif text-xl text-terre mb-4">Cartes OpenStreetMap</h2>
+              <p>
+                La page de contact et la page de la tombola affichent une carte fournie par
+                <strong className="text-terre"> OpenStreetMap</strong>. Pour l'afficher, votre
+                navigateur contacte directement les serveurs d'OpenStreetMap, qui reçoivent
+                à cette occasion votre adresse IP et les informations techniques que tout
+                navigateur transmet lors d'une requête. L'association ne leur communique
+                aucune donnée vous concernant et n'utilise ces cartes à aucune fin de suivi.
+              </p>
+              <p className="mt-3">
+                Sur la page de la tombola, la carte n'est chargée qu'au moment où vous faites
+                défiler la page jusqu'à elle : si vous ne l'atteignez pas, aucune requête
+                n'est envoyée. Le traitement des données par OpenStreetMap relève de sa
+                propre politique de confidentialité, consultable sur{' '}
+                <a
+                  href="https://osmfoundation.org/wiki/Privacy_Policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-ocre hover:underline"
+                >
+                  osmfoundation.org
+                </a>.
+              </p>
+            </div>
+
             {/* Droits */}
             <div>
               <h2 className="font-serif text-xl text-terre mb-4">Vos droits</h2>
