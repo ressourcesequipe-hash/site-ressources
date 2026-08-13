@@ -91,29 +91,38 @@ export const LOTS_CONFIRMES = [
 export const PRIX_BILLET = 5
 
 // Points de vente physiques des billets.
-// adresse : renseigner la rue dès qu'elle est vérifiée — le lien carte utilise
-// une recherche par nom + commune tant qu'elle est absente, pour ne rien inventer.
-// recherche : à renseigner quand le nom affiché est trop descriptif pour être
-// retrouvé tel quel sur la carte (« bureau de tabac », « épicerie »…).
-// coords : [latitude, longitude] de l'épingle sur la carte. Faute d'adresse
-// précise, ce sont les centres de bourg relevés sur Nominatim (OpenStreetMap)
-// le 13/08/2026 — à affiner commerce par commerce dès que les rues sont connues.
+// Adresses relevées le 13/08/2026, chacune recoupée par au moins deux sources
+// puis géocodée sur Nominatim (OpenStreetMap) pour en tirer les coordonnées.
+// coords : [latitude, longitude] de l'épingle sur la carte, et cible du lien
+// « Y aller ↗ ». Le niveau de certitude est noté commerce par commerce.
 export const POINTS_VENTE = [
-  { nom: 'Boulangerie La Linxoise', ville: 'Linxe', adresse: null, coords: [43.9218, -1.2477] },
-  { nom: 'Boulangerie La Linxoise', ville: 'Castets', adresse: null, coords: [43.8828, -1.1458] },
-  { nom: 'Boulangerie La Linxoise', ville: 'Lit-et-Mixe', adresse: null, coords: [44.0323, -1.2568] },
-  { nom: 'Le Moustache Café', ville: 'Tosse', adresse: null, coords: [43.6883, -1.3338] },
-  { nom: 'Le Magenta — bureau de tabac', ville: 'Soorts-Hossegor', adresse: null, recherche: 'Le Magenta', coords: [43.6584, -1.4262] },
-  { nom: 'Épicerie et restaurant du camping Capfun', ville: 'Saubion', adresse: null, recherche: 'Camping Capfun', coords: [43.6707, -1.3483] },
-  // Épingle posée sur le quartier des Estagnots, en bord d'océan, et non sur le
-  // bourg de Seignosse qui se trouve à 5 km à l'intérieur des terres.
-  { nom: 'Tabac Presse des Estagnots', ville: 'Seignosse', adresse: null, coords: [43.6858, -1.4347] },
+  // OpenStreetMap connaît la boulangerie elle-même (shop=bakery) : position exacte.
+  { nom: 'Boulangerie La Linxoise', ville: 'Linxe', adresse: '254 route de l’Océan', coords: [43.9221, -1.2480] },
+  // Le numéro n'est pas cartographié : épingle sur la place, qui est petite.
+  { nom: 'Boulangerie La Linxoise', ville: 'Castets', adresse: '26 place Pierre-Barrère', coords: [43.8824, -1.1473] },
+  // Le moins précis des sept : ni le numéro ni l'enseigne ne sont cartographiés,
+  // l'épingle est posée sur l'avenue. À resserrer si tu passes devant.
+  { nom: 'Boulangerie La Linxoise', ville: 'Lit-et-Mixe', adresse: '3 avenue de la Côte d’Argent', coords: [44.0318, -1.2548] },
+  { nom: 'Le Moustache Café', ville: 'Tosse', adresse: '42 avenue du Général-de-Gaulle', coords: [43.6900, -1.3319] },
+  // Sans numéro : l'annuaire des buralistes donne « chemin Loustaou », et le
+  // « 39 route de Seignosse » qu'on lit ailleurs correspond dans OpenStreetMap
+  // à une agence immobilière. Les deux adresses désignent le même carrefour.
+  { nom: 'Le Magenta — bureau de tabac', ville: 'Soorts-Hossegor', adresse: 'chemin de Loustaou', coords: [43.6644, -1.3944] },
+  // OpenStreetMap connaît le camping (tourism=camp_site) : position exacte.
+  { nom: 'Épicerie et restaurant du camping Capfun La Pomme de Pin', ville: 'Saubion', adresse: '825 route de Seignosse', coords: [43.6752, -1.3566] },
+  // Adresse confirmée par le site officiel de la commune, numéro cartographié.
+  { nom: 'Tabac Presse des Estagnots', ville: 'Seignosse', adresse: '52 avenue du Penon', coords: [43.6913, -1.4363] },
 ]
 
-export const lienCarte = ({ nom, ville, adresse, recherche }) =>
-  `https://www.openstreetmap.org/search?query=${encodeURIComponent(
-    [adresse, recherche || nom, ville, 'Landes'].filter(Boolean).join(' '),
-  )}`
+// Un marqueur posé sur les coordonnées plutôt qu'une recherche textuelle : les
+// noms d'enseigne ne ressortaient pas, et les libellés descriptifs (« bureau de
+// tabac », « épicerie… ») ne donnaient aucun résultat.
+export const lienCarte = ({ coords, nom, ville }) =>
+  coords
+    ? `https://www.openstreetmap.org/?mlat=${coords[0]}&mlon=${coords[1]}#map=18/${coords[0]}/${coords[1]}`
+    : `https://www.openstreetmap.org/search?query=${encodeURIComponent(
+        [nom, ville, 'Landes'].join(' '),
+      )}`
 
 // Énumération des points de vente en toutes lettres, construite depuis la liste
 // ci-dessus pour que la FAQ et son balisage schema.org ne dérivent jamais de
