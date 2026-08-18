@@ -27,7 +27,11 @@ export const ARTICLES = [
     readingTime: '5 min',
     featured: true,
     // image: '/photos/mon-fichier.jpg', imageAlt: 'Description de la photo',
-    image: null,
+    image: '/photos/mains-reparation.webp',
+    imageAlt: 'Les mains d\'un bénévole de l\'association Ressources démontant une carte mère à l\'établi, lors du reconditionnement d\'un ordinateur.',
+    imageCredit: 'Atelier de reconditionnement de l\'association Ressources.',
+    imageWidth: 900,
+    imageHeight: 1227,
     content: [
       {
         type: 'paragraph',
@@ -152,7 +156,11 @@ export const ARTICLES = [
     dateLabel: 'Août 2026',
     readingTime: '4 min',
     featured: false,
-    image: null,
+    image: '/photos/console-reconditionnee.webp',
+    imageAlt: 'Une console de jeu portable reconditionnée, allumée sur l\'écran d\'accueil d\'un jeu, posée sur un établi en bois.',
+    imageCredit: 'Console reconditionnée par l\'association Ressources.',
+    imageWidth: 900,
+    imageHeight: 594,
     content: [
       {
         type: 'paragraph',
@@ -363,7 +371,11 @@ export const ARTICLES = [
     dateLabel: 'Septembre 2026',
     readingTime: '4 min',
     featured: false,
-    image: null,
+    image: '/photos/tombola-vignette.webp',
+    imageFit: 'natural',
+    imageAlt: 'Visuel de la tombola solidaire de l\'association Ressources : plus de 4 000 € de lots à gagner, ticket à 5 €, tirage le 3 octobre 2026.',
+    imageWidth: 1280,
+    imageHeight: 720,
     content: [
       {
         type: 'paragraph',

@@ -123,11 +123,17 @@ export default function ArticlePage() {
           {article.image && (
             <figure className="mb-10">
               <div className="rounded-xl overflow-hidden">
+                {/* imageFit 'natural' : pour les visuels composes (affiches,
+                    vignettes) que le recadrage en bandeau mutilerait. */}
                 <img
                   src={article.image}
                   alt={article.imageAlt || article.title}
+                  {...(article.imageWidth ? { width: article.imageWidth } : {})}
+                  {...(article.imageHeight ? { height: article.imageHeight } : {})}
                   loading="lazy"
-                  className="w-full h-64 md:h-80 object-cover"
+                  className={article.imageFit === 'natural'
+                    ? 'w-full h-auto block'
+                    : 'w-full h-64 md:h-80 object-cover'}
                 />
               </div>
               {article.imageCredit && (
