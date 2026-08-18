@@ -199,7 +199,11 @@ export const ARTICLES = [
     dateLabel: 'Juillet 2026',
     readingTime: '4 min',
     featured: false,
-    image: null,
+    image: '/photos/reinitialisation-ordinateur.webp',
+    imageAlt: 'L\'écran d\'un ordinateur portable affichant « Réinitialisation de ce PC, 41 % », étape de remise à zéro avant redistribution.',
+    imageCredit: 'Remise à zéro d\'un ordinateur avant redistribution — photo Ressources.',
+    imageWidth: 1440,
+    imageHeight: 802,
     content: [
       {
         type: 'paragraph',
@@ -277,7 +281,11 @@ export const ARTICLES = [
     dateLabel: 'Mai 2026',
     readingTime: '3 min',
     featured: false,
-    image: null,
+    image: '/photos/demontage-ordinateur-etabli.webp',
+    imageAlt: 'Un ordinateur portable entièrement démonté sur un établi : châssis, carte mère, écran et coffret de tournevis disposés côte à côte.',
+    imageCredit: 'Démontage complet d\'un ordinateur portable à l\'atelier — photo Ressources.',
+    imageWidth: 1200,
+    imageHeight: 678,
     content: [
       {
         type: 'paragraph',
@@ -316,7 +324,11 @@ export const ARTICLES = [
     dateLabel: 'Septembre 2026',
     readingTime: '4 min',
     featured: false,
-    image: null,
+    image: '/photos/carte-mere-pate-thermique.webp',
+    imageAlt: 'Gros plan sur la carte mère d\'un ordinateur portable en cours de remise en état, avec un tube de pâte thermique posé près du processeur.',
+    imageCredit: 'Remise en état d\'une carte mère à l\'atelier — photo Ressources.',
+    imageWidth: 1200,
+    imageHeight: 554,
     content: [
       {
         type: 'paragraph',
