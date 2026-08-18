@@ -38,6 +38,31 @@ export default function ArticlePage() {
 
   const body = useReveal()
 
+  // Schema.org : l'article, et la piste audio quand l'article en embarque une.
+  const BASE = 'https://www.ressourcesrecyclerie.fr'
+  const audio = article.content.find(b => b.type === 'audio')
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.date,
+    inLanguage: 'fr-FR',
+    mainEntityOfPage: `${BASE}/association/actualites/${article.slug}/`,
+    author: { '@type': 'Organization', name: 'Association Ressources', url: BASE },
+    publisher: { '@id': `${BASE}/#organization` },
+    ...(article.image ? { image: `${BASE}${article.image}` } : {}),
+    ...(audio ? {
+      audio: {
+        '@type': 'AudioObject',
+        contentUrl: audio.src,
+        name: audio.title,
+        ...(audio.durationIso ? { duration: audio.durationIso } : {}),
+        ...(audio.credit ? { creditText: audio.credit } : {}),
+      },
+    } : {}),
+  }
+
   return (
     <Layout breadcrumbs={breadcrumbs}>
       <SEO
@@ -45,35 +70,46 @@ export default function ArticlePage() {
         description={article.excerpt}
         canonical={`/association/actualites/${article.slug}/`}
         type="article"
-        {...(article.image ? { ogImage: `https://www.ressourcesrecyclerie.fr${article.image}` } : {})}
+        schema={articleSchema}
+        {...(article.image ? {
+          ogImage: `https://www.ressourcesrecyclerie.fr${article.image}`,
+          // Annoncer les dimensions reelles : de fausses valeurs font mal
+          // cadrer l'apercu chez LinkedIn/Facebook.
+          ...(article.imageWidth ? { ogImageWidth: article.imageWidth } : {}),
+          ...(article.imageHeight ? { ogImageHeight: article.imageHeight } : {}),
+          ...(article.imageAlt ? { ogImageAlt: article.imageAlt } : {}),
+        } : {})}
       />
 
-      {/* Hero article */}
-      <section className="bg-beige-light py-12 md:py-16 border-b border-beige-dark relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.02]"
-          style={{ backgroundImage: 'radial-gradient(circle, #3D4A2D 1px, transparent 1px)', backgroundSize: '24px 24px' }} aria-hidden />
+      {/* Hero article — signature charte : kaki fonce, filet ocre 4px, trait ocre 48px */}
+      <section className="bg-kaki text-white py-12 md:py-16 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-ocre" aria-hidden />
+        <div className="absolute right-0 bottom-0 w-80 h-80 bg-ocre/5 rounded-tl-full pointer-events-none" aria-hidden />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
 
-          {/* Catégorie + méta */}
+          {/* Categorie + meta. Pastille en ocre plein + texte terre : l'ocre en
+              texte sur le kaki ne depasse pas 3,6:1, insuffisant a cette taille. */}
           <div className="flex flex-wrap items-center gap-3 mb-5">
             {cat && (
               <Link
                 to={`/association/actualites/?cat=${article.category}`}
-                className="text-[10px] font-sans font-semibold tracking-[0.18em] uppercase px-3 py-1 bg-ocre/10 text-ocre border border-ocre/20 hover:bg-ocre/20 transition-colors"
+                className="text-[10px] font-sans font-semibold tracking-[0.18em] uppercase px-3 py-1 bg-ocre text-terre hover:bg-ocre-light transition-colors"
               >
                 {cat.label}
               </Link>
             )}
-            <span className="text-xs text-terre/40 font-mono">{article.dateLabel}</span>
-            <span className="text-terre/20">·</span>
-            <span className="text-xs text-terre/40">⏱ {article.readingTime} de lecture</span>
+            <span className="text-xs text-white/65 font-mono">{article.dateLabel}</span>
+            <span className="text-white/30">·</span>
+            <span className="text-xs text-white/65">⏱ {article.readingTime} de lecture</span>
           </div>
 
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-[2.6rem] text-terre leading-tight mb-5 text-balance">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-[2.6rem] text-white leading-tight mb-5 text-balance">
             {article.title}
           </h1>
 
-          <p className="text-terre/60 text-lg leading-relaxed max-w-2xl">
+          <div className="w-12 h-0.5 bg-ocre mb-6" aria-hidden />
+
+          <p className="text-white/70 text-lg leading-relaxed max-w-2xl">
             {article.excerpt}
           </p>
         </div>
@@ -117,6 +153,54 @@ export default function ArticlePage() {
                   <p key={i} className="text-terre/65 leading-relaxed text-[1.05rem] mb-5">
                     {block.text}
                   </p>
+                )
+              }
+              if (block.type === 'audio') {
+                return (
+                  <figure key={i} className="my-9 border border-beige-dark bg-beige-light">
+                    <div className="border-l-2 border-ocre px-5 py-5 sm:px-6">
+                      <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-2.5">
+                        {block.label || 'Écouter'}
+                      </p>
+                      {block.title && (
+                        <p className="font-serif text-lg text-terre leading-snug mb-1">
+                          {block.title}
+                        </p>
+                      )}
+                      {block.duration && (
+                        <p className="text-xs text-terre/40 font-mono mb-4">⏱ {block.duration}</p>
+                      )}
+                      {/* preload="none" : on ne sollicite le serveur source qu'au clic */}
+                      <audio
+                        controls
+                        preload="none"
+                        src={block.src}
+                        className="w-full"
+                        title={block.title || 'Extrait audio'}
+                      >
+                        Votre navigateur ne permet pas la lecture audio.{' '}
+                        <a href={block.src}>Ouvrir le fichier audio</a>.
+                      </audio>
+                      {(block.credit || block.sourceUrl) && (
+                        <figcaption className="text-xs text-terre/45 mt-3.5 leading-relaxed">
+                          {block.credit}
+                          {block.sourceUrl && (
+                            <>
+                              {' '}
+                              <a
+                                href={block.sourceUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-kaki underline underline-offset-2 hover:text-ocre transition-colors"
+                              >
+                                {block.sourceLabel || 'Écouter à la source'}
+                              </a>
+                            </>
+                          )}
+                        </figcaption>
+                      )}
+                    </div>
+                  </figure>
                 )
               }
               return null

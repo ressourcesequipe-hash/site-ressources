@@ -64,6 +64,84 @@ export const ARTICLES = [
     ],
   },
 
+  // ── Retombée presse — ICI Gascogne ──
+  {
+    slug: 'ici-gascogne-defi-500-kg-collecte-informatique-landes',
+    title: 'La recyclerie Ressources sur ICI Gascogne : 500 kilos de matériel informatique à collecter dans les Landes',
+    excerpt: 'Le 18 août 2026, la chronique « L\'éco d\'ici dans les Landes » d\'ICI Gascogne consacrait trois minutes au défi collecte de l\'association Ressources : réunir 500 kilos de matériel informatique entre le 1er septembre et le 3 octobre. Réécoutez la chronique et retrouvez tout ce qu\'il faut savoir pour y participer.',
+    category: 'association',
+    date: '2026-08-18',
+    dateLabel: 'Août 2026',
+    readingTime: '3 min',
+    featured: false,
+    image: '/photos/mains-reparation.webp',
+    imageAlt: 'Les mains d\'un bénévole de l\'association Ressources démontant une carte mère à l\'établi, lors du reconditionnement d\'un ordinateur.',
+    imageCredit: 'Atelier de reconditionnement de l\'association Ressources — photo Ressources.',
+    imageWidth: 900,
+    imageHeight: 1227,
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Mardi 18 août 2026, la chronique « L\'éco d\'ici dans les Landes », sur ICI Gascogne, est venue parler de nous. Trois minutes pour présenter le défi que l\'association Ressources lance sur le territoire : rassembler 500 kilos de matériel informatique inutilisé avant sa journée de lancement, le 3 octobre à Vielle-Saint-Girons. Merci à la rédaction d\'ICI Gascogne pour cette mise en lumière.',
+      },
+      {
+        type: 'audio',
+        label: 'Réécouter la chronique',
+        src: 'https://proxycast.radiofrance.fr/0760f712-f39e-4aba-a3f2-891453f91f66/39b66769-880c-456c-b7b1-a571b7469eba/b4a6ece6-86ce-484e-8029-3fb4f68a1d2a/27614-18.08.2026-ITEMA_24634823-2026B39726S0230-NET_40A_26DA7B67-8CCB-4293-9A04-D75471F1C778-21-290d8643c517dc6dae9daceb23f0efb2.mp3',
+        title: 'L\'éco d\'ici dans les Landes — « 500 kilos de déchets numériques à collecter dans les Landes à la recyclerie de Vielle-Saint-Girons »',
+        duration: '3 min 09',
+        durationIso: 'PT3M9S',
+        credit: '© Radio France — ICI Gascogne, chronique « L\'éco d\'ici dans les Landes », diffusée le 18 août 2026. Audio diffusé depuis les serveurs de Radio France.',
+        sourceUrl: 'https://www.ici.fr/radio/gascogne/derniers-podcasts',
+        sourceLabel: 'Les podcasts d\'ICI Gascogne',
+      },
+      {
+        type: 'heading',
+        text: 'Le défi : 500 kilos entre le 1er septembre et le 3 octobre',
+      },
+      {
+        type: 'paragraph',
+        text: 'Du 1er septembre au 3 octobre 2026, Ressources invite les habitants, les entreprises et les collectivités des Landes à sortir de leurs tiroirs et de leurs placards les équipements informatiques dont ils ne se servent plus. Chaque dépôt est pesé et enregistré, et le total progresse semaine après semaine vers l\'objectif. La pesée finale se fera en public le 3 octobre, lors de la journée de lancement de l\'association à Vielle-Saint-Girons.',
+      },
+      {
+        type: 'heading',
+        text: '« Déchets numériques » : le mot mérite une nuance',
+      },
+      {
+        type: 'paragraph',
+        text: 'La chronique parle de déchets numériques, et c\'est bien de cela qu\'il s\'agit tant que le matériel dort dans un tiroir. Mais notre travail consiste précisément à faire en sorte qu\'il n\'en soit pas un. Un ordinateur de cinq ou six ans, un écran, une tablette : la plupart de ces appareils fonctionnent encore, ou se réparent à un coût raisonnable. Notre priorité est le réemploi — remettre l\'appareil en service chez quelqu\'un d\'autre — et le recyclage n\'intervient que pour ce qui ne peut vraiment plus servir.',
+      },
+      {
+        type: 'heading',
+        text: 'Ce que nous collectons',
+      },
+      {
+        type: 'paragraph',
+        text: 'Ordinateurs portables et fixes, écrans, claviers et souris, tablettes et smartphones, câbles, chargeurs et périphériques, imprimantes et petits équipements réseau. En état de marche ou en panne : le diagnostic, c\'est notre travail, pas le vôtre. Inutile d\'effacer quoi que ce soit avant de déposer votre appareil — l\'effacement sécurisé des données fait partie de notre processus, et un certificat peut être remis sur demande.',
+      },
+      {
+        type: 'heading',
+        text: 'Où déposer son matériel ?',
+      },
+      {
+        type: 'paragraph',
+        text: 'Trois points de collecte sont annoncés pour ce défi — à Vielle-Saint-Girons auprès de l\'association, et chez deux enseignes partenaires à Soustons et à Linxe — auxquels s\'ajoutent des déchèteries du SITCOM Côte Sud des Landes. Ces points sont en cours de formalisation avec nos partenaires : la liste à jour, avec les adresses et les horaires dès qu\'ils sont arrêtés, est publiée sur la page du défi collecte. En attendant, un message à contact@ressourcesrecyclerie.fr suffit pour convenir d\'une remise.',
+      },
+      {
+        type: 'heading',
+        text: 'Et ensuite ?',
+      },
+      {
+        type: 'paragraph',
+        text: 'Le matériel collecté est trié, ses données sont effacées de façon sécurisée, puis il est diagnostiqué et reconditionné par nos bénévoles avant d\'être redistribué sur le territoire — à des familles, des seniors, des associations ou des structures d\'accompagnement social des Landes. Ce qui ne peut être réemployé part vers les filières de recyclage agréées. C\'est tout l\'objet de la recyclerie : que ce qui est jeté ici serve à quelqu\'un juste à côté.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Rendez-vous le samedi 3 octobre 2026 à Vielle-Saint-Girons pour la pesée finale, la journée de lancement et la tombola solidaire. D\'ici là, chaque appareil déposé compte.',
+      },
+    ],
+  },
+
   // ── Article 2 ──
   {
     slug: 'reemploi-informatique-seconde-vie-materiel-numerique',
