@@ -74,11 +74,11 @@ export const ARTICLES = [
     dateLabel: 'Août 2026',
     readingTime: '3 min',
     featured: false,
-    image: '/photos/mains-reparation.webp',
-    imageAlt: 'Les mains d\'un bénévole de l\'association Ressources démontant une carte mère à l\'établi, lors du reconditionnement d\'un ordinateur.',
-    imageCredit: 'Atelier de reconditionnement de l\'association Ressources — photo Ressources.',
-    imageWidth: 900,
-    imageHeight: 1227,
+    image: '/photos/chronique-ici-gascogne-eco-d-ici.webp',
+    imageAlt: 'Micro de studio de radio sur son bras articulé, devant une table de mixage et un écran d\'ordinateur, en noir et blanc.',
+    imageCredit: 'Studio de radio — photo d\'illustration.',
+    imageWidth: 1027,
+    imageHeight: 862,
     content: [
       {
         type: 'paragraph',
