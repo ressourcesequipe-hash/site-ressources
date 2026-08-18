@@ -1,5 +1,20 @@
 {
+  "redirects": [
+    {
+      "source": "/association/actualites/evenement-lancement-03-octobre-2026",
+      "destination": "/evenement-lancement-03-octobre-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/association/actualites/evenement-lancement-03-octobre-2026/",
+      "destination": "/evenement-lancement-03-octobre-2026/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }

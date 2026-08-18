@@ -70,7 +70,10 @@ async function main() {
     const mod = await import(url.pathToFileURL(path.join(__dirname, 'src', 'data', 'articles.js')).href)
     const articles = mod.ARTICLES || mod.articles || mod.default || []
     for (const a of articles) {
-      if (a && a.slug) routes.push(`/association/actualites/${a.slug}/`)
+      // Les articles porteurs d'un externalLink ne sont qu'une redirection
+      // cote client : les prerendre produirait une page vide que Google
+      // classerait en contenu insuffisant. Une 301 les couvre (vercel.json).
+      if (a && a.slug && !a.externalLink) routes.push(`/association/actualites/${a.slug}/`)
     }
   } catch (e) {
     console.warn('[prerender] Articles non chargés, routes statiques uniquement :', e.message)
