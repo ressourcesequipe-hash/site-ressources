@@ -67,7 +67,7 @@ export default function Don() {
                       Don déductible des impôts
                     </p>
                     <p className="text-sm text-white/80 leading-relaxed">
-                      L'association Ressources est reconnue d'intérêt général. Votre don ouvre droit à une <strong className="text-white">réduction d'impôt de 66 %</strong> du montant versé (dans la limite de 20 % du revenu imposable). Un reçu fiscal vous est délivré automatiquement.
+                      L'association Ressources relève de l'intérêt général. Votre don ouvre droit à une <strong className="text-white">réduction d'impôt de 66 %</strong> du montant versé (dans la limite de 20 % du revenu imposable). Un reçu fiscal vous est délivré automatiquement.
                     </p>
                     <p className="text-xs text-white/45 mt-2">Ex. : un don de 100 € ne vous coûte réellement que 34 €.</p>
                   </div>

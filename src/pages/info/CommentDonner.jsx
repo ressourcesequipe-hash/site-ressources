@@ -37,6 +37,10 @@ const FAQ = [
     a: 'Contactez-nous directement : les modalités se définissent au cas par cas selon le volume, le calendrier de renouvellement de votre parc et vos exigences en matière de traçabilité et de confidentialité des données. Nous nous déplaçons pour les enlèvements groupés.',
   },
   {
+    q: 'Un don de matériel ouvre-t-il droit à une réduction d\'impôt ?',
+    a: 'Oui. L\'association relève de l\'intérêt général, et un don en nature ouvre les mêmes droits qu\'un don financier : 66 % de la valeur du don pour un particulier, dans la limite de 20 % du revenu imposable, et 60 % pour une entreprise. La valeur retenue est celle du bien au moment du don, pas son prix d\'achat. Demandez-nous le reçu au moment du dépôt.',
+  },
+  {
     q: 'Que devient concrètement le matériel que je donne ?',
     a: 'Il est trié, ses données sont effacées de façon sécurisée, puis il est diagnostiqué et reconditionné par des bénévoles. Il repart ensuite vers des habitants, des associations ou des structures d\'accompagnement du territoire. Ce qui ne peut être réemployé part vers les filières de recyclage agréées : notre priorité reste le réemploi, le recyclage n\'est que le dernier recours.',
   },
@@ -284,6 +288,51 @@ export default function CommentDonner() {
                 → À qui profite le matériel
               </Link>
             </div>
+          </div>
+
+          {/* Reduction d'impot — l'association releve de l'interet general.
+              Pour un don en nature, la valorisation n'est pas le prix d'achat :
+              valeur venale pour un particulier, valeur nette comptable pour une
+              entreprise. On le dit clairement plutot que de laisser esperer. */}
+          <div className="mb-14">
+            <h2 className="font-serif text-2xl text-terre mb-2">Votre don ouvre droit à une réduction d'impôt</h2>
+            <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
+              L'association Ressources relève de l'intérêt général. Un don de matériel
+              ouvre les mêmes droits qu'un don financier, et le reçu fiscal vous est
+              établi sur demande.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-5 mb-5">
+              <div className="border-t-2 border-ocre/40 bg-beige-light px-5 py-4">
+                <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-2">
+                  Particuliers
+                </p>
+                <p className="font-serif text-2xl text-terre leading-none mb-2">66 %</p>
+                <p className="text-sm text-terre/65 leading-relaxed">
+                  de la valeur du don, dans la limite de 20 % du revenu imposable.
+                  Pour un don en nature, c'est la valeur du bien au moment du don qui
+                  compte — son prix sur le marché de l'occasion, pas son prix d'achat
+                  d'origine. Vous l'estimez, nous établissons le reçu.
+                </p>
+              </div>
+              <div className="border-t-2 border-ocre/40 bg-beige-light px-5 py-4">
+                <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-2">
+                  Entreprises
+                </p>
+                <p className="font-serif text-2xl text-terre leading-none mb-2">60 %</p>
+                <p className="text-sm text-terre/65 leading-relaxed">
+                  du don, dans la limite de 20 000 € ou 5 ‰ du chiffre d'affaires HT,
+                  le montant le plus élevé étant retenu. Un point d'honnêteté : pour un
+                  bien immobilisé, la valorisation retenue est la valeur nette comptable.
+                  Un parc entièrement amorti n'ouvre donc quasiment aucun droit.
+                </p>
+              </div>
+            </div>
+            <p className="text-xs text-terre/45 leading-relaxed max-w-2xl">
+              Reçu fiscal CERFA n° 11580, délivré sur demande (CGI, art. 200 et 238 bis).
+              Si votre matériel est entièrement amorti, l'intérêt du don est ailleurs :
+              traçabilité, effacement certifié des données, et un impact mesurable sur
+              votre territoire.
+            </p>
           </div>
 
           {/* Formulaire enlèvement */}

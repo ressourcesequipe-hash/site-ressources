@@ -82,11 +82,13 @@ export default function Mecene() {
             <h2 className="font-serif text-xl text-terre mb-3">Avantages fiscaux du mécénat</h2>
             <p className="text-sm text-terre/65 leading-relaxed mb-3">
               Les dons à une association d'intérêt général ouvrent droit à une réduction d'impôt
-              de <strong className="text-terre">60 % du montant versé</strong> dans la limite de 0,5 % du chiffre d'affaires
-              HT pour les entreprises (CGI, art. 238 bis). Une attestation fiscale est délivrée.
+              de <strong className="text-terre">60 % du montant versé</strong> pour les entreprises, dans la limite
+              de 20 000 € ou 5 ‰ du chiffre d'affaires HT — le montant le plus élevé étant retenu
+              (CGI, art. 238 bis). Une attestation fiscale est délivrée.
             </p>
             <p className="text-xs text-terre/40 italic">
-              Sous réserve d'obtention du statut d'intérêt général par l'association. Consultez votre conseiller fiscal.
+              L'association Ressources relève de l'intérêt général. Pour un don en nature, la
+              valorisation retenue est la valeur nette comptable du bien : consultez votre conseiller fiscal.
             </p>
           </div>
         </div>

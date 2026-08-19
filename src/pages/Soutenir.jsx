@@ -135,7 +135,7 @@ export default function Soutenir() {
             {[
               {
                 q: 'Les dons sont-ils déductibles des impôts ?',
-                a: 'Les dons à une association d\'intérêt général ouvrent droit à une réduction d\'impôt de 66 % du montant versé pour les particuliers (dans la limite de 20 % du revenu imposable). Une attestation fiscale vous est délivrée. Ce statut est en cours d\'obtention pour l\'association Ressources.',
+                a: 'Oui. L\'association Ressources relève de l\'intérêt général : les dons ouvrent droit à une réduction d\'impôt de 66 % du montant versé pour les particuliers, dans la limite de 20 % du revenu imposable. Une attestation fiscale vous est délivrée. Un don de matériel ouvre le même droit, sur la valeur du bien au moment du don.',
               },
               {
                 q: 'Comment devenir bénévole ?',
@@ -143,7 +143,7 @@ export default function Soutenir() {
               },
               {
                 q: 'Mon entreprise peut-elle devenir mécène ?',
-                a: 'Oui. Les entreprises mécènes bénéficient d\'une réduction d\'impôt de 60 % du don dans la limite de 0,5 % du CA HT (CGI art. 238 bis). Plusieurs formules sont disponibles : don matériel, sponsoring, partenariat annuel.',
+                a: 'Oui. Les entreprises mécènes bénéficient d\'une réduction d\'impôt de 60 % du don, dans la limite de 20 000 € ou 5 ‰ du CA HT — le montant le plus élevé étant retenu (CGI art. 238 bis). Plusieurs formules sont disponibles : don matériel, sponsoring, partenariat annuel.',
               },
               {
                 q: 'Puis-je participer à la tombola sans venir à l\'événement ?',
