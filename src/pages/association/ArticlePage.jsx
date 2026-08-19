@@ -55,7 +55,8 @@ export default function ArticlePage() {
     ...(audio ? {
       audio: {
         '@type': 'AudioObject',
-        contentUrl: audio.src,
+        // Schema.org attend une URL absolue, or src peut etre relatif
+        contentUrl: audio.src.startsWith('http') ? audio.src : `${BASE}${audio.src}`,
         name: audio.title,
         ...(audio.durationIso ? { duration: audio.durationIso } : {}),
         ...(audio.credit ? { creditText: audio.credit } : {}),

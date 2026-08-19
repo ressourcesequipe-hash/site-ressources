@@ -91,11 +91,11 @@ export const ARTICLES = [
       {
         type: 'audio',
         label: 'Réécouter la chronique',
-        src: 'https://proxycast.radiofrance.fr/0760f712-f39e-4aba-a3f2-891453f91f66/39b66769-880c-456c-b7b1-a571b7469eba/b4a6ece6-86ce-484e-8029-3fb4f68a1d2a/27614-18.08.2026-ITEMA_24634823-2026B39726S0230-NET_40A_26DA7B67-8CCB-4293-9A04-D75471F1C778-21-290d8643c517dc6dae9daceb23f0efb2.mp3',
+        src: '/audio/chronique-ici-gascogne-18-08-2026.mp3',
         title: 'L\'éco d\'ici dans les Landes — « 500 kilos de déchets numériques à collecter dans les Landes à la recyclerie de Vielle-Saint-Girons »',
         duration: '3 min 09',
         durationIso: 'PT3M9S',
-        credit: '© Radio France — ICI Gascogne, chronique « L\'éco d\'ici dans les Landes », diffusée le 18 août 2026. Audio diffusé depuis les serveurs de Radio France.',
+        credit: '© Radio France — ICI Gascogne. Chronique « L\'éco d\'ici dans les Landes » de Thibault Menanteau, diffusée le 18 août 2026. Reproduite avec l\'aimable autorisation de la rédaction.',
         sourceUrl: 'https://www.ici.fr/radio/gascogne/derniers-podcasts',
         sourceLabel: 'Les podcasts d\'ICI Gascogne',
       },
