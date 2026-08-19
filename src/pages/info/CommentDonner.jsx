@@ -1,11 +1,118 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import { POINTS_CONFIRMES, PARTENARIAT_SITCOM, ACCEPTE, DEFI } from '../../data/defiCollecte'
 
 const BREADCRUMBS = [
   { label: 'Recyclerie Informatique', href: '/recyclerie-informatique/' },
   { label: 'Comment donner' },
+]
+
+/* Les questions viennent de celles qu'on nous pose reellement. Elles
+   alimentent aussi le schema FAQPage passe au composant SEO. */
+const FAQ = [
+  {
+    q: 'Dois-je effacer mes données avant de donner mon appareil ?',
+    a: 'Non, c\'est notre travail. Chaque appareil passe par un effacement sécurisé avant tout reconditionnement, selon un protocole documenté, et un certificat peut vous être remis sur demande. Si vous préférez malgré tout retirer votre disque dur avant de nous confier la machine, c\'est évidemment possible : dites-le nous simplement, cela change les pièces dont nous disposons.',
+  },
+  {
+    q: 'Mon ordinateur ne fonctionne plus. Est-ce qu\'il vous intéresse quand même ?',
+    a: 'Oui. Le diagnostic est notre métier, pas le vôtre : inutile de trier vous-même entre ce qui marche et ce qui ne marche plus. Un appareil en panne est souvent réparable à faible coût, et lorsqu\'il ne l\'est pas, ses composants — mémoire, disque, écran, chargeur — servent à en réparer d\'autres. Rien n\'est perdu.',
+  },
+  {
+    q: 'Faut-il apporter le chargeur et les câbles ?',
+    a: 'Oui, et c\'est important. Le chargeur est très souvent la pièce manquante qui empêche de remettre un appareil en service. Joignez-y les câbles, la souris, la sacoche : tout ce qui accompagne l\'appareil augmente ses chances d\'être réemployé tel quel.',
+  },
+  {
+    q: 'Le don est-il payant ?',
+    a: 'Non. Donner votre matériel est entièrement gratuit, y compris l\'enlèvement à domicile lorsque nous l\'organisons. Ressources est une association loi 1901 à but non lucratif.',
+  },
+  {
+    q: 'Je n\'habite pas à côté de Vielle-Saint-Girons. Puis-je donner ?',
+    a: 'Oui. Nous intervenons sur l\'ensemble du département des Landes. Selon le volume et votre situation, nous convenons ensemble d\'un dépôt dans l\'un des points de collecte ou d\'un enlèvement à votre adresse. Un message suffit pour en discuter.',
+  },
+  {
+    q: 'Je représente une entreprise, une école ou une collectivité. Comment procéder ?',
+    a: 'Contactez-nous directement : les modalités se définissent au cas par cas selon le volume, le calendrier de renouvellement de votre parc et vos exigences en matière de traçabilité et de confidentialité des données. Nous nous déplaçons pour les enlèvements groupés.',
+  },
+  {
+    q: 'Que devient concrètement le matériel que je donne ?',
+    a: 'Il est trié, ses données sont effacées de façon sécurisée, puis il est diagnostiqué et reconditionné par des bénévoles. Il repart ensuite vers des habitants, des associations ou des structures d\'accompagnement du territoire. Ce qui ne peut être réemployé part vers les filières de recyclage agréées : notre priorité reste le réemploi, le recyclage n\'est que le dernier recours.',
+  },
+  {
+    q: 'Puis-je participer au défi des 500 kilos ?',
+    a: `Oui, et c\'est le bon moment. Du ${DEFI.debut} au ${DEFI.fin}, chaque dépôt est pesé et enregistré, et le total progresse vers l\'objectif des ${DEFI.objectifKg} kilos. La pesée finale a lieu en public lors de la journée de lancement de l\'association.`,
+  },
+]
+
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+}
+
+const FACONS = [
+  {
+    num: '1',
+    title: 'Déposer dans un point de collecte',
+    desc: 'Plusieurs points sont ouverts sur le territoire landais pendant le défi collecte. Le détail et les modalités figurent ci-dessous.',
+    note: 'Voir les points',
+  },
+  {
+    num: '2',
+    title: 'Demander un enlèvement',
+    desc: 'Vous avez plusieurs équipements, un volume encombrant ou une mobilité réduite ? Nous venons chercher le matériel à votre adresse, gratuitement.',
+    note: 'Formulaire ci-dessous',
+  },
+  {
+    num: '3',
+    title: 'Apporter le 3 octobre',
+    desc: 'Le jour de la journée de lancement à Vielle-Saint-Girons, vous pouvez déposer votre matériel sur place et assister à la pesée finale.',
+    note: 'Défi 1/2 tonne',
+  },
+]
+
+const PROFILS = [
+  {
+    titre: 'Particuliers',
+    desc: 'Un ordinateur au fond d\'un placard, une tablette remplacée, un téléphone dans un tiroir : c\'est le cas le plus fréquent, et le plus utile.',
+  },
+  {
+    titre: 'Entreprises et artisans',
+    desc: 'Renouvellement de parc, fin de bail matériel, déménagement. Nous organisons l\'enlèvement groupé et définissons avec vous les garanties de confidentialité.',
+  },
+  {
+    titre: 'Collectivités et écoles',
+    desc: 'Matériel administratif ou pédagogique sorti d\'inventaire. Le réemploi local prolonge sa durée de vie et bénéficie à des habitants du même territoire.',
+  },
+  {
+    titre: 'Associations',
+    desc: 'Vous cessez une activité ou renouvelez vos postes ? Le matériel repart vers d\'autres structures du tissu associatif landais.',
+  },
+]
+
+const PREPARATION = [
+  {
+    titre: 'N\'effacez rien',
+    desc: 'L\'effacement sécurisé fait partie de notre processus. Vous n\'avez pas à formater quoi que ce soit — pensez simplement à récupérer vos documents personnels avant de nous confier l\'appareil.',
+  },
+  {
+    titre: 'Ne testez pas',
+    desc: 'Inutile de vérifier si l\'appareil démarre encore. Le diagnostic est notre travail, et un matériel en panne nous intéresse autant qu\'un matériel fonctionnel.',
+  },
+  {
+    titre: 'Gardez les accessoires',
+    desc: 'Chargeur, câbles, souris, sacoche, télécommande : joignez tout ce qui va avec. Le chargeur manquant est la première cause d\'immobilisation d\'un appareil.',
+  },
+  {
+    titre: 'Ne jetez pas les pièces détachées',
+    desc: 'Une barrette mémoire seule, un disque dur nu, un bloc d\'alimentation : ces éléments servent directement à réparer d\'autres machines.',
+  },
 ]
 
 export default function CommentDonner() {
@@ -13,8 +120,9 @@ export default function CommentDonner() {
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
         title="Donner son Matériel Informatique dans les Landes | Ressources"
-        description="Donnez votre ordinateur, tablette ou smartphone dans les Landes (40). Points de collecte, enlèvement à domicile, démarche simplifiée — association Ressources, Vielle-Saint-Girons."
+        description="Donnez gratuitement votre ordinateur, tablette ou smartphone dans les Landes (40) : points de collecte, enlèvement à domicile, effacement sécurisé des données. Association Ressources, Vielle-Saint-Girons."
         canonical="/recyclerie-informatique/comment-donner/"
+        schema={FAQ_SCHEMA}
       />
 
       <section className="py-12 md:py-16 border-b border-kaki/10" style={{ backgroundColor: "#E5E4D5" }}>
@@ -25,36 +133,21 @@ export default function CommentDonner() {
           <h1 className="font-serif text-3xl sm:text-4xl text-terre mb-4">
             Comment donner son matériel informatique
           </h1>
-          <p className="text-terre/60 max-w-xl leading-relaxed">
-            Donner est simple et rapide. Voici les différentes façons de nous
-            confier vos équipements dans les Landes.
+          <p className="text-terre/60 max-w-2xl leading-relaxed">
+            Donner est gratuit, rapide, et ne demande aucune préparation de votre part.
+            Nous collectons sur l'ensemble du département des Landes les ordinateurs,
+            tablettes, smartphones et périphériques dont vous ne vous servez plus —
+            qu'ils fonctionnent encore ou non.
           </p>
         </div>
       </section>
 
       <section className="py-14 md:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
+
+          {/* Trois façons de donner */}
           <div className="grid md:grid-cols-3 gap-6 mb-14">
-            {[
-              {
-                num: '1',
-                title: 'Points de collecte',
-                desc: 'Notre point de collecte est en cours de validation. Merci de nous contacter afin de convenir des modalités de remise du matériel.',
-                note: 'Nous contacter',
-              },
-              {
-                num: '2',
-                title: 'Enlèvement à domicile',
-                desc: 'Vous avez plusieurs équipements ou une mobilité réduite ? Nous organisons un enlèvement à votre adresse.',
-                note: 'Formulaire ci-dessous',
-              },
-              {
-                num: '3',
-                title: 'Événement du 03 octobre',
-                desc: 'Apportez votre matériel directement lors de notre journée de lancement à Vielle-Saint-Girons.',
-                note: 'Challenge 1/2 tonne',
-              },
-            ].map(({ num, title, desc, note }) => (
+            {FACONS.map(({ num, title, desc, note }) => (
               <div key={num} className="border-t-2 border-ocre pt-6">
                 <span className="font-serif text-3xl text-ocre/30 block mb-3 leading-none">{num}</span>
                 <h2 className="font-serif text-xl text-terre mb-2">{title}</h2>
@@ -64,51 +157,161 @@ export default function CommentDonner() {
             ))}
           </div>
 
-          {/* Points de collecte */}
-          <div className="mb-10">
-            <div className="flex items-center justify-between mb-5">
-              <h2 className="font-serif text-2xl text-terre">Points de collecte</h2>
-              <span className="font-sans text-xs font-semibold tracking-widest uppercase text-ocre bg-ocre/8 border border-ocre/20 px-3 py-1">
-                En cours de validation
-              </span>
+          {/* Points de collecte — donnees partagees avec la page Defi collecte,
+              pour que les deux pages ne divergent jamais. */}
+          <div className="mb-14">
+            <h2 className="font-serif text-2xl text-terre mb-5">Où déposer votre matériel</h2>
+            <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
+              Les points ci-dessous accueillent les dépôts pendant le défi collecte,
+              du {DEFI.debut} au {DEFI.fin}. Certains sont encore en cours de
+              formalisation avec nos partenaires : un message avant de vous déplacer
+              vous évitera un trajet inutile.
+            </p>
+
+            <div className="divide-y divide-beige-dark border-y border-beige-dark mb-6">
+              {POINTS_CONFIRMES.map(({ nom, ville, adresse, type, mention }) => (
+                <div key={nom + ville} className="py-4 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <div className="flex-1 min-w-[12rem]">
+                    <p className="font-serif text-lg text-terre leading-snug">{nom}</p>
+                    <p className="text-sm text-terre/55">
+                      {adresse ? `${adresse}, ${ville}` : ville}
+                    </p>
+                  </div>
+                  <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-terre/45">
+                    {type}
+                  </span>
+                  {mention && (
+                    <span className="font-sans text-[10px] font-semibold tracking-widest uppercase text-ocre bg-ocre/8 border border-ocre/20 px-2 py-0.5">
+                      {mention}
+                    </span>
+                  )}
+                </div>
+              ))}
             </div>
 
-            {/* Emplacement en cours de confirmation : pas de carte tant que le point
-                n'est pas valide, pour ne pas orienter vers une adresse incertaine. */}
-            <div className="border-l-2 border-ocre bg-beige-light p-6 flex flex-col sm:flex-row sm:items-center gap-5">
-              <div className="flex-1">
-                <p className="font-sans text-xs font-bold tracking-widest uppercase text-ocre mb-1">
-                  Point de collecte principal
-                </p>
-                <p className="font-serif text-lg text-terre mb-2">
-                  Localisation en cours de validation
-                </p>
-                <p className="text-sm text-terre/60 leading-relaxed">
-                  Le point de collecte à Vielle-Saint-Girons est en cours de validation.
-                  Merci de nous contacter afin de convenir des modalités de remise du
-                  matériel : nous organisons ensemble un dépôt ou un enlèvement adapté
-                  à votre situation.
-                </p>
-              </div>
-              <div className="shrink-0">
-                <a
-                  href="mailto:contact@ressourcesrecyclerie.fr"
-                  className="inline-flex items-center gap-2 text-sm text-ocre hover:underline font-medium"
-                >
-                  <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  Nous contacter
-                </a>
-              </div>
+            <div className="border-l-2 border-ocre bg-beige-light p-5 mb-6">
+              <p className="font-sans text-xs font-bold tracking-widest uppercase text-ocre mb-1.5">
+                En déchèterie
+              </p>
+              <p className="text-sm text-terre/65 leading-relaxed">
+                Un partenariat a été convenu avec le {PARTENARIAT_SITCOM.nom} pour
+                installer un point de collecte dans {PARTENARIAT_SITCOM.nombre} déchèteries
+                du département.{' '}
+                {PARTENARIAT_SITCOM.decheteries.length > 0
+                  ? `Déchèteries concernées : ${PARTENARIAT_SITCOM.decheteries.join(' et ')}.`
+                  : 'Les communes concernées seront annoncées dès qu\'elles seront arrêtées.'}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-4 text-sm">
+              <Link to="/defi-collecte/" className="text-kaki hover:text-ocre transition-colors font-medium">
+                → Suivre le défi collecte et la liste à jour
+              </Link>
+              <a href="mailto:contact@ressourcesrecyclerie.fr" className="text-kaki hover:text-ocre transition-colors font-medium">
+                → Convenir d'une remise par mail
+              </a>
+            </div>
+          </div>
+
+          {/* Qui peut donner */}
+          <div className="mb-14">
+            <h2 className="font-serif text-2xl text-terre mb-5">Qui peut donner</h2>
+            <div className="grid sm:grid-cols-2 gap-5">
+              {PROFILS.map(({ titre, desc }) => (
+                <div key={titre} className="border-l-2 border-ocre/30 pl-5">
+                  <h3 className="font-serif text-lg text-terre mb-1.5">{titre}</h3>
+                  <p className="text-sm text-terre/60 leading-relaxed">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Preparation */}
+          <div className="mb-14">
+            <h2 className="font-serif text-2xl text-terre mb-2">Faut-il préparer son matériel ?</h2>
+            <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
+              Non, et c'est le point que l'on nous demande le plus souvent. Quatre
+              réflexes suffisent, et ils vont plutôt dans le sens du moindre effort.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-5">
+              {PREPARATION.map(({ titre, desc }) => (
+                <div key={titre} className="border border-ocre/25 bg-ocre/5 p-5">
+                  <h3 className="font-serif text-lg text-terre mb-1.5">{titre}</h3>
+                  <p className="text-sm text-terre/65 leading-relaxed">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Ce que nous acceptons — renvoi vers la page dediee */}
+          <div className="mb-14">
+            <h2 className="font-serif text-2xl text-terre mb-4">Ce que nous acceptons</h2>
+            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2 mb-5">
+              {ACCEPTE.map((item) => (
+                <li key={item} className="flex items-start gap-2.5 text-sm text-terre/65">
+                  <span className="text-ocre mt-0.5 shrink-0" aria-hidden>—</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="text-sm text-terre/60 leading-relaxed">
+              En état de marche ou en panne, sans distinction.{' '}
+              <Link to="/recyclerie-informatique/materiel-accepte/" className="text-kaki hover:text-ocre underline underline-offset-2">
+                La liste détaillée, et ce que nous ne pouvons pas prendre
+              </Link>
+              , figurent sur la page dédiée.
+            </p>
+          </div>
+
+          {/* Apres le don */}
+          <div className="mb-14">
+            <h2 className="font-serif text-2xl text-terre mb-4">Ce qui se passe ensuite</h2>
+            <p className="text-sm text-terre/65 leading-relaxed mb-4 max-w-2xl">
+              Votre matériel est pesé et enregistré, puis trié. Ses données sont
+              effacées de façon sécurisée avant toute intervention technique. Vient
+              ensuite le diagnostic, puis le reconditionnement par des bénévoles, et
+              enfin la redistribution sur le territoire — à des habitants, des
+              associations ou des structures d'accompagnement social des Landes.
+            </p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+              <Link to="/recyclerie-informatique/effacement-donnees/" className="text-kaki hover:text-ocre transition-colors font-medium">
+                → L'effacement de vos données en détail
+              </Link>
+              <Link to="/recyclerie-informatique/reconditionnement/" className="text-kaki hover:text-ocre transition-colors font-medium">
+                → Notre processus de reconditionnement
+              </Link>
+              <Link to="/recyclerie-informatique/beneficiaires/" className="text-kaki hover:text-ocre transition-colors font-medium">
+                → À qui profite le matériel
+              </Link>
             </div>
           </div>
 
           {/* Formulaire enlèvement */}
-          <div>
-            <h2 className="font-serif text-2xl text-terre mb-6">Demander un enlèvement</h2>
+          <div className="mb-14">
+            <h2 className="font-serif text-2xl text-terre mb-2">Demander un enlèvement</h2>
+            <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
+              Gratuit, sur l'ensemble du département. Décrivez simplement ce que vous
+              avez à donner : nous revenons vers vous pour convenir d'un créneau.
+            </p>
             <DonMaterielForm />
           </div>
+
+          {/* FAQ */}
+          <div className="border-t border-beige pt-10">
+            <h2 className="font-serif text-2xl text-terre mb-6">Questions fréquentes</h2>
+            <div className="space-y-4">
+              {FAQ.map(({ q, a }) => (
+                <details key={q} className="border border-beige group">
+                  <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none font-sans text-sm font-semibold text-terre hover:text-ocre transition-colors">
+                    {q}
+                    <span className="shrink-0 text-ocre/50 group-open:rotate-180 transition-transform duration-200">▾</span>
+                  </summary>
+                  <p className="px-5 pb-5 text-sm text-terre/60 leading-relaxed border-t border-beige pt-4">{a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -120,6 +323,10 @@ export default function CommentDonner() {
           <span className="text-terre/20">|</span>
           <Link to="/recyclerie-informatique/materiel-accepte/" className="text-kaki hover:text-ocre transition-colors">
             Matériel accepté →
+          </Link>
+          <span className="text-terre/20">|</span>
+          <Link to="/defi-collecte/" className="text-kaki hover:text-ocre transition-colors">
+            Défi collecte 1/2 tonne →
           </Link>
         </div>
       </section>
@@ -177,6 +384,3 @@ function DonMaterielForm() {
     </form>
   )
 }
-
-
-
