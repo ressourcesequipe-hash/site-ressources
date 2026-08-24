@@ -68,6 +68,64 @@ export const ARTICLES = [
     ],
   },
 
+  // ── Retombée presse — ICI Gascogne « ça marche » (24/08/2026) ──
+  {
+    slug: 'ressources-ici-gascogne-ca-marche-500-kilos-placards',
+    title: 'Ressources au micro d\'« ICI Gascogne, ça marche » pour le défi des 500 kilos',
+    excerpt: 'Lundi 24 août 2026, notre coordinateur Boris Lalanne était l\'invité de Marie-Cécile Gardey dans l\'émission « ICI Gascogne, ça marche ». Douze minutes d\'antenne pour parler du défi collecte, du reconditionnement et de la seconde vie du matériel informatique. Réécoutez l\'émission en replay.',
+    category: 'association',
+    date: '2026-08-24',
+    dateLabel: 'Août 2026',
+    readingTime: '2 min',
+    featured: false,
+    image: '/photos/ici-gascogne-ca-marche.webp',
+    imageAlt: 'Selfie de Boris Lalanne, coordinateur de l\'association Ressources, avec l\'équipe d\'ICI Gascogne dans le studio de la radio.',
+    imageCredit: 'Studio d\'ICI Gascogne, 24 août 2026 — photo association Ressources.',
+    imageFit: 'natural',
+    imageWidth: 1280,
+    imageHeight: 960,
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Après la chronique du 18 août, ICI Gascogne (France Bleu) nous a de nouveau tendu le micro. Lundi 24 août 2026, notre coordinateur Boris Lalanne était l\'invité de Marie-Cécile Gardey dans l\'émission « ICI Gascogne, ça marche » : douze minutes en direct pour raconter le projet de la recyclerie et le défi que l\'association lance sur tout le territoire d\'ici au 3 octobre.',
+      },
+      {
+        type: 'link',
+        label: 'Écouter l\'émission (12 min) sur ici.fr',
+        href: 'https://www.ici.fr/emissions/ici-gascogne-ca-marche-avec-marie-cecile-gardey/ordinateurs-telephones-tablettes-la-recyclerie-landaise-ressources-veut-sortir-500-kilos-de-materiel-de-vos-placards-8294630',
+        note: 'Replay et podcast disponibles sur le site d\'ICI Gascogne — émission « ICI Gascogne, ça marche » avec Marie-Cécile Gardey, 24 août 2026.',
+      },
+      {
+        type: 'heading',
+        text: 'Ce que nous avons partagé à l\'antenne',
+      },
+      {
+        type: 'paragraph',
+        text: 'Le cœur du sujet, c\'est le défi collecte : du 1er septembre au 3 octobre, réunir 500 kilos de matériel informatique oublié dans les tiroirs et les placards des Landes. Mais l\'émission a surtout permis d\'expliquer le pourquoi. L\'enjeu environnemental d\'abord : fabriquer un seul ordinateur mobilise près de 800 kilos de matières premières. Prolonger la vie d\'un appareil, c\'est éviter tout cela. L\'enjeu social ensuite : chaque équipement reconditionné peut rejoindre une famille, un senior ou une association qui en a besoin, et réduire un peu la fracture numérique sur le territoire.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Nous avons aussi évoqué la tombola solidaire à 5 € qui accompagne le lancement — avec, parmi les lots, un ordinateur gamer reconditionné par nos soins — et dont les recettes serviront en priorité à créer le premier emploi de la recyclerie.',
+      },
+      {
+        type: 'heading',
+        text: 'Merci à ICI Gascogne',
+      },
+      {
+        type: 'paragraph',
+        text: 'Pour une association qui démarre, ces rendez-vous à l\'antenne comptent énormément : ils font connaître le projet bien au-delà de Vielle-Saint-Girons et donnent envie de participer. Merci à Marie-Cécile Gardey et à toute la rédaction d\'ICI Gascogne pour leur accueil et leur soutien renouvelé.',
+      },
+      {
+        type: 'heading',
+        text: 'Participer au défi',
+      },
+      {
+        type: 'paragraph',
+        text: 'Vous avez du matériel informatique qui dort ? Rendez-vous sur la page du défi collecte pour connaître les points de dépôt et suivre la progression vers les 500 kilos. Et pour soutenir l\'association tout en tentant votre chance, la tombola solidaire est ouverte. La pesée finale et la journée de lancement, c\'est le samedi 3 octobre 2026 à Vielle-Saint-Girons.',
+      },
+    ],
+  },
+
   // ── Retombée presse — ICI Gascogne ──
   {
     slug: 'ici-gascogne-defi-500-kg-collecte-informatique-landes',

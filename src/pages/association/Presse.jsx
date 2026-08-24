@@ -26,6 +26,26 @@ const OBJECTIFS = [
   { valeur: '8', label: 'bénévoles réguliers' },
 ]
 
+// Revue de presse. article = notre récap interne ; source = le média d'origine.
+const RETOMBEES = [
+  {
+    date: '24 août 2026',
+    media: 'ICI Gascogne (France Bleu)',
+    format: 'Émission « ICI Gascogne, ça marche » — Marie-Cécile Gardey',
+    titre: 'Ordinateurs, téléphones, tablettes : la recyclerie landaise Ressources veut sortir 500 kilos de matériel de vos placards',
+    article: '/association/actualites/ressources-ici-gascogne-ca-marche-500-kilos-placards/',
+    source: 'https://www.ici.fr/emissions/ici-gascogne-ca-marche-avec-marie-cecile-gardey/ordinateurs-telephones-tablettes-la-recyclerie-landaise-ressources-veut-sortir-500-kilos-de-materiel-de-vos-placards-8294630',
+  },
+  {
+    date: '18 août 2026',
+    media: 'ICI Gascogne (France Bleu)',
+    format: 'Chronique « L\'éco d\'ici dans les Landes » — Thibault Menanteau',
+    titre: '500 kilos de matériel informatique à collecter dans les Landes',
+    article: '/association/actualites/ici-gascogne-defi-500-kg-collecte-informatique-landes/',
+    source: 'https://www.ici.fr/radio/gascogne/derniers-podcasts',
+  },
+]
+
 const ANGLES = [
   {
     titre: 'La double filière, informatique et végétale',
@@ -89,6 +109,41 @@ export default function Presse() {
                 nous fournissons ces éléments sur simple demande.
               </p>
             </div>
+          </div>
+
+          {/* Ils parlent de nous */}
+          <div className="mb-12">
+            <h2 className="font-serif text-2xl text-terre mb-6">Ils parlent de nous</h2>
+            <ul className="space-y-4">
+              {RETOMBEES.map((r) => (
+                <li key={r.source} className="border border-beige-dark border-l-2 border-l-ocre bg-beige-light p-5">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+                    <span className="font-sans text-[10px] font-bold tracking-[0.15em] uppercase text-ocre">
+                      {r.media}
+                    </span>
+                    <span className="text-xs text-terre/40 font-mono">{r.date}</span>
+                  </div>
+                  <p className="font-serif text-lg text-terre leading-snug mb-1">{r.titre}</p>
+                  <p className="text-xs text-terre/50 mb-3">{r.format}</p>
+                  <div className="flex flex-wrap gap-x-5 gap-y-1">
+                    <a
+                      href={r.source}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-sans font-medium text-kaki hover:text-ocre transition-colors"
+                    >
+                      Écouter sur ici.fr ↗
+                    </a>
+                    <Link
+                      to={r.article}
+                      className="text-xs font-sans font-medium text-kaki hover:text-ocre transition-colors"
+                    >
+                      → Notre récap
+                    </Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* En bref */}

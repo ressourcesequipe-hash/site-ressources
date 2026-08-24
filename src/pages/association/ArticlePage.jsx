@@ -210,6 +210,24 @@ export default function ArticlePage() {
                   </figure>
                 )
               }
+              if (block.type === 'link') {
+                const external = /^https?:\/\//.test(block.href)
+                return (
+                  <div key={i} className="my-8">
+                    <a
+                      href={block.href}
+                      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      className="btn-ocre text-sm inline-flex items-center gap-2"
+                    >
+                      {block.label}
+                      {external && <span aria-hidden>↗</span>}
+                    </a>
+                    {block.note && (
+                      <p className="text-xs text-terre/45 mt-2.5 leading-relaxed">{block.note}</p>
+                    )}
+                  </div>
+                )
+              }
               return null
             })}
           </div>
