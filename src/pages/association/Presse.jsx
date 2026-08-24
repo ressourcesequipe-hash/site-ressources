@@ -33,7 +33,7 @@ const RETOMBEES = [
     media: 'ICI Gascogne (France Bleu)',
     format: 'Émission « ICI Gascogne, ça marche » — Marie-Cécile Gardey',
     titre: 'Ordinateurs, téléphones, tablettes : la recyclerie landaise Ressources veut sortir 500 kilos de matériel de vos placards',
-    article: '/association/actualites/ressources-ici-gascogne-ca-marche-500-kilos-placards/',
+    article: '/association/actualites/ressources-ici-gascogne-ca-marche-reemploi-informatique/',
     source: 'https://www.ici.fr/emissions/ici-gascogne-ca-marche-avec-marie-cecile-gardey/ordinateurs-telephones-tablettes-la-recyclerie-landaise-ressources-veut-sortir-500-kilos-de-materiel-de-vos-placards-8294630',
   },
   {
