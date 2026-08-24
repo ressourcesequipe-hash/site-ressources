@@ -71,7 +71,7 @@ export const ARTICLES = [
   // ── Retombée presse — ICI Gascogne « ça marche » (24/08/2026) ──
   {
     slug: 'ressources-ici-gascogne-ca-marche-500-kilos-placards',
-    title: 'Ressources au micro d\'« ICI Gascogne, ça marche » pour le défi des 500 kilos',
+    title: 'Ressources invitée d\'« ICI Gascogne, ça marche » : le réemploi informatique au micro',
     excerpt: 'Lundi 24 août 2026, notre coordinateur Boris Lalanne était l\'invité de Marie-Cécile Gardey dans l\'émission « ICI Gascogne, ça marche ». Douze minutes d\'antenne pour parler du défi collecte, du reconditionnement et de la seconde vie du matériel informatique. Réécoutez l\'émission en replay.',
     category: 'association',
     date: '2026-08-24',
