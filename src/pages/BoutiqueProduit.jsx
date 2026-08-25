@@ -74,6 +74,7 @@ export default function BoutiqueProduit() {
   return (
     <Layout
       breadcrumbs={[
+        { label: 'Recyclerie Informatique', href: '/recyclerie-informatique/' },
         { label: 'Matériel disponible', href: '/materiel-disponible/' },
         { label: p.titre },
       ]}

@@ -4,7 +4,10 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import vitrine from '../data/vitrine.json'
 
-const BREADCRUMBS = [{ label: 'Matériel disponible' }]
+const BREADCRUMBS = [
+  { label: 'Recyclerie Informatique', href: '/recyclerie-informatique/' },
+  { label: 'Matériel disponible' },
+]
 
 const ETATS = {
   A: 'Comme neuf',
@@ -100,19 +103,22 @@ export default function Boutique() {
         ogImageHeight={produits[0] ? 450 : 630}
       />
 
-      <section className="border-b border-beige-dark bg-beige-light py-12 md:py-16">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <p className="section-label">La recyclerie</p>
-          <h1 className="mb-4 font-serif text-3xl text-terre sm:text-4xl">
+      <section className="relative overflow-hidden bg-kaki py-12 text-white md:py-16">
+        <div className="absolute left-0 top-0 h-1 w-full bg-ocre" />
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
+          <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-ocre">
+            Recyclerie informatique
+          </p>
+          <h1 className="mb-4 font-serif text-3xl text-white sm:text-4xl">
             Le matériel disponible
           </h1>
-          <p className="max-w-2xl leading-relaxed text-terre/60">
+          <p className="max-w-xl leading-relaxed text-white/65">
             Chaque appareil a été collecté près de chez vous, contrôlé, testé, nettoyé, et ses
             données effacées avant d'être remis en vente. Le stock change au fil des collectes :
             ce que vous voyez ici est ce qui est en rayon aujourd'hui.
           </p>
           {vitrine.maj ? (
-            <p className="mt-4 font-mono text-xs text-terre/40">
+            <p className="mt-4 font-mono text-xs text-white/40">
               Mis à jour le {leJour(vitrine.maj)}
             </p>
           ) : null}
