@@ -17,7 +17,11 @@ const BASE = 'https://www.ressourcesrecyclerie.fr'
 export default function BoutiqueProduit() {
   const { code } = useParams()
   const produits = vitrine.produits || []
-  const p = produits.find((x) => x.code.toLowerCase() === String(code || '').toLowerCase())
+  const vendus = vitrine.vendus || []
+  const cherche = (liste) =>
+    liste.find((x) => x.code.toLowerCase() === String(code || '').toLowerCase())
+  const p = cherche(produits) || cherche(vendus)
+  const vendu = Boolean(p && p.vendu)
   const [active, setActive] = useState(0)
 
   // Un appareil vendu depuis la dernière publication : sa page n'existe plus.
@@ -46,7 +50,9 @@ export default function BoutiqueProduit() {
       price: p.prix,
       priceCurrency: 'EUR',
       itemCondition: 'https://schema.org/RefurbishedCondition',
-      availability: 'https://schema.org/InStock',
+      // Un appareil parti ne dit pas « en stock » à Google : la disponibilité
+      // démentie par la page fait perdre le résultat enrichi, et c'est faux.
+      availability: vendu ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
       availableAtOrFrom: {
         '@type': 'Place',
         name: 'Recyclerie Ressources',
@@ -80,7 +86,11 @@ export default function BoutiqueProduit() {
       ]}
     >
       <SEO
-        title={`${p.titre} reconditionné — ${prix(p.prix)} — Recyclerie Ressources (Landes)`}
+        title={
+          vendu
+            ? `${p.titre} reconditionné — vendu — Recyclerie Ressources (Landes)`
+            : `${p.titre} reconditionné — ${prix(p.prix)} — Recyclerie Ressources (Landes)`
+        }
         description={`${p.titre} : ${p.description.slice(0, 150)}${p.description.length > 150 ? '…' : ''} Reconditionné et vérifié par la recyclerie solidaire Ressources à Vielle-Saint-Girons (40).`}
         canonical={`/materiel-disponible/${p.code.toLowerCase()}/`}
         type="product"
@@ -96,13 +106,18 @@ export default function BoutiqueProduit() {
           <div className="grid gap-8 md:grid-cols-2 md:gap-12">
             {/* Les photos */}
             <div>
-              <div className="aspect-[4/3] overflow-hidden border border-beige-dark bg-beige-light">
+              <div className="relative aspect-[4/3] overflow-hidden border border-beige-dark bg-beige-light">
+                {vendu ? (
+                  <span className="absolute left-0 top-5 z-10 bg-kaki px-4 py-1.5 font-sans text-xs font-bold uppercase tracking-[0.15em] text-white">
+                    Vendu
+                  </span>
+                ) : null}
                 <img
                   src={p.photos[active].src}
                   alt={p.photos[active].legende || `${p.titre} — ${p.categorie} reconditionné`}
                   width="800"
                   height="600"
-                  className="h-full w-full object-cover"
+                  className={`h-full w-full object-cover ${vendu ? 'opacity-60 grayscale' : ''}`}
                 />
               </div>
               {p.photos.length > 1 ? (
@@ -137,7 +152,11 @@ export default function BoutiqueProduit() {
               <h1 className="mt-2 font-serif text-3xl leading-tight text-terre">{p.titre}</h1>
 
               <div className="mt-4 flex flex-wrap items-baseline gap-x-5 gap-y-2">
-                <span className="font-serif text-3xl text-kaki">{prix(p.prix)}</span>
+                <span
+                  className={`font-serif text-3xl ${vendu ? 'text-terre/40 line-through' : 'text-kaki'}`}
+                >
+                  {prix(p.prix)}
+                </span>
                 {etat ? (
                   <span className="font-sans text-sm text-terre/60">
                     {etat.libelle} — {etat.detail}
@@ -164,6 +183,32 @@ export default function BoutiqueProduit() {
                 </dl>
               ) : null}
 
+              {vendu ? (
+                <div className="mt-7 border border-beige-dark bg-beige-light p-6">
+                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-ocre">
+                    Cet appareil est parti
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-terre/70">
+                    Il a trouvé preneur{p.vendu_le ? ' le ' + leJour(p.vendu_le) : ''}. Du matériel
+                    semblable repasse régulièrement : dites-nous ce que vous cherchez, nous vous
+                    préviendrons.
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-3">
+                    <Link
+                      to="/materiel-disponible/"
+                      className="bg-kaki px-5 py-2.5 font-sans text-sm font-medium text-white transition-colors hover:bg-ocre"
+                    >
+                      Voir ce qui est disponible
+                    </Link>
+                    <Link
+                      to="/contact/"
+                      className="border border-kaki px-5 py-2.5 font-sans text-sm font-medium text-kaki transition-colors hover:border-ocre hover:text-ocre"
+                    >
+                      Nous dire ce que vous cherchez
+                    </Link>
+                  </div>
+                </div>
+              ) : (
               <div className="mt-7 bg-kaki p-6 text-white">
                 <p className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-ocre">
                   Pour le voir
@@ -190,6 +235,7 @@ export default function BoutiqueProduit() {
                   </a>
                 </div>
               </div>
+              )}
 
               <p className="mt-5 text-xs leading-relaxed text-terre/50">
                 Le support de stockage a été effacé et l'opération vérifiée par une seconde

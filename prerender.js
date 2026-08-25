@@ -85,12 +85,16 @@ async function main() {
      rien. Elles disparaissent d'elles-mêmes au build suivant quand l'appareil
      est vendu, et vercel.json renvoie alors vers la liste. */
   let produits = []
+  let vendus = []
   try {
     const vitrine = JSON.parse(
       fs.readFileSync(path.join(__dirname, 'src', 'data', 'vitrine.json'), 'utf-8')
     )
     produits = vitrine.produits || []
-    for (const p of produits) routes.push(`/materiel-disponible/${p.code.toLowerCase()}/`)
+    vendus = vitrine.vendus || []
+    for (const p of [...produits, ...vendus]) {
+      routes.push(`/materiel-disponible/${p.code.toLowerCase()}/`)
+    }
   } catch (e) {
     console.warn('[prerender] Vitrine non chargée :', e.message)
   }
@@ -136,7 +140,9 @@ async function main() {
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`
   )
 
-  console.log(`[prerender] ${ok}/${routes.length} pages prérendues, ${produits.length} en vitrine.`)
+  console.log(
+    `[prerender] ${ok}/${routes.length} pages prérendues, ${produits.length} en vitrine, ${vendus.length} vendu(s).`
+  )
   if (failed.length) {
     console.error('[prerender] Échecs :')
     failed.forEach((f) => console.error('  - ' + f))

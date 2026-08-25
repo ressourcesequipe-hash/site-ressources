@@ -70,12 +70,19 @@ async function main() {
     console.warn('[vitrine] Le build continue avec le catalogue précédent.')
     if (!fs.existsSync(CIBLE_JSON)) {
       fs.mkdirSync(path.dirname(CIBLE_JSON), { recursive: true })
-      fs.writeFileSync(CIBLE_JSON, JSON.stringify({ maj: null, produits: [] }, null, 2) + '\n')
+      fs.writeFileSync(
+        CIBLE_JSON,
+        JSON.stringify({ maj: null, produits: [], vendus: [] }, null, 2) + '\n'
+      )
     }
     return
   }
 
   const produits = Array.isArray(flux.produits) ? flux.produits : []
+  // Les appareils vendus récemment. Ils restent affichés quelques jours,
+  // barrés d'un « vendu » : voir que des choses trouvent preneur en dit plus
+  // long sur une recyclerie que n'importe quelle phrase.
+  const vendus = Array.isArray(flux.vendus) ? flux.vendus : []
 
   /* Les photos : on repart d'un dossier propre pour ne pas garder celles
      d'appareils vendus depuis. */
@@ -83,7 +90,7 @@ async function main() {
   fs.mkdirSync(CIBLE_PHOTOS, { recursive: true })
 
   let images = 0
-  for (const produit of produits) {
+  for (const produit of [...produits, ...vendus]) {
     const gardees = []
     for (const [rang, photo] of (produit.photos || []).entries()) {
       try {
@@ -105,16 +112,23 @@ async function main() {
      un cadre vide, et la règle de publication de Ressources 360 dit la même
      chose. */
   const publiables = produits.filter((p) => p.photos.length > 0)
-  const ecartes = produits.length - publiables.length
+  const vendables = vendus.filter((p) => p.photos.length > 0)
+  const ecartes = produits.length + vendus.length - publiables.length - vendables.length
   if (ecartes) console.warn(`[vitrine] ${ecartes} produit(s) écarté(s), photos indisponibles.`)
 
   fs.mkdirSync(path.dirname(CIBLE_JSON), { recursive: true })
   fs.writeFileSync(
     CIBLE_JSON,
-    JSON.stringify({ maj: flux.maj || null, produits: publiables }, null, 2) + '\n'
+    JSON.stringify(
+      { maj: flux.maj || null, produits: publiables, vendus: vendables },
+      null,
+      2
+    ) + '\n'
   )
 
-  console.log(`[vitrine] ${publiables.length} produit(s), ${images} photo(s) récupérée(s).`)
+  console.log(
+    `[vitrine] ${publiables.length} produit(s), ${vendables.length} vendu(s) récent(s), ${images} photo(s).`
+  )
 }
 
 main().catch((e) => {

@@ -26,20 +26,31 @@ export function leJour(iso) {
   return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
-function Carte({ p }) {
+function Carte({ p, vendu = false }) {
   return (
     <Link
       to={`/materiel-disponible/${p.code.toLowerCase()}/`}
-      className="group flex flex-col border border-beige-dark bg-white hover:border-ocre transition-colors"
+      className={`group flex flex-col border transition-colors ${
+        vendu
+          ? 'border-beige bg-beige-light/50 hover:border-beige-dark'
+          : 'border-beige-dark bg-white hover:border-ocre'
+      }`}
     >
-      <div className="aspect-[4/3] overflow-hidden bg-beige-light">
+      <div className="relative aspect-[4/3] overflow-hidden bg-beige-light">
+        {vendu ? (
+          <span className="absolute left-0 top-4 z-10 bg-kaki px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-white">
+            Vendu
+          </span>
+        ) : null}
         <img
           src={p.photos[0].src}
           alt={`${p.titre} — ${p.categorie} reconditionné par la recyclerie Ressources`}
           loading="lazy"
           width="600"
           height="450"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+            vendu ? 'opacity-60 grayscale' : ''
+          }`}
         />
       </div>
       <div className="flex flex-1 flex-col p-5">
@@ -51,7 +62,9 @@ function Carte({ p }) {
           {p.description}
         </p>
         <div className="mt-4 flex items-baseline justify-between gap-3 border-t border-beige pt-3">
-          <span className="font-serif text-xl text-kaki">{prix(p.prix)}</span>
+          <span className={`font-serif text-xl ${vendu ? 'text-terre/40 line-through' : 'text-kaki'}`}>
+            {prix(p.prix)}
+          </span>
           {p.etat ? (
             <span className="font-sans text-xs text-terre/50">{ETATS[p.etat] || p.etat}</span>
           ) : null}
@@ -63,6 +76,7 @@ function Carte({ p }) {
 
 export default function Boutique() {
   const produits = vitrine.produits || []
+  const vendus = vitrine.vendus || []
   const [famille, setFamille] = useState('toutes')
 
   const familles = [...new Map(
@@ -183,6 +197,24 @@ export default function Boutique() {
               </div>
             </>
           )}
+
+          {/* Ce qui vient de partir. Une recyclerie se juge autant à ce qui
+              sort qu'à ce qui reste : voir des appareils trouver preneur dit
+              que la boutique vit. */}
+          {vendus.length ? (
+            <div className="mt-16 border-t border-beige-dark pt-12">
+              <h2 className="font-serif text-2xl text-terre">Récemment vendus</h2>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-terre/60">
+                Ces appareils ont trouvé preneur ces derniers jours. Le stock change vite : si l'un
+                d'eux vous intéressait, dites-le-nous — il en repasse régulièrement de semblables.
+              </p>
+              <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {vendus.map((p) => (
+                  <Carte key={p.code} p={p} vendu />
+                ))}
+              </div>
+            </div>
+          ) : null}
 
           {/* Ce qu'il faut savoir avant de venir. Une vitrine n'est pas une
               boutique en ligne : rien ne se commande ici. */}
