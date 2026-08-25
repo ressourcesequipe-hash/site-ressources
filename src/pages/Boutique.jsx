@@ -77,15 +77,25 @@ function Carte({ p, vendu = false }) {
 export default function Boutique() {
   const produits = vitrine.produits || []
   const vendus = vitrine.vendus || []
-  const [famille, setFamille] = useState('toutes')
+  const [choisie, setChoisie] = useState('toutes')
 
-  const familles = [...new Map(
-    produits.filter((p) => p.famille).map((p) => [p.famille.cle, p.famille])
-  ).values()]
+  /* On filtre par catégorie — « Ordinateur portable », « Disque externe » —
+     et non par famille. Tout le matériel est informatique : la famille ne
+     distingue rien, alors que la catégorie est ce qu'un acheteur cherche.
+     Les catégories sont triées par nombre décroissant, puis par ordre
+     alphabétique : les rayons fournis d'abord, et un ordre stable ensuite. */
+  const categories = [...new Set([...produits, ...vendus].map((p) => p.categorie))]
+    .map((c) => ({
+      libelle: c,
+      disponibles: produits.filter((p) => p.categorie === c).length,
+    }))
+    .sort((a, b) => b.disponibles - a.disponibles || a.libelle.localeCompare(b.libelle, 'fr'))
 
-  const visibles = famille === 'toutes'
-    ? produits
-    : produits.filter((p) => p.famille?.cle === famille)
+  const garder = (liste) =>
+    choisie === 'toutes' ? liste : liste.filter((p) => p.categorie === choisie)
+
+  const visibles = garder(produits)
+  const vendusVisibles = garder(vendus)
 
   /* Le catalogue déclaré à Google : une liste de produits, chacun avec son
      prix et sa disponibilité. C'est ce qui permet aux fiches d'apparaître dans
@@ -160,48 +170,61 @@ export default function Boutique() {
             </div>
           ) : (
             <>
-              {familles.length > 1 ? (
-                <div className="mb-8 flex flex-wrap gap-2">
+              {categories.length > 1 ? (
+                <div
+                  className="mb-8 flex flex-wrap gap-2"
+                  role="group"
+                  aria-label="Filtrer par type de matériel"
+                >
                   <button
                     type="button"
-                    onClick={() => setFamille('toutes')}
+                    aria-pressed={choisie === 'toutes'}
+                    onClick={() => setChoisie('toutes')}
                     className={`px-4 py-2 font-sans text-xs font-medium transition-colors ${
-                      famille === 'toutes'
+                      choisie === 'toutes'
                         ? 'bg-kaki text-white'
                         : 'border border-beige-dark text-terre/60 hover:border-ocre'
                     }`}
                   >
                     Tout ({produits.length})
                   </button>
-                  {familles.map((f) => (
+                  {categories.map((c) => (
                     <button
-                      key={f.cle}
+                      key={c.libelle}
                       type="button"
-                      onClick={() => setFamille(f.cle)}
+                      aria-pressed={choisie === c.libelle}
+                      onClick={() => setChoisie(c.libelle)}
                       className={`px-4 py-2 font-sans text-xs font-medium transition-colors ${
-                        famille === f.cle
+                        choisie === c.libelle
                           ? 'bg-kaki text-white'
                           : 'border border-beige-dark text-terre/60 hover:border-ocre'
                       }`}
                     >
-                      {f.libelle} ({produits.filter((p) => p.famille?.cle === f.cle).length})
+                      {c.libelle} ({c.disponibles})
                     </button>
                   ))}
                 </div>
               ) : null}
 
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {visibles.map((p) => (
-                  <Carte key={p.code} p={p} />
-                ))}
-              </div>
+              {visibles.length ? (
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {visibles.map((p) => (
+                    <Carte key={p.code} p={p} />
+                  ))}
+                </div>
+              ) : (
+                <p className="border border-dashed border-beige-dark px-4 py-10 text-center text-sm text-terre/60">
+                  Rien de disponible dans cette catégorie pour le moment.
+                  {vendusVisibles.length ? ' Voyez ce qui vient de partir, plus bas.' : ''}
+                </p>
+              )}
             </>
           )}
 
           {/* Ce qui vient de partir. Une recyclerie se juge autant à ce qui
               sort qu'à ce qui reste : voir des appareils trouver preneur dit
               que la boutique vit. */}
-          {vendus.length ? (
+          {vendusVisibles.length ? (
             <div className="mt-16 border-t border-beige-dark pt-12">
               <h2 className="font-serif text-2xl text-terre">Déjà vendus</h2>
               <p className="mt-2 max-w-xl text-sm leading-relaxed text-terre/60">
@@ -209,7 +232,7 @@ export default function Boutique() {
                 intéressait, dites-le-nous — il en repasse régulièrement de semblables.
               </p>
               <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {vendus.map((p) => (
+                {vendusVisibles.map((p) => (
                   <Carte key={p.code} p={p} vendu />
                 ))}
               </div>
