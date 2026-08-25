@@ -190,7 +190,7 @@ export default function BoutiqueProduit() {
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-terre/70">
                     Il a trouvé preneur{p.vendu_le ? ' le ' + leJour(p.vendu_le) : ''}. Du matériel
-                    semblable repasse régulièrement : dites-nous ce que vous cherchez, nous vous
+                    semblable repasse régulièrement : dites-nous ce que vous cherchez, et nous vous
                     préviendrons.
                   </p>
                   <div className="mt-5 flex flex-wrap gap-3">

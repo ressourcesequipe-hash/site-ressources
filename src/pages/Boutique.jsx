@@ -203,10 +203,10 @@ export default function Boutique() {
               que la boutique vit. */}
           {vendus.length ? (
             <div className="mt-16 border-t border-beige-dark pt-12">
-              <h2 className="font-serif text-2xl text-terre">Récemment vendus</h2>
+              <h2 className="font-serif text-2xl text-terre">Déjà vendus</h2>
               <p className="mt-2 max-w-xl text-sm leading-relaxed text-terre/60">
-                Ces appareils ont trouvé preneur ces derniers jours. Le stock change vite : si l'un
-                d'eux vous intéressait, dites-le-nous — il en repasse régulièrement de semblables.
+                Ces appareils ont trouvé preneur. Le stock change vite : si l'un d'eux vous
+                intéressait, dites-le-nous — il en repasse régulièrement de semblables.
               </p>
               <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {vendus.map((p) => (
