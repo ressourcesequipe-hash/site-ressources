@@ -136,10 +136,16 @@ export default function Boutique() {
           <h1 className="mb-4 font-serif text-3xl text-white sm:text-4xl">
             Le matériel disponible
           </h1>
-          <p className="max-w-xl leading-relaxed text-white/65">
-            Chaque appareil a été collecté près de chez vous, contrôlé, testé, nettoyé, et ses
-            données effacées avant d'être remis en vente. Le stock change au fil des collectes :
-            ce que vous voyez ici est ce qui est en rayon aujourd'hui.
+          <p className="max-w-2xl leading-relaxed text-white/65">
+            Du matériel informatique reconditionné dans notre atelier de Vielle-Saint-Girons, à
+            vendre à prix solidaire sur la côte landaise. Chaque appareil a été collecté près de
+            chez vous, contrôlé pièce par pièce, testé, nettoyé, et ses données effacées avant
+            d'être remis en vente.
+          </p>
+          <p className="mt-3 max-w-2xl leading-relaxed text-white/65">
+            Le stock change au fil des collectes : ce que vous voyez ici est ce qui est en rayon
+            aujourd'hui. Rien ne se commande en ligne — vous venez le voir allumé, et vous repartez
+            avec s'il vous convient.
           </p>
           {vitrine.maj ? (
             <p className="mt-4 font-mono text-xs text-white/40">
@@ -252,7 +258,25 @@ export default function Boutique() {
               <li>
                 <strong className="text-terre">Les données sont effacées.</strong> Aucun appareil ne
                 part en vente sans que son support de stockage ait été effacé et l'opération
-                vérifiée par une seconde personne.
+                vérifiée par une seconde personne —{' '}
+                <Link
+                  to="/recyclerie-informatique/effacement-donnees/"
+                  className="text-kaki underline decoration-ocre/40 underline-offset-2 hover:text-ocre"
+                >
+                  comment nous procédons
+                </Link>
+                .
+              </li>
+              <li>
+                <strong className="text-terre">Chaque appareil a été remis en état.</strong> Contrôle
+                visuel, test de fonctionnement, réparation quand elle vaut la peine, nettoyage —{' '}
+                <Link
+                  to="/recyclerie-informatique/reconditionnement/"
+                  className="text-kaki underline decoration-ocre/40 underline-offset-2 hover:text-ocre"
+                >
+                  le parcours en six étapes
+                </Link>
+                .
               </li>
               <li>
                 <strong className="text-terre">Le prix est solidaire.</strong> Il couvre le temps
@@ -267,12 +291,29 @@ export default function Boutique() {
                 Nous contacter
               </Link>
               <Link
-                to="/recyclerie-informatique/reconditionnement/"
+                to="/recyclerie-informatique/beneficiaires/"
                 className="border border-kaki px-5 py-2.5 font-sans text-sm font-medium text-kaki transition-colors hover:border-ocre hover:text-ocre"
               >
-                Comment nous reconditionnons
+                Garantie, paiement, à qui nous vendons
               </Link>
             </div>
+          </div>
+          <div className="mt-10 text-sm leading-relaxed text-terre/55">
+            <h2 className="mb-2 font-serif text-lg text-terre">
+              Du matériel reconditionné dans les Landes
+            </h2>
+            <p>
+              Ressources est une recyclerie solidaire installée à Vielle-Saint-Girons (40560). Le
+              matériel présenté ici vient de dons collectés sur la côte landaise — Léon, Linxe,
+              Soustons, Castets, Vieux-Boucau, Saint-Julien-en-Born — et dans le Marensin. Il est
+              remis en état dans notre atelier, puis revendu à prix solidaire : le prix couvre le
+              temps passé, pas davantage.
+            </p>
+            <p className="mt-3">
+              Acheter reconditionné près de chez soi, c'est éviter qu'un appareil encore utile parte
+              à la déchèterie, et garder la valeur sur le territoire. C'est aussi pouvoir revenir
+              nous voir si quelque chose ne va pas — ce qu'aucun site marchand ne permet.
+            </p>
           </div>
         </div>
       </section>

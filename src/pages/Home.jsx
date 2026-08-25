@@ -434,6 +434,7 @@ export default function Home() {
 
                 <div className="flex flex-wrap gap-3">
                   <Link to="/recyclerie-informatique/comment-donner/" className="btn-ocre text-sm">Je donne du matériel</Link>
+                  <Link to="/materiel-disponible/" className="btn-outline-white text-sm">Matériel disponible</Link>
                   <Link to="/recyclerie-informatique/" className="btn-outline-white text-sm">En savoir plus</Link>
                 </div>
               </div>

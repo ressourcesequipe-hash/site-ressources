@@ -100,14 +100,20 @@ export default function Reconditionnement() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-6">
           <div>
             <p className="font-serif text-lg text-terre mb-1">Prêt·e à donner votre matériel ?</p>
-            <p className="text-sm text-terre/55">Votre don part entre de bonnes mains.</p>
+            <p className="text-sm text-terre/55">
+              Votre don part entre de bonnes mains — et ressort de ce processus dans{' '}
+              <Link to="/materiel-disponible/" className="text-kaki underline decoration-ocre/40 underline-offset-2 hover:text-ocre transition-colors">
+                le matériel disponible en boutique
+              </Link>
+              .
+            </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <Link to="/recyclerie-informatique/comment-donner/" className="btn-ocre text-sm">
               Je donne du matériel
             </Link>
-            <Link to="/recyclerie-informatique/effacement-donnees/" className="btn-outline-ocre text-sm">
-              Sécurité des données
+            <Link to="/materiel-disponible/" className="btn-outline-ocre text-sm">
+              Voir le matériel disponible
             </Link>
           </div>
         </div>

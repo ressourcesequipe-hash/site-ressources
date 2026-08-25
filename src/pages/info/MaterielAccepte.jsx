@@ -90,12 +90,20 @@ export default function MaterielAccepte() {
             </div>
           </div>
 
+          <p className="mb-6 text-sm leading-relaxed text-terre/60">
+            Ce que nous collectons ici repart en réemploi :{' '}
+            <Link to="/materiel-disponible/" className="text-kaki underline decoration-ocre/40 underline-offset-2 hover:text-ocre transition-colors">
+              voyez le matériel actuellement disponible
+            </Link>{' '}
+            pour vous faire une idée de ce qu'une seconde vie donne concrètement.
+          </p>
+
           <div className="flex flex-wrap gap-4">
             <Link to="/recyclerie-informatique/comment-donner/" className="btn-ocre">
               Je donne mon matériel
             </Link>
-            <Link to="/recyclerie-informatique/effacement-donnees/" className="btn-outline-ocre">
-              Sécurité de mes données
+            <Link to="/materiel-disponible/" className="btn-outline-ocre">
+              Voir le matériel disponible
             </Link>
           </div>
         </div>

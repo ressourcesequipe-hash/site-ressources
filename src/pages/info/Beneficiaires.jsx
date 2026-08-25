@@ -16,7 +16,7 @@ const FAQ_SCHEMA = {
     {
       '@type': 'Question',
       name: 'Quels équipements reconditionnés sont disponibles à la vente ?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Ordinateurs portables et fixes, tablettes, smartphones, écrans et périphériques. Les stocks dépendent des dons reçus. Tous les appareils sont testés et reconditionnés avant vente.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Ordinateurs portables et fixes, tablettes, smartphones, écrans et périphériques. Le stock du jour est consultable en ligne sur la page « Matériel disponible », avec photos, état et prix. Il dépend des dons reçus, et tous les appareils sont testés et reconditionnés avant vente.' },
     },
     {
       '@type': 'Question',
@@ -186,6 +186,21 @@ export default function Beneficiaires() {
                 </details>
               ))}
             </div>
+          </div>
+
+          <div className="mb-10 border border-beige-dark border-l-2 border-l-ocre bg-beige-light p-6 md:p-8">
+            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-ocre">
+              En rayon en ce moment
+            </p>
+            <h2 className="mt-2 font-serif text-2xl text-terre">Voir le matériel disponible</h2>
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-terre/60">
+              Le stock change au fil des collectes. Chaque appareil est présenté avec ses photos,
+              son état réel, ses caractéristiques et son prix — et se voit sur place, allumé, avant
+              tout achat.
+            </p>
+            <Link to="/materiel-disponible/" className="btn-ocre mt-5 inline-block text-sm">
+              Voir ce qui est en rayon
+            </Link>
           </div>
 
           <Link to="/recyclerie-informatique/" className="text-sm text-kaki hover:text-ocre transition-colors">

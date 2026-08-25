@@ -238,8 +238,29 @@ export default function BoutiqueProduit() {
               )}
 
               <p className="mt-5 text-xs leading-relaxed text-terre/50">
-                Le support de stockage a été effacé et l'opération vérifiée par une seconde
-                personne avant la mise en vente.
+                Le support de stockage a été{' '}
+                <Link
+                  to="/recyclerie-informatique/effacement-donnees/"
+                  className="text-kaki underline decoration-ocre/40 underline-offset-2 hover:text-ocre"
+                >
+                  effacé
+                </Link>{' '}
+                et l'opération vérifiée par une seconde personne avant la mise en vente. L'appareil
+                a suivi{' '}
+                <Link
+                  to="/recyclerie-informatique/reconditionnement/"
+                  className="text-kaki underline decoration-ocre/40 underline-offset-2 hover:text-ocre"
+                >
+                  notre parcours de reconditionnement
+                </Link>
+                , et les{' '}
+                <Link
+                  to="/recyclerie-informatique/beneficiaires/"
+                  className="text-kaki underline decoration-ocre/40 underline-offset-2 hover:text-ocre"
+                >
+                  conditions de vente
+                </Link>{' '}
+                s'appliquent.
                 {vitrine.maj ? ` Disponibilité constatée le ${leJour(vitrine.maj)}.` : ''}
               </p>
 

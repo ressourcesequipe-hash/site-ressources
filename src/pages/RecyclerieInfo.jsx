@@ -9,6 +9,7 @@ const PAGES_FILLES = [
   { to: '/recyclerie-informatique/reconditionnement/', title: 'Notre processus', desc: 'Les 6 étapes de la filière, de la collecte à la redistribution', Icon: IconOutil },
   { to: '/recyclerie-informatique/effacement-donnees/', title: 'Sécurité des données', desc: 'Effacement sécurisé, traçabilité, conformité RGPD', Icon: IconSecurite },
   { to: '/recyclerie-informatique/beneficiaires/', title: 'Acheter du matériel', desc: 'Acquérir un équipement reconditionné à prix solidaire', Icon: IconPartenaires },
+  { to: '/materiel-disponible/', title: 'Matériel disponible', desc: 'Ce qui est en rayon aujourd\'hui, avec photos et prix', Icon: IconOrdinateur },
 ]
 
 const FAQ_SCHEMA = {
@@ -28,7 +29,7 @@ const FAQ_SCHEMA = {
     {
       '@type': 'Question',
       name: 'Puis-je acheter un équipement reconditionné chez Ressources ?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Oui. Les équipements reconditionnés sont vendus à prix solidaire, bien en dessous du marché. Contactez-nous pour connaître les stocks disponibles.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Oui. Les équipements reconditionnés sont vendus à prix solidaire, bien en dessous du marché. Le matériel actuellement en rayon est visible en ligne, avec ses photos, son état et son prix, sur la page « Matériel disponible ».' },
     },
     {
       '@type': 'Question',
