@@ -33,6 +33,8 @@ import Tombola from './pages/soutenir/Tombola'
 import Benevole from './pages/soutenir/Benevole'
 import Mecene from './pages/soutenir/Mecene'
 import Don from './pages/soutenir/Don'
+import Boutique from './pages/Boutique'
+import BoutiqueProduit from './pages/BoutiqueProduit'
 import Contact from './pages/Contact'
 import MentionsLegales from './pages/MentionsLegales'
 import Confidentialite from './pages/Confidentialite'
@@ -51,6 +53,8 @@ export default function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/evenement-lancement-03-octobre-2026/" element={<Evenement />} />
         <Route path="/defi-collecte/" element={<DefiCollecte />} />
+        <Route path="/materiel-disponible/" element={<Boutique />} />
+        <Route path="/materiel-disponible/:code/" element={<BoutiqueProduit />} />
         <Route path="/recyclerie-informatique/" element={<RecyclerieInfo />} />
         <Route path="/recyclerie-informatique/comment-donner/" element={<CommentDonner />} />
         <Route path="/recyclerie-informatique/materiel-accepte/" element={<MaterielAccepte />} />

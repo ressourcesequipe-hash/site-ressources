@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node prerender.js",
+    "build": "node scripts/vitrine.mjs && vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node prerender.js",
     "build:client": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "vitrine": "node scripts/vitrine.mjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

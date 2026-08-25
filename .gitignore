@@ -13,3 +13,8 @@ dist-ssr
 # Sources de design (visuels haute resolution, non utilisees par le site) —
 # gardees en local pour retravailler, jamais deployees.
 /design
+
+# Vitrine : photos recopiees depuis Ressources 360 au build.
+# Le catalogue (src/data/vitrine.json) est versionne vide, et regenere a chaque
+# build — inutile de committer son contenu.
+/public/vitrine

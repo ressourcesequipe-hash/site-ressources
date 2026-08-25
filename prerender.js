@@ -22,6 +22,7 @@ const STATIC_ROUTES = [
   '/',
   '/evenement-lancement-03-octobre-2026/',
   '/defi-collecte/',
+  '/materiel-disponible/',
   '/recyclerie-informatique/',
   '/recyclerie-informatique/comment-donner/',
   '/recyclerie-informatique/materiel-accepte/',
@@ -79,6 +80,21 @@ async function main() {
     console.warn('[prerender] Articles non chargés, routes statiques uniquement :', e.message)
   }
 
+  /* Vitrine : une page par appareil en rayon.
+     Sans elles, Google ne verrait qu'une liste chargée en JavaScript — c'est-a-dire
+     rien. Elles disparaissent d'elles-mêmes au build suivant quand l'appareil
+     est vendu, et vercel.json renvoie alors vers la liste. */
+  let produits = []
+  try {
+    const vitrine = JSON.parse(
+      fs.readFileSync(path.join(__dirname, 'src', 'data', 'vitrine.json'), 'utf-8')
+    )
+    produits = vitrine.produits || []
+    for (const p of produits) routes.push(`/materiel-disponible/${p.code.toLowerCase()}/`)
+  } catch (e) {
+    console.warn('[prerender] Vitrine non chargée :', e.message)
+  }
+
   const template = fs.readFileSync(path.join(distDir, 'index.html'), 'utf-8')
 
   let ok = 0
@@ -105,7 +121,22 @@ async function main() {
     }
   }
 
-  console.log(`[prerender] ${ok}/${routes.length} pages prérendues.`)
+  /* Le plan du site de la vitrine, à part : il change à chaque publication,
+     là où sitemap.xml est écrit à la main et bouge deux fois par an. */
+  const aujourdhui = new Date().toISOString().slice(0, 10)
+  const urls = [
+    `  <url><loc>https://www.ressourcesrecyclerie.fr/materiel-disponible/</loc><lastmod>${aujourdhui}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>`,
+    ...produits.map(
+      (p) =>
+        `  <url><loc>https://www.ressourcesrecyclerie.fr/materiel-disponible/${p.code.toLowerCase()}/</loc><lastmod>${aujourdhui}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`
+    ),
+  ]
+  fs.writeFileSync(
+    path.join(distDir, 'sitemap-materiel.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`
+  )
+
+  console.log(`[prerender] ${ok}/${routes.length} pages prérendues, ${produits.length} en vitrine.`)
   if (failed.length) {
     console.error('[prerender] Échecs :')
     failed.forEach((f) => console.error('  - ' + f))
