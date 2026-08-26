@@ -13,20 +13,13 @@ const BREADCRUMBS = [
   { label: 'Bénéficiaires' },
 ]
 
+// Deux questions d'achat sont parties dans Boutique.jsx : une FAQPage qui
+// repond « quels equipements sont en vente » sur une page qui n'en vend pas
+// entretenait le meme chevauchement que le pas-a-pas.
 const FAQ_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Quels équipements reconditionnés sont disponibles à la vente ?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Ordinateurs portables et fixes, tablettes, smartphones, écrans et périphériques. Le stock du jour est consultable en ligne sur la page « Matériel disponible », avec photos, état et prix. Il dépend des dons reçus, et tous les appareils sont testés et reconditionnés avant vente.' },
-    },
-    {
-      '@type': 'Question',
-      name: 'Quelle garantie sur le matériel reconditionné par Ressources ?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Les équipements vendus par Ressources bénéficient des garanties légales applicables à la vente de biens d\'occasion ou reconditionnés. Les conditions générales de vente préciseront les modalités avant le lancement effectif des ventes.' },
-    },
     {
       '@type': 'Question',
       name: 'Puis-je donner mon appareil et en racheter un reconditionné ?',
@@ -166,15 +159,10 @@ export default function Beneficiaires() {
           <div className="border-t border-beige pt-10 mb-8">
             <h2 className="font-serif text-2xl text-terre mb-6">Questions fréquentes</h2>
             <div className="space-y-4">
+              {/* Les deux questions d'achat — ce qui est en stock, quelle garantie —
+                  sont parties sur la boutique, la page qui vend. Restent ici celles
+                  qui parlent du cycle et de la pratique de l'association. */}
               {[
-                {
-                  q: 'Quels équipements seront disponibles à la vente ?',
-                  a: 'Ordinateurs portables et fixes, tablettes, smartphones, écrans et périphériques. Les stocks dépendent des dons reçus. Tous les appareils sont testés et reconditionnés avant vente.',
-                },
-                {
-                  q: 'Quelle garantie sur le matériel reconditionné ?',
-                  a: 'Les équipements vendus par Ressources bénéficient des garanties légales applicables à la vente de biens d\'occasion ou reconditionnés. Les conditions générales de vente préciseront les modalités avant le lancement effectif des ventes.',
-                },
                 {
                   q: 'Puis-je donner et racheter un équipement reconditionné ?',
                   a: 'Oui, tout à fait. Le cycle de vie est exactement celui-là : vous donnez votre ancien matériel, et vous pouvez acheter un équipement reconditionné par d\'autres donateurs.',

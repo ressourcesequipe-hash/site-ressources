@@ -16,6 +16,34 @@ const ETATS = {
   P: 'Pour pièces',
 }
 
+/* Ces deux questions vivaient sur la page benefices, qui ne vend pas : elles
+   y entretenaient la concurrence entre les deux pages sur la meme requete.
+   Elles appartiennent a la page ou l'on achete.
+
+   La reponse sur la garantie est reprise telle quelle, sans reformulation :
+   elle renvoie aux garanties legales et annonce des CGV a venir, un equilibre
+   qui a ete pese. Ne pas la durcir. */
+const FAQ = [
+  {
+    q: 'Quels équipements sont disponibles à la vente ?',
+    a: 'Ordinateurs portables et fixes, tablettes, smartphones, écrans et périphériques. Le stock dépend des dons reçus et change au fil des collectes : ce qui est affiché ci-dessus est ce qui est en rayon aujourd\'hui. Tous les appareils sont testés et reconditionnés avant vente.',
+  },
+  {
+    q: 'Quelle garantie sur le matériel reconditionné ?',
+    a: 'Les équipements vendus par Ressources bénéficient des garanties légales applicables à la vente de biens d\'occasion ou reconditionnés. Les conditions générales de vente préciseront les modalités avant le lancement effectif des ventes.',
+  },
+]
+
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+}
+
 export const prix = (n) =>
   new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 })
     .format(Number(n || 0))
@@ -178,7 +206,9 @@ export default function Boutique() {
         title="Boutique solidaire — matériel informatique reconditionné (Landes 40)"
         description="Boutique solidaire de matériel informatique reconditionné dans les Landes : ordinateurs, écrans et périphériques testés, données effacées, à voir sur place à Vielle-Saint-Girons."
         canonical="/materiel-disponible/"
-        schema={schema}
+        // Un tableau : JSON-LD accepte plusieurs noeuds a la racine, et la page
+        // en declare deux — le catalogue et sa FAQ.
+        schema={schema ? [schema, FAQ_SCHEMA] : FAQ_SCHEMA}
         ogImage={produits[0] ? `https://www.ressourcesrecyclerie.fr${produits[0].photos[0].src}` : null}
         ogImageWidth={produits[0] ? 600 : 1200}
         ogImageHeight={produits[0] ? 450 : 630}
@@ -354,8 +384,23 @@ export default function Boutique() {
                 to="/recyclerie-informatique/beneficiaires/"
                 className="border border-kaki px-5 py-2.5 font-sans text-sm font-medium text-kaki transition-colors hover:border-ocre hover:text-ocre"
               >
-                Garantie, paiement, à qui nous vendons
+                À qui nous vendons et à quelles conditions
               </Link>
+            </div>
+          </div>
+
+          <div className="mt-10 border-t border-beige pt-8">
+            <h2 className="mb-5 font-serif text-xl text-terre">Questions fréquentes</h2>
+            <div className="space-y-4">
+              {FAQ.map(({ q, a }) => (
+                <details key={q} className="group border border-beige">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-sans text-sm font-semibold text-terre transition-colors hover:text-ocre">
+                    {q}
+                    <span className="shrink-0 text-ocre/50 transition-transform duration-200 group-open:rotate-180">▾</span>
+                  </summary>
+                  <p className="px-5 pb-5 text-sm leading-relaxed text-terre/65">{a}</p>
+                </details>
+              ))}
             </div>
           </div>
           <div className="mt-10 text-sm leading-relaxed text-terre/55">

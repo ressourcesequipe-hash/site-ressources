@@ -64,7 +64,10 @@ export default function Footer() {
                 <span className="text-white/60"> une seconde vie dans les Landes.</span>
               </h2>
             </div>
-            <div className="flex flex-wrap gap-3 shrink-0">
+            {/* Sans min-w-0, cette rangee refuse de se comprimer sous la largeur de ses
+                boutons : autour de 850 px elle poussait la page et provoquait une
+                barre de defilement horizontale sur tout le site. */}
+            <div className="flex flex-wrap gap-3 min-w-0">
               <Link
                 to="/recyclerie-informatique/comment-donner/"
                 className="border border-ocre text-ocre px-6 py-2.5 text-sm font-medium hover:bg-ocre hover:text-white transition-all duration-200 whitespace-nowrap"
