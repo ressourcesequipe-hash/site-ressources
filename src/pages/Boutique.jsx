@@ -26,6 +26,61 @@ export function leJour(iso) {
   return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
+export const BASE = 'https://www.ressourcesrecyclerie.fr'
+
+/**
+ * Balisage Product d'un appareil, partage par le catalogue et par sa fiche.
+ *
+ * Une seule construction pour les deux : un prix ou une disponibilite qui
+ * differerait entre la liste et la fiche fait perdre le resultat enrichi, et
+ * Google le verifie. Retourne l'objet sans `@context`, pour pouvoir aussi bien
+ * etre imbrique dans l'ItemList du catalogue que servir de bloc autonome sur
+ * la fiche, qui ajoute alors le contexte.
+ */
+export function schemaProduit(p, { vendu = false } = {}) {
+  return {
+    '@type': 'Product',
+    name: p.titre,
+    description: p.description,
+    category: p.categorie,
+    ...(p.marque ? { brand: { '@type': 'Brand', name: p.marque } } : {}),
+    ...(p.modele ? { model: p.modele } : {}),
+    sku: p.code,
+    image: p.photos.map((ph) => `${BASE}${ph.src}`),
+    offers: {
+      '@type': 'Offer',
+      url: `${BASE}/materiel-disponible/${p.code.toLowerCase()}/`,
+      price: p.prix,
+      priceCurrency: 'EUR',
+      itemCondition: 'https://schema.org/RefurbishedCondition',
+      // Un appareil parti ne dit pas « en stock » à Google : la disponibilité
+      // démentie par la page fait perdre le résultat enrichi, et c'est faux.
+      availability: vendu ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+      availableAtOrFrom: {
+        '@type': 'Place',
+        name: 'Recyclerie Ressources',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '80 allée des Cigales',
+          addressLocality: 'Vielle-Saint-Girons',
+          postalCode: '40560',
+          addressCountry: 'FR',
+        },
+      },
+      seller: { '@type': 'Organization', name: 'Association Ressources', url: BASE },
+    },
+    ...(p.caracteristiques?.length
+      ? {
+          additionalProperty: p.caracteristiques.map((c) => ({
+            '@type': 'PropertyValue',
+            name: c.libelle,
+            value: c.unite ? `${c.valeur} ${c.unite}` : c.valeur,
+          })),
+        }
+      : {}),
+  }
+}
+
 function Carte({ p, vendu = false }) {
   return (
     <Link
@@ -97,20 +152,22 @@ export default function Boutique() {
   const visibles = garder(produits)
   const vendusVisibles = garder(vendus)
 
-  /* Le catalogue déclaré à Google : une liste de produits, chacun avec son
-     prix et sa disponibilité. C'est ce qui permet aux fiches d'apparaître dans
-     les résultats enrichis. */
+  /* Le catalogue déclaré à Google. Chaque entrée portait jusqu'ici une simple
+     URL et un nom : de quoi annoncer une liste, mais rien qui dise a un moteur
+     ce qui est vendu, a quel prix, ni si c'est encore disponible. Elle embarque
+     maintenant le meme bloc Product que la fiche correspondante, ce qui rend la
+     page de liste eligible aux memes resultats enrichis. */
   const schema = produits.length
     ? {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
-        name: 'Matériel informatique reconditionné disponible — Recyclerie Ressources',
+        name: 'Boutique solidaire — matériel informatique reconditionné, Recyclerie Ressources',
         numberOfItems: produits.length,
         itemListElement: produits.map((p, i) => ({
           '@type': 'ListItem',
           position: i + 1,
-          url: `https://www.ressourcesrecyclerie.fr/materiel-disponible/${p.code.toLowerCase()}/`,
-          name: p.titre,
+          url: `${BASE}/materiel-disponible/${p.code.toLowerCase()}/`,
+          item: schemaProduit(p),
         })),
       }
     : null
@@ -118,8 +175,8 @@ export default function Boutique() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Matériel informatique reconditionné à vendre — Recyclerie Ressources (Landes 40)"
-        description="Ordinateurs, écrans et périphériques reconditionnés par la recyclerie solidaire Ressources à Vielle-Saint-Girons (Landes). Matériel testé, données effacées, à voir sur place. Le stock évolue au fil des collectes."
+        title="Boutique solidaire — matériel informatique reconditionné (Landes 40)"
+        description="Boutique solidaire de matériel informatique reconditionné dans les Landes : ordinateurs, écrans et périphériques testés, données effacées, à voir sur place à Vielle-Saint-Girons."
         canonical="/materiel-disponible/"
         schema={schema}
         ogImage={produits[0] ? `https://www.ressourcesrecyclerie.fr${produits[0].photos[0].src}` : null}
@@ -133,14 +190,17 @@ export default function Boutique() {
           <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-ocre">
             Recyclerie informatique
           </p>
+          {/* Le titre precedent, « Le matériel disponible », ne disait ni ce
+              qu'on vend ni ou : aucun des mots que quelqu'un tape pour trouver
+              cette page. */}
           <h1 className="mb-4 font-serif text-3xl text-white sm:text-4xl">
-            Le matériel disponible
+            Boutique solidaire de matériel informatique reconditionné
           </h1>
           <p className="max-w-2xl leading-relaxed text-white/65">
-            Du matériel informatique reconditionné dans notre atelier de Vielle-Saint-Girons, à
-            vendre à prix solidaire sur la côte landaise. Chaque appareil a été collecté près de
-            chez vous, contrôlé pièce par pièce, testé, nettoyé, et ses données effacées avant
-            d'être remis en vente.
+            La boutique de la recyclerie, dans notre atelier de Vielle-Saint-Girons : du matériel
+            informatique reconditionné, à prix solidaire, sur la côte landaise. Chaque appareil a
+            été collecté près de chez vous, contrôlé pièce par pièce, testé, nettoyé, et ses
+            données effacées avant d'être remis en vente.
           </p>
           <p className="mt-3 max-w-2xl leading-relaxed text-white/65">
             Le stock change au fil des collectes : ce que vous voyez ici est ce qui est en rayon

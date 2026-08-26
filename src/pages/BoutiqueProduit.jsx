@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import vitrine from '../data/vitrine.json'
-import { prix, leJour } from './Boutique'
+import { prix, leJour, schemaProduit, BASE } from './Boutique'
 
 const ETATS = {
   A: { libelle: 'Comme neuf', detail: 'Aucune trace d\'usage visible.' },
@@ -11,8 +11,6 @@ const ETATS = {
   C: { libelle: 'État correct', detail: 'Marques d\'usage visibles, entièrement fonctionnel.' },
   P: { libelle: 'Pour pièces', detail: 'Vendu en l\'état, pour récupération.' },
 }
-
-const BASE = 'https://www.ressourcesrecyclerie.fr'
 
 export default function BoutiqueProduit() {
   const { code } = useParams()
@@ -29,53 +27,11 @@ export default function BoutiqueProduit() {
   if (!p) return <Navigate to="/materiel-disponible/" replace />
 
   const etat = p.etat ? ETATS[p.etat] : null
-  const url = `${BASE}/materiel-disponible/${p.code.toLowerCase()}/`
 
-  /* La fiche produit déclarée à Google. `itemCondition: RefurbishedCondition`
-     et `availability: InStock` sont ce qui la rend éligible aux résultats
-     enrichis ; `businessFunction` dit que c'est une vente, pas une location. */
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: p.titre,
-    description: p.description,
-    category: p.categorie,
-    ...(p.marque ? { brand: { '@type': 'Brand', name: p.marque } } : {}),
-    ...(p.modele ? { model: p.modele } : {}),
-    sku: p.code,
-    image: p.photos.map((ph) => `${BASE}${ph.src}`),
-    offers: {
-      '@type': 'Offer',
-      url,
-      price: p.prix,
-      priceCurrency: 'EUR',
-      itemCondition: 'https://schema.org/RefurbishedCondition',
-      // Un appareil parti ne dit pas « en stock » à Google : la disponibilité
-      // démentie par la page fait perdre le résultat enrichi, et c'est faux.
-      availability: vendu ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
-      availableAtOrFrom: {
-        '@type': 'Place',
-        name: 'Recyclerie Ressources',
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: '80 allée des Cigales',
-          addressLocality: 'Vielle-Saint-Girons',
-          postalCode: '40560',
-          addressCountry: 'FR',
-        },
-      },
-      seller: { '@type': 'Organization', name: 'Association Ressources', url: BASE },
-    },
-    ...(p.caracteristiques.length
-      ? {
-          additionalProperty: p.caracteristiques.map((c) => ({
-            '@type': 'PropertyValue',
-            name: c.libelle,
-            value: c.unite ? `${c.valeur} ${c.unite}` : c.valeur,
-          })),
-        }
-      : {}),
-  }
+  /* La fiche declaree a Google. Le bloc vient de Boutique.jsx, qui le sert
+     aussi au catalogue : c'est ce qui garantit que le prix et la
+     disponibilite annonces dans la liste sont exactement ceux de la fiche. */
+  const schema = { '@context': 'https://schema.org', ...schemaProduit(p, { vendu }) }
 
   return (
     <Layout
