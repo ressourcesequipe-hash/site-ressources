@@ -57,6 +57,80 @@ const STATIC_ROUTES = [
   '/confidentialite/',
 ]
 
+/* Sections de llms.txt, dans l'ordre de sortie. Une route est rattachée à la
+   section dont le préfixe est le plus long, ce qui suffit à séparer
+   /association/actualites/ de /association/. `routes` prime sur `prefixe`.
+
+   « Optional » n'est pas traduit : c'est le seul nom de section auquel la
+   spécification llms.txt donne un sens, celui de contenu qu'un modèle peut
+   ignorer s'il manque de place. */
+const SECTIONS_LLMS = [
+  { titre: 'Pages principales', routes: ['/', '/defi-collecte/', '/evenement-lancement-03-octobre-2026/', '/materiel-disponible/', '/contact/'] },
+  { titre: 'Recyclerie informatique', prefixe: '/recyclerie-informatique/' },
+  { titre: 'Recyclerie végétale', prefixe: '/recyclerie-vegetale/' },
+  { titre: 'Ateliers', prefixe: '/ateliers/' },
+  { titre: "Soutenir l'association", prefixe: '/soutenir/' },
+  { titre: "L'association", prefixe: '/association/' },
+  { titre: 'Actualités', prefixe: '/association/actualites/' },
+  { titre: 'Optional', routes: ['/mentions-legales/', '/confidentialite/'] },
+]
+
+const ENTITES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' }
+
+/** Le <head> rendu par Helmet est du HTML : ses entités doivent être défaites
+ *  avant d'atterrir dans un fichier Markdown. */
+function decoder(s) {
+  return s
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
+    .replace(/&([a-z]+);/gi, (m, n) => ENTITES[n.toLowerCase()] ?? m)
+}
+
+/** Retire le suffixe de marque des <title>, qui n'apporte rien répété 43 fois. */
+function titreCourt(titre) {
+  return titre.replace(/\s*[|—·-]\s*(Association\s+)?Ressources\b.*$/i, '').trim() || titre
+}
+
+function sectionDe(route) {
+  const exacte = SECTIONS_LLMS.find((s) => s.routes?.includes(route))
+  if (exacte) return exacte
+  return SECTIONS_LLMS
+    .filter((s) => s.prefixe && route.startsWith(s.prefixe))
+    .sort((a, b) => b.prefixe.length - a.prefixe.length)[0]
+}
+
+/* llms.txt — l'équivalent de robots.txt pour les modèles de langage : un plan
+   du site en Markdown, avec une phrase par page. Généré ici plutôt qu'écrit à
+   la main dans public/, pour que titres et descriptions restent ceux que les
+   pages déclarent vraiment, sans resynchronisation manuelle. */
+function ecrireLlmsTxt(pages) {
+  const lignes = [
+    '# Association Ressources',
+    '',
+    '> Recyclerie informatique et végétale solidaire à Vielle-Saint-Girons (Landes, 40560).',
+    "> Association loi 1901 fondée en 2025. Collecte, reconditionnement et redistribution",
+    '> de matériel informatique et de végétaux sur le territoire landais.',
+    '',
+    "Site en français. Toutes les pages ci-dessous sont prérendues : leur contenu est",
+    'lisible sans exécuter de JavaScript.',
+    '',
+  ]
+
+  for (const section of SECTIONS_LLMS) {
+    const siennes = pages.filter((p) => sectionDe(p.route) === section)
+    if (!siennes.length) continue
+    lignes.push(`## ${section.titre}`, '')
+    for (const { route, titre, description } of siennes) {
+      const url = `https://www.ressourcesrecyclerie.fr${route}`
+      lignes.push(description ? `- [${titre}](${url}): ${description}` : `- [${titre}](${url})`)
+    }
+    lignes.push('')
+  }
+
+  fs.writeFileSync(path.join(distDir, 'llms.txt'), lignes.join('\n'))
+  return pages.length
+}
+
 async function main() {
   if (!fs.existsSync(ssrEntry)) {
     console.error(`[prerender] Introuvable : ${ssrEntry} — le build SSR a-t-il échoué ?`)
@@ -103,10 +177,25 @@ async function main() {
 
   let ok = 0
   const failed = []
+  const pagesLlms = []
 
   for (const route of routes) {
     try {
       const { html, head } = render(route)
+
+      /* Les fiches produit de la vitrine sont écartées de llms.txt : elles
+         disparaissent dès l'appareil vendu, et la liste les couvre. */
+      if (!/^\/materiel-disponible\/.+/.test(route)) {
+        const titre = (head.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1]
+        const desc = (head.match(/<meta[^>]*name="description"[^>]*content="([^"]*)"/i) || [])[1]
+        if (titre) {
+          pagesLlms.push({
+            route,
+            titre: titreCourt(decoder(titre.trim())),
+            description: desc ? decoder(desc.trim()) : '',
+          })
+        }
+      }
 
       /* On retire le <title> et la <meta description> par défaut du template :
          Helmet fournit ceux, spécifiques, de chaque page. */
@@ -140,8 +229,10 @@ async function main() {
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`
   )
 
+  const nbLlms = ecrireLlmsTxt(pagesLlms)
+
   console.log(
-    `[prerender] ${ok}/${routes.length} pages prérendues, ${produits.length} en vitrine, ${vendus.length} vendu(s).`
+    `[prerender] ${ok}/${routes.length} pages prérendues, ${produits.length} en vitrine, ${vendus.length} vendu(s), ${nbLlms} dans llms.txt.`
   )
   if (failed.length) {
     console.error('[prerender] Échecs :')

@@ -351,7 +351,10 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Vignette — reprend visuellement les lots */}
+            {/* Vignette — reprend visuellement les lots.
+                L'affiche est l'unique contenu du lien : son alt sert donc de nom
+                accessible au lien, et ne peut pas rester vide. Il reprend le
+                texte de l'affiche, prix inclus, pour ne pas s'en desolidariser. */}
             <Link to="/soutenir/tombola/" className="group hidden lg:block rounded-xl overflow-hidden shadow-2xl shadow-black/25">
               <img
                 src="/photos/tombola-vignette.webp"
@@ -359,7 +362,7 @@ export default function Home() {
                 height={720}
                 loading="lazy"
                 decoding="async"
-                alt=""
+                alt={`Tombola solidaire du 3 octobre 2026 : plus de 4 000 € de lots à gagner, ticket à ${PRIX_BILLET} € — voir tous les lots`}
                 className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.03]"
               />
             </Link>
