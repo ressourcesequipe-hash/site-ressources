@@ -203,7 +203,7 @@ export default function BandeauTempsForts() {
               {vignette && (
                 <Link
                   to={vignette.lien}
-                  className="group block rounded-xl overflow-hidden shadow-2xl shadow-black/25"
+                  className="group block rounded-xl overflow-hidden border-4 border-white shadow-2xl shadow-black/30"
                 >
                   <img
                     src={vignette.src}

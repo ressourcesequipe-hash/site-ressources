@@ -130,7 +130,7 @@ export default function DefiCollecte() {
             fetchpriority="high"
             decoding="async"
             alt="Affiche du challenge territorial organisé par l'association Ressources : objectif une demi-tonne de matériel électronique et informatique."
-            className="w-full h-auto block rounded-xl shadow-2xl shadow-black/25"
+            className="w-full h-auto block rounded-xl border-4 border-white shadow-2xl shadow-black/30"
           />
           </div>
         </div>
