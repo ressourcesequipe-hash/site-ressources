@@ -4,9 +4,13 @@ import SEO from '../../components/SEO'
 import { IconFamille, IconEcole, IconPartenaires, IconBriefcase, IconMaison, IconSenior } from '../../components/Icons'
 import { FINANCEMENT_PAR_LA_VENTE, VOIES_REMISE_CIRCULATION } from '../../data/redistribution'
 
+// Le fil d'Ariane reprend le libelle du menu et le mot de l'URL. Les trois
+// disaient des choses differentes — « Beneficiaires » en navigation, /beneficiaires/
+// en adresse, « Acheter du materiel reconditionne » en titre — et cette page
+// se retrouvait a promettre la meme chose que la boutique.
 const BREADCRUMBS = [
   { label: 'Recyclerie Informatique', href: '/recyclerie-informatique/' },
-  { label: 'Acheter du matériel reconditionné' },
+  { label: 'Bénéficiaires' },
 ]
 
 const FAQ_SCHEMA = {
@@ -40,8 +44,11 @@ export default function Beneficiaires() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Acheter un Ordinateur Reconditionné Landes | Ressources"
-        description="Achetez un ordinateur, tablette ou smartphone reconditionné à prix solidaire dans les Landes (40). L'association Ressources propose des équipements remis en état, bien en dessous du prix du marché."
+        // Titre volontairement eloigne de celui de la boutique : les deux
+        // promettaient « acheter du reconditionne dans les Landes », et Google
+        // devait en choisir un. Celui-ci vise les publics, l'autre l'achat.
+        title="Matériel reconditionné pour associations, écoles et collectivités — Landes"
+        description="Associations, écoles, collectivités, structures d'insertion, particuliers : à qui va le matériel reconditionné de Ressources (Landes) et à quelles conditions."
         canonical="/recyclerie-informatique/beneficiaires/"
         schema={FAQ_SCHEMA}
       />
@@ -49,15 +56,16 @@ export default function Beneficiaires() {
       <section className="bg-kaki-pale py-12 md:py-16 border-b border-kaki/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <p className="font-sans text-ocre text-xs font-semibold tracking-[0.2em] uppercase mb-3">
-            Vente solidaire
+            Publics et conditions
           </p>
           <h1 className="font-serif text-3xl sm:text-4xl text-terre mb-4">
-            Acheter du matériel reconditionné
+            À qui va le matériel reconditionné
           </h1>
           <p className="text-terre/60 max-w-xl leading-relaxed">
-            Les équipements reconditionnés par Ressources sont proposés à la vente
-            à prix solidaire — bien en dessous du marché. Accessible à tous,
-            avec des conditions adaptées pour les structures sociales et partenaires.
+            Le matériel remis en état ne part pas au hasard. Une partie alimente des actions
+            solidaires et des bénéficiaires identifiés avec nos partenaires — écoles,
+            associations, structures d'insertion, collectivités. Le reste est vendu à prix
+            solidaire à tout habitant du territoire, sans condition de ressources.
           </p>
         </div>
       </section>
@@ -123,25 +131,24 @@ export default function Beneficiaires() {
               d'accueil, sous un intitule qui dit explicitement que ce sont des
               objectifs. Ne pas les reintroduire ici sans le meme cadrage. */}
 
-          {/* Processus */}
+          {/* Le pas-a-pas d'achat vivait ici ET sur la boutique, dans les memes
+              termes : deux pages du site se disputaient la meme requete. Il ne
+              reste qu'a un endroit, celui ou l'on achete. Cette page garde ce
+              qu'elle est seule a dire — pour qui, a quelles conditions. */}
           <div className="mb-10">
-            <h2 className="font-serif text-2xl text-terre mb-6">Comment acheter un équipement ?</h2>
-            <div className="space-y-4">
-              {[
-                { num: '1', title: 'Nous contacter', desc: 'Décrivez votre besoin (type d\'appareil, usage prévu) par email ou via le formulaire. Nous vérifions la disponibilité du stock.' },
-                { num: '2', title: 'Proposition et prix', desc: 'Nous vous proposons l\'équipement disponible correspondant à vos besoins, avec son prix solidaire et une description de son état.' },
-                { num: '3', title: 'Remise de l\'équipement', desc: 'Notre point de collecte à Vielle-Saint-Girons est en cours de validation : nous convenons ensemble du lieu et des modalités de remise. Un reçu vous est remis.' },
-                { num: '4', title: 'Prise en main', desc: 'Nos bénévoles peuvent vous accompagner brièvement dans la prise en main de l\'équipement si nécessaire.' },
-              ].map(({ num, title, desc }) => (
-                <div key={num} className="flex gap-4">
-                  <span className="w-7 h-7 rounded-full bg-ocre text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">{num}</span>
-                  <div>
-                    <p className="font-sans text-sm font-semibold text-terre mb-0.5">{title}</p>
-                    <p className="text-sm text-terre/60 leading-relaxed">{desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <h2 className="font-serif text-2xl text-terre mb-4">Comment se passe un achat</h2>
+            <p className="text-sm text-terre/65 leading-relaxed mb-4 max-w-2xl">
+              Le stock du jour, les prix et la marche à suivre sont sur la boutique : on vient
+              voir l'appareil allumé à Vielle-Saint-Girons, rien ne se commande en ligne.
+            </p>
+            <p className="text-sm text-terre/65 leading-relaxed max-w-2xl">
+              Pour un besoin en nombre — équiper une classe, une association, un chantier
+              d'insertion —{' '}
+              <Link to="/contact/" className="text-ocre underline underline-offset-4 hover:text-ocre-dark">
+                écrivez-nous directement
+              </Link>{' '}
+              : nous cherchons dans les collectes à venir plutôt que dans le rayon du jour.
+            </p>
           </div>
 
           <div className="bg-ocre-pale border border-ocre/20 p-6 mb-8">
@@ -198,8 +205,10 @@ export default function Beneficiaires() {
               son état réel, ses caractéristiques et son prix — et se voit sur place, allumé, avant
               tout achat.
             </p>
+            {/* Ancre volontairement descriptive : « Voir ce qui est en rayon »
+                ne disait a un moteur ni ou menait le lien, ni sur quoi. */}
             <Link to="/materiel-disponible/" className="btn-ocre mt-5 inline-block text-sm">
-              Voir ce qui est en rayon
+              Voir la boutique de matériel reconditionné
             </Link>
           </div>
 
