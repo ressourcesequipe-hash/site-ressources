@@ -80,9 +80,14 @@ export default function Partenaires() {
                     >
                       {/* Logo */}
                       <div className="h-16 flex items-center mb-5">
+                        {/* Pas de width/height : chaque logo a son propre ratio
+                            et le conteneur h-16 fixe deja la hauteur, donc rien
+                            ne bouge au chargement. */}
                         <img
                           src={logo}
                           alt={`Logo ${nom}`}
+                          loading="lazy"
+                          decoding="async"
                           className="max-h-full max-w-[160px] object-contain"
                           onError={(e) => {
                             e.target.style.display = 'none'

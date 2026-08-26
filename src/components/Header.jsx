@@ -198,8 +198,19 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 shrink-0 group">
             <div className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center transition-all duration-300 group-hover:scale-105 mx-2 my-1">
+              {/* Candidat LCP sur mobile : charge en priorite, jamais differe.
+                  Les variantes sont produites par scripts/optimiser-logos.mjs ;
+                  sizes reprend les 80 / 96 px du conteneur ci-dessus. */}
               <img
-                src="/logos/LOGO_ressources-recyclerie.png"
+                src="/logos/logo-ressources-192.webp"
+                srcSet="/logos/logo-ressources-96.webp 96w,
+                        /logos/logo-ressources-192.webp 192w,
+                        /logos/logo-ressources-288.webp 288w"
+                sizes="(min-width: 768px) 96px, 80px"
+                width="96"
+                height="96"
+                fetchpriority="high"
+                decoding="async"
                 alt="Logo Ressources Recyclerie"
                 className="w-full h-full object-contain drop-shadow-sm"
               />

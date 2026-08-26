@@ -4,8 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#C8973A" />
-    <link rel="icon" type="image/png" href="/logo.png" />
-    <link rel="apple-touch-icon" href="/logo.png" />
+    <!-- Le favicon etait le logo complet en 1254x1254 (1,2 Mo) : illisible a la
+         taille d'un onglet, et telecharge sur chaque page. Le SVG pese 226 o et
+         reste net a toute taille ; le PNG 48 est le repli, l'icone iOS est en
+         180 px car iOS n'accepte pas de SVG. -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Bunny Fonts (RGPD-compatible) -->
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />

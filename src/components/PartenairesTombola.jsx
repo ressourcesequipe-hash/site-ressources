@@ -9,8 +9,9 @@ function CartePartenaire({ nom, logo, ville, site }) {
             src={logo}
             alt={`Logo ${nom}`}
             // Pas de lazy-loading : le bandeau défile en continu et les logos
-            // apparaîtraient un par un. Ils sont redimensionnés à 160 px, le
-            // chargement immédiat de l'ensemble reste léger.
+            // apparaîtraient un par un. Ce sont des WebP 96 px produits par
+            // scripts/optimiser-logos.mjs (2 à 6 Ko pièce) : charger les vingt
+            // d'un coup coûte moins que le seul logo du header.
             width="48"
             height="48"
             className="max-w-full max-h-full object-contain transition-transform duration-300 ease-out

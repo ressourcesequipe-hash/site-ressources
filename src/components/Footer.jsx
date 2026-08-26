@@ -102,7 +102,9 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link to="/" className="inline-flex items-center gap-3 mb-6 group">
               <div className="w-10 h-10 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
-                <img src="/logos/LOGO_ressources-recyclerie.png" alt="Logo Ressources Recyclerie" className="w-full h-full object-contain brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity" />
+                {/* Rendu en 40 px et toujours sous la ligne de flottaison : la
+                    plus petite variante suffit, et elle peut attendre. */}
+                <img src="/logos/logo-ressources-96.webp" alt="Logo Ressources Recyclerie" width="40" height="40" loading="lazy" decoding="async" className="w-full h-full object-contain brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity" />
               </div>
               <div>
                 <span className="block font-sans text-white text-base font-semibold">Ressources</span>
