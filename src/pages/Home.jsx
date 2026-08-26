@@ -3,9 +3,10 @@ import { useEffect, useLayoutEffect, useRef, useState, useCallback } from 'react
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import NewsletterForm from '../components/NewsletterForm'
+import BandeauTempsForts from '../components/BandeauTempsForts'
 import { useReveal } from '../hooks/useReveal'
 import { COOPERATIONS_EN_COURS, PARTENAIRES_CONFIRMES } from '../data/partenaires'
-import { NOMBRE_LOTS_ARRONDI, PRIX_BILLET, VALEUR_ARRONDIE } from '../data/lotsTombola'
+import { NOMBRE_LOTS_ARRONDI } from '../data/lotsTombola'
 import { afficher, objectifs, MENTION_PHASE_PILOTE } from '../data/objectifs'
 
 /* ── Count-up hook ── */
@@ -310,82 +311,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════ TOMBOLA — CONVERSION PRINCIPALE ══════════════ */}
-      {/* Bloc prioritaire jusqu'au tirage : les visiteurs arrivant d'Instagram,
-          d'une affiche QR ou d'un partenaire doivent comprendre en un coup d'oeil
-          qu'une tombola est en cours et pouvoir acheter en quelques secondes.
-          Remplace l'ancien bandeau evenement, dont il reprend la date et le lieu. */}
-      <section className="relative text-white overflow-hidden" style={{
-        background: 'linear-gradient(135deg, #2B3520 0%, #3D4A2D 55%, #59633F 100%)',
-      }}>
-        <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-ocre to-transparent" aria-hidden />
-        <div className="absolute right-0 top-0 w-[38%] h-full pointer-events-none" aria-hidden
-          style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.14), transparent 65%)' }} />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-12">
-          <div className="grid lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-12 items-center">
-
-            <div>
-              <p className="inline-flex items-center gap-2 font-sans text-ocre text-[11px] tracking-[0.22em] uppercase font-bold mb-3">
-                <span className="relative flex h-2 w-2 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ocre opacity-60" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-ocre" />
-                </span>
-                Grande tombola solidaire
-              </p>
-
-              <h2 className="font-serif text-3xl md:text-4xl text-white mb-3 leading-tight">
-                Plus de {VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots à gagner
-              </h2>
-
-              <p className="text-white/60 text-sm leading-relaxed mb-4 max-w-xl">
-                Villa sur la côte landaise · ordinateur gaming · vélo · vol en
-                montgolfière · séjours · restaurants · activités, et de nombreux
-                autres lots offerts par nos partenaires.
-              </p>
-
-              <p className="font-sans text-sm text-white/75 mb-6">
-                <span className="text-ocre font-bold text-base">{PRIX_BILLET} €</span> le billet
-                <span className="text-white/25 mx-2">·</span>
-                Tirage au sort le 3 octobre 2026 à Vielle-Saint-Girons
-              </p>
-
-              <div className="flex flex-wrap items-center gap-4">
-                <Link to="/soutenir/tombola/" className="btn-ocre shadow-ocre-glow">
-                  Je tente ma chance — {PRIX_BILLET} €
-                </Link>
-                <Link to="/soutenir/tombola/#lots" className="btn-outline-white">
-                  Découvrir tous les lots
-                </Link>
-                <Link
-                  to="/evenement-lancement-03-octobre-2026/"
-                  className="font-sans text-xs text-white/45 hover:text-white/80 transition-colors underline underline-offset-4"
-                >
-                  L'événement du 3 octobre
-                </Link>
-              </div>
-            </div>
-
-            {/* Vignette — reprend visuellement les lots.
-                L'affiche est l'unique contenu du lien : son alt sert donc de nom
-                accessible au lien, et ne peut pas rester vide. Il reprend le
-                texte de l'affiche, prix inclus, pour ne pas s'en desolidariser. */}
-            <Link to="/soutenir/tombola/" className="group hidden lg:block rounded-xl overflow-hidden shadow-2xl shadow-black/25">
-              <img
-                src="/photos/tombola-vignette.webp"
-                width={1280}
-                height={720}
-                loading="lazy"
-                decoding="async"
-                alt={`Tombola solidaire du 3 octobre 2026 : plus de 4 000 € de lots à gagner, ticket à ${PRIX_BILLET} € — voir tous les lots`}
-                className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.03]"
-              />
-            </Link>
-          </div>
-        </div>
-
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" aria-hidden />
-      </section>
+      {/* ══════════════ TEMPS FORTS — CONVERSION PRINCIPALE ══════════════ */}
+      {/* Carrousel tombola + challenge territorial. Le detail vit dans le
+          composant : deux diapositives, commandes et balayage tactile. */}
+      <BandeauTempsForts />
 
       {/* ══════════════ DEUX FILIÈRES ══════════════ */}
       <section className="py-20 md:py-28 bg-white" ref={filieres.ref}>
