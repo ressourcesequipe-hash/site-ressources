@@ -81,7 +81,12 @@ export default function DefiCollecte() {
           style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.12), transparent 68%)' }}
           aria-hidden
         />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
+        {/* Conteneur elargi par rapport a l'origine pour loger l'affiche a
+            cote du texte. En dessous de lg, tout retombe dans l'ordre du DOM :
+            le titre d'abord, l'affiche ensuite. */}
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-14 items-center">
+          <div>
           <p className="font-sans text-ocre text-xs font-semibold tracking-[0.2em] uppercase mb-3">
             Du {DEFI.debut} au {DEFI.fin}
           </p>
@@ -110,6 +115,23 @@ export default function DefiCollecte() {
             <a href="#devenir-point-collecte" onClick={versFormulaire} className="btn-ocre text-sm">
               Devenir point de collecte
             </a>
+          </div>
+          </div>
+
+          {/* L'affiche reprend l'essentiel du texte ci-contre, mais pas
+              seulement : elle porte aussi la signature de l'association et sa
+              mention finale. Son alt la decrit donc, sans repeter mot pour mot
+              le paragraphe voisin. Pas de lazy-loading, elle est en haut de
+              page et candidate au LCP. */}
+          <img
+            src="/photos/challenge-vignette.webp"
+            width={1280}
+            height={720}
+            fetchpriority="high"
+            decoding="async"
+            alt="Affiche du challenge territorial organisé par l'association Ressources : objectif une demi-tonne de matériel électronique et informatique."
+            className="w-full h-auto block rounded-xl shadow-2xl shadow-black/25"
+          />
           </div>
         </div>
       </section>
