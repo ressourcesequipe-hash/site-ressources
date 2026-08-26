@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+// Les objectifs chiffres ne sont pas redefinis ici : ce sont ceux de la page
+// d'accueil, qui fait autorite. Un dossier de presse qui annoncerait d'autres
+// chiffres que la page publique serait le pire endroit ou introduire un ecart.
+import { OBJECTIFS, afficher, MENTION_PHASE_PILOTE } from '../../data/objectifs'
 
 const BREADCRUMBS = [
   { label: 'L\'Association', href: '/association/' },
@@ -15,15 +19,6 @@ const REPERES = [
   { cle: 'Territoire', valeur: 'Côte landaise, Marensin, Born, Marsan' },
   { cle: 'Filières', valeur: 'Réemploi informatique et recyclerie végétale' },
   { cle: 'Lancement public', valeur: 'Samedi 03 octobre 2026, Vielle-Saint-Girons' },
-]
-
-const OBJECTIFS = [
-  { valeur: '120', label: 'équipements informatiques à collecter la première année' },
-  { valeur: '80 %', label: 'des équipements réemployés ou valorisés' },
-  { valeur: '1 000', label: 'plantes à redistribuer' },
-  { valeur: '5', label: 'communes partenaires visées' },
-  { valeur: '2', label: 'communautés de communes' },
-  { valeur: '8', label: 'bénévoles réguliers' },
 ]
 
 // Revue de presse. article = notre récap interne ; source = le média d'origine.
@@ -165,14 +160,13 @@ export default function Presse() {
           <div className="mb-12">
             <h2 className="font-serif text-2xl text-terre mb-2">Nos objectifs — première année</h2>
             <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
-              Ces chiffres sont des objectifs de la phase pilote, et non des
-              résultats acquis : l'association se lance publiquement le 03 octobre 2026.
+              {MENTION_PHASE_PILOTE}
             </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {OBJECTIFS.map(({ valeur, label }) => (
-                <div key={label} className="border-t-2 border-ocre/30 bg-beige-light px-5 py-4">
-                  <p className="font-serif text-2xl text-ocre leading-none mb-1.5">{valeur}</p>
-                  <p className="font-sans text-xs text-terre/60 leading-snug">{label}</p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {OBJECTIFS.map((objectif) => (
+                <div key={objectif.cle} className="border-t-2 border-ocre/30 bg-beige-light px-5 py-4">
+                  <p className="font-serif text-2xl text-ocre leading-none mb-1.5">{afficher(objectif)}</p>
+                  <p className="font-sans text-xs text-terre/60 leading-snug">{objectif.label}</p>
                 </div>
               ))}
             </div>

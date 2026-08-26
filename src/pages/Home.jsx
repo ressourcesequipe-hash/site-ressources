@@ -1,19 +1,35 @@
 import { Link } from 'react-router-dom'
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, useCallback } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import NewsletterForm from '../components/NewsletterForm'
 import { useReveal } from '../hooks/useReveal'
 import { COOPERATIONS_EN_COURS, PARTENAIRES_CONFIRMES } from '../data/partenaires'
 import { NOMBRE_LOTS_ARRONDI, PRIX_BILLET, VALEUR_ARRONDIE } from '../data/lotsTombola'
+import { afficher, objectifs, MENTION_PHASE_PILOTE } from '../data/objectifs'
 
 /* ── Count-up hook ── */
+// useLayoutEffect previent bruyamment quand il s'execute au rendu serveur, ou
+// il n'a de toute facon aucun sens. On lui substitue useEffect la-bas.
+const useEffetAvantPeinture = typeof window === 'undefined' ? useEffect : useLayoutEffect
+
 function useCountUp(target, duration = 2000) {
-  const [count, setCount] = useState(0)
+  // Le compteur demarre a sa valeur finale, et non a zero : c'est cette valeur
+  // qui part dans le HTML prerendu. En partant de zero, la page d'accueil
+  // annoncait « 0 equipements a collecter » a Google et aux robots sociaux,
+  // qui n'executent pas le JavaScript declenchant l'animation au defilement.
+  const [count, setCount] = useState(target)
   const [started, setStarted] = useState(false)
   const ref = useRef(null)
 
-  useEffect(() => {
+  // Remise a zero apres l'hydratation mais avant la peinture : le premier rendu
+  // client reste identique au rendu serveur — donc pas d'erreur d'hydratation —
+  // et l'oeil ne voit pas le chiffre afficher sa valeur finale avant de repartir.
+  useEffetAvantPeinture(() => {
+    // Mouvement reduit : on garde la valeur finale, sans animation du tout.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    setCount(0)
     const el = ref.current
     if (!el) return
     const obs = new IntersectionObserver(
@@ -51,11 +67,14 @@ const STEPS = [
   { num: '06', title: 'Redistribuer', desc: 'Attribution solidaire sur le territoire' },
 ]
 
-const IMPACT = [
-  { value: 120,  suffix: '',  label: 'équipements à collecter' },
-  { value: 80,   suffix: '%', label: 'réemployés ou valorisés' },
-  { value: 1000, suffix: '',  label: 'plantes à redistribuer' },
-]
+// Les deux blocs d'objectifs de la page n'en montrent pas les memes : le hero
+// annonce ce qui est collecte et ou, le bloc impact la part reemployee. Les
+// valeurs viennent toutes de data/objectifs.js, qui fait autorite pour le site.
+const IMPACT = objectifs('equipements', 'reemploi', 'plantes')
+const OBJECTIFS_HERO = objectifs('equipements', 'plantes', 'communes')
+// Les deux cartes filieres reprennent les memes valeurs avec leur libelle
+// propre. Le chiffre vient de la meme source, seul le libelle leur appartient.
+const [CARTE_INFO, CARTE_VEGETAL] = objectifs('equipements', 'plantes')
 
 // Volontairement pas de liste locale : les statuts viennent de data/partenaires.js,
 // pour qu'une structure en cours d'echange ne puisse pas apparaitre ici comme
@@ -258,12 +277,8 @@ export default function Home() {
                 Nos objectifs — première année
               </p>
               <div className="flex flex-wrap gap-x-10 gap-y-4">
-              {[
-                { val: '120', label: 'équipements à collecter' },
-                { val: '1 000', label: 'plantes à redistribuer' },
-                { val: '5', label: 'communes partenaires' },
-              ].map(({ val, label }) => (
-                <div key={label} className="flex items-baseline gap-2 group">
+              {OBJECTIFS_HERO.map((objectif) => (
+                <div key={objectif.cle} className="flex items-baseline gap-2 group">
                   <span className="font-serif text-2xl leading-none group-hover:text-ocre transition-colors duration-300"
                     style={{
                       background: 'linear-gradient(135deg, #C8973A, #D4AA5A)',
@@ -271,9 +286,9 @@ export default function Home() {
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                     }}>
-                    {val}
+                    {afficher(objectif)}
                   </span>
-                  <span className="font-sans text-xs text-terre/40">{label}</span>
+                  <span className="font-sans text-xs text-terre/40">{objectif.label}</span>
                 </div>
               ))}
               </div>
@@ -410,7 +425,7 @@ export default function Home() {
                   <div className="text-right">
                     <p className="font-serif text-4xl leading-none"
                       style={{ background: 'linear-gradient(135deg, #C8973A, #D4AA5A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                      120
+                      {afficher(CARTE_INFO)}
                     </p>
                     <p className="font-sans text-[10px] text-white/35 tracking-wide mt-1">équipements / an</p>
                   </div>
@@ -458,7 +473,7 @@ export default function Home() {
                     <PlantIcon />
                   </div>
                   <div className="text-right">
-                    <p className="font-serif text-4xl leading-none" style={{ color: '#6c7c49' }}>1 000</p>
+                    <p className="font-serif text-4xl leading-none" style={{ color: '#6c7c49' }}>{afficher(CARTE_VEGETAL)}</p>
                     <p className="font-sans text-[10px] text-terre/35 tracking-wide mt-1">plantes / an</p>
                   </div>
                 </div>
@@ -509,11 +524,16 @@ export default function Home() {
           <div className={`text-center mb-16 transition-all duration-700 ${impact.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <p className="section-label">Phase pilote — An 1</p>
             <h2 className="font-serif text-3xl md:text-4xl text-terre">Nos objectifs d'impact</h2>
+            {/* Sans cette mention, trois grands chiffres animes se lisent comme
+                un bilan. L'association ne se lance que le 03 octobre 2026. */}
+            <p className="font-sans text-sm text-terre/70 leading-relaxed max-w-xl mx-auto mt-4">
+              {MENTION_PHASE_PILOTE}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-beige-dark/50 overflow-hidden rounded-xl shadow-xl">
-            {IMPACT.map(({ value, label, suffix }, i) => (
-              <ImpactCounter key={label} value={value} suffix={suffix} label={label} index={i} />
+            {IMPACT.map(({ valeur, label, suffixe }, i) => (
+              <ImpactCounter key={label} value={valeur} suffix={suffixe} label={label} index={i} />
             ))}
           </div>
         </div>
