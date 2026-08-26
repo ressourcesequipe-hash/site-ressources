@@ -30,7 +30,7 @@ export default function MentionsLegales() {
               <p><strong className="text-terre">Dénomination sociale :</strong> Association Ressources</p>
               <p><strong className="text-terre">Forme juridique :</strong> Association loi 1901</p>
               <p><strong className="text-terre">Siège social :</strong> 80 allée des Cigales, 40560 Vielle-Saint-Girons</p>
-              <p><strong className="text-terre">SIRET :</strong> en cours d'attribution</p>
+              <p><strong className="text-terre">SIRET :</strong> 945 155 075 00019</p>
               <p><strong className="text-terre">Email :</strong>{' '}
                 <a href="mailto:contact@ressourcesrecyclerie.fr" className="text-ocre hover:underline">
                   contact@ressourcesrecyclerie.fr

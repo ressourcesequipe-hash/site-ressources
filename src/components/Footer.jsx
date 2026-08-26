@@ -194,7 +194,7 @@ export default function Footer() {
       <div className="border-t border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
           <p className="text-[11px] text-white/30">
-            © 2025–2026 Association Ressources · Loi 1901 · SIRET en cours d'attribution
+            © 2025–2026 Association Ressources · Loi 1901 · SIRET 945 155 075 00019
           </p>
           <div className="flex flex-wrap gap-4">
             <Link to="/mentions-legales/" className="text-[11px] text-white/30 hover:text-white/60 transition-colors">Mentions légales</Link>
