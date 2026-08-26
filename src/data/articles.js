@@ -72,7 +72,7 @@ export const ARTICLES = [
   {
     slug: 'ressources-ici-gascogne-ca-marche-reemploi-informatique',
     title: 'Ressources invitée d\'« ICI Gascogne, ça marche » : le réemploi informatique au micro',
-    excerpt: 'Lundi 24 août 2026, notre coordinateur Boris Lalanne était l\'invité de Marie-Cécile Gardey dans l\'émission « ICI Gascogne, ça marche ». Douze minutes d\'antenne pour parler du défi collecte, du reconditionnement et de la seconde vie du matériel informatique. Réécoutez l\'émission en replay.',
+    excerpt: 'Lundi 24 août 2026, notre coordinateur Boris Lalanne était l\'invité de Marie-Cécile Gardey dans l\'émission « ICI Gascogne, ça marche ». Douze minutes d\'antenne pour parler du challenge collecte, du reconditionnement et de la seconde vie du matériel informatique. Réécoutez l\'émission en replay.',
     category: 'association',
     date: '2026-08-24',
     dateLabel: 'Août 2026',
@@ -87,7 +87,7 @@ export const ARTICLES = [
     content: [
       {
         type: 'paragraph',
-        text: 'Après la chronique du 18 août, ICI Gascogne (France Bleu) nous a de nouveau tendu le micro. Lundi 24 août 2026, notre coordinateur Boris Lalanne était l\'invité de Marie-Cécile Gardey dans l\'émission « ICI Gascogne, ça marche » : douze minutes en direct pour raconter le projet de la recyclerie et le défi que l\'association lance sur tout le territoire d\'ici au 3 octobre.',
+        text: 'Après la chronique du 18 août, ICI Gascogne (France Bleu) nous a de nouveau tendu le micro. Lundi 24 août 2026, notre coordinateur Boris Lalanne était l\'invité de Marie-Cécile Gardey dans l\'émission « ICI Gascogne, ça marche » : douze minutes en direct pour raconter le projet de la recyclerie et le challenge que l\'association lance sur tout le territoire d\'ici au 3 octobre.',
       },
       {
         type: 'link',
@@ -101,7 +101,7 @@ export const ARTICLES = [
       },
       {
         type: 'paragraph',
-        text: 'Le cœur du sujet, c\'est le défi collecte : du 1er septembre au 3 octobre, réunir 500 kilos de matériel informatique oublié dans les tiroirs et les placards des Landes. Mais l\'émission a surtout permis d\'expliquer le pourquoi. L\'enjeu environnemental d\'abord : fabriquer un seul ordinateur mobilise près de 800 kilos de matières premières. Prolonger la vie d\'un appareil, c\'est éviter tout cela. L\'enjeu social ensuite : chaque équipement reconditionné peut rejoindre une famille, un senior ou une association qui en a besoin, et réduire un peu la fracture numérique sur le territoire.',
+        text: 'Le cœur du sujet, c\'est le challenge collecte : du 1er septembre au 3 octobre, réunir 500 kilos de matériel informatique oublié dans les tiroirs et les placards des Landes. Mais l\'émission a surtout permis d\'expliquer le pourquoi. L\'enjeu environnemental d\'abord : fabriquer un seul ordinateur mobilise près de 800 kilos de matières premières. Prolonger la vie d\'un appareil, c\'est éviter tout cela. L\'enjeu social ensuite : chaque équipement reconditionné peut rejoindre une famille, un senior ou une association qui en a besoin, et réduire un peu la fracture numérique sur le territoire.',
       },
       {
         type: 'paragraph',
@@ -117,11 +117,11 @@ export const ARTICLES = [
       },
       {
         type: 'heading',
-        text: 'Participer au défi',
+        text: 'Participer au challenge',
       },
       {
         type: 'paragraph',
-        text: 'Vous avez du matériel informatique qui dort ? Rendez-vous sur la page du défi collecte pour connaître les points de dépôt et suivre la progression vers les 500 kilos. Et pour soutenir l\'association tout en tentant votre chance, la tombola solidaire est ouverte. La pesée finale et la journée de lancement, c\'est le samedi 3 octobre 2026 à Vielle-Saint-Girons.',
+        text: 'Vous avez du matériel informatique qui dort ? Rendez-vous sur la page du challenge collecte pour connaître les points de dépôt et suivre la progression vers les 500 kilos. Et pour soutenir l\'association tout en tentant votre chance, la tombola solidaire est ouverte. La pesée finale et la journée de lancement, c\'est le samedi 3 octobre 2026 à Vielle-Saint-Girons.',
       },
     ],
   },
@@ -130,7 +130,7 @@ export const ARTICLES = [
   {
     slug: 'ici-gascogne-defi-500-kg-collecte-informatique-landes',
     title: 'La recyclerie Ressources sur ICI Gascogne : 500 kilos de matériel informatique à collecter dans les Landes',
-    excerpt: 'Le 18 août 2026, la chronique « L\'éco d\'ici dans les Landes » d\'ICI Gascogne consacrait trois minutes au défi collecte de l\'association Ressources : réunir 500 kilos de matériel informatique entre le 1er septembre et le 3 octobre. Réécoutez la chronique et retrouvez tout ce qu\'il faut savoir pour y participer.',
+    excerpt: 'Le 18 août 2026, la chronique « L\'éco d\'ici dans les Landes » d\'ICI Gascogne consacrait trois minutes au challenge collecte de l\'association Ressources : réunir 500 kilos de matériel informatique entre le 1er septembre et le 3 octobre. Réécoutez la chronique et retrouvez tout ce qu\'il faut savoir pour y participer.',
     category: 'association',
     date: '2026-08-18',
     dateLabel: 'Août 2026',
@@ -144,7 +144,7 @@ export const ARTICLES = [
     content: [
       {
         type: 'paragraph',
-        text: 'Mardi 18 août 2026, la chronique « L\'éco d\'ici dans les Landes », sur ICI Gascogne, est venue parler de nous. Trois minutes pour présenter le défi que l\'association Ressources lance sur le territoire : rassembler 500 kilos de matériel informatique inutilisé avant sa journée de lancement, le 3 octobre à Vielle-Saint-Girons. Merci à la rédaction d\'ICI Gascogne pour cette mise en lumière.',
+        text: 'Mardi 18 août 2026, la chronique « L\'éco d\'ici dans les Landes », sur ICI Gascogne, est venue parler de nous. Trois minutes pour présenter le challenge que l\'association Ressources lance sur le territoire : rassembler 500 kilos de matériel informatique inutilisé avant sa journée de lancement, le 3 octobre à Vielle-Saint-Girons. Merci à la rédaction d\'ICI Gascogne pour cette mise en lumière.',
       },
       {
         type: 'audio',
@@ -159,7 +159,7 @@ export const ARTICLES = [
       },
       {
         type: 'heading',
-        text: 'Le défi : 500 kilos entre le 1er septembre et le 3 octobre',
+        text: 'Le challenge : 500 kilos entre le 1er septembre et le 3 octobre',
       },
       {
         type: 'paragraph',
@@ -187,7 +187,7 @@ export const ARTICLES = [
       },
       {
         type: 'paragraph',
-        text: 'Trois points de collecte sont annoncés pour ce défi — à Vielle-Saint-Girons auprès de l\'association, et chez deux enseignes partenaires à Soustons et à Linxe — auxquels s\'ajoutent des déchèteries du SITCOM Côte Sud des Landes. Ces points sont en cours de formalisation avec nos partenaires : la liste à jour, avec les adresses et les horaires dès qu\'ils sont arrêtés, est publiée sur la page du défi collecte. En attendant, un message à contact@ressourcesrecyclerie.fr suffit pour convenir d\'une remise.',
+        text: 'Trois points de collecte sont annoncés pour ce challenge — à Vielle-Saint-Girons auprès de l\'association, et chez deux enseignes partenaires à Soustons et à Linxe — auxquels s\'ajoutent des déchèteries du SITCOM Côte Sud des Landes. Ces points sont en cours de formalisation avec nos partenaires : la liste à jour, avec les adresses et les horaires dès qu\'ils sont arrêtés, est publiée sur la page du challenge collecte. En attendant, un message à contact@ressourcesrecyclerie.fr suffit pour convenir d\'une remise.',
       },
       {
         type: 'heading',

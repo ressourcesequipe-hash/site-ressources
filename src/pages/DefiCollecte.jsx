@@ -82,17 +82,45 @@ export default function DefiCollecte() {
           aria-hidden
         />
         {/* Conteneur elargi par rapport a l'origine pour loger l'affiche a
-            cote du texte. En dessous de lg, tout retombe dans l'ordre du DOM :
-            le titre d'abord, l'affiche ensuite. */}
+            cote du texte.
+
+            Le hero est coupe en trois : l'entete (surtitre + titre), l'affiche,
+            puis le corps (texte, compteur, bouton). C'est ce decoupage qui
+            permet a l'affiche de s'intercaler sous le titre sur mobile — ordre
+            du DOM — tout en occupant la colonne de droite sur grand ecran, ou
+            elle est placee explicitement a cheval sur les deux rangees.
+
+            Les gouttieres sont dissociees : verticales sur mobile pour aerer
+            les trois blocs, nulles sur grand ecran ou les marges des titres
+            font deja le travail. */}
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-14 items-center">
-          <div>
-          <p className="font-sans text-ocre text-xs font-semibold tracking-[0.2em] uppercase mb-3">
-            Du {DEFI.debut} au {DEFI.fin}
-          </p>
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white mb-4 leading-tight">
-            Le challenge de la demi-tonne
-          </h1>
+          <div className="grid gap-y-8 lg:grid-cols-[1.15fr_1fr] lg:gap-x-14 lg:gap-y-0 lg:items-center">
+
+          {/* Entete */}
+          <div className="lg:col-start-1 lg:row-start-1">
+            <p className="font-sans text-ocre text-xs font-semibold tracking-[0.2em] uppercase mb-3">
+              Du {DEFI.debut} au {DEFI.fin}
+            </p>
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white mb-0 lg:mb-4 leading-tight">
+              Le challenge de la demi-tonne
+            </h1>
+          </div>
+
+          {/* Affiche — deuxieme sur mobile, colonne de droite sur grand ecran.
+              Pas de lazy-loading ni de priorite basse : elle est en haut de
+              page et candidate au LCP. */}
+          <img
+            src="/photos/challenge-vignette.webp"
+            width={1280}
+            height={720}
+            fetchpriority="high"
+            decoding="async"
+            alt="Affiche du challenge territorial organisé par l'association Ressources : objectif une demi-tonne de matériel électronique et informatique."
+            className="w-full h-auto block rounded-xl border-4 border-beige-light shadow-2xl shadow-black/30 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center"
+          />
+
+          {/* Corps */}
+          <div className="lg:col-start-1 lg:row-start-2">
           <p className="text-white/65 max-w-xl leading-relaxed mb-8">
             Réunir {DEFI.objectifKg} kilos de matériel informatique dormant sur le
             territoire landais, en cinq semaines. Chaque ordinateur oublié dans un
@@ -118,20 +146,6 @@ export default function DefiCollecte() {
           </div>
           </div>
 
-          {/* L'affiche reprend l'essentiel du texte ci-contre, mais pas
-              seulement : elle porte aussi la signature de l'association et sa
-              mention finale. Son alt la decrit donc, sans repeter mot pour mot
-              le paragraphe voisin. Pas de lazy-loading, elle est en haut de
-              page et candidate au LCP. */}
-          <img
-            src="/photos/challenge-vignette.webp"
-            width={1280}
-            height={720}
-            fetchpriority="high"
-            decoding="async"
-            alt="Affiche du challenge territorial organisé par l'association Ressources : objectif une demi-tonne de matériel électronique et informatique."
-            className="w-full h-auto block rounded-xl border-4 border-beige-light shadow-2xl shadow-black/30"
-          />
           </div>
         </div>
       </section>
