@@ -124,7 +124,7 @@ export default function Evenement() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { num: '01', label: 'Challenge collecte', title: '1/2 tonne de matériel', desc: "Lancé le 1er septembre dans les points de collecte du territoire, le défi s'achève par la pesée finale du 3 octobre. Objectif : 500 kg au total.", accent: 'ocre', delay: 0 },
+              { num: '01', label: 'Challenge collecte', title: '1/2 tonne de matériel', desc: "Lancé le 1er septembre dans les points de collecte du territoire, le challenge s'achève par la pesée finale du 3 octobre. Objectif : 500 kg au total.", accent: 'ocre', delay: 0 },
               { num: '02', label: 'Tombola solidaire', title: 'Plus de 30 lots', desc: 'Plus de 30 lots offerts par les commerçants, artisans et producteurs du territoire. Chaque billet soutient directement la recyclerie.', accent: 'ocre', delay: 100 },
               { num: '03', label: 'Festivités', title: 'Une journée en commun', desc: "Rencontrez l'équipe, découvrez le projet, échangez avec les partenaires. Un moment de convivialité ancré dans le territoire.", accent: 'kaki', delay: 200 },
             ].map((card) => (
@@ -217,7 +217,7 @@ export default function Evenement() {
             </div>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/defi-collecte/" className="btn-ocre rounded-lg">
-                Tout savoir sur le défi collecte
+                Tout savoir sur le challenge collecte
               </Link>
               <Link
                 to="/recyclerie-informatique/comment-donner/"

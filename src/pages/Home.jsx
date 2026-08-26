@@ -558,7 +558,7 @@ export default function Home() {
                   Je participe à l'événement
                 </Link>
                 <Link to="/defi-collecte/" className="btn-outline-ocre">
-                  Le défi collecte
+                  Le challenge collecte
                 </Link>
               </div>
             </div>

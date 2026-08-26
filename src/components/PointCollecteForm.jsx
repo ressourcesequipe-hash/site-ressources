@@ -19,7 +19,7 @@ const CHAMPS_VIDES = {
   message: '',
 }
 
-// Formulaire de candidature pour accueillir un point de collecte du défi.
+// Formulaire de candidature pour accueillir un point de collecte du challenge.
 // Envoie vers /api/contact avec le type 'pointCollecte'.
 export default function PointCollecteForm() {
   const [champs, setChamps] = useState(CHAMPS_VIDES)

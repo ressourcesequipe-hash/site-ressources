@@ -13,7 +13,7 @@ import {
   POINTS_OUVERTS,
 } from '../data/defiCollecte'
 
-const BREADCRUMBS = [{ label: 'Défi collecte — 1/2 tonne' }]
+const BREADCRUMBS = [{ label: 'Challenge collecte — 1/2 tonne' }]
 
 // Défilement doux vers le formulaire. On ne bloque volontairement pas le
 // comportement natif du lien : si scrollIntoView échoue, le saut d'ancre du
@@ -30,7 +30,7 @@ const faqSchema = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Quand a lieu le défi collecte d\'une demi-tonne ?',
+      name: 'Quand a lieu le challenge collecte d\'une demi-tonne ?',
       acceptedAnswer: {
         '@type': 'Answer',
         text: `Du ${DEFI.debut} au ${DEFI.fin}. Les dépôts sont possibles pendant toute cette période dans les points de collecte partenaires, et la pesée finale a lieu le 3 octobre 2026 à Vielle-Saint-Girons.`,
@@ -67,8 +67,8 @@ export default function DefiCollecte() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Défi collecte — une demi-tonne de matériel informatique dans les Landes"
-        description="Du 1er septembre au 3 octobre 2026, l'association Ressources relève le défi de collecter 500 kg de matériel informatique dormant sur le territoire landais. Points de collecte en entreprise et en commune, pesée finale le 3 octobre à Vielle-Saint-Girons."
+        title="Challenge collecte — une demi-tonne de matériel informatique dans les Landes"
+        description="Du 1er septembre au 3 octobre 2026, l'association Ressources relève le challenge de collecter 500 kg de matériel informatique dormant sur le territoire landais. Points de collecte en entreprise et en commune, pesée finale le 3 octobre à Vielle-Saint-Girons."
         canonical="/defi-collecte/"
         schema={faqSchema}
       />
@@ -86,7 +86,7 @@ export default function DefiCollecte() {
             Du {DEFI.debut} au {DEFI.fin}
           </p>
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white mb-4 leading-tight">
-            Le défi de la demi-tonne
+            Le challenge de la demi-tonne
           </h1>
           <p className="text-white/65 max-w-xl leading-relaxed mb-8">
             Réunir {DEFI.objectifKg} kilos de matériel informatique dormant sur le
@@ -127,7 +127,7 @@ export default function DefiCollecte() {
 
           {/* Pourquoi */}
           <div className="mb-12">
-            <h2 className="font-serif text-2xl text-terre mb-4">Pourquoi ce défi ?</h2>
+            <h2 className="font-serif text-2xl text-terre mb-4">Pourquoi ce challenge ?</h2>
             <div className="space-y-4 max-w-2xl">
               <p className="text-sm text-terre/65 leading-relaxed">
                 Dans les Landes comme ailleurs, une quantité considérable
