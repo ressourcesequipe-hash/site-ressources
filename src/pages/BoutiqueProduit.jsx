@@ -6,7 +6,9 @@ import vitrine from '../data/vitrine.json'
 import { prix, leJour, schemaProduit, BASE } from './Boutique'
 
 const ETATS = {
-  A: { libelle: 'Comme neuf', detail: 'Aucune trace d\'usage visible.' },
+  // « Comme neuf » est interdit sur un produit dit reconditionne : art. R. 122-5
+  // du Code de la consommation, pris par le decret 2022-190. Ne pas y revenir.
+  A: { libelle: 'Très bon état', detail: 'Aucune trace d\'usage visible.' },
   B: { libelle: 'Bon état', detail: 'Quelques traces d\'usage, rien qui gêne.' },
   C: { libelle: 'État correct', detail: 'Marques d\'usage visibles, entièrement fonctionnel.' },
   P: { libelle: 'Pour pièces', detail: 'Vendu en l\'état, pour récupération.' },

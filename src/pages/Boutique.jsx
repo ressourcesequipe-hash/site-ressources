@@ -10,7 +10,9 @@ const BREADCRUMBS = [
 ]
 
 const ETATS = {
-  A: 'Comme neuf',
+  // « Comme neuf » est interdit sur un produit dit reconditionne : art. R. 122-5
+  // du Code de la consommation, pris par le decret 2022-190. Ne pas y revenir.
+  A: 'Très bon état',
   B: 'Bon état',
   C: 'État correct',
   P: 'Pour pièces',
