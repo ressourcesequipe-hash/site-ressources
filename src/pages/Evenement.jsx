@@ -33,11 +33,11 @@ const eventSchema = {
     },
   },
   description: "Journée de lancement de l'association Ressources — recyclerie informatique et végétale solidaire dans les Landes. Challenge collecte 1/2 tonne de matériel informatique, tombola solidaire avec plus de 30 lots offerts par les partenaires locaux, festivités à Vielle-Saint-Girons (40560).",
-  image: 'https://www.association-ressources.fr/logo.png',
+  image: 'https://www.ressourcesrecyclerie.fr/og-cover.png',
   organizer: {
     '@type': 'NGO',
     name: 'Association Ressources',
-    url: 'https://www.association-ressources.fr',
+    url: 'https://www.ressourcesrecyclerie.fr',
     email: 'contact@ressourcesrecyclerie.fr',
   },
   offers: {
