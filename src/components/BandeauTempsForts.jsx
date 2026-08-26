@@ -66,14 +66,15 @@ const SLIDES = [
       { to: '/defi-collecte/', label: 'Participer au challenge', style: 'principal' },
       { to: '/defi-collecte/#devenir-point-collecte', label: 'Devenir point de collecte', style: 'secondaire' },
     ],
-    // Le fichier peut ne pas encore exister : `echecs` plus bas fait alors
-    // repasser la diapositive en pleine largeur, sans image cassee.
+    // L'alt reprend le texte de l'affiche : c'est une image de texte, et elle
+    // est l'unique contenu de son lien. Si le fichier venait a manquer,
+    // `echecs` plus bas repasse la diapositive en pleine largeur.
     vignette: {
       src: '/photos/challenge-vignette.webp',
       lien: '/defi-collecte/',
       alt:
-        `Challenge territorial : ${DEFI.objectifKg} kilos de matériel informatique ` +
-        `à collecter du ${DEFI.debut} au ${DEFI.fin} — voir comment participer`,
+        'Challenge territorial : objectif une demi-tonne de matériel électronique ' +
+        `et informatique, du ${DEFI.debut} au ${DEFI.fin} — voir comment participer`,
     },
   },
 ]
