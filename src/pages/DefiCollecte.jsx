@@ -298,94 +298,89 @@ export default function DefiCollecte() {
               La liste est mise à jour au fur et à mesure des confirmations.
             </p>
 
-            {/* Carte au-dessus de la liste plutôt qu'à côté : la colonne de
-                contenu est déjà resserrée par l'encart latéral, et chaque point
-                porte ses horaires sur deux ou trois lignes. */}
-            <CartePoints
-              points={POINTS_OUVERTS}
-              pointActif={pointActif}
-              libelle="points de collecte"
-              hauteur="h-72 sm:h-80 lg:h-[26rem]"
-              aspect="goutte"
-            />
+            {/* Même agencement que les points de vente de la tombola : un bloc
+                encadré, la liste à gauche et la carte à droite. Les épingles ne
+                portant volontairement aucun numéro, c'est le clic sur une ligne
+                — et la bulle qu'il ouvre — qui relie la liste à la carte. */}
+            <div className="border border-beige-dark bg-white p-6 mb-6">
+              <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
+                Dépôt libre · {POINTS_OUVERTS.length} points de collecte
+              </p>
+              <h3 className="font-serif text-xl text-terre mb-5">
+                En mairie et chez nos partenaires
+              </h3>
 
-            {/* Liste non ordonnée, et pastilles toutes identiques : les points de
-                collecte se valent, aucun n'est « le premier ». C'est donc le clic
-                sur une ligne — et la bulle qu'il ouvre — qui relie la liste à la
-                carte, et non plus un numéro commun aux deux. */}
-            {/* Deux cartes par ligne à partir de md. Pas plus tôt : en dessous,
-                la colonne fait moins de 300 px et les noms de commune les plus
-                longs partaient sur trois lignes. Les cartes d'une même ligne
-                s'étirent à la même hauteur, ce qui aligne les liserés. */}
-            <ul className="grid md:grid-cols-2 gap-3 mt-6 mb-6">
-              {POINTS_OUVERTS.map((point, i) => {
-                const { nom, ville, adresse, type, horaires, note } = point
-                return (
-                  <li
-                    key={`${nom}-${ville}`}
-                    className="border-l-2 border-ocre bg-beige-light p-5"
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <button
-                        type="button"
-                        onClick={() => setPointActif({ index: i, jeton: Date.now() })}
-                        aria-label={`Situer ${nom} sur la carte`}
-                        className="group flex items-start gap-3 min-w-0 flex-1 text-left"
-                      >
-                        <Epingle className="shrink-0 w-4 h-auto mt-0.5 text-ocre transition-colors group-hover:text-ocre-dark" />
-                        <span className="min-w-0 flex-1">
-                          <span className="block font-sans text-[10px] font-bold tracking-widest uppercase text-ocre">
-                            {type}
+              <div className="grid lg:grid-cols-[1fr_1.05fr] gap-6 lg:gap-8">
+                <ul className="space-y-4">
+                  {POINTS_OUVERTS.map((point, i) => {
+                    const { nom, ville, adresse, type, horaires, note } = point
+                    return (
+                      <li key={`${nom}-${ville}`} className="flex items-start gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setPointActif({ index: i, jeton: Date.now() })}
+                          aria-label={`Situer ${nom} sur la carte`}
+                          className="group flex items-start gap-3 flex-1 min-w-0 text-left"
+                        >
+                          <Epingle className="shrink-0 w-4 h-auto mt-0.5 text-ocre transition-colors group-hover:text-ocre-dark" />
+                          <span className="min-w-0 flex-1">
+                            <span className="block font-sans text-[10px] font-bold tracking-widest uppercase text-ocre/70">
+                              {type}
+                            </span>
+                            <span className="block font-sans text-sm text-terre leading-snug transition-colors group-hover:text-ocre-dark">
+                              {nom}
+                            </span>
+                            <span className="block text-xs text-terre/50 mt-0.5">
+                              {adresse ? `${adresse} · ` : ''}
+                              {ville}
+                            </span>
+                            {/* Horaires empilés sous l'adresse plutôt qu'en deux
+                                colonnes : à moitié de largeur, une grille
+                                jours/créneaux repliait tous les créneaux. */}
+                            <span className="block mt-1.5 pt-1.5 border-t border-beige-dark">
+                              {horaires.map(({ jours, creneaux }) => (
+                                <span
+                                  key={jours}
+                                  className="block font-sans text-xs text-terre/50 leading-relaxed"
+                                >
+                                  <span className="font-medium text-terre/70">{jours}</span>{' '}
+                                  {creneaux.join(' et ')}
+                                </span>
+                              ))}
+                              {note && (
+                                <span className="block text-xs text-terre/40 leading-relaxed mt-1">
+                                  {note}
+                                </span>
+                              )}
+                            </span>
                           </span>
-                          <span className="block font-serif text-lg text-terre leading-snug transition-colors group-hover:text-ocre-dark">
-                            {nom}
-                          </span>
-                          <span className="block text-sm text-terre/55 mt-0.5">
-                            {adresse ? `${adresse} · ` : ''}
-                            {ville}
-                          </span>
-                        </span>
-                      </button>
-                      <a
-                        href={lienCarte(point)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="shrink-0 text-xs text-ocre hover:underline font-sans whitespace-nowrap mt-1"
-                      >
-                        Y aller ↗
-                      </a>
-                    </div>
+                        </button>
+                        <a
+                          href={lienCarte(point)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="shrink-0 text-xs text-ocre hover:underline font-sans whitespace-nowrap mt-0.5"
+                        >
+                          Y aller ↗
+                        </a>
+                      </li>
+                    )
+                  })}
+                </ul>
 
-                    {/* ml-7 : largeur de l'épingle (16 px) plus la gouttière
-                        (12 px), pour aligner les horaires sur le nom du point. */}
-                    <div className="ml-7 mt-3 pt-3 border-t border-beige-dark">
-                      <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-terre/40 mb-1.5">
-                        Horaires de dépôt
-                      </p>
-                      <dl className="space-y-1">
-                        {horaires.map(({ jours, creneaux }) => (
-                          <div key={jours} className="flex flex-wrap items-baseline gap-x-3">
-                            {/* w-32 : la plus longue plage — « Mardi et
-                                vendredi » — tient dedans, et il reste de quoi
-                                poser deux créneaux sur une ligne dans une
-                                colonne de moitié de largeur. */}
-                            <dt className="font-sans text-xs font-medium text-terre/70 sm:w-32 sm:shrink-0">
-                              {jours}
-                            </dt>
-                            <dd className="font-sans text-xs text-terre/55">
-                              {creneaux.join(' et ')}
-                            </dd>
-                          </div>
-                        ))}
-                      </dl>
-                      {note && (
-                        <p className="text-xs text-terre/45 leading-relaxed mt-2">{note}</p>
-                      )}
-                    </div>
-                  </li>
-                )
-              })}
-            </ul>
+                {/* Collante, contrairement à la tombola : neuf points portant
+                    leurs horaires font une liste bien plus haute que la carte,
+                    qui sortirait du champ dès le troisième point. */}
+                <div className="lg:sticky lg:top-32 lg:self-start">
+                  <CartePoints
+                    points={POINTS_OUVERTS}
+                    pointActif={pointActif}
+                    libelle="points de collecte"
+                    aspect="goutte"
+                  />
+                </div>
+              </div>
+            </div>
 
             {/* Points annoncés mais pas encore formalisés : ni adresse, ni
                 horaires, ni épingle — le dépôt s'y convient au cas par cas. */}
