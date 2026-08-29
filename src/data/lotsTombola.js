@@ -109,14 +109,10 @@ export const POINTS_VENTE = [
   { nom: 'Boulangerie La Linxoise', ville: 'Linxe', adresse: '254 route de l’Océan', coords: [43.9221, -1.2480] },
   // Le numéro n'est pas cartographié : épingle sur la place, qui est petite.
   { nom: 'Boulangerie La Linxoise', ville: 'Castets', adresse: '26 place Pierre-Barrère', coords: [43.8824, -1.1473] },
-  // Le moins précis des sept : ni le numéro ni l'enseigne ne sont cartographiés,
+  // Le moins précis des six : ni le numéro ni l'enseigne ne sont cartographiés,
   // l'épingle est posée sur l'avenue. À resserrer si tu passes devant.
   { nom: 'Boulangerie La Linxoise', ville: 'Lit-et-Mixe', adresse: '3 avenue de la Côte d’Argent', coords: [44.0318, -1.2548] },
   { nom: 'Le Moustache Café', ville: 'Tosse', adresse: '42 avenue du Général-de-Gaulle', coords: [43.6900, -1.3319] },
-  // Sans numéro : l'annuaire des buralistes donne « chemin Loustaou », et le
-  // « 39 route de Seignosse » qu'on lit ailleurs correspond dans OpenStreetMap
-  // à une agence immobilière. Les deux adresses désignent le même carrefour.
-  { nom: 'Le Magenta — bureau de tabac', ville: 'Soorts-Hossegor', adresse: 'chemin de Loustaou', coords: [43.6644, -1.3944] },
   // OpenStreetMap connaît le camping (tourism=camp_site) : position exacte.
   { nom: 'Épicerie et restaurant du camping Capfun La Pomme de Pin', ville: 'Saubion', adresse: '825 route de Seignosse', coords: [43.6752, -1.3566] },
   // Adresse confirmée par le site officiel de la commune, numéro cartographié.
