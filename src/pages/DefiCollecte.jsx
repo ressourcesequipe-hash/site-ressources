@@ -6,13 +6,14 @@ import NewsletterForm from '../components/NewsletterForm'
 import PointCollecteForm from '../components/PointCollecteForm'
 import EncartTombola from '../components/EncartTombola'
 import CartePoints from '../components/CartePoints'
-import { lienCarte } from '../data/carte'
+import { EPINGLE_TRACE, lienCarte } from '../data/carte'
 import {
   ACCEPTE,
   ACCEPTE_TEXTE,
   CONSIGNES,
   DEFI,
   ETAPES,
+  KIT_COMMUNICATION,
   PARTENARIAT_SITCOM,
   POINTS_CONFIRMES,
   POINTS_EN_COURS,
@@ -22,14 +23,20 @@ import {
 
 const BREADCRUMBS = [{ label: 'Challenge collecte — 1/2 tonne' }]
 
-// Pastille commune à la liste et aux épingles de la carte : « PC » pour point
-// de collecte. Volontairement identique partout plutôt que numérotée — les
-// points se valent, et un rang laisserait entendre un classement entre eux.
-const ETIQUETTE_POINT = 'PC'
-// Constante de module, et non une lambda dans le JSX : la carte lit la fonction
-// au montage, une identité stable évite toute surprise si les dépendances de
-// l'effet changent un jour.
-const ETIQUETTE_COLLECTE = () => ETIQUETTE_POINT
+// Épingle nue, sans libellé, à la fois dans la liste et sur la carte : les
+// points de collecte se valent, et un numéro laisserait entendre un classement
+// entre eux. Le tracé est celui des marqueurs de la carte, pour que la liste
+// et la carte montrent exactement le même objet.
+function Epingle({ className = '' }) {
+  return (
+    <svg viewBox="0 0 24 32" className={className} fill="currentColor" aria-hidden focusable="false">
+      <path d={EPINGLE_TRACE} />
+      {/* beige-light : la couleur du fond de la carte qui porte l'épingle,
+          pour que l'œil soit un trou et non une pastille claire posée dessus. */}
+      <circle cx="12" cy="11" r="3.8" fill="#F7F3ED" />
+    </svg>
+  )
+}
 
 // Défilement doux vers le formulaire. On ne bloque volontairement pas le
 // comportement natif du lien : si scrollIntoView échoue, le saut d'ancre du
@@ -54,7 +61,7 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'Où déposer mon matériel informatique pendant le challenge ?',
+      name: 'Où déposer mon matériel informatique et électronique pendant le challenge ?',
       acceptedAnswer: {
         '@type': 'Answer',
         text: `Dans l'un des points de collecte du territoire — mairies et structures partenaires — à leurs heures d'ouverture : ${POINTS_OUVERTS.map(
@@ -65,7 +72,7 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'Quel matériel informatique puis-je déposer ?',
+      name: 'Quel matériel informatique et électronique puis-je déposer ?',
       acceptedAnswer: {
         '@type': 'Answer',
         text: `${ACCEPTE_TEXTE}. Le matériel n'a pas besoin d'être fonctionnel : l'association assure le tri et le diagnostic afin d'identifier ce qui peut être réemployé, reconditionné ou orienté vers la filière adaptée.`,
@@ -98,8 +105,8 @@ export default function DefiCollecte() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Challenge collecte — une demi-tonne de matériel informatique dans les Landes"
-        description="Du 1er septembre au 3 octobre 2026, l'association Ressources relève le challenge de collecter 500 kg de matériel informatique dormant sur le territoire landais. Points de collecte en entreprise et en commune, pesée finale le 3 octobre à Vielle-Saint-Girons."
+        title="Challenge collecte — une demi-tonne de matériel informatique et électronique dans les Landes"
+        description="Du 1er septembre au 3 octobre 2026, l'association Ressources relève le challenge de collecter 500 kg de matériel informatique et électronique dormant sur le territoire landais. Points de collecte en mairie et chez les structures partenaires, pesée finale le 3 octobre à Vielle-Saint-Girons."
         canonical="/defi-collecte/"
         schema={faqSchema}
       />
@@ -153,9 +160,9 @@ export default function DefiCollecte() {
           {/* Corps */}
           <div className="lg:col-start-1 lg:row-start-2">
           <p className="text-white/65 max-w-xl leading-relaxed mb-8">
-            Réunir {DEFI.objectifKg} kilos de matériel informatique dormant sur le
-            territoire landais, en cinq semaines. Chaque ordinateur oublié dans un
-            placard compte.
+            Réunir {DEFI.objectifKg} kilos de matériel informatique et électronique
+            dormant sur le territoire landais, en cinq semaines. Chaque ordinateur
+            oublié dans un placard compte.
           </p>
 
           {/* Compteur */}
@@ -198,7 +205,7 @@ export default function DefiCollecte() {
             <div className="space-y-4 max-w-2xl">
               <p className="text-sm text-terre/65 leading-relaxed">
                 Dans les Landes comme ailleurs, une quantité considérable
-                d'équipements informatiques dort au fond des tiroirs, des placards
+                d'équipements informatiques et électroniques dort au fond des tiroirs, des placards
                 et des réserves d'entreprises. Pendant ce temps, des familles, des
                 personnes âgées et des associations du territoire manquent de
                 matériel numérique en état de marche.
@@ -300,7 +307,7 @@ export default function DefiCollecte() {
               pointActif={pointActif}
               libelle="points de collecte"
               hauteur="h-72 sm:h-80 lg:h-[26rem]"
-              etiquette={ETIQUETTE_COLLECTE}
+              aspect="goutte"
             />
 
             {/* Liste non ordonnée, et pastilles toutes identiques : les points de
@@ -322,12 +329,7 @@ export default function DefiCollecte() {
                         aria-label={`Situer ${nom} sur la carte`}
                         className="group flex items-start gap-3 min-w-0 flex-1 text-left"
                       >
-                        <span
-                          className="shrink-0 w-8 h-5 mt-1 rounded-full bg-ocre text-white font-sans text-[10px] font-bold tracking-wider flex items-center justify-center transition-colors group-hover:bg-ocre-dark"
-                          aria-hidden
-                        >
-                          {ETIQUETTE_POINT}
-                        </span>
+                        <Epingle className="shrink-0 w-4 h-auto mt-0.5 text-ocre transition-colors group-hover:text-ocre-dark" />
                         <span className="min-w-0 flex-1">
                           <span className="block font-sans text-[10px] font-bold tracking-widest uppercase text-ocre">
                             {type}
@@ -351,9 +353,9 @@ export default function DefiCollecte() {
                       </a>
                     </div>
 
-                    {/* ml-11 : largeur de la pastille (32 px) plus la gouttière
+                    {/* ml-7 : largeur de l'épingle (16 px) plus la gouttière
                         (12 px), pour aligner les horaires sur le nom du point. */}
-                    <div className="ml-11 mt-3 pt-3 border-t border-beige-dark">
+                    <div className="ml-7 mt-3 pt-3 border-t border-beige-dark">
                       <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-terre/40 mb-1.5">
                         Horaires de dépôt
                       </p>
@@ -459,6 +461,22 @@ export default function DefiCollecte() {
               <a href="mailto:contact@ressourcesrecyclerie.fr" className="text-ocre hover:underline">
                 contact@ressourcesrecyclerie.fr
               </a>
+            </p>
+
+            {/* Kit de communication : à l'usage des communes, des entreprises et
+                des partenaires qui relaient le challenge — ils n'ont ainsi rien à
+                réécrire, et les textes diffusés restent alignés sur la page. */}
+            <p className="text-xs text-terre/45 mt-3">
+              Vous relayez le challenge ?{' '}
+              <a
+                href={KIT_COMMUNICATION}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-ocre hover:underline"
+              >
+                Télécharger le kit de communication ↗
+              </a>
+              {' '}— affiches, visuels pour les réseaux sociaux et textes prêts à publier.
             </p>
           </div>
 

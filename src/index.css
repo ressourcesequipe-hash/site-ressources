@@ -291,6 +291,31 @@
   transform: scale(1.15);
 }
 
+/* Épingle classique, sans libellé : pour les listes où aucun point n'est
+   premier ni dernier. Le tracé vient de EPINGLE_TRACE (src/data/carte.js), la
+   couleur est posée ici pour que le survol reste une affaire de feuille de
+   style. Ancrée par la pointe, elle designe le lieu sans le recouvrir. */
+.leaflet-marker-pane .epingle-goutte {
+  transition: transform 0.2s ease;
+  transform-origin: 50% 91%; /* la pointe, pour que l'agrandissement ne la déplace pas */
+}
+
+.leaflet-marker-pane .epingle-goutte svg { display: block; }
+
+.leaflet-marker-pane .epingle-goutte .goutte-corps {
+  fill: #C8973A;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.leaflet-marker-pane .epingle-goutte .goutte-oeil { fill: #fff; }
+
+.leaflet-marker-pane .epingle-goutte:hover,
+.leaflet-marker-pane .epingle-goutte:focus-visible { transform: scale(1.12); }
+
+.leaflet-marker-pane .epingle-goutte:hover .goutte-corps,
+.leaflet-marker-pane .epingle-goutte:focus-visible .goutte-corps { fill: #A07828; }
+
 /* Bulle d'un point : angles vifs, comme le reste du site. */
 .carte-popup .leaflet-popup-content-wrapper {
   border-radius: 0;
@@ -312,10 +337,25 @@
   color: #2C2A26;
 }
 
+/* Adresse et horaires : c'est le bloc qui porte la marge avant le lien, les
+   bulles sans horaires gardent donc l'espacement qu'elles avaient. */
+.popup-carte .popup-detail { margin: 0 0 9px; }
+
 .popup-carte .popup-ville {
-  margin: 0 0 9px;
+  margin: 0;
   font-size: 11px;
   color: rgba(44, 42, 38, 0.55);
+}
+
+.popup-carte .popup-horaire {
+  margin: 3px 0 0;
+  font-size: 11px;
+  color: rgba(44, 42, 38, 0.55);
+}
+
+.popup-carte .popup-jours {
+  font-weight: 600;
+  color: rgba(44, 42, 38, 0.72);
 }
 
 .popup-carte .popup-lien {

@@ -1,5 +1,5 @@
 // Défi collecte : du 1er septembre au 3 octobre 2026, 500 kg de matériel
-// informatique à réunir sur le territoire.
+// informatique et électronique à réunir sur le territoire.
 
 export const DEFI = {
   objectifKg: 500,
@@ -265,6 +265,13 @@ export const CONSIGNES = [
       'Les équipements électriques ou électroniques ne relevant pas directement de l’informatique ou du numérique doivent être vérifiés au préalable auprès de Ressources.',
   },
 ]
+
+// Kit de communication du challenge, hébergé sur le kDrive de l'association :
+// affiches, visuels pour les réseaux sociaux et textes prêts à publier, à
+// l'usage des communes, des entreprises et des partenaires qui le relaient.
+// Lien de partage — le remplacer ici si le dossier est déplacé.
+export const KIT_COMMUNICATION =
+  'https://kdrive.infomaniak.com/app/share/3253949/4dc72b5e-bec9-460c-99fe-e0b9ef5820ee'
 
 export const ETAPES = [
   {

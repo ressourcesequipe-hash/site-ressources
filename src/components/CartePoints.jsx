@@ -1,9 +1,43 @@
 import { useEffect, useRef, useState } from 'react'
-import { lienCarte } from '../data/carte'
+import { EPINGLE_TRACE, lienCarte } from '../data/carte'
+
+// Deux aspects de marqueur, selon ce à quoi la carte est adossée.
+//
+// « numerotee » : pastille ronde portant le rang du point, qui renvoie à une
+// liste numérotée en regard — c'est le numéro qui relie les deux.
+// « goutte » : épingle classique, sans libellé, ancrée par la pointe. Pour les
+// listes où aucun point n'est premier ni dernier : rien à lire sur la carte,
+// c'est le clic sur une ligne, et la bulle qu'il ouvre, qui fait le lien.
+const ASPECTS = {
+  numerotee: {
+    classe: 'epingle-carte',
+    // 24 px plutôt que 28 : deux points séparés de 8 km ne le sont que d'une
+    // vingtaine de pixels au cadrage d'ensemble, les pastilles se recouvraient
+    // franchement.
+    taille: [24, 24],
+    ancre: [12, 12],
+    ancrePopup: [0, -16],
+    html: (_point, i) => `${i + 1}`,
+  },
+  goutte: {
+    classe: 'epingle-goutte',
+    taille: [24, 32],
+    // Ancrage sur la pointe, pas sur le centre : l'épingle désigne le lieu au
+    // lieu de le recouvrir.
+    ancre: [12, 29],
+    ancrePopup: [0, -27],
+    html: () =>
+      `<svg viewBox="0 0 24 32" width="24" height="32" aria-hidden="true" focusable="false">` +
+      `<path class="goutte-corps" d="${EPINGLE_TRACE}"/>` +
+      `<circle class="goutte-oeil" cx="12" cy="11" r="3.8"/>` +
+      `</svg>`,
+  },
+}
 
 // Carte d'une liste de points du territoire — points de vente des billets de
 // tombola, points de collecte du challenge. Chaque point doit porter `coords`,
-// `nom` et `ville` ; `adresse` est facultative.
+// `nom` et `ville` ; `adresse` est facultative. Un point qui porte `horaires`
+// — [{ jours, creneaux: [] }] — les voit affichés dans sa bulle.
 //
 // Leaflet n'est chargé qu'au moment où la carte entre dans le champ de vision,
 // et uniquement par import dynamique : la librairie touche `window` dès son
@@ -22,11 +56,10 @@ export default function CartePoints({
   // texte affiché tant que la carte n'est pas chargée.
   libelle = 'points',
   hauteur = 'h-72 sm:h-80 lg:h-[30rem]',
-  // Contenu de la pastille. Par défaut le rang dans la liste, qui renvoie à une
-  // liste numérotée en regard ; les points de collecte passent un libellé fixe,
-  // aucun d'eux n'étant « le premier » ni « le dernier ».
-  etiquette = (_point, i) => `${i + 1}`,
+  // Aspect des marqueurs : 'numerotee' ou 'goutte'. Voir ASPECTS ci-dessus.
+  aspect = 'numerotee',
 }) {
+  const marqueurAspect = ASPECTS[aspect] ?? ASPECTS.numerotee
   const conteneurRef = useRef(null)
   const carteRef = useRef(null)
   const marqueursRef = useRef([])
@@ -96,14 +129,11 @@ export default function CartePoints({
             icon: L.divIcon({
               // Passer className remplace le `leaflet-div-icon` par défaut :
               // l'épingle n'hérite donc d'aucun style de la librairie.
-              className: 'epingle-carte',
-              html: etiquette(point, i),
-              // 24 px plutôt que 28 : deux points séparés de 8 km ne le sont
-              // que d'une vingtaine de pixels au cadrage d'ensemble, les
-              // pastilles se recouvraient franchement.
-              iconSize: [24, 24],
-              iconAnchor: [12, 12],
-              popupAnchor: [0, -16],
+              className: marqueurAspect.classe,
+              html: marqueurAspect.html(point, i),
+              iconSize: marqueurAspect.taille,
+              iconAnchor: marqueurAspect.ancre,
+              popupAnchor: marqueurAspect.ancrePopup,
             }),
             // « Mairie de Linxe à Linxe » : la commune est déjà dans le nom
             // des points de collecte, on ne la répète pas.
@@ -115,9 +145,25 @@ export default function CartePoints({
 
           const html = document.createElement('div')
           html.className = 'popup-carte'
+          // Les horaires sous l'adresse : la bulle répond alors seule aux deux
+          // questions qu'on se pose devant une carte — où, et quand.
+          const horaires = (point.horaires || [])
+            .map(
+              ({ jours, creneaux }) =>
+                `<p class="popup-horaire"><span class="popup-jours">${jours}</span> ${creneaux.join(
+                  ' et ',
+                )}</p>`,
+            )
+            .join('')
+          // Adresse et horaires dans un même bloc : c'est lui qui porte la
+          // marge avant le lien, et les bulles sans horaires gardent donc
+          // exactement l'espacement qu'elles avaient.
           html.innerHTML = `
             <p class="popup-nom">${point.nom}</p>
-            <p class="popup-ville">${point.adresse ? `${point.adresse} · ` : ''}${point.ville}</p>
+            <div class="popup-detail">
+              <p class="popup-ville">${point.adresse ? `${point.adresse} · ` : ''}${point.ville}</p>
+              ${horaires}
+            </div>
           `
           const lien = document.createElement('a')
           lien.href = lienCarte(point)
