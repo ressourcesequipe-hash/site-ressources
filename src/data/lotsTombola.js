@@ -116,7 +116,7 @@ export const POINTS_VENTE = [
   { nom: 'Boulangerie La Linxoise', ville: 'Linxe', adresse: '254 route de l’Océan', coords: [43.9221, -1.2480] },
   // Le numéro n'est pas cartographié : épingle sur la place, qui est petite.
   { nom: 'Boulangerie La Linxoise', ville: 'Castets', adresse: '26 place Pierre-Barrère', coords: [43.8824, -1.1473] },
-  // Le moins précis des sept : ni le numéro ni l'enseigne ne sont cartographiés,
+  // Le moins précis de la liste : ni le numéro ni l'enseigne ne sont cartographiés,
   // l'épingle est posée sur l'avenue. À resserrer si tu passes devant.
   { nom: 'Boulangerie La Linxoise', ville: 'Lit-et-Mixe', adresse: '3 avenue de la Côte d’Argent', coords: [44.0318, -1.2548] },
   { nom: 'Le Moustache Café', ville: 'Tosse', adresse: '42 avenue du Général-de-Gaulle', coords: [43.6900, -1.3319] },
@@ -124,6 +124,13 @@ export const POINTS_VENTE = [
   { nom: 'Épicerie et restaurant du camping Capfun La Pomme de Pin', ville: 'Saubion', adresse: '825 route de Seignosse', coords: [43.6752, -1.3566] },
   // Adresse confirmée par le site officiel de la commune, numéro cartographié.
   { nom: 'Tabac Presse des Estagnots', ville: 'Seignosse', adresse: '52 avenue du Penon', coords: [43.6913, -1.4363] },
+  // Le restaurant est au cœur du camping, qu'OpenStreetMap connaît
+  // (tourism=camp_site) : position exacte. Son enseigne complète est
+  // « Casa Pia — Océan », qui le distingue du « Casa Pia — Circus » de Tosse ;
+  // on lui préfère le nom du camping, plus parlant pour s'y rendre. Adresse
+  // reprise du site du restaurant, qui écrit « route de la plage des
+  // Casernes » là où OpenStreetMap s'en tient à « route des Casernes ».
+  { nom: 'Restaurant Casa Pia — camping Siblu Les Oyats', ville: 'Seignosse', adresse: 'route de la plage des Casernes', coords: [43.7231, -1.4217] },
 ]
 
 // Énumération des points de vente en toutes lettres, construite depuis la liste
