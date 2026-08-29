@@ -105,7 +105,7 @@ export default function DefiCollecte() {
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
-        title="Challenge collecte — une demi-tonne de matériel informatique et électronique dans les Landes"
+        title="Challenge collecte — 500 kg de matériel informatique et électronique · Landes"
         description="Du 1er septembre au 3 octobre 2026, l'association Ressources relève le challenge de collecter 500 kg de matériel informatique et électronique dormant sur le territoire landais. Points de collecte en mairie et chez les structures partenaires, pesée finale le 3 octobre à Vielle-Saint-Girons."
         canonical="/defi-collecte/"
         schema={faqSchema}
@@ -314,7 +314,11 @@ export default function DefiCollecte() {
                 collecte se valent, aucun n'est « le premier ». C'est donc le clic
                 sur une ligne — et la bulle qu'il ouvre — qui relie la liste à la
                 carte, et non plus un numéro commun aux deux. */}
-            <ul className="space-y-3 mt-6 mb-6">
+            {/* Deux cartes par ligne à partir de md. Pas plus tôt : en dessous,
+                la colonne fait moins de 300 px et les noms de commune les plus
+                longs partaient sur trois lignes. Les cartes d'une même ligne
+                s'étirent à la même hauteur, ce qui aligne les liserés. */}
+            <ul className="grid md:grid-cols-2 gap-3 mt-6 mb-6">
               {POINTS_OUVERTS.map((point, i) => {
                 const { nom, ville, adresse, type, horaires, note } = point
                 return (
@@ -362,7 +366,11 @@ export default function DefiCollecte() {
                       <dl className="space-y-1">
                         {horaires.map(({ jours, creneaux }) => (
                           <div key={jours} className="flex flex-wrap items-baseline gap-x-3">
-                            <dt className="font-sans text-xs font-medium text-terre/70 sm:w-40 sm:shrink-0">
+                            {/* w-32 : la plus longue plage — « Mardi et
+                                vendredi » — tient dedans, et il reste de quoi
+                                poser deux créneaux sur une ligne dans une
+                                colonne de moitié de largeur. */}
+                            <dt className="font-sans text-xs font-medium text-terre/70 sm:w-32 sm:shrink-0">
                               {jours}
                             </dt>
                             <dd className="font-sans text-xs text-terre/55">
