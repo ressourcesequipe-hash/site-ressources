@@ -61,6 +61,11 @@ export const LOTS_CONFIRMES = [
   { lot: 'Cours de poterie d’1 h 30', partenaire: 'Cécilou Ceramics', categorie: 'artisanat', valeur: 35, detail: '1 cours' },
 
   // Restauration & produits locaux
+  // Douze menus, un par mois pendant un an, valables dans n'importe quel
+  // établissement de l'enseigne. Valeur retenue : 15 € le menu — l'enseigne ne
+  // publie pas ses tarifs, à corriger si le montant réel diffère.
+  // Reste hors podium malgré ses 180 €, sur décision du 29/08/2026.
+  { lot: 'Un menu offert chaque mois pendant un an', partenaire: 'Jack’s Burgers', categorie: 'gourmand', valeur: 180, detail: '12 menus · 1 par mois', podium: false },
   // Dotation offerte par une particulière. Son nom n'est pas publié sans son accord.
   { lot: 'Carton de 6 bouteilles de Jurançon moelleux', partenaire: 'Don d’un particulier', categorie: 'gourmand', valeur: 70, detail: '6 bouteilles' },
   { lot: 'Bon d’achat', partenaire: 'Chez Paulette', categorie: 'gourmand', valeur: 60, detail: '1 bon' },
@@ -152,6 +157,9 @@ export const PARTENAIRES = [
   // Commune issue de l'adresse de retrait du lot (40150 Soorts-Hossegor).
   { nom: 'Joe Bike', logo: '/logos/joe-bike.webp', ville: 'Soorts-Hossegor', site: 'https://joebike.fr/' },
   { nom: 'Jet Landes Family', logo: '/logos/jet-landes-family.webp', ville: 'Capbreton', site: 'https://www.jetlandesfamily-capbreton.com/' },
+  // Sans commune, contrairement aux autres : le lot vaut dans n'importe lequel
+  // des établissements de l'enseigne. La carte omet alors la ligne de commune.
+  { nom: 'Jack’s Burgers', logo: null, ville: null, site: 'https://www.jacksburgers.fr/' },
   // Aucun site ni logo (précisé dans le tableau de suivi).
   { nom: 'Pêcheur de Capbreton', logo: null, ville: 'Capbreton' },
   { nom: 'Cap Pêche Loisirs', logo: '/logos/cap-peche-loisirs.webp', ville: 'Capbreton', site: 'https://www.cappecheloisirs.com/' },
