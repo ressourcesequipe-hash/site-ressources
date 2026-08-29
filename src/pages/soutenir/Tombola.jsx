@@ -6,7 +6,8 @@ import TombolaModal from '../../components/TombolaModal'
 import TousLesLotsModal from '../../components/TousLesLotsModal'
 import PartenairesTombola from '../../components/PartenairesTombola'
 import CompteARebours from '../../components/CompteARebours'
-import CartePointsVente from '../../components/CartePointsVente'
+import CartePoints from '../../components/CartePoints'
+import { lienCarte } from '../../data/carte'
 import {
   LIBELLE_EN_COURS,
   LOTS_PODIUM,
@@ -19,7 +20,6 @@ import {
   RESUME_CATEGORIES,
   VALEUR_ARRONDIE,
   formatEuros,
-  lienCarte,
 } from '../../data/lotsTombola'
 
 const faqSchema = {
@@ -292,7 +292,11 @@ export default function Tombola() {
                     ))}
                   </ol>
 
-                  <CartePointsVente pointActif={pointActif} />
+                  <CartePoints
+                    points={POINTS_VENTE}
+                    pointActif={pointActif}
+                    libelle="points de vente des billets"
+                  />
                 </div>
 
                 <p className="text-xs text-terre/45 mt-5 italic">

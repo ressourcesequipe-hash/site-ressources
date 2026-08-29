@@ -1,19 +1,33 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import NewsletterForm from '../components/NewsletterForm'
 import PointCollecteForm from '../components/PointCollecteForm'
 import EncartTombola from '../components/EncartTombola'
+import CartePoints from '../components/CartePoints'
+import { lienCarte } from '../data/carte'
 import {
   ACCEPTE,
   DEFI,
   ETAPES,
   PARTENARIAT_SITCOM,
   POINTS_CONFIRMES,
+  POINTS_EN_COURS,
   POINTS_OUVERTS,
+  horairesTexte,
 } from '../data/defiCollecte'
 
 const BREADCRUMBS = [{ label: 'Challenge collecte — 1/2 tonne' }]
+
+// Pastille commune à la liste et aux épingles de la carte : « PC » pour point
+// de collecte. Volontairement identique partout plutôt que numérotée — les
+// points se valent, et un rang laisserait entendre un classement entre eux.
+const ETIQUETTE_POINT = 'PC'
+// Constante de module, et non une lambda dans le JSX : la carte lit la fonction
+// au montage, une identité stable évite toute surprise si les dépendances de
+// l'effet changent un jour.
+const ETIQUETTE_COLLECTE = () => ETIQUETTE_POINT
 
 // Défilement doux vers le formulaire. On ne bloque volontairement pas le
 // comportement natif du lien : si scrollIntoView échoue, le saut d'ancre du
@@ -34,6 +48,17 @@ const faqSchema = {
       acceptedAnswer: {
         '@type': 'Answer',
         text: `Du ${DEFI.debut} au ${DEFI.fin}. Les dépôts sont possibles pendant toute cette période dans les points de collecte partenaires, et la pesée finale a lieu le 3 octobre 2026 à Vielle-Saint-Girons.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Où déposer mon matériel informatique pendant le challenge ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `Dans l'un des points de collecte du territoire — mairies et structures partenaires — à leurs heures d'ouverture : ${POINTS_OUVERTS.map(
+          ({ nom, adresse, ville, horaires }) =>
+            `${nom} (${adresse}, ${ville}) — ${horairesTexte(horaires)}`,
+        ).join(' ; ')}.`,
       },
     },
     {
@@ -64,6 +89,10 @@ const faqSchema = {
 }
 
 export default function DefiCollecte() {
+  // Point de collecte à mettre en avant sur la carte, choisi depuis la liste.
+  // Le jeton rend l'objet distinct à chaque clic, y compris sur la même ligne.
+  const [pointActif, setPointActif] = useState(null)
+
   return (
     <Layout breadcrumbs={BREADCRUMBS}>
       <SEO
@@ -242,40 +271,128 @@ export default function DefiCollecte() {
               </span>
             </div>
             <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
-              Plusieurs entreprises et communes du territoire se sont portées
-              volontaires pour accueillir un point de collecte. La liste est mise à
-              jour au fur et à mesure des confirmations. Les points encore en cours
-              de validation n'accueillent pas de dépôt libre :{' '}
-              <Link to="/contact/" className="text-ocre hover:underline">
-                merci de nous contacter
-              </Link>{' '}
-              afin de convenir des modalités de remise du matériel.
+              Les communes et les structures partenaires du territoire se sont
+              portées volontaires pour accueillir un point de collecte. Vous pouvez
+              y déposer votre matériel librement, aux horaires indiqués ci-dessous.
+              La liste est mise à jour au fur et à mesure des confirmations.
             </p>
 
-            <ul className="space-y-3 mb-6">
-              {POINTS_CONFIRMES.map(({ nom, ville, adresse, type, mention }) => (
-                <li
-                  key={`${nom}-${ville}`}
-                  className="border-l-2 border-ocre bg-beige-light p-5"
-                >
-                  <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-ocre">
-                      {type}
-                    </p>
-                    {mention && (
+            {/* Carte au-dessus de la liste plutôt qu'à côté : la colonne de
+                contenu est déjà resserrée par l'encart latéral, et chaque point
+                porte ses horaires sur deux ou trois lignes. */}
+            <CartePoints
+              points={POINTS_OUVERTS}
+              pointActif={pointActif}
+              libelle="points de collecte"
+              hauteur="h-72 sm:h-80 lg:h-[26rem]"
+              etiquette={ETIQUETTE_COLLECTE}
+            />
+
+            {/* Liste non ordonnée, et pastilles toutes identiques : les points de
+                collecte se valent, aucun n'est « le premier ». C'est donc le clic
+                sur une ligne — et la bulle qu'il ouvre — qui relie la liste à la
+                carte, et non plus un numéro commun aux deux. */}
+            <ul className="space-y-3 mt-6 mb-6">
+              {POINTS_OUVERTS.map((point, i) => {
+                const { nom, ville, adresse, type, horaires, note } = point
+                return (
+                  <li
+                    key={`${nom}-${ville}`}
+                    className="border-l-2 border-ocre bg-beige-light p-5"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <button
+                        type="button"
+                        onClick={() => setPointActif({ index: i, jeton: Date.now() })}
+                        aria-label={`Situer ${nom} sur la carte`}
+                        className="group flex items-start gap-3 min-w-0 flex-1 text-left"
+                      >
+                        <span
+                          className="shrink-0 w-8 h-5 mt-1 rounded-full bg-ocre text-white font-sans text-[10px] font-bold tracking-wider flex items-center justify-center transition-colors group-hover:bg-ocre-dark"
+                          aria-hidden
+                        >
+                          {ETIQUETTE_POINT}
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block font-sans text-[10px] font-bold tracking-widest uppercase text-ocre">
+                            {type}
+                          </span>
+                          <span className="block font-serif text-lg text-terre leading-snug transition-colors group-hover:text-ocre-dark">
+                            {nom}
+                          </span>
+                          <span className="block text-sm text-terre/55 mt-0.5">
+                            {adresse ? `${adresse} · ` : ''}
+                            {ville}
+                          </span>
+                        </span>
+                      </button>
+                      <a
+                        href={lienCarte(point)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shrink-0 text-xs text-ocre hover:underline font-sans whitespace-nowrap mt-1"
+                      >
+                        Y aller ↗
+                      </a>
+                    </div>
+
+                    {/* ml-11 : largeur de la pastille (32 px) plus la gouttière
+                        (12 px), pour aligner les horaires sur le nom du point. */}
+                    <div className="ml-11 mt-3 pt-3 border-t border-beige-dark">
+                      <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-terre/40 mb-1.5">
+                        Horaires de dépôt
+                      </p>
+                      <dl className="space-y-1">
+                        {horaires.map(({ jours, creneaux }) => (
+                          <div key={jours} className="flex flex-wrap items-baseline gap-x-3">
+                            <dt className="font-sans text-xs font-medium text-terre/70 sm:w-40 sm:shrink-0">
+                              {jours}
+                            </dt>
+                            <dd className="font-sans text-xs text-terre/55">
+                              {creneaux.join(' et ')}
+                            </dd>
+                          </div>
+                        ))}
+                      </dl>
+                      {note && (
+                        <p className="text-xs text-terre/45 leading-relaxed mt-2">{note}</p>
+                      )}
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+
+            {/* Points annoncés mais pas encore formalisés : ni adresse, ni
+                horaires, ni épingle — le dépôt s'y convient au cas par cas. */}
+            {POINTS_EN_COURS.length > 0 && (
+              <div className="border border-beige-dark bg-white p-5 mb-6">
+                <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-terre/45 mb-3">
+                  Points en cours de formalisation
+                </p>
+                <ul className="space-y-2 mb-4">
+                  {POINTS_EN_COURS.map(({ nom, ville, mention }) => (
+                    <li
+                      key={`${nom}-${ville}`}
+                      className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm"
+                    >
+                      <span className="font-sans text-terre">{nom}</span>
+                      <span className="text-terre/50">· {ville}</span>
                       <span className="font-sans text-[10px] font-medium text-kaki-light bg-kaki-pale border border-kaki/20 px-2 py-0.5 rounded-full">
                         {mention}
                       </span>
-                    )}
-                  </div>
-                  <p className="font-serif text-lg text-terre leading-snug">{nom}</p>
-                  <p className="text-sm text-terre/55 mt-0.5">
-                    {adresse ? `${adresse} · ` : ''}
-                    {ville}
-                  </p>
-                </li>
-              ))}
-            </ul>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-xs text-terre/50 leading-relaxed">
+                  Ces points n'accueillent pas encore de dépôt libre :{' '}
+                  <Link to="/contact/" className="text-ocre hover:underline">
+                    merci de nous contacter
+                  </Link>{' '}
+                  afin de convenir des modalités de remise du matériel.
+                </p>
+              </div>
+            )}
 
             {/* Partenariat SITCOM40 — collecte en déchèterie */}
             <div className="border-l-2 border-kaki bg-kaki-pale/60 p-5 mb-6">

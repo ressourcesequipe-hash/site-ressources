@@ -257,7 +257,8 @@
 }
 
 /* ──────────────────────────────────────────────────────────────
-   Carte des points de vente (Leaflet)
+   Cartes du site (Leaflet) — points de vente de la tombola,
+   points de collecte du challenge.
 
    Hors @layer : la feuille de style de Leaflet est injectée à
    l'exécution, donc après celle-ci. Les sélecteurs sont volontairement
@@ -266,7 +267,7 @@
    ────────────────────────────────────────────────────────────── */
 
 /* Épingle numérotée : le numéro renvoie à la liste affichée à côté. */
-.leaflet-marker-pane .epingle-point-vente {
+.leaflet-marker-pane .epingle-carte {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -284,13 +285,13 @@
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.leaflet-marker-pane .epingle-point-vente:hover,
-.leaflet-marker-pane .epingle-point-vente:focus-visible {
+.leaflet-marker-pane .epingle-carte:hover,
+.leaflet-marker-pane .epingle-carte:focus-visible {
   background: #A07828;
   transform: scale(1.15);
 }
 
-/* Bulle d'un point de vente : angles vifs, comme le reste du site. */
+/* Bulle d'un point : angles vifs, comme le reste du site. */
 .carte-popup .leaflet-popup-content-wrapper {
   border-radius: 0;
   box-shadow: 0 6px 22px rgba(44, 42, 38, 0.25);
@@ -303,7 +304,7 @@
 
 .carte-popup .leaflet-popup-tip { box-shadow: none; }
 
-.popup-point-vente .popup-nom {
+.popup-carte .popup-nom {
   margin: 0 0 2px;
   font-size: 13px;
   font-weight: 600;
@@ -311,20 +312,20 @@
   color: #2C2A26;
 }
 
-.popup-point-vente .popup-ville {
+.popup-carte .popup-ville {
   margin: 0 0 9px;
   font-size: 11px;
   color: rgba(44, 42, 38, 0.55);
 }
 
-.popup-point-vente .popup-lien {
+.popup-carte .popup-lien {
   font-size: 11px;
   font-weight: 500;
   color: #C8973A;
   text-decoration: none;
 }
 
-.popup-point-vente .popup-lien:hover { text-decoration: underline; }
+.popup-carte .popup-lien:hover { text-decoration: underline; }
 
 /* Mentions OpenStreetMap : obligatoires, mais discrètes. */
 .leaflet-container .leaflet-control-attribution {

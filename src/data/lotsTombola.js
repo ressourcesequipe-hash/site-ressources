@@ -114,16 +114,6 @@ export const POINTS_VENTE = [
   { nom: 'Tabac Presse des Estagnots', ville: 'Seignosse', adresse: '52 avenue du Penon', coords: [43.6913, -1.4363] },
 ]
 
-// Un marqueur posé sur les coordonnées plutôt qu'une recherche textuelle : les
-// noms d'enseigne ne ressortaient pas, et les libellés descriptifs (« bureau de
-// tabac », « épicerie… ») ne donnaient aucun résultat.
-export const lienCarte = ({ coords, nom, ville }) =>
-  coords
-    ? `https://www.openstreetmap.org/?mlat=${coords[0]}&mlon=${coords[1]}#map=18/${coords[0]}/${coords[1]}`
-    : `https://www.openstreetmap.org/search?query=${encodeURIComponent(
-        [nom, ville, 'Landes'].join(' '),
-      )}`
-
 // Énumération des points de vente en toutes lettres, construite depuis la liste
 // ci-dessus pour que la FAQ et son balisage schema.org ne dérivent jamais de
 // l'affichage. Les communes d'une même enseigne sont regroupées.

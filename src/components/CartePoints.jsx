@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { POINTS_VENTE, lienCarte } from '../data/lotsTombola'
+import { lienCarte } from '../data/carte'
 
-// Carte des points de vente des billets de tombola.
+// Carte d'une liste de points du territoire — points de vente des billets de
+// tombola, points de collecte du challenge. Chaque point doit porter `coords`,
+// `nom` et `ville` ; `adresse` est facultative.
 //
 // Leaflet n'est chargé qu'au moment où la carte entre dans le champ de vision,
 // et uniquement par import dynamique : la librairie touche `window` dès son
@@ -9,11 +11,22 @@ import { POINTS_VENTE, lienCarte } from '../data/lotsTombola'
 // de fichier. Les visiteurs qui ne descendent pas jusqu'ici ne paient donc ni
 // les ~43 Ko de la librairie ni les tuiles.
 //
-// Les numéros des épingles correspondent à ceux de la liste affichée à côté.
-// `pointActif` ({ index, jeton }) est levé par cette liste : les quatre points
-// du sud tiennent dans 8 km et leurs épingles se superposent à l'échelle du
-// département, cliquer la ligne correspondante est le moyen de les séparer.
-export default function CartePointsVente({ pointActif = null }) {
+// `pointActif` ({ index, jeton }) est levé par la liste voisine : deux communes
+// voisines superposent leurs épingles à l'échelle du cadrage d'ensemble, et
+// cliquer la ligne correspondante est le moyen de les séparer — c'est aussi ce
+// qui relie la liste à la carte quand les épingles ne sont pas numérotées.
+export default function CartePoints({
+  points,
+  pointActif = null,
+  // Complète « Carte des N … » dans l'étiquette du lecteur d'écran et dans le
+  // texte affiché tant que la carte n'est pas chargée.
+  libelle = 'points',
+  hauteur = 'h-72 sm:h-80 lg:h-[30rem]',
+  // Contenu de la pastille. Par défaut le rang dans la liste, qui renvoie à une
+  // liste numérotée en regard ; les points de collecte passent un libellé fixe,
+  // aucun d'eux n'étant « le premier » ni « le dernier ».
+  etiquette = (_point, i) => `${i + 1}`,
+}) {
   const conteneurRef = useRef(null)
   const carteRef = useRef(null)
   const marqueursRef = useRef([])
@@ -65,7 +78,7 @@ export default function CartePointsVente({ pointActif = null }) {
           // page : on la réserve au double-clic et aux boutons de zoom.
           scrollWheelZoom: false,
           attributionControl: true,
-          // Par défaut Leaflet arrondit à l'entier inférieur : les sept points
+          // Par défaut Leaflet arrondit à l'entier inférieur : les points
           // n'occupaient alors qu'un tiers du cadre. Le quart de niveau suffit
           // à les serrer sans donner un rendu de tuiles flou.
           zoomSnap: 0.25,
@@ -78,26 +91,30 @@ export default function CartePointsVente({ pointActif = null }) {
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(carte)
 
-        POINTS_VENTE.forEach((point, i) => {
+        points.forEach((point, i) => {
           const marqueur = L.marker(point.coords, {
             icon: L.divIcon({
               // Passer className remplace le `leaflet-div-icon` par défaut :
               // l'épingle n'hérite donc d'aucun style de la librairie.
-              className: 'epingle-point-vente',
-              html: `${i + 1}`,
-              // 24 px plutôt que 28 : Tosse et Saubion ne sont séparés que de
-              // 21 px à l'échelle du cadrage d'ensemble, les pastilles se
-              // recouvraient franchement.
+              className: 'epingle-carte',
+              html: etiquette(point, i),
+              // 24 px plutôt que 28 : deux points séparés de 8 km ne le sont
+              // que d'une vingtaine de pixels au cadrage d'ensemble, les
+              // pastilles se recouvraient franchement.
               iconSize: [24, 24],
               iconAnchor: [12, 12],
               popupAnchor: [0, -16],
             }),
-            alt: `${point.nom} à ${point.ville}`,
+            // « Mairie de Linxe à Linxe » : la commune est déjà dans le nom
+            // des points de collecte, on ne la répète pas.
+            alt: point.nom.includes(point.ville)
+              ? point.nom
+              : `${point.nom} à ${point.ville}`,
             keyboard: true,
           }).addTo(carte)
 
           const html = document.createElement('div')
-          html.className = 'popup-point-vente'
+          html.className = 'popup-carte'
           html.innerHTML = `
             <p class="popup-nom">${point.nom}</p>
             <p class="popup-ville">${point.adresse ? `${point.adresse} · ` : ''}${point.ville}</p>
@@ -114,7 +131,7 @@ export default function CartePointsVente({ pointActif = null }) {
           marqueursRef.current[i] = marqueur
         })
 
-        const limites = L.latLngBounds(POINTS_VENTE.map((p) => p.coords))
+        const limites = L.latLngBounds(points.map((p) => p.coords))
         const cadrer = () => carte.fitBounds(limites, { padding: [34, 34] })
         cadrerRef.current = cadrer
         cadrer()
@@ -154,7 +171,7 @@ export default function CartePointsVente({ pointActif = null }) {
       marqueursRef.current = []
       cadrerRef.current = null
     }
-  }, [visible])
+  }, [visible, points])
 
   // Réponse à un clic dans la liste : on approche le point et on ouvre sa bulle.
   // Le jeton porté par `pointActif` permet de rejouer le même point deux fois.
@@ -178,20 +195,20 @@ export default function CartePointsVente({ pointActif = null }) {
         <div
           ref={conteneurRef}
           role="region"
-          aria-label={`Carte des ${POINTS_VENTE.length} points de vente des billets`}
-          className="h-72 sm:h-80 lg:h-[30rem] w-full border border-beige-dark bg-kaki-pale z-0"
+          aria-label={`Carte des ${points.length} ${libelle}`}
+          className={`${hauteur} w-full border border-beige-dark bg-kaki-pale z-0`}
         />
 
         {etat !== 'chargee' && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none px-6">
             <p className="font-sans text-xs text-terre/45 text-center leading-relaxed">
               {etat === 'echec'
-                ? 'La carte n’a pas pu se charger — la liste ci-contre reste à jour.'
+                ? 'La carte n’a pas pu se charger — la liste reste à jour.'
                 : /* Tant que le chargement n'est pas armé, annoncer un chargement
                      en cours serait faux : rien n'a encore été demandé. */
                   visible
                   ? 'Chargement de la carte…'
-                  : `Carte des ${POINTS_VENTE.length} points de vente`}
+                  : `Carte des ${points.length} ${libelle}`}
             </p>
           </div>
         )}
@@ -210,7 +227,7 @@ export default function CartePointsVente({ pointActif = null }) {
             }}
             className="font-sans text-[11px] text-ocre hover:underline"
           >
-            Revoir les {POINTS_VENTE.length} points
+            Revoir les {points.length} points
           </button>
         </div>
       )}
