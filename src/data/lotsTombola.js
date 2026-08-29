@@ -64,8 +64,9 @@ export const LOTS_CONFIRMES = [
   // Douze menus, un par mois pendant un an, valables dans n'importe quel
   // établissement de l'enseigne. Valeur retenue : 15 € le menu — l'enseigne ne
   // publie pas ses tarifs, à corriger si le montant réel diffère.
-  // Reste hors podium malgré ses 180 €, sur décision du 29/08/2026.
-  { lot: 'Un menu offert chaque mois pendant un an', partenaire: 'Jack’s Burgers', categorie: 'gourmand', valeur: 180, detail: '12 menus · 1 par mois', podium: false },
+  // podium: true — le lot est mis en avant malgré ses 180 €, sous le seuil.
+  // Il y prend la place de la carte cadeau E.Leclerc Express Linxe (29/08/2026).
+  { lot: 'Un menu offert chaque mois pendant un an', partenaire: 'Jack’s Burgers', categorie: 'gourmand', valeur: 180, detail: '12 menus · 1 par mois', podium: true },
   // Dotation offerte par une particulière. Son nom n'est pas publié sans son accord.
   { lot: 'Carton de 6 bouteilles de Jurançon moelleux', partenaire: 'Don d’un particulier', categorie: 'gourmand', valeur: 70, detail: '6 bouteilles' },
   { lot: 'Bon d’achat', partenaire: 'Chez Paulette', categorie: 'gourmand', valeur: 60, detail: '1 bon' },
@@ -83,7 +84,10 @@ export const LOTS_CONFIRMES = [
   // Dotation revue a la hausse le 13/08/2026 : deux cartes cadeaux de 150 €.
   // podium: true car elles depassent desormais des lots deja mis en avant.
   { lot: 'Carte cadeau', partenaire: 'E.Leclerc Soustons', categorie: 'commerce', valeur: 150, detail: '1 carte cadeau', podium: true },
-  { lot: 'Carte cadeau', partenaire: 'E.Leclerc Express Linxe', categorie: 'commerce', valeur: 150, detail: '1 carte cadeau', podium: true },
+  // Celle de Linxe redescend dans la liste complète le 29/08/2026 : le lot
+  // Jack’s Burgers prend sa place sur le podium. Elle reste publiée, dans
+  // « Bons d'achat & commerces », à égalité de valeur avec celle de Soustons.
+  { lot: 'Carte cadeau', partenaire: 'E.Leclerc Express Linxe', categorie: 'commerce', valeur: 150, detail: '1 carte cadeau', podium: false },
   { lot: 'Bon d’achat', partenaire: 'Atelier Saint-Antoine', categorie: 'commerce', valeur: 40, detail: '1 bon' },
   { lot: 'Bon d’achat', partenaire: 'Wild Marcel', categorie: 'commerce', valeur: 30, detail: '1 bon' },
   { lot: 'Bon d’achat', partenaire: 'Maison Lassalle — Artisan Joaillier', categorie: 'commerce', valeur: 30, detail: '1 bon' },
