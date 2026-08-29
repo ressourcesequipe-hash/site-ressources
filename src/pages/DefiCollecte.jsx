@@ -14,7 +14,6 @@ import {
   DEFI,
   ETAPES,
   KIT_COMMUNICATION,
-  PARTENARIAT_SITCOM,
   POINTS_CONFIRMES,
   POINTS_EN_COURS,
   POINTS_OUVERTS,
@@ -418,24 +417,6 @@ export default function DefiCollecte() {
                 </p>
               </div>
             )}
-
-            {/* Partenariat SITCOM40 — collecte en déchèterie */}
-            <div className="border-l-2 border-kaki bg-kaki-pale/60 p-5 mb-6">
-              <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-kaki mb-1">
-                Partenariat · Déchèteries
-              </p>
-              <p className="font-serif text-lg text-terre leading-snug mb-1.5">
-                {PARTENARIAT_SITCOM.nombre} déchèteries du département
-              </p>
-              <p className="text-sm text-terre/60 leading-relaxed">
-                Un partenariat a été convenu avec le {PARTENARIAT_SITCOM.nom} pour
-                installer un point de collecte dans {PARTENARIAT_SITCOM.nombre} déchèteries
-                du département.{' '}
-                {PARTENARIAT_SITCOM.decheteries.length > 0
-                  ? `Déchèteries concernées : ${PARTENARIAT_SITCOM.decheteries.join(' et ')}.`
-                  : 'Les communes concernées seront précisées prochainement.'}
-              </p>
-            </div>
 
             <p className="text-sm text-terre/50 italic">
               D'autres points de collecte ouvriront d'ici au 1er septembre.{' '}
