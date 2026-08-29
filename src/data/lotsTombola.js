@@ -105,11 +105,18 @@ export const PRIX_BILLET = 5
 // coords : [latitude, longitude] de l'épingle sur la carte, et cible du lien
 // « Y aller ↗ ». Le niveau de certitude est noté commerce par commerce.
 export const POINTS_VENTE = [
+  // La commune de l'association, en tête de liste. Le numéro n'est pas
+  // cartographié, mais OpenStreetMap connaît un commerce (shop=kiosk) à
+  // l'emplacement que donne la numérotation de la route des Lacs : la
+  // pharmacie est au 3073, la boulangerie au 3092, et le pas de 106 numéros
+  // jusqu'au 3198 tombe à 8 m de ce point. Nom et adresse recoupés sur
+  // l'annuaire des buralistes, le registre des sociétés et l'annuaire PMU.
+  { nom: 'Bar Tabac Presse du Marensin', ville: 'Vielle-Saint-Girons', adresse: '3198 route des Lacs', coords: [43.9500, -1.3020] },
   // OpenStreetMap connaît la boulangerie elle-même (shop=bakery) : position exacte.
   { nom: 'Boulangerie La Linxoise', ville: 'Linxe', adresse: '254 route de l’Océan', coords: [43.9221, -1.2480] },
   // Le numéro n'est pas cartographié : épingle sur la place, qui est petite.
   { nom: 'Boulangerie La Linxoise', ville: 'Castets', adresse: '26 place Pierre-Barrère', coords: [43.8824, -1.1473] },
-  // Le moins précis des six : ni le numéro ni l'enseigne ne sont cartographiés,
+  // Le moins précis des sept : ni le numéro ni l'enseigne ne sont cartographiés,
   // l'épingle est posée sur l'avenue. À resserrer si tu passes devant.
   { nom: 'Boulangerie La Linxoise', ville: 'Lit-et-Mixe', adresse: '3 avenue de la Côte d’Argent', coords: [44.0318, -1.2548] },
   { nom: 'Le Moustache Café', ville: 'Tosse', adresse: '42 avenue du Général-de-Gaulle', coords: [43.6900, -1.3319] },
