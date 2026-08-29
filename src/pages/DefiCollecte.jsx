@@ -9,6 +9,8 @@ import CartePoints from '../components/CartePoints'
 import { lienCarte } from '../data/carte'
 import {
   ACCEPTE,
+  ACCEPTE_TEXTE,
+  CONSIGNES,
   DEFI,
   ETAPES,
   PARTENARIAT_SITCOM,
@@ -66,7 +68,7 @@ const faqSchema = {
       name: 'Quel matériel informatique puis-je déposer ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Ordinateurs portables et fixes, écrans, claviers, souris, tablettes, smartphones, câbles, chargeurs, périphériques, imprimantes et petits équipements réseau. Le matériel en panne est accepté : il est valorisé pour ses composants.',
+        text: `${ACCEPTE_TEXTE}. Le matériel n'a pas besoin d'être fonctionnel : l'association assure le tri et le diagnostic afin d'identifier ce qui peut être réemployé, reconditionné ou orienté vers la filière adaptée.`,
       },
     },
     {
@@ -247,14 +249,27 @@ export default function DefiCollecte() {
                 </li>
               ))}
             </ul>
-            <p className="text-xs text-terre/50 leading-relaxed">
-              Le matériel en panne est accepté : il est valorisé pour ses composants.
-              Vos données sont effacées de façon sécurisée avant tout
-              reconditionnement — vous pouvez aussi retirer le disque dur vous-même.{' '}
-              <Link to="/recyclerie-informatique/effacement-donnees/" className="text-ocre hover:underline">
-                En savoir plus sur la sécurité des données
-              </Link>
-            </p>
+            {/* Consignes de l'affiche du kit de communication : c'est cette page
+                que son QR code ouvre, les deux doivent dire la même chose. */}
+            <div className="border-t border-beige-dark pt-5">
+              <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-ocre mb-3">
+                Consignes importantes
+              </p>
+              <dl className="space-y-3">
+                {CONSIGNES.map(({ titre, texte }) => (
+                  <div key={titre}>
+                    <dt className="font-sans text-xs font-semibold text-terre/75">{titre}</dt>
+                    <dd className="text-xs text-terre/55 leading-relaxed mt-0.5">{texte}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="text-xs text-terre/50 leading-relaxed mt-4">
+                Vous pouvez aussi retirer le disque dur vous-même avant le dépôt.{' '}
+                <Link to="/recyclerie-informatique/effacement-donnees/" className="text-ocre hover:underline">
+                  En savoir plus sur la sécurité des données
+                </Link>
+              </p>
+            </div>
           </div>
 
           {/* Points de collecte */}

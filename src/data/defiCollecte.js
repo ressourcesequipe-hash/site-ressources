@@ -220,12 +220,50 @@ export const PARTENARIAT_SITCOM = {
   decheteries: [],
 }
 
+// Liste reprise mot pour mot de l'affiche « Liste de matériel à récolter » du
+// kit de communication du challenge (version MAJ 2026). C'est cette page que
+// le QR code de l'affiche ouvre : les deux doivent dire la même chose.
+// Le catalogue complet de ce que l'association collecte hors challenge —
+// imprimantes, scanners, box, téléphones fixes — vit sur la page « matériel
+// accepté », vers laquelle cette page renvoie en bas.
 export const ACCEPTE = [
-  'Ordinateurs portables et fixes',
-  'Écrans, claviers, souris',
-  'Tablettes et smartphones',
-  'Câbles, chargeurs, périphériques',
-  'Imprimantes et petits équipements réseau',
+  'Ordinateurs portables',
+  'Unités centrales / ordinateurs fixes',
+  'Mini-PC et tablettes',
+  'Consoles de jeux',
+  'Écrans informatiques',
+  'Claviers, souris, webcams',
+  'Casques et petits périphériques',
+  'Smartphones et téléphones',
+  'Chargeurs, câbles et adaptateurs',
+  'Disques durs / SSD, mémoire, cartes graphiques',
+  'Cartes mères, alimentations et composants',
+]
+
+// Énumération pour la FAQ et son balisage schema.org, construite depuis la
+// liste ci-dessus pour que les deux ne divergent jamais.
+export const ACCEPTE_TEXTE = ACCEPTE.join(' ; ')
+
+// Consignes de dépôt, elles aussi reprises de l'affiche. La formulation sur
+// les données personnelles est celle du kit : elle décrit le traitement et
+// recommande une précaution, sans promettre de résultat — le détail de
+// l'effacement sécurisé reste sur la page qui lui est consacrée.
+export const CONSIGNES = [
+  {
+    titre: 'Même en panne ?',
+    texte:
+      'Oui. Le matériel n’a pas besoin d’être fonctionnel. Ressources assure le tri et le diagnostic afin d’identifier ce qui peut être réemployé, reconditionné ou orienté vers la filière adaptée.',
+  },
+  {
+    titre: 'Données personnelles',
+    texte:
+      'Ressources intègre la sécurisation des données dans le traitement du matériel collecté. Par précaution, effectuez vos sauvegardes et déconnectez-vous de vos comptes avant le dépôt.',
+  },
+  {
+    titre: 'En cas de doute',
+    texte:
+      'Les équipements électriques ou électroniques ne relevant pas directement de l’informatique ou du numérique doivent être vérifiés au préalable auprès de Ressources.',
+  },
 ]
 
 export const ETAPES = [
