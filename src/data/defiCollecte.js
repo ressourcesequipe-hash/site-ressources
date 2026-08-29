@@ -150,19 +150,6 @@ export const POINTS_COLLECTE = [
     note: null,
   },
   {
-    // Pas d'adresse tant que le point n'est pas valide : l'afficher enverrait
-    // des donateurs sur place alors que la remise se convient au cas par cas.
-    nom: 'Association Ressources',
-    ville: 'Vielle-Saint-Girons',
-    adresse: null,
-    coords: null,
-    type: 'Point permanent',
-    statut: 'confirme',
-    mention: 'En cours de validation',
-    horaires: null,
-    note: null,
-  },
-  {
     nom: 'E.Leclerc',
     ville: 'Soustons',
     adresse: null,
