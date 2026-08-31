@@ -126,6 +126,22 @@ export const POINTS_COLLECTE = [
   // annuaires. Toutes deux sont cartographiées nommément dans OpenStreetMap :
   // les coordonnées sont celles du bâtiment, pas de la voie.
   {
+    // Tiers-lieu associatif. OpenStreetMap connaît le lieu par son nom
+    // (leisure=garden, « le Jardin d'Imagine ») : l'épingle est exacte, à 35 m
+    // du milieu de la rue. Le siège social est déclaré 26 route de la Forêt,
+    // mais c'est ici que le lieu accueille du public — donc ici qu'on dépose.
+    nom: 'Imagine — le tiers-lieu',
+    ville: 'Linxe',
+    adresse: 'rue du Château d’Eau',
+    coords: [43.9203, -1.2498],
+    type: 'Point partenaire',
+    statut: 'confirme',
+    mention: null,
+    // Le seul point ouvert le dimanche.
+    horaires: [{ jours: 'Jeudi et dimanche', creneaux: ['9h–12h'] }],
+    note: null,
+  },
+  {
     nom: 'Landes Partage',
     ville: 'Hagetmau',
     adresse: '570 chemin de Bellegarde',
