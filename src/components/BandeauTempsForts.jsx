@@ -62,9 +62,16 @@ const SLIDES = [
           : `Premières pesées à partir du ${DEFI.debut}`}
       </>
     ),
+    // Trois actions comme la diapositive tombola, dans l'ordre du nombre de
+    // gens concernes : celui qui a du materiel a deposer, celui qui veut
+    // comprendre le challenge, puis la structure qui peut heberger un point.
+    // « Participer au challenge » etait en tete alors qu'il ne dit pas ou
+    // aller — c'est « ou deposer » que les visiteurs cherchent, et le lien
+    // les mene desormais droit a la liste des points.
     actions: [
-      { to: '/defi-collecte/', label: 'Participer au challenge', style: 'principal' },
-      { to: '/defi-collecte/#devenir-point-collecte', label: 'Devenir point de collecte', style: 'secondaire' },
+      { to: '/defi-collecte/#ou-deposer', label: 'Où déposer mon matériel', style: 'principal' },
+      { to: '/defi-collecte/', label: 'Découvrir le challenge', style: 'secondaire' },
+      { to: '/defi-collecte/#devenir-point-collecte', label: 'Devenir point de collecte', style: 'discret' },
     ],
     // L'alt reprend le texte de l'affiche : c'est une image de texte, et elle
     // est l'unique contenu de son lien. Si le fichier venait a manquer,

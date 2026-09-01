@@ -9,6 +9,10 @@ const NAV = [
       { to: '/materiel-disponible/', label: 'Matériel disponible' },
       { to: '/recyclerie-informatique/comment-donner/', label: 'Comment donner ?' },
       { to: '/defi-collecte/', label: 'Challenge territorial' },
+      // Entrée distincte vers la liste des points de collecte : « Challenge
+      // territorial » ne dit pas où déposer, et c'est cette question-là qui
+      // amène les visiteurs dans ce menu.
+      { to: '/defi-collecte/#ou-deposer', label: 'Points de collecte' },
       { to: '/recyclerie-informatique/materiel-accepte/', label: 'Matériel accepté' },
       { to: '/recyclerie-informatique/reconditionnement/', label: 'Reconditionnement' },
       { to: '/recyclerie-informatique/effacement-donnees/', label: 'Effacement des données' },

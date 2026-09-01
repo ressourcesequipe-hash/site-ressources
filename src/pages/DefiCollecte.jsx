@@ -37,13 +37,12 @@ function Epingle({ className = '' }) {
   )
 }
 
-// Défilement doux vers le formulaire. On ne bloque volontairement pas le
-// comportement natif du lien : si scrollIntoView échoue, le saut d'ancre du
+// Défilement doux vers une ancre de la page. On ne bloque volontairement pas
+// le comportement natif du lien : si scrollIntoView échoue, le saut d'ancre du
 // navigateur amène malgré tout au bon endroit.
-function versFormulaire() {
-  document
-    .getElementById('devenir-point-collecte')
-    ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+function versAncre(id) {
+  return () =>
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 const faqSchema = {
@@ -176,8 +175,19 @@ export default function DefiCollecte() {
             </span>
           </div>
 
-          <div className="mt-8">
-            <a href="#devenir-point-collecte" onClick={versFormulaire} className="btn-ocre text-sm">
+          {/* Deux publics, deux boutons. Le hero n'offrait que « Devenir point
+              de collecte », qui s'adresse aux communes et aux entreprises : le
+              visiteur venu déposer son matériel n'avait aucun bouton pour lui,
+              et devait deviner qu'il fallait faire défiler. */}
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href="#ou-deposer" onClick={versAncre('ou-deposer')} className="btn-ocre text-sm">
+              Où déposer mon matériel
+            </a>
+            <a
+              href="#devenir-point-collecte"
+              onClick={versAncre('devenir-point-collecte')}
+              className="btn-outline-white text-sm"
+            >
               Devenir point de collecte
             </a>
           </div>
@@ -198,88 +208,11 @@ export default function DefiCollecte() {
 
           <div className="lg:col-start-1 lg:row-start-1">
 
-          {/* Pourquoi */}
-          <div className="mb-12">
-            <h2 className="font-serif text-2xl text-terre mb-4">Pourquoi ce challenge ?</h2>
-            <div className="space-y-4 max-w-2xl">
-              <p className="text-sm text-terre/65 leading-relaxed">
-                Dans les Landes comme ailleurs, une quantité considérable
-                d'équipements informatiques et électroniques dort au fond des tiroirs, des placards
-                et des réserves d'entreprises. Pendant ce temps, des familles, des
-                personnes âgées et des associations du territoire manquent de
-                matériel numérique en état de marche.
-              </p>
-              <p className="text-sm text-terre/65 leading-relaxed">
-                L'impact environnemental du numérique est bien réel, et la
-                raréfaction des composants se fait sentir de plus en plus nettement.
-                Prolonger la vie d'un équipement plutôt que d'en produire un neuf
-                est un levier concret, à la portée de chacun.
-              </p>
-            </div>
-          </div>
-
-          {/* Comment ça marche */}
-          <div className="mb-12">
-            <h2 className="font-serif text-2xl text-terre mb-6">Comment ça marche</h2>
-            <div className="grid sm:grid-cols-2 gap-6">
-              {ETAPES.map(({ num, titre, desc }) => (
-                <div key={num} className="border-t-2 border-ocre/30 pt-4">
-                  <span className="font-serif text-2xl text-ocre/30 block mb-2 leading-none">{num}</span>
-                  <h3 className="font-serif text-lg text-terre mb-1.5">{titre}</h3>
-                  <p className="text-sm text-terre/60 leading-relaxed">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          </div>
-
-          {/* Colonne latérale — promotion de la tombola */}
-          {/* top-32 : l'en-tête collant fait 112 px, en dessous l'encart passait
-              dessous. row-span-2 : sans lui l'encart cesserait de suivre au bas
-              de la première rangée. */}
-          <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-32 lg:self-start mb-12 lg:mb-0">
-            <EncartTombola />
-          </div>
-
-          <div className="lg:col-start-1 lg:row-start-2">
-
-          {/* Ce que nous acceptons */}
-          <div className="bg-beige-light border border-beige-dark p-6 md:p-8 mb-12">
-            <h2 className="font-serif text-xl text-terre mb-4">Ce que vous pouvez déposer</h2>
-            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2 mb-5">
-              {ACCEPTE.map((item) => (
-                <li key={item} className="flex items-start gap-2 text-sm text-terre/65">
-                  <span className="text-ocre mt-0.5 shrink-0">→</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            {/* Consignes de l'affiche du kit de communication : c'est cette page
-                que son QR code ouvre, les deux doivent dire la même chose. */}
-            <div className="border-t border-beige-dark pt-5">
-              <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-ocre mb-3">
-                Consignes importantes
-              </p>
-              <dl className="space-y-3">
-                {CONSIGNES.map(({ titre, texte }) => (
-                  <div key={titre}>
-                    <dt className="font-sans text-xs font-semibold text-terre/75">{titre}</dt>
-                    <dd className="text-xs text-terre/55 leading-relaxed mt-0.5">{texte}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="text-xs text-terre/50 leading-relaxed mt-4">
-                Vous pouvez aussi retirer le disque dur vous-même avant le dépôt.{' '}
-                <Link to="/recyclerie-informatique/effacement-donnees/" className="text-ocre hover:underline">
-                  En savoir plus sur la sécurité des données
-                </Link>
-              </p>
-            </div>
-          </div>
-
-          {/* Points de collecte */}
-          <div className="mb-12">
+          {/* Points de collecte — en tête de section : « où déposer ? » est la
+              première question de qui arrive ici, et elle arrivait après quatre
+              écrans de défilement sur mobile. L'ancre permet d'y renvoyer
+              directement depuis le hero, le menu et la page d'accueil. */}
+          <div id="ou-deposer" className="mb-12 scroll-mt-28 md:scroll-mt-32">
             <div className="flex items-baseline gap-3 mb-2">
               <h2 className="font-serif text-2xl text-terre">Où déposer</h2>
               {/* Tant qu'aucun point n'est ouvert au depot libre, annoncer « 0 point
@@ -415,15 +348,99 @@ export default function DefiCollecte() {
             )}
 
             <p className="text-sm text-terre/50 italic">
-              D'autres points de collecte ouvriront d'ici au 1er septembre.{' '}
-              <a href="#devenir-point-collecte" onClick={versFormulaire} className="text-ocre not-italic hover:underline">
+              D'autres points de collecte ouvriront pendant le challenge.{' '}
+              <a
+                href="#devenir-point-collecte"
+                onClick={versAncre('devenir-point-collecte')}
+                className="text-ocre not-italic hover:underline"
+              >
                 Vous souhaitez en accueillir un ?
               </a>
             </p>
           </div>
 
+          {/* Pourquoi */}
+          <div className="mb-12">
+            <h2 className="font-serif text-2xl text-terre mb-4">Pourquoi ce challenge ?</h2>
+            <div className="space-y-4 max-w-2xl">
+              <p className="text-sm text-terre/65 leading-relaxed">
+                Dans les Landes comme ailleurs, une quantité considérable
+                d'équipements informatiques et électroniques dort au fond des tiroirs, des placards
+                et des réserves d'entreprises. Pendant ce temps, des familles, des
+                personnes âgées et des associations du territoire manquent de
+                matériel numérique en état de marche.
+              </p>
+              <p className="text-sm text-terre/65 leading-relaxed">
+                L'impact environnemental du numérique est bien réel, et la
+                raréfaction des composants se fait sentir de plus en plus nettement.
+                Prolonger la vie d'un équipement plutôt que d'en produire un neuf
+                est un levier concret, à la portée de chacun.
+              </p>
+            </div>
+          </div>
+
+          {/* Comment ça marche */}
+          <div className="mb-12">
+            <h2 className="font-serif text-2xl text-terre mb-6">Comment ça marche</h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {ETAPES.map(({ num, titre, desc }) => (
+                <div key={num} className="border-t-2 border-ocre/30 pt-4">
+                  <span className="font-serif text-2xl text-ocre/30 block mb-2 leading-none">{num}</span>
+                  <h3 className="font-serif text-lg text-terre mb-1.5">{titre}</h3>
+                  <p className="text-sm text-terre/60 leading-relaxed">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          </div>
+
+          {/* Colonne latérale — promotion de la tombola */}
+          {/* top-32 : l'en-tête collant fait 112 px, en dessous l'encart passait
+              dessous. row-span-2 : sans lui l'encart cesserait de suivre au bas
+              de la première rangée. */}
+          <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-32 lg:self-start mb-12 lg:mb-0">
+            <EncartTombola />
+          </div>
+
+          <div className="lg:col-start-1 lg:row-start-2">
+
+          {/* Ce que nous acceptons */}
+          <div className="bg-beige-light border border-beige-dark p-6 md:p-8 mb-12">
+            <h2 className="font-serif text-xl text-terre mb-4">Ce que vous pouvez déposer</h2>
+            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2 mb-5">
+              {ACCEPTE.map((item) => (
+                <li key={item} className="flex items-start gap-2 text-sm text-terre/65">
+                  <span className="text-ocre mt-0.5 shrink-0">→</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            {/* Consignes de l'affiche du kit de communication : c'est cette page
+                que son QR code ouvre, les deux doivent dire la même chose. */}
+            <div className="border-t border-beige-dark pt-5">
+              <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-ocre mb-3">
+                Consignes importantes
+              </p>
+              <dl className="space-y-3">
+                {CONSIGNES.map(({ titre, texte }) => (
+                  <div key={titre}>
+                    <dt className="font-sans text-xs font-semibold text-terre/75">{titre}</dt>
+                    <dd className="text-xs text-terre/55 leading-relaxed mt-0.5">{texte}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="text-xs text-terre/50 leading-relaxed mt-4">
+                Vous pouvez aussi retirer le disque dur vous-même avant le dépôt.{' '}
+                <Link to="/recyclerie-informatique/effacement-donnees/" className="text-ocre hover:underline">
+                  En savoir plus sur la sécurité des données
+                </Link>
+              </p>
+            </div>
+          </div>
+
           {/* Accueillir un point de collecte */}
-          <div id="devenir-point-collecte" className="border border-beige-dark bg-beige-light p-6 md:p-8 mb-12 scroll-mt-24">
+          <div id="devenir-point-collecte" className="border border-beige-dark bg-beige-light p-6 md:p-8 mb-12 scroll-mt-28 md:scroll-mt-32">
             <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
               Entreprises, commerces & communes
             </p>
