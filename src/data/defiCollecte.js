@@ -166,14 +166,22 @@ export const POINTS_COLLECTE = [
     note: null,
   },
   {
+    // Formalisé le 01/09/2026. OpenStreetMap connaît le bâtiment sous
+    // « Centre Commercial E.Leclerc » (way 761761949) et le rattache à la rue
+    // d'Aquitaine, la voie interne de la zone commerciale ; l'enseigne, elle,
+    // publie route de Tosse, et c'est cette adresse-là que les gens cherchent.
+    // On affiche donc route de Tosse, et l'épingle tombe sur le bâtiment.
     nom: 'E.Leclerc',
     ville: 'Soustons',
-    adresse: null,
-    coords: null,
+    adresse: 'route de Tosse',
+    coords: [43.7455, -1.3315],
     type: 'Point partenaire',
     statut: 'confirme',
-    mention: 'En cours de formalisation',
-    horaires: null,
+    mention: null,
+    // Horaires du magasin : le site de l'enseigne et OpenStreetMap donnent
+    // tous deux « lundi au samedi, 9h–19h30 ». Plusieurs annuaires annoncent
+    // 20h30, ils ne sont pas suivis.
+    horaires: [{ jours: 'Lundi au samedi', creneaux: ['9h–19h30'] }],
     note: null,
   },
   {
