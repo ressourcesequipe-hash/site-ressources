@@ -14,7 +14,6 @@ import {
   DEFI,
   ETAPES,
   KIT_COMMUNICATION,
-  POINTS_CONFIRMES,
   POINTS_EN_COURS,
   POINTS_OUVERTS,
   horairesTexte,
@@ -213,17 +212,10 @@ export default function DefiCollecte() {
               écrans de défilement sur mobile. L'ancre permet d'y renvoyer
               directement depuis le hero, le menu et la page d'accueil. */}
           <div id="ou-deposer" className="mb-12 scroll-mt-28 md:scroll-mt-32">
-            <div className="flex items-baseline gap-3 mb-2">
-              <h2 className="font-serif text-2xl text-terre">Où déposer</h2>
-              {/* Tant qu'aucun point n'est ouvert au depot libre, annoncer « 0 point
-                  de collecte » a cote d'une liste de trois serait incomprehensible :
-                  on compte alors les points en cours de validation. */}
-              <span className="font-sans text-xs text-terre/45">
-                {POINTS_OUVERTS.length > 0
-                  ? `${POINTS_OUVERTS.length} point${POINTS_OUVERTS.length > 1 ? 's' : ''} de collecte`
-                  : `${POINTS_CONFIRMES.length} point${POINTS_CONFIRMES.length > 1 ? 's' : ''} en cours de validation`}
-              </span>
-            </div>
+            {/* Le decompte a quitte cette ligne : il est le titre de l'encadre
+                juste en dessous, et l'ecrire deux fois a 120 px d'intervalle
+                ne servait personne. */}
+            <h2 className="font-serif text-2xl text-terre mb-2">Où déposer</h2>
             <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
               Les communes et les structures partenaires du territoire se sont
               portées volontaires pour accueillir un point de collecte. Vous pouvez
@@ -236,11 +228,13 @@ export default function DefiCollecte() {
                 portant volontairement aucun numéro, c'est le clic sur une ligne
                 — et la bulle qu'il ouvre — qui relie la liste à la carte. */}
             <div className="border border-beige-dark bg-white p-6 mb-6">
-              <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
-                Dépôt libre · {POINTS_OUVERTS.length} points de collecte
-              </p>
-              <h3 className="font-serif text-xl text-terre mb-5">
-                En mairie et chez nos partenaires
+              {/* Le decompte est le titre du bloc, et non plus une etiquette
+                  au-dessus d'un titre. « En mairie et chez nos partenaires »
+                  disait ce que la liste montre deja, et « Depot libre » ce que
+                  le paragraphe au-dessus explique : ne reste que le chiffre,
+                  qui lui n'est ecrit nulle part ailleurs dans l'encadre. */}
+              <h3 className="font-sans text-base font-bold tracking-[0.15em] uppercase text-ocre mb-5">
+                {POINTS_OUVERTS.length} point{POINTS_OUVERTS.length > 1 ? 's' : ''} de collecte
               </h3>
 
               <div className="grid lg:grid-cols-[1fr_1.05fr] gap-6 lg:gap-8">
