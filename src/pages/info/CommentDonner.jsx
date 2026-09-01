@@ -208,8 +208,12 @@ export default function CommentDonner() {
             </div>
 
             <div className="flex flex-wrap gap-4 text-sm">
-              <Link to="/defi-collecte/" className="text-kaki hover:text-ocre transition-colors font-medium">
-                → Suivre le challenge collecte et la liste à jour
+              {/* Vers l'ancre, pas vers le haut de la page : la liste ci-dessus
+                  donne les noms et les adresses, mais ni les horaires ni la
+                  carte — c'est cela qu'on va chercher là-bas, et le lien le
+                  dit. */}
+              <Link to="/defi-collecte/#ou-deposer" className="text-kaki hover:text-ocre transition-colors font-medium">
+                → Horaires et carte des points de collecte
               </Link>
               <a href="mailto:contact@ressourcesrecyclerie.fr" className="text-kaki hover:text-ocre transition-colors font-medium">
                 → Convenir d'une remise par mail
