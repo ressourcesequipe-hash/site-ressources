@@ -142,7 +142,10 @@ export default function Tombola() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
           {/* Mise en avant lots */}
-          <div id="lots" className="text-center bg-ocre-pale border border-ocre/20 p-10 mb-12 scroll-mt-24">
+          {/* scroll-mt : l'en-tête collant fait 96 px sur mobile et 112 px
+              au-dessus, il faut le dégager pour que le titre ne soit pas
+              masqué à l'arrivée sur l'ancre. */}
+          <div id="lots" className="text-center bg-ocre-pale border border-ocre/20 p-10 mb-12 scroll-mt-28 md:scroll-mt-32">
             <p className="font-sans text-xs text-ocre font-semibold tracking-widest uppercase mb-3">
               Lots à gagner
             </p>

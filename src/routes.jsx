@@ -39,9 +39,55 @@ import Contact from './pages/Contact'
 import MentionsLegales from './pages/MentionsLegales'
 import Confidentialite from './pages/Confidentialite'
 
+// Remonte en haut à chaque changement de page — sauf si l'URL porte une ancre,
+// auquel cas on vise l'élément correspondant. Sans ce cas particulier, un lien
+// vers « /page/#ancre » était ramené en haut par le scrollTo et l'ancre restait
+// lettre morte, y compris à l'ouverture directe de l'URL.
 function ScrollToTop() {
-  const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  const { pathname, hash } = useLocation()
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo(0, 0)
+      return
+    }
+    const id = decodeURIComponent(hash.slice(1))
+    let actif = true
+    let restant = 10
+
+    // scrollIntoView respecte le `scroll-margin-top` de la cible, ce qui
+    // dégage l'en-tête collant.
+    //
+    // `behavior: 'instant'` est indispensable : la feuille de style pose
+    // `html { scroll-behavior: smooth }`, si bien qu'un scrollIntoView par
+    // défaut lance un défilement progressif que le chargement de la page
+    // interrompt — on restait alors en haut. Sur un changement de page, le
+    // saut immédiat est de toute façon le comportement attendu.
+    const viser = () => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' })
+    }
+
+    // La page grandit encore pendant que les images se chargent : un saut fait
+    // trop tôt bute sur un document trop court et reste en chemin — c'était le
+    // cas sur grand écran, où l'on n'arrivait qu'à 115 px de haut de page. On
+    // rejoue donc le saut pendant une demi-seconde, et on s'arrête net dès que
+    // le visiteur reprend la main.
+    const rejouer = () => {
+      if (!actif || restant-- <= 0) return
+      viser()
+      setTimeout(rejouer, 60)
+    }
+
+    const abandonner = () => { actif = false }
+    const gestes = ['wheel', 'touchstart', 'keydown']
+    gestes.forEach((geste) => window.addEventListener(geste, abandonner, { passive: true }))
+
+    rejouer()
+
+    return () => {
+      actif = false
+      gestes.forEach((geste) => window.removeEventListener(geste, abandonner))
+    }
+  }, [pathname, hash])
   return null
 }
 
