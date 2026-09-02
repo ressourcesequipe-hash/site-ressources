@@ -155,6 +155,21 @@ export const POINTS_COLLECTE = [
     ],
     note: 'Horaires d’été, jusqu’au 15 septembre. À partir du 16 : lundi au jeudi 8h–12h et 13h30–16h45, vendredi 8h–12h et 13h30–16h30.',
   },
+  {
+    // Relevé le 02/09/2026. Adresse et horaires identiques dans l'annuaire de
+    // l'administration, sur le site de la commune et dans OpenStreetMap, qui
+    // connaît la mairie par son nom (node 2907706854) : l'épingle est celle du
+    // bâtiment, et non du milieu de la voie comme le donnait l'annuaire.
+    nom: 'Mairie de Lit-et-Mixe',
+    ville: 'Lit-et-Mixe',
+    adresse: '93 rue de l’Hôtel-de-Ville',
+    coords: [44.0339, -1.2582],
+    type: 'Point communal',
+    statut: 'confirme',
+    mention: null,
+    horaires: [{ jours: 'Lundi au vendredi', creneaux: ['9h–12h30', '13h30–16h30'] }],
+    note: null,
+  },
   // Structures partenaires — adresses, coordonnées et horaires relevés le
   // 29/08/2026 sur le site officiel de chaque structure, recoupés sur les
   // annuaires. Toutes deux sont cartographiées nommément dans OpenStreetMap :

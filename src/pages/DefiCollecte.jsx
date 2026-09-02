@@ -251,7 +251,7 @@ export default function DefiCollecte() {
                         >
                           <Epingle className="shrink-0 w-4 h-auto mt-0.5 text-ocre transition-colors group-hover:text-ocre-dark" />
                           {/* Ni « Point communal » ni « Point partenaire » ici :
-                              huit noms sur douze sont ceux d'une commune, et
+                              neuf noms sur treize sont ceux d'une commune, et
                               le titre du bloc dit deja de quoi il retourne. Le
                               champ `type` reste affiche sur « comment donner ». */}
                           <span className="min-w-0 flex-1">
@@ -296,7 +296,7 @@ export default function DefiCollecte() {
                   })}
                 </ul>
 
-                {/* Collante, contrairement à la tombola : douze points portant
+                {/* Collante, contrairement à la tombola : treize points portant
                     leurs horaires font une liste bien plus haute que la carte,
                     qui sortirait du champ dès le troisième point. */}
                 <div className="lg:sticky lg:top-32 lg:self-start">
