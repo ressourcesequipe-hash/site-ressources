@@ -121,6 +121,40 @@ export const POINTS_COLLECTE = [
     horaires: [{ jours: 'Lundi au vendredi', creneaux: ['8h30–12h15', '13h30–17h30'] }],
     note: null,
   },
+  {
+    // Les services techniques, et non la mairie : c'est là que la commune
+    // réceptionne le matériel. Le téléphone publié par la commune est celui de
+    // la fiche Google (05 59 45 70 22), donc il s'agit bien du même service —
+    // mais les deux ne donnent pas la même adresse. La commune écrit « Avenue
+    // de l'Océan », sans numéro et introuvable comme telle dans la Base Adresse
+    // Nationale ; la fiche Google donne « 597 route du Stade », que la BAN
+    // connaît (sous « 597 rue du Stade ») et qui tombe à 50 m du 450, où la
+    // commune installe déjà d'autres services. C'est donc route du Stade qui
+    // est affichée, avec l'épingle sur le numéro relevé dans la BAN.
+    // À faire confirmer par la mairie : si le dépôt se fait avenue de l'Océan,
+    // adresse et coordonnées sont à reprendre ici.
+    nom: 'Services techniques de Labenne',
+    ville: 'Labenne',
+    adresse: '597 route du Stade',
+    coords: [43.5874, -1.4458],
+    type: 'Point communal',
+    statut: 'confirme',
+    mention: null,
+    // Seul point du challenge à changer d'horaires en cours de route : la
+    // commune applique des horaires d'été du 15 juin au 15 septembre, soit les
+    // deux premières semaines de la collecte. Ce sont eux qui sont affichés
+    // jusque-là, les horaires courants étant donnés dans la note.
+    // À BASCULER LE 16/09/2026 : les créneaux ci-dessous deviennent
+    // « Lundi au jeudi 8h–12h et 13h30–16h45 » / « Vendredi 8h–12h et
+    // 13h30–16h30 », et la note tombe.
+    // La fiche Google annonce une journée continue 8h–16h45 : elle a avalé la
+    // coupure de midi, c'est le site de la commune qui fait foi.
+    horaires: [
+      { jours: 'Lundi au jeudi', creneaux: ['7h–14h15'] },
+      { jours: 'Vendredi', creneaux: ['7h–14h'] },
+    ],
+    note: 'Horaires d’été, jusqu’au 15 septembre. À partir du 16 : lundi au jeudi 8h–12h et 13h30–16h45, vendredi 8h–12h et 13h30–16h30.',
+  },
   // Structures partenaires — adresses, coordonnées et horaires relevés le
   // 29/08/2026 sur le site officiel de chaque structure, recoupés sur les
   // annuaires. Toutes deux sont cartographiées nommément dans OpenStreetMap :
