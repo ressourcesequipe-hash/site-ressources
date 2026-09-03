@@ -6,6 +6,7 @@ import {
   LOT_PRINCIPAL,
   NB_LOTS_CONFIRMES,
   formatEuros,
+  formatValeurLot,
 } from '../data/lotsTombola'
 
 // Liste complete des lots, ouverte depuis le podium.
@@ -93,13 +94,14 @@ export default function TousLesLotsModal({ isOpen, onClose }) {
               Les grands lots
             </h3>
             <ul className="divide-y divide-beige">
-              {LOTS_PODIUM.map(({ lot, partenaire, valeur, detail, statut }, i) => (
+              {LOTS_PODIUM.map(({ lot, partenaire, valeur, valeurMax, detail, statut }, i) => (
                 <LigneLot
                   key={`podium-${lot}-${partenaire}-${i}`}
                   numero={i + 2}
                   lot={lot}
                   partenaire={partenaire}
                   valeur={valeur}
+                  valeurMax={valeurMax}
                   detail={detail}
                   statut={statut}
                 />
@@ -120,13 +122,14 @@ export default function TousLesLotsModal({ isOpen, onClose }) {
                   {label}
                 </h3>
                 <ul className="divide-y divide-beige">
-                  {lots.map(({ lot, partenaire, valeur, detail, statut }, i) => (
+                  {lots.map(({ lot, partenaire, valeur, valeurMax, detail, statut }, i) => (
                     <LigneLot
                       key={`${id}-${lot}-${partenaire}-${i}`}
                       numero={numeroDepartSecondaires + decalage + i}
                       lot={lot}
                       partenaire={partenaire}
                       valeur={valeur}
+                      valeurMax={valeurMax}
                       detail={detail}
                       statut={statut}
                     />
@@ -148,7 +151,7 @@ export default function TousLesLotsModal({ isOpen, onClose }) {
   )
 }
 
-function LigneLot({ numero, lot, partenaire, valeur, detail, statut }) {
+function LigneLot({ numero, lot, partenaire, valeur, valeurMax, detail, statut }) {
   const enCours = statut === 'en-cours'
 
   return (
@@ -168,8 +171,8 @@ function LigneLot({ numero, lot, partenaire, valeur, detail, statut }) {
         )}
       </div>
       {!enCours && valeur != null && (
-        <span className="font-serif text-sm text-ocre shrink-0 tabular-nums">
-          {formatEuros(valeur)}
+        <span className="font-serif text-sm text-ocre shrink-0 tabular-nums whitespace-nowrap">
+          {formatValeurLot({ valeur, valeurMax })}
         </span>
       )}
     </li>

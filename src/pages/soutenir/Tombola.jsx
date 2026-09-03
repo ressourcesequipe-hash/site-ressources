@@ -20,6 +20,7 @@ import {
   RESUME_CATEGORIES,
   VALEUR_ARRONDIE,
   formatEuros,
+  formatValeurLot,
 } from '../../data/lotsTombola'
 
 const faqSchema = {
@@ -384,7 +385,7 @@ export default function Tombola() {
 
           {/* Podium — lots à 200 € et plus */}
           <div className="grid sm:grid-cols-2 gap-5 mb-12">
-            {LOTS_PODIUM.map(({ lot, partenaire, valeur, detail, statut }, i) => {
+            {LOTS_PODIUM.map(({ lot, partenaire, valeur, valeurMax, detail, statut }, i) => {
               const enCours = statut === 'en-cours'
               return (
                 <div
@@ -404,8 +405,15 @@ export default function Tombola() {
                       Lot n° {i + 2}
                     </span>
                     {!enCours && (
-                      <span className="font-serif text-2xl text-ocre leading-none">
-                        {formatEuros(valeur)}
+                      // Une fourchette tient deux fois plus de large qu'un
+                      // montant sec : d'un cran plus petite, elle reste sur une
+                      // ligne à côté du numéro de lot au lieu de se replier.
+                      <span
+                        className={`font-serif text-ocre leading-none whitespace-nowrap ${
+                          valeurMax ? 'text-lg' : 'text-2xl'
+                        }`}
+                      >
+                        {formatValeurLot({ valeur, valeurMax })}
                       </span>
                     )}
                   </div>

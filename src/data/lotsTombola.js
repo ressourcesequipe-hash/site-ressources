@@ -62,11 +62,15 @@ export const LOTS_CONFIRMES = [
 
   // Restauration & produits locaux
   // Douze menus, un par mois pendant un an, valables dans n'importe quel
-  // établissement de l'enseigne. Valeur retenue : 15 € le menu — l'enseigne ne
-  // publie pas ses tarifs, à corriger si le montant réel diffère.
-  // podium: true — le lot est mis en avant malgré ses 180 €, sous le seuil.
+  // établissement de l'enseigne. Le montant dépend du menu que le gagnant
+  // choisira : de 110 € s'il prend chaque fois le moins cher à 240 € s'il prend
+  // chaque fois le plus cher (précision de Boris, 03/09/2026). D'où la
+  // fourchette, seul lot de la dotation à en porter une.
+  // C'est le plancher qui compte dans VALEUR_CONFIRMEE : mieux vaut une
+  // accroche que la dotation dépasse qu'une accroche qu'elle ne tient pas.
+  // podium: true — le lot est mis en avant malgré une valeur sous le seuil.
   // Il y prend la place de la carte cadeau E.Leclerc Express Linxe (29/08/2026).
-  { lot: 'Un menu offert chaque mois pendant un an', partenaire: 'Jack’s Burgers', categorie: 'gourmand', valeur: 180, detail: '12 menus · 1 par mois', podium: true },
+  { lot: 'Un menu offert chaque mois pendant un an', partenaire: 'Jack’s Burgers', categorie: 'gourmand', valeur: 110, valeurMax: 240, detail: '12 menus · 1 par mois', podium: true },
   // Dotation offerte par une particulière. Son nom n'est pas publié sans son accord.
   { lot: 'Carton de 6 bouteilles de Jurançon moelleux', partenaire: 'Don d’un particulier', categorie: 'gourmand', valeur: 70, detail: '6 bouteilles' },
   { lot: 'Bon d’achat', partenaire: 'Chez Paulette', categorie: 'gourmand', valeur: 60, detail: '1 bon' },
@@ -288,3 +292,12 @@ export const formatEuros = (valeur) =>
   valeur % 1 === 0
     ? `${valeur.toLocaleString('fr-FR')} €`
     : `${valeur.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} €`
+
+// Valeur d'un lot telle qu'elle s'affiche. Un lot dont le montant dépend d'un
+// choix du gagnant porte `valeurMax` en plus de `valeur` et s'annonce en
+// fourchette — « 110 à 240 € ». L'euro n'est écrit qu'une fois, sur la borne
+// haute : c'est la lecture courante d'un prix en français.
+export const formatValeurLot = ({ valeur, valeurMax }) =>
+  valeurMax
+    ? `${valeur.toLocaleString('fr-FR')} à ${formatEuros(valeurMax)}`
+    : formatEuros(valeur)
