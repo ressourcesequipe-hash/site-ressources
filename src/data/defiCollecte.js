@@ -244,6 +244,44 @@ export const POINTS_COLLECTE = [
     horaires: null,
     note: null,
   },
+  // Les deux technopôles, ouverts au dépôt libre le 03/09/2026. Adresses
+  // relevées sur le site de chaque structure et retrouvées à l'identique dans
+  // la Base Adresse Nationale, qui fournit les coordonnées — OpenStreetMap ne
+  // connaît nommément ni l'un ni l'autre.
+  //
+  // Leurs horaires, en revanche, ne figurent sur aucun des deux sites : ceux
+  // retenus ici sont les créneaux de dépôt confirmés par Boris, qui recoupent
+  // les fiches publiées par les établissements eux-mêmes (Google pour
+  // Domolandes, Facebook pour Agrolandes). Ce sont deux accueils de pépinière
+  // d'entreprises, d'où la journée continue.
+  {
+    // Parc d'activités Atlantisud. Accueil 05 58 55 72 00.
+    // Deuxième point de Saint-Geours-de-Maremne, avec sa mairie.
+    nom: 'Domolandes',
+    ville: 'Saint-Geours-de-Maremne',
+    adresse: '50 allée de Cérès',
+    coords: [43.7114, -1.2365],
+    type: 'Point partenaire',
+    statut: 'confirme',
+    mention: null,
+    horaires: [{ jours: 'Lundi au vendredi', creneaux: ['9h–17h'] }],
+    note: null,
+  },
+  {
+    // Accueil 05 54 07 11 10. Le point le plus à l'est du challenge.
+    nom: 'Agrolandes',
+    ville: 'Haut-Mauco',
+    adresse: '1003 allée Jean d’Arcet',
+    coords: [43.8383, -0.5307],
+    type: 'Point partenaire',
+    statut: 'confirme',
+    mention: null,
+    horaires: [
+      { jours: 'Lundi au jeudi', creneaux: ['9h–18h'] },
+      { jours: 'Vendredi', creneaux: ['9h–17h'] },
+    ],
+    note: null,
+  },
 ]
 
 export const POINTS_CONFIRMES = POINTS_COLLECTE.filter(
