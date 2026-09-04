@@ -124,8 +124,6 @@ export const POINTS_VENTE = [
   // l'épingle est posée sur l'avenue. À resserrer si tu passes devant.
   { nom: 'Boulangerie La Linxoise', ville: 'Lit-et-Mixe', adresse: '3 avenue de la Côte d’Argent', coords: [44.0318, -1.2548] },
   { nom: 'Le Moustache Café', ville: 'Tosse', adresse: '42 avenue du Général-de-Gaulle', coords: [43.6900, -1.3319] },
-  // OpenStreetMap connaît le camping (tourism=camp_site) : position exacte.
-  { nom: 'Épicerie et restaurant du camping Capfun La Pomme de Pin', ville: 'Saubion', adresse: '825 route de Seignosse', coords: [43.6752, -1.3566] },
   // Adresse confirmée par le site officiel de la commune, numéro cartographié.
   { nom: 'Tabac Presse des Estagnots', ville: 'Seignosse', adresse: '52 avenue du Penon', coords: [43.6913, -1.4363] },
   // Le restaurant est au cœur du camping, qu'OpenStreetMap connaît
