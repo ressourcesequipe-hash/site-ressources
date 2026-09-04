@@ -72,8 +72,12 @@ export default function EncartTombola() {
           </svg>
         </Link>
 
+        {/* « Points de vente » et non « commerçants » : le compte est celui des
+            adresses, pas des enseignes, et La Linxoise en tient trois à elle
+            seule. Dire « 7 commerçants » en annoncerait deux de plus qu'il n'y
+            en a. */}
         <p className="font-sans text-[11px] text-terre/70 leading-relaxed mt-4">
-          En ligne à tout moment, ou chez {POINTS_VENTE.length} commerçants du
+          En ligne à tout moment, ou dans {POINTS_VENTE.length} points de vente du
           territoire. 100 % des fonds pour la recyclerie.
         </p>
       </div>
