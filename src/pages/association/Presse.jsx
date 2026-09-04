@@ -18,6 +18,8 @@ import {
 // ils y étaient écrits en dur des deux côtés, et les deux ont divergé de la
 // réalité en même temps.
 import { PAYS_ZONE_ACTION } from '../../data/partenaires'
+// Le nombre de commerçants qui dotent la tombola vient des dotations elles-mêmes.
+import { PARTENAIRES_PUBLIES } from '../../data/lotsTombola'
 
 const BREADCRUMBS = [
   { label: 'L\'Association', href: '/association/' },
@@ -82,8 +84,22 @@ const ANGLES = [
     lienTexte: 'La page du challenge et ses points de collecte',
   },
   {
+    // « Plus de vingt » datait de la première vague de dotations et en annonçait
+    // onze de moins qu'il n'y en a. Le compte se lit maintenant dans les
+    // dotations elles-mêmes, comme les chiffres du challenge juste au-dessus.
+    //
+    // Les communes ne sont pas classées par nombre de dotations — ce serait un
+    // rang entre partenaires. Elles sont citées dans l'ordre alphabétique, et
+    // « quelques-uns plus loin » dit le reste sans faire croire que les
+    // trente et un sont tous sur la côte : quatre n'y sont pas.
     titre: 'Une mobilisation de commerçants locaux',
-    desc: 'Plus de vingt commerçants, artisans et producteurs de Léon, Linxe, Soustons, Vielle-Saint-Girons et Dax se sont engagés à doter la tombola de lancement. Un instantané du tissu économique de la côte landaise.',
+    desc:
+      `Ils sont ${PARTENAIRES_PUBLIES.length} commerçants, artisans et producteurs à s'être engagés ` +
+      'à doter la tombola de lancement — la plupart sur la côte landaise : Capbreton, Léon, ' +
+      'Linxe, Soustons, Vielle-Saint-Girons ; quelques-uns plus loin, jusqu\'à Dax, en Gironde ' +
+      'et en Béarn. Un instantané du tissu économique du territoire.',
+    lien: '/soutenir/tombola/',
+    lienTexte: 'Les lots et les partenaires de la tombola',
   },
 ]
 
