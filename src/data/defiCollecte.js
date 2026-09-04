@@ -318,9 +318,13 @@ export const horairesTexte = (horaires) =>
 // Partenariat SITCOM40 : points de collecte en déchèterie.
 // Renseigner `decheteries` avec les communes dès qu'elles sont arrêtées ;
 // la page les affiche alors nommément à la place de la mention générique.
+// Passé de deux à trois déchèteries le 04/09/2026. Le nombre ne s'écrit qu'ici :
+// la page « comment donner », l'espace presse et la fiche partenaire du SITCOM
+// le lisent tous les trois. Il était aussi écrit en toutes lettres dans
+// partenaires.js, où il serait resté à « deux ».
 export const PARTENARIAT_SITCOM = {
   nom: 'SITCOM Côte Sud des Landes',
-  nombre: 2,
+  nombre: 3,
   decheteries: [],
 }
 

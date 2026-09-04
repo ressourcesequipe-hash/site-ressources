@@ -9,6 +9,12 @@
 //
 // Deplacer une entree d'un tableau a l'autre suffit a mettre a jour tout le site.
 
+// Le nombre de decheteries du partenariat SITCOM vit dans les donnees du
+// challenge, avec le reste des points de collecte. Il etait recopie en toutes
+// lettres plus bas — « deux decheteries » — et serait reste faux quand il est
+// passe a trois.
+import { PARTENARIAT_SITCOM } from './defiCollecte'
+
 export const PARTENAIRES_CONFIRMES = [
   {
     nom: 'Réseau ReNAITRe',
@@ -23,7 +29,9 @@ export const PARTENAIRES_CONFIRMES = [
     label: 'Partenariat convenu',
     categorie: 'Réseaux & partenaires opérationnels',
     logo: '/logos/logo-sitcom40.svg',
-    desc: "Un partenariat a été convenu avec le SITCOM40 pour l'installation de points de collecte de matériel informatique dans deux déchèteries du département.",
+    desc:
+      "Un partenariat a été convenu avec le SITCOM40 pour l'installation de points " +
+      `de collecte de matériel informatique dans ${PARTENARIAT_SITCOM.nombre} déchèteries du département.`,
     lien: null,
   },
   {
