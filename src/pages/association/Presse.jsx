@@ -14,6 +14,10 @@ import {
   PARTENARIAT_SITCOM,
   POINTS_OUVERTS,
 } from '../../data/defiCollecte'
+// Les pays de la zone d'action sont eux aussi partagés avec la page d'accueil :
+// ils y étaient écrits en dur des deux côtés, et les deux ont divergé de la
+// réalité en même temps.
+import { PAYS_ZONE_ACTION } from '../../data/partenaires'
 
 const BREADCRUMBS = [
   { label: 'L\'Association', href: '/association/' },
@@ -25,7 +29,7 @@ const REPERES = [
   { cle: 'Statut', valeur: 'Association loi 1901, fondée en 2025' },
   { cle: 'Projet recyclerie', valeur: 'Lancé en 2026' },
   { cle: 'Siège', valeur: '80 allée des Cigales, 40560 Vielle-Saint-Girons' },
-  { cle: 'Territoire', valeur: 'Côte landaise, Marensin, Born, Marsan' },
+  { cle: 'Territoire', valeur: PAYS_ZONE_ACTION.join(', ') },
   { cle: 'Filières', valeur: 'Réemploi informatique et recyclerie végétale' },
   { cle: 'Lancement public', valeur: 'Samedi 03 octobre 2026, Vielle-Saint-Girons' },
 ]

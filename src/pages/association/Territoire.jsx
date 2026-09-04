@@ -43,9 +43,20 @@ export default function Territoire() {
                 étend son action sur deux intercommunalités voisines du littoral landais.
               </p>
               <div className="space-y-4">
+                {/* Quelques communes de chaque intercommunalité, pas la liste
+                    complète : Côte Landes Nature en compte dix, MACS
+                    vingt-trois. Ce sont des exemples, dans un ordre qui ne
+                    classe rien.
+
+                    Deux erreurs corrigées le 04/09/2026, après vérification
+                    des listes de communes des deux EPCI : Moliets-et-Maâ
+                    figurait du côté de Côte Landes Nature alors qu'elle est
+                    membre de MACS, et Hossegor était comptée en plus de
+                    Soorts-Hossegor, qui est la même commune sous son nom
+                    officiel. */}
                 {[
-                  { nom: 'CC Côte Landes Nature', desc: 'Communauté de Communes du littoral landais', communes: ['Vielle-Saint-Girons', 'Lit-et-Mixe', 'Saint-Julien-en-Born', 'Léon', 'Moliets-et-Maâ'] },
-                  { nom: 'CC MACS', desc: 'Maremne Adour Côte-Sud', communes: ['Capbreton', 'Hossegor', 'Seignosse', 'Soorts-Hossegor'] },
+                  { nom: 'CC Côte Landes Nature', desc: 'Communauté de Communes du littoral landais', communes: ['Vielle-Saint-Girons', 'Lit-et-Mixe', 'Saint-Julien-en-Born', 'Léon', 'Linxe'] },
+                  { nom: 'CC MACS', desc: 'Maremne Adour Côte-Sud', communes: ['Capbreton', 'Seignosse', 'Soorts-Hossegor', 'Soustons'] },
                 ].map(({ nom, desc, communes }) => (
                   <div key={nom} className="border-l-2 border-kaki pl-4">
                     <p className="font-sans text-sm font-semibold text-terre mb-0.5">{nom}</p>

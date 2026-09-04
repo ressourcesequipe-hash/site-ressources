@@ -60,3 +60,20 @@ export const COOPERATIONS_EN_COURS = [
 export const MENTION_COOPERATIONS =
   "Aucun partenariat n'est formalisé à ce stade avec ces structures : les " +
   "échanges en cours portent sur de futures coopérations territoriales."
+
+// Pays traverses par la zone d'action, celle des deux intercommunalites du
+// littoral — Cote Landes Nature et MACS. La liste etait ecrite en dur sur la
+// page d'accueil et dans l'espace presse, et elle disait « Cote landaise,
+// Marensin, Born, Marsan » :
+//   — le Marsan est le pays de Mont-de-Marsan, ou aucune des deux n'a de
+//     commune ;
+//   — le Maremne, lui, manquait, alors qu'il donne son nom a MACS ;
+//   — le Born ne touche CLN que par sa frange nord, autour de
+//     Saint-Julien-en-Born.
+// Seul le Marensin chevauche reellement les deux, de Vielle-Saint-Girons et
+// Linxe jusqu'a Soustons et Vieux-Boucau.
+// Verifie le 04/09/2026 sur les listes de communes des deux EPCI.
+//
+// Le separateur reste a la charge de chaque page : puces sur l'accueil,
+// virgules dans les reperes presse.
+export const PAYS_ZONE_ACTION = ['Côte landaise', 'Marensin', 'Maremne']

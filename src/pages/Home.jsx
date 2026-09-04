@@ -5,7 +5,7 @@ import SEO from '../components/SEO'
 import NewsletterForm from '../components/NewsletterForm'
 import BandeauTempsForts from '../components/BandeauTempsForts'
 import { useReveal } from '../hooks/useReveal'
-import { COOPERATIONS_EN_COURS, PARTENAIRES_CONFIRMES } from '../data/partenaires'
+import { COOPERATIONS_EN_COURS, PARTENAIRES_CONFIRMES, PAYS_ZONE_ACTION } from '../data/partenaires'
 import { NOMBRE_LOTS_ARRONDI } from '../data/lotsTombola'
 import { afficher, objectifs, MENTION_PHASE_PILOTE } from '../data/objectifs'
 
@@ -640,7 +640,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-[10px] text-terre/35 tracking-[0.22em] uppercase font-sans mb-2">Zone d'action principale</p>
-              <p className="font-serif text-xl text-terre">Côte landaise · Marensin · Born · Marsan</p>
+              <p className="font-serif text-xl text-terre">{PAYS_ZONE_ACTION.join(' · ')}</p>
             </div>
           </div>
 
