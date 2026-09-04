@@ -299,6 +299,12 @@ export const POINTS_OUVERTS = POINTS_CONFIRMES.filter(
   ({ mention, coords }) => !mention && coords,
 )
 
+// Communes où l'on peut déposer. Deux d'entre elles portent deux points —
+// Linxe et Saint-Geours-de-Maremne — d'où ce décompte distinct de celui des
+// points : dire « quinze communes » serait faux. Comme la liste ci-dessus,
+// l'ordre est celui des points, pas un classement entre communes.
+export const COMMUNES_OUVERTES = [...new Set(POINTS_OUVERTS.map(({ ville }) => ville))]
+
 // Points annoncés mais pas encore formalisés : listés sans adresse, sans
 // horaires et hors carte, le dépôt s'y convient au cas par cas.
 export const POINTS_EN_COURS = POINTS_CONFIRMES.filter(({ mention }) => mention)

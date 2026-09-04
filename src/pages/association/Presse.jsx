@@ -5,6 +5,15 @@ import SEO from '../../components/SEO'
 // d'accueil, qui fait autorite. Un dossier de presse qui annoncerait d'autres
 // chiffres que la page publique serait le pire endroit ou introduire un ecart.
 import { OBJECTIFS, afficher, MENTION_PHASE_PILOTE } from '../../data/objectifs'
+// Même raison pour le challenge : le nombre de points de collecte et de
+// communes bouge de semaine en semaine, et c'est la page du challenge qui fait
+// autorité. Recopier les chiffres ici, c'est se condamner à les oublier.
+import {
+  COMMUNES_OUVERTES,
+  DEFI,
+  PARTENARIAT_SITCOM,
+  POINTS_OUVERTS,
+} from '../../data/defiCollecte'
 
 const BREADCRUMBS = [
   { label: 'L\'Association', href: '/association/' },
@@ -51,10 +60,35 @@ const ANGLES = [
     desc: 'Un ordinateur reconditionné pour une famille, un senior ou une association du territoire, avec effacement sécurisé des données. Le sujet croise fracture numérique et pouvoir d\'achat sur un territoire peu dense.',
   },
   {
+    // Le seul angle qui se passe maintenant : la collecte court jusqu'au
+    // 3 octobre. Les chiffres viennent des données du challenge, donc ils
+    // suivent les points qui ouvrent sans qu'on ait à repasser ici.
+    titre: 'Le challenge territorial et ceux qui le portent',
+    desc:
+      `Du ${DEFI.debut} au ${DEFI.fin}, l'association tente de réunir ${DEFI.objectifKg} kg ` +
+      'de matériel informatique dormant. Le challenge ne tient que par les structures qui ' +
+      `ont accepté d'accueillir un point de dépôt : ${POINTS_OUVERTS.length} points ouverts ` +
+      `dans ${COMMUNES_OUVERTES.length} communes, entre mairies, tiers-lieu associatif, ` +
+      'structures de l\'économie sociale et solidaire, grande distribution et pépinières ' +
+      `d'entreprises. Un partenariat a par ailleurs été convenu avec le ${PARTENARIAT_SITCOM.nom} ` +
+      `pour installer un point de collecte dans ${PARTENARIAT_SITCOM.nombre} déchèteries du ` +
+      'département. Le réseau continue de s\'étoffer d\'ici à la pesée publique du 3 octobre : ' +
+      'le sujet peut se suivre en direct, semaine après semaine.',
+    lien: '/defi-collecte/',
+    lienTexte: 'La page du challenge et ses points de collecte',
+  },
+  {
     titre: 'Une mobilisation de commerçants locaux',
     desc: 'Plus de vingt commerçants, artisans et producteurs de Léon, Linxe, Soustons, Vielle-Saint-Girons et Dax se sont engagés à doter la tombola de lancement. Un instantané du tissu économique de la côte landaise.',
   },
 ]
+
+// Le compte est écrit dans le titre de la section : le déduire de la liste
+// évite qu'un angle ajouté laisse « Trois » au-dessus de quatre encadrés.
+const EN_TOUTES_LETTRES = ['Aucun', 'Un', 'Deux', 'Trois', 'Quatre', 'Cinq', 'Six', 'Sept']
+const TITRE_ANGLES = `${EN_TOUTES_LETTRES[ANGLES.length] ?? ANGLES.length} angle${
+  ANGLES.length > 1 ? 's' : ''
+} possible${ANGLES.length > 1 ? 's' : ''}`
 
 export default function Presse() {
   return (
@@ -174,12 +208,23 @@ export default function Presse() {
 
           {/* Angles */}
           <div className="mb-12">
-            <h2 className="font-serif text-2xl text-terre mb-6">Trois angles possibles</h2>
+            <h2 className="font-serif text-2xl text-terre mb-6">{TITRE_ANGLES}</h2>
             <div className="space-y-5">
-              {ANGLES.map(({ titre, desc }) => (
+              {ANGLES.map(({ titre, desc, lien, lienTexte }) => (
                 <div key={titre} className="border-l-2 border-ocre/30 pl-5">
                   <h3 className="font-serif text-lg text-terre mb-1.5">{titre}</h3>
                   <p className="text-sm text-terre/60 leading-relaxed">{desc}</p>
+                  {/* Facultatif : seuls les angles qui ont une page à eux sur
+                      le site en portent un, pour que le journaliste y trouve
+                      les chiffres à jour plutôt que de nous les redemander. */}
+                  {lien && (
+                    <Link
+                      to={lien}
+                      className="inline-block mt-2 text-xs font-sans font-medium text-kaki hover:text-ocre transition-colors"
+                    >
+                      → {lienTexte}
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>
