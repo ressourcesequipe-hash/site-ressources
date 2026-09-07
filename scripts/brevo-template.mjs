@@ -15,6 +15,7 @@
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
+import { LISTES } from '../lib/brevo.js'
 
 const RACINE = join(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -26,6 +27,19 @@ const MODELES = [
     tag: 'newsletter',
     // Clé d'environnement où reporter l'identifiant renvoyé par Brevo.
     variable: 'BREVO_TEMPLATE_BIENVENUE',
+  },
+]
+
+// Campagnes marketing, créées et laissées **en brouillon**. Le script ne les
+// envoie ni ne les programme : c'est une décision humaine, prise dans Brevo
+// après relecture. Une campagne déjà envoyée n'est jamais modifiée.
+const CAMPAGNES = [
+  {
+    fichier: 'emails/tombola-defi-collecte.html',
+    nom: 'Challenge de la demi-tonne & tombola solidaire',
+    sujet: '500 kg à réunir, 38 lots à gagner — rendez-vous le 3 octobre',
+    // Clé de LISTES (lib/brevo.js) dont les abonnés recevront la campagne.
+    liste: 'newsletter',
   },
 ]
 
@@ -96,10 +110,69 @@ async function main() {
     }
   }
 
+  // ── Campagnes ──────────────────────────────────────────────────────────
+  if (CAMPAGNES.length) {
+    console.log('\nCampagnes (laissées en brouillon)')
+
+    const listes = []
+    for (let offset = 0; ; offset += 50) {
+      const page = await api('GET', `/contacts/lists?limit=50&offset=${offset}`)
+      listes.push(...(page.lists || []))
+      if ((page.lists || []).length < 50) break
+    }
+
+    const { campaigns = [] } = await api('GET', '/emailCampaigns?limit=100')
+
+    for (const c of CAMPAGNES) {
+      const html = sansCommentaires(readFileSync(join(RACINE, c.fichier), 'utf8'))
+      const nomListe = LISTES[c.liste]?.nom
+      const liste = listes.find((l) => l.name === nomListe)
+      if (!liste) {
+        console.log(`  !  « ${c.nom} » — liste « ${nomListe} » introuvable, ignorée`)
+        continue
+      }
+
+      const existante = campaigns.find((x) => x.name === c.nom)
+
+      // Une campagne partie ne se retouche pas : on ne réécrit jamais ce que
+      // des gens ont déjà reçu.
+      if (existante && existante.status !== 'draft') {
+        console.log(`  ·  « ${c.nom} » — #${existante.id}, statut « ${existante.status} », laissée intacte`)
+        continue
+      }
+
+      const corps = {
+        name: c.nom,
+        subject: c.sujet,
+        sender: EXPEDITEUR,
+        replyTo: EXPEDITEUR.email,
+        htmlContent: html,
+        recipients: { listIds: [liste.id] },
+        inlineImageActivation: false,
+        // Pas de `tag` : le plan gratuit le refuse sur les campagnes
+        // (« You are not allowed to avail tag option for your campaign »).
+        // Ni `scheduledAt` ni envoi : la campagne reste un brouillon.
+      }
+
+      // L'appel précède le message, sinon un échec laisserait à l'écran un
+      // « créé » qui n'a pas eu lieu.
+      if (existante) {
+        if (!DRY_RUN) await api('PUT', `/emailCampaigns/${existante.id}`, corps)
+        console.log(`  ${DRY_RUN ? '~' : '↻'}  « ${c.nom} » — #${existante.id}, brouillon ${DRY_RUN ? 'à mettre à jour' : 'mis à jour'} → ${nomListe} (${html.length} caractères)`)
+      } else {
+        const cree = DRY_RUN ? null : await api('POST', '/emailCampaigns', corps)
+        console.log(`  ${DRY_RUN ? '~' : '+'}  « ${c.nom} »${cree ? ' — #' + cree.id : ''} — brouillon ${DRY_RUN ? 'à créer' : 'créé'} → ${nomListe} (${html.length} caractères)`)
+      }
+    }
+  }
+
   if (DRY_RUN) {
     console.log('\nRelancez sans --dry-run pour appliquer.\n')
     return
   }
+
+  console.log('\nLes campagnes sont des brouillons : rien n\'est envoyé tant que')
+  console.log('vous ne cliquez pas « Envoyer » dans Brevo.')
 
   console.log('\nVariable(s) d\'environnement à ajouter dans Vercel :\n')
   for (const [cle, id] of Object.entries(ids)) console.log(`  ${cle} = ${id}`)

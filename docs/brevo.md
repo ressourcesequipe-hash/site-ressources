@@ -210,8 +210,45 @@ lisibles :
 | Texte du pied | `#726E24` sur crème | `#404C2F` sur crème | 4,40 → 7,63:1 |
 
 **Désabonnement.** Le lien du pied est un `mailto:` : un email transactionnel
-n'a pas de lien de désinscription géré par Brevo. Les vraies campagnes, elles,
-en reçoivent un automatiquement.
+n'a pas de lien de désinscription géré par Brevo. Les campagnes, elles, ont le
+vrai lien (voir ci-dessous).
+
+---
+
+## Les campagnes
+
+Une campagne est un envoi ponctuel à une liste, écrit à l'avance et envoyé à la
+main. Même principe que les modèles : le HTML vit dans `emails/`, et
+`npm run brevo:template` le pousse dans Brevo.
+
+| Campagne | Fichier | Destinataires |
+| --- | --- | --- |
+| Challenge de la demi-tonne & tombola solidaire | `emails/tombola-defi-collecte.html` | 001-NEWSLETTERS |
+
+**Le script n'envoie jamais.** Il crée ou met à jour un **brouillon**, sans
+date de programmation. L'envoi reste une décision humaine, prise dans Brevo
+après relecture. Et une campagne dont le statut n'est plus `draft` est laissée
+intacte : on ne réécrit pas ce que des gens ont déjà reçu.
+
+Le lien de désabonnement utilise la balise `{{ unsubscribe }}`, que Brevo
+remplace à l'envoi. C'est ce qui distingue une campagne d'un email
+transactionnel, et c'est obligatoire pour un envoi marketing.
+
+**Chiffres.** Ceux de la campagne tombola viennent des données du site
+(`src/data/lotsTombola.js`, `src/data/defiCollecte.js`), pas d'une saisie à la
+main : 500 kg visés, 15 points de collecte dans 13 communes, billet à 5 €,
+38 lots (37 confirmés plus le gros lot), plus de 4 500 € de dotation. Si ces
+données changent, le texte de l'email ne se met pas à jour tout seul — c'est le
+prix d'un HTML figé, à relire avant chaque envoi.
+
+**Deux règles à ne pas enfreindre** en modifiant cette campagne, rappelées en
+commentaire dans le fichier : aucun classement ni numérotation des points de
+collecte et des communes, qui sont sur un pied d'égalité ; et un seul tarif de
+billet, jamais de lot de plusieurs billets.
+
+> ⚠️ Le plan gratuit **refuse l'option `tag`** sur les campagnes
+> (`You are not allowed to avail tag option for your campaign`). Ne pas la
+> remettre dans le corps de la requête : elle fait échouer la création.
 
 ---
 
