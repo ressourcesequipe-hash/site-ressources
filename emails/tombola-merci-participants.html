@@ -250,6 +250,33 @@
               vidéo. Quelques secondes suffisent, mais chaque partage nous permet de
               toucher de nouvelles personnes.
             </p>
+            <!-- Vignette de la video. Aucune messagerie ne lit une video dans
+                 un email, les balises correspondantes sont supprimees : la
+                 technique est une image fixe portant un bouton lecture, ici
+                 celui deja incruste par Instagram, et un lien vers la
+                 publication.
+
+                 Une seule vignette et non une par reseau : c'est la meme video
+                 des deux cotes, la montrer deux fois serait redondant, et deux
+                 cadres verticaux cote a cote mangeraient 450 px de hauteur pour
+                 une section secondaire.
+
+                 Image recuperee depuis la publication Instagram puis rapatriee
+                 sur le site : l'URL d'origine porte des jetons qui expirent en
+                 quelques heures. Recadree en carre autour du texte, 360 px
+                 affiches en 280. -->
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" style="padding-bottom:14px;">
+                  <a href="https://www.instagram.com/reel/Dc_ALXtIrq9/" style="text-decoration:none;">
+                    <img src="https://www.ressourcesrecyclerie.fr/photos/email-reel-tombola.jpg"
+                         width="280" alt="Vidéo : Participe à une tombola. Voir la publication."
+                         style="display:block;border:0;outline:none;text-decoration:none;width:280px;max-width:100%;height:auto;">
+                  </a>
+                </td>
+              </tr>
+            </table>
+
             <!-- Deux colonnes de largeur egale sur toute la laize, comme la
                  rangee de partage plus haut. Groupes a gauche et serres contre
                  le bord, les deux boutons laissaient un vide a droite qui
