@@ -7,25 +7,26 @@
      legitime, cela concerne leur propre participation ; les basculer dans la
      lettre generale ne le serait pas. Voir docs/brevo.md.
 
-     Structure pensee pour le partage, dans cet ordre :
-       1. ce qu'il y a a gagner, en photo, avant tout texte ;
-       2. trois chiffres scannables en une seconde ;
-       3. le merci, puis ce que l'argent finance, avec une photo d'atelier :
-          on ne partage pas une cagnotte, on partage une cause qu'on voit ;
-       4. le bloc de partage, pose sur le vert fonce pour qu'il soit le point
-          d'ancrage visuel de l'email et non un bouton parmi d'autres ;
-       5. le partage sur les reseaux, en second et sur une ligne.
+     Le texte est celui ecrit par Boris, avec quatre ajustements convenus :
+       - un seul bouton, celui du partage. Le programme du 3 octobre passe en
+         lien simple pour ne pas concurrencer l'action principale ;
+       - la liste de ce que finance le billet ramenee de six elements a trois,
+         une enumeration trop longue ne marque pas ;
+       - « vendre un maximum de tickets » devenu « vendre le plus de billets
+         possible » : moins commercial pour une association, et le site dit
+         « billet » partout ;
+       - la formulation sur les fonds reste volontairement douce. Boris a
+         tranche le 7 septembre 2026 : pas d'urgence sur le conditionnement du
+         deploiement.
 
-     Une seule action principale, transmettre le lien. Deux demandes de meme
-     poids se seraient affaiblies mutuellement.
+     La mise en page sert le partage, dans cet ordre : ce qu'il y a a gagner en
+     photo avant tout texte, trois chiffres scannables, la reassurance, ce que
+     l'argent finance avec une photo d'atelier, puis le bloc de partage pose
+     sur le vert fonce pour qu'il soit le point d'ancrage visuel.
 
      Memes contraintes que les autres emails : tableaux, styles en ligne,
      600 px, pas de police web, JPEG ou PNG servis par le site, fonds
      explicites. Voir emails/newsletter-bienvenue.html.
-
-     Les URL sociales sont nettoyees de leurs jetons de partage : celui de
-     l'Instagram (stkn, utm_source=ig_web_copy_link) est propre a la session
-     de qui a copie le lien, il n'a rien a faire dans un envoi de masse.
 
      L'affiche de la tombola n'est pas utilisee : elle annonce 4000 € alors que
      la dotation est de plus de 4 500 €. Ecart connu et assume, mais la placer
@@ -35,7 +36,7 @@
     <td align="center" style="padding:24px 12px;">
 
       <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;height:0;width:0;">
-        Ce que votre billet finance, et le service que vous pouvez nous rendre en deux minutes.
+        Votre participation est bien enregistrée. Et le meilleur coup de pouce que vous pouvez nous donner maintenant.
       </div>
 
       <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:100%;background-color:#FFFFFF;border-collapse:collapse;">
@@ -96,22 +97,33 @@
           </td>
         </tr>
 
-        <!-- Merci -->
+        <!-- Merci et reassurance -->
         <tr>
           <td style="padding:34px 40px 0 40px;">
-            <h1 style="margin:0 0 16px 0;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.25;font-weight:400;color:#2B3520;">
-              Merci. Votre billet compte plus que vous ne le croyez.
-            </h1>
             <p style="margin:0 0 16px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;">
-              Vous n'avez pas seulement tenté votre chance : vous avez mis quelque
-              chose dans une recyclerie qui n'existe pas encore tout à fait.
+              Bonjour,
+            </p>
+            <h1 style="margin:0 0 16px 0;font-family:Georgia,'Times New Roman',serif;font-size:25px;line-height:1.3;font-weight:400;color:#2B3520;">
+              Merci d'avoir participé à la tombola solidaire de Ressources.
+            </h1>
+            <p style="margin:0 0 14px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;">
+              Votre participation est bien enregistrée, et votre billet participera
+              au tirage public du <strong>samedi 3 octobre 2026 à
+              Vielle-Saint-Girons</strong>.
+            </p>
+            <p style="margin:0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;">
+              Vous n'avez rien d'autre à faire : <strong>si votre billet est
+              gagnant, nous vous contacterons directement.</strong>
             </p>
           </td>
         </tr>
 
-        <!-- Ce que l'argent finance, en image -->
+        <!-- Ce que le billet finance, en image -->
         <tr>
-          <td style="padding:14px 40px 0 40px;">
+          <td style="padding:26px 40px 0 40px;">
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.35;color:#2B3520;padding-bottom:14px;">
+              Votre billet nous aide concrètement à lancer la recyclerie
+            </div>
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
               <tr>
                 <td style="font-size:0;line-height:0;">
@@ -123,36 +135,47 @@
               <tr>
                 <td style="background-color:#EDECCE;padding:20px 22px;">
                   <p style="margin:0 0 12px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;">
-                    Voilà ce que votre billet finance : un établi, des outils, des
-                    postes de diagnostic, de quoi transporter le matériel collecté.
-                    <strong>Ce que nous pourrons déployer dépend directement de ce
-                    que nous réunirons d'ici le 3 octobre.</strong>
+                    En participant, vous ne tentez pas seulement de remporter l'un
+                    des <strong>38 lots</strong> de la tombola. Vous contribuez
+                    directement au lancement de Ressources : la collecte et le
+                    diagnostic du matériel informatique, l'équipement de l'atelier,
+                    et nos premières actions solidaires sur le territoire.
                   </p>
                   <p style="margin:0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;color:#404C2F;">
-                    100 % des fonds vont à la recyclerie. Rien ne part ailleurs.
+                    <strong>100 % des fonds issus de la tombola sont consacrés au
+                    projet associatif.</strong>
                   </p>
                 </td>
               </tr>
             </table>
+            <p style="margin:16px 0 0 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;">
+              Et aujourd'hui, nous avons encore besoin de vous.
+            </p>
           </td>
         </tr>
 
         <!-- Le partage : point d'ancrage visuel de l'email -->
         <tr>
-          <td style="padding:30px 40px 0 40px;">
+          <td style="padding:28px 40px 0 40px;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#404C2F;border-collapse:collapse;">
               <tr>
                 <td style="padding:28px 26px 26px 26px;">
-                  <div style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#C4C28F;padding-bottom:8px;">
-                    Le vrai service que vous pouvez nous rendre
+                  <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.35;color:#FFFFFF;padding-bottom:14px;">
+                    Le meilleur coup de pouce que vous pouvez maintenant nous donner
                   </div>
-                  <div style="font-family:Georgia,'Times New Roman',serif;font-size:23px;line-height:1.3;color:#FFFFFF;padding-bottom:12px;">
-                    Transmettez ce lien à trois personnes.
-                  </div>
+                  <p style="margin:0 0 14px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#FFFFFF;">
+                    Notre objectif est de vendre le plus de billets possible d'ici
+                    au 3 octobre, afin de donner à Ressources les moyens de démarrer
+                    dans les meilleures conditions. Pour cela,
+                    <strong>le bouche-à-oreille est probablement notre meilleur
+                    allié.</strong>
+                  </p>
                   <p style="margin:0 0 20px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#FFFFFF;">
-                    Un message à votre famille, à des collègues, à un groupe
-                    WhatsApp. Venant de vous, il portera infiniment plus loin que
-                    tout ce que nous pourrions publier nous-mêmes.
+                    Si chacune des personnes ayant déjà participé parle de la tombola
+                    à quelques proches, collègues ou amis, cela peut faire une
+                    énorme différence. Alors si vous souhaitez continuer à nous
+                    soutenir : <strong>transmettez simplement la tombola à trois
+                    personnes autour de vous.</strong>
                   </p>
 
                   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -160,22 +183,23 @@
                       <td align="center" bgcolor="#C49845" style="background-color:#C49845;">
                         <a href="https://www.ressourcesrecyclerie.fr/soutenir/tombola/?utm_source=partage"
                            style="display:block;padding:16px 24px;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;letter-spacing:0.03em;color:#2B3520;text-decoration:none;text-align:center;">
-                          Ouvrir la page à partager
+                          Partager la tombola
                         </a>
                       </td>
                     </tr>
                   </table>
 
                   <p style="margin:22px 0 10px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#C4C28F;">
-                    Pas envie de chercher quoi écrire ? Copiez ce message :
+                    Vous pouvez par exemple envoyer ce message :
                   </p>
                   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
                     <tr>
                       <td style="background-color:#FFFFFF;padding:18px 20px;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.7;color:#2B3520;">
-                        Je viens de prendre un billet pour la tombola de Ressources,
-                        la recyclerie solidaire qui ouvre dans les Landes. 5 &euro; le
-                        billet, plus de 4 500 &euro; de lots, et tout part dans le
-                        projet. Tirage le 3 octobre :
+                        J'ai participé à la tombola de Ressources, une recyclerie
+                        solidaire qui se lance dans les Landes. Il y a 38 lots à
+                        gagner, dont une semaine en villa avec piscine. Le billet
+                        coûte 5 &euro; et les fonds servent directement à développer
+                        le projet. Tirage le 3 octobre :
                         https://www.ressourcesrecyclerie.fr/soutenir/tombola/
                       </td>
                     </tr>
@@ -190,8 +214,9 @@
         <tr>
           <td style="padding:24px 40px 0 40px;">
             <p style="margin:0 0 12px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;color:#404C2F;">
-              Et si vous êtes sur les réseaux, partager notre vidéo prend cinq
-              secondes et l'aide beaucoup à circuler :
+              Vous pouvez également nous donner un coup de pouce en partageant notre
+              vidéo. Quelques secondes suffisent, mais chaque partage nous permet de
+              toucher de nouvelles personnes.
             </p>
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
@@ -224,19 +249,38 @@
           </td>
         </tr>
 
-        <!-- Le tirage -->
+        <!-- Le rendez-vous. Lien simple et non bouton : un seul appel a
+             l'action dans cet email, celui du partage. -->
         <tr>
           <td style="padding:28px 40px 0 40px;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #C4C28F;">
               <tr><td style="height:22px;line-height:22px;font-size:0;">&nbsp;</td></tr>
             </table>
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.35;color:#2B3520;padding-bottom:12px;">
+              Et rendez-vous le 3 octobre
+            </div>
             <p style="margin:0 0 14px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;">
-              Le tirage a lieu en public à Vielle-Saint-Girons le samedi 3 octobre,
-              le jour du lancement de la recyclerie. Vous n'avez pas besoin d'être
-              présent : en cas de gain, nous vous contactons directement.
+              Le tirage aura lieu en public à Vielle-Saint-Girons, le samedi
+              3 octobre, à l'occasion de la journée de lancement de Ressources. Vous
+              y êtes bien sûr le bienvenu pour venir nous rencontrer, découvrir le
+              projet et assister au tirage.
             </p>
-            <p style="margin:0 0 26px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.7;color:#404C2F;">
-              <a href="https://www.ressourcesrecyclerie.fr/evenement-lancement-03-octobre-2026/" style="color:#726E24;text-decoration:underline;">Le programme de la journée</a>
+            <p style="margin:0 0 24px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#404C2F;">
+              <a href="https://www.ressourcesrecyclerie.fr/evenement-lancement-03-octobre-2026/" style="color:#726E24;text-decoration:underline;">Découvrir le programme du 3 octobre</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- Signature -->
+        <tr>
+          <td style="padding:0 40px 30px 40px;">
+            <p style="margin:0 0 14px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;">
+              Merci encore d'avoir été parmi les personnes qui ont choisi de soutenir
+              Ressources dès son lancement. <strong>Maintenant, aidons ensemble la
+              tombola à aller encore un peu plus loin.</strong>
+            </p>
+            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:1.5;color:#726E24;">
+              L'équipe Ressources
             </p>
           </td>
         </tr>
