@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import OptinNewsletter from '../../components/OptinNewsletter'
 import { POINTS_CONFIRMES, PARTENARIAT_SITCOM, ACCEPTE, DEFI } from '../../data/defiCollecte'
 
 const BREADCRUMBS = [
@@ -388,7 +389,7 @@ export default function CommentDonner() {
 }
 
 function DonMaterielForm() {
-  const [form, setForm] = useState({ nom: '', telephone: '', email: '', adresse: '', materiel: '' })
+  const [form, setForm] = useState({ nom: '', telephone: '', email: '', adresse: '', materiel: '', optinNewsletter: false })
   const [status, setStatus] = useState(null)
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
 
@@ -432,6 +433,11 @@ function DonMaterielForm() {
         <label className="block text-xs font-medium text-terre/60 mb-1.5">Matériel à donner *</label>
         <textarea rows={3} required className="input-field resize-none" placeholder="Ex : 2 ordinateurs portables, 1 écran, des câbles…" value={form.materiel} onChange={set('materiel')} disabled={status === 'loading'} />
       </div>
+      <OptinNewsletter
+        checked={form.optinNewsletter}
+        onChange={(v) => setForm(f => ({ ...f, optinNewsletter: v }))}
+        disabled={status === 'loading'}
+      />
       {status === 'error' && <p className="text-xs text-red-500">Une erreur est survenue, veuillez réessayer.</p>}
       <button type="submit" className="btn-ocre" disabled={status === 'loading'}>{status === 'loading' ? 'Envoi…' : 'Envoyer la demande'}</button>
     </form>

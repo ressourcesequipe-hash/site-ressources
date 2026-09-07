@@ -338,13 +338,17 @@ function ContactForm() {
         <label className="block text-xs font-sans font-medium text-terre/60 mb-1.5">Message (facultatif)</label>
         <textarea rows={3} className="input-field resize-none rounded-lg" placeholder="Une question, une idée…" value={form.message} onChange={set('message')} disabled={status === 'loading'} />
       </div>
+      {/* Pas de case à cocher ici : s'inscrire est déjà l'acte de consentement.
+          Le texte dit donc exactement ce à quoi on s'inscrit — la lettre de
+          l'association — puisque c'est bien là que le contact atterrit. */}
       <p className="text-xs text-terre/40 leading-relaxed">
-        Vos données sont utilisées uniquement pour vous informer sur l'événement.
-        Conformément au RGPD, vous pouvez demander leur suppression à tout moment.
+        En vous inscrivant, vous rejoignez la lettre d'information de l'association :
+        vous recevrez les nouvelles de l'événement, puis quelques envois par an.
+        Désabonnement en un clic, à tout moment.
       </p>
       {status === 'error' && <p className="text-xs text-red-500">Une erreur est survenue, veuillez réessayer.</p>}
       <button type="submit" className="btn-ocre w-full text-center rounded-lg" disabled={status === 'loading'}>
-        {status === 'loading' ? 'Envoi…' : 'Je m\'inscris à la newsletter événement'}
+        {status === 'loading' ? 'Envoi…' : 'Je m\'inscris et je reste informé·e'}
       </button>
     </form>
   )

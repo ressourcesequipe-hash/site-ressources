@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import OptinNewsletter from './OptinNewsletter'
 
 const TYPES = [
   'Commerce',
@@ -15,8 +16,12 @@ const CHAMPS_VIDES = {
   email: '',
   telephone: '',
   commune: '',
-  type: '',
+  // Ce champ s'appelait « type » et écrasait le discriminant `type` de la
+  // requête au moment du spread : l'API recevait « Commerce » comme type de
+  // formulaire et répondait 400. D'où le nom explicite.
+  typeStructure: '',
   message: '',
+  optinNewsletter: false,
 }
 
 // Formulaire de candidature pour accueillir un point de collecte du challenge.
@@ -34,7 +39,9 @@ export default function PointCollecteForm() {
       const r = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'pointCollecte', ...champs }),
+        // Le discriminant est placé après le spread : aucun champ du
+        // formulaire ne peut plus l'écraser.
+        body: JSON.stringify({ ...champs, type: 'pointCollecte' }),
       })
       setStatus(r.ok ? 'ok' : 'error')
     } catch {
@@ -92,7 +99,7 @@ export default function PointCollecteForm() {
             Type de structure
           </label>
           <select
-            id="pc-type" value={champs.type} onChange={maj('type')}
+            id="pc-type" value={champs.typeStructure} onChange={maj('typeStructure')}
             className="input-field w-full" disabled={status === 'loading'}
           >
             <option value="">Sélectionnez…</option>
@@ -130,6 +137,12 @@ export default function PointCollecteForm() {
           className="input-field w-full resize-none" disabled={status === 'loading'}
         />
       </div>
+
+      <OptinNewsletter
+        checked={champs.optinNewsletter}
+        onChange={(v) => setChamps((c) => ({ ...c, optinNewsletter: v }))}
+        disabled={status === 'loading'}
+      />
 
       <div className="flex flex-wrap items-center gap-4">
         <button type="submit" className="btn-ocre" disabled={status === 'loading'}>

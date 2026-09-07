@@ -18,3 +18,9 @@ dist-ssr
 # Le catalogue (src/data/vitrine.json) est versionne vide, et regenere a chaque
 # build — inutile de committer son contenu.
 /public/vitrine
+
+# Cles API : jamais dans ce depot, il est public.
+# Leur place est le dossier secrets\ hors depot (voir docs/brevo.md).
+*API*.txt
+*api-key*
+*.key

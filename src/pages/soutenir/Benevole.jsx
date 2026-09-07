@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import OptinNewsletter from '../../components/OptinNewsletter'
 import { IconCollecte, IconOutil, IconPlante, IconCalendar, IconTransport, IconTicket } from '../../components/Icons'
 
 const BREADCRUMBS = [
@@ -100,7 +101,7 @@ export default function Benevole() {
 }
 
 function BenevoleForm() {
-  const [form, setForm] = useState({ nom: '', email: '', telephone: '', commune: '', mission: '', message: '' })
+  const [form, setForm] = useState({ nom: '', email: '', telephone: '', commune: '', mission: '', message: '', optinNewsletter: false })
   const [status, setStatus] = useState(null)
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
 
@@ -141,6 +142,11 @@ function BenevoleForm() {
         <option>Polyvalent·e</option>
       </select>
       <textarea rows={3} className="input-field resize-none" placeholder="Compétences particulières, motivations, disponibilités…" value={form.message} onChange={set('message')} disabled={status === 'loading'} />
+      <OptinNewsletter
+        checked={form.optinNewsletter}
+        onChange={(v) => setForm(f => ({ ...f, optinNewsletter: v }))}
+        disabled={status === 'loading'}
+      />
       {status === 'error' && <p className="text-xs text-red-500">Une erreur est survenue, veuillez réessayer.</p>}
       <button type="submit" className="btn-ocre" disabled={status === 'loading'}>{status === 'loading' ? 'Envoi…' : 'Envoyer ma candidature bénévole'}</button>
     </form>

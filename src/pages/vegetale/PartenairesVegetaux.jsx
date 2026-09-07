@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import OptinNewsletter from '../../components/OptinNewsletter'
 
 const BREADCRUMBS = [
   { label: 'Recyclerie Végétale', href: '/recyclerie-vegetale/' },
@@ -120,7 +121,7 @@ export default function PartenairesVegetaux() {
 }
 
 function PartenaireForm() {
-  const [form, setForm] = useState({ structure: '', commune: '', contact: '', email: '', partenariat: '' })
+  const [form, setForm] = useState({ structure: '', commune: '', contact: '', email: '', partenariat: '', optinNewsletter: false })
   const [status, setStatus] = useState(null)
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
 
@@ -131,7 +132,7 @@ function PartenaireForm() {
       const r = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'contact', sujet: 'Partenariat végétal', message: `Structure : ${form.structure}\nCommune : ${form.commune}\nContact : ${form.contact}\nPartenariat envisagé : ${form.partenariat || '—'}`, nom: form.contact, email: form.email }),
+        body: JSON.stringify({ type: 'partenaireVegetal', ...form }),
       })
       setStatus(r.ok ? 'ok' : 'error')
     } catch { setStatus('error') }
@@ -152,6 +153,12 @@ function PartenaireForm() {
         <input type="email" className="input-field" placeholder="Email *" required value={form.email} onChange={set('email')} disabled={status === 'loading'} />
       </div>
       <textarea rows={2} className="input-field resize-none" placeholder="Type de partenariat envisagé…" value={form.partenariat} onChange={set('partenariat')} disabled={status === 'loading'} />
+      <OptinNewsletter
+        variant="clair"
+        checked={form.optinNewsletter}
+        onChange={(v) => setForm(f => ({ ...f, optinNewsletter: v }))}
+        disabled={status === 'loading'}
+      />
       {status === 'error' && <p className="text-xs text-red-300">Une erreur est survenue, veuillez réessayer.</p>}
       <button type="submit" className="btn-veg text-sm" disabled={status === 'loading'}>
         {status === 'loading' ? 'Envoi…' : 'Nous contacter'}

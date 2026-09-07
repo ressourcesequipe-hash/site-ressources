@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import OptinNewsletter from '../../components/OptinNewsletter'
+import { ENGAGEMENTS } from '../../../lib/brevo'
 
 const BREADCRUMBS = [
   { label: 'L\'Association', href: '/association/' },
@@ -87,7 +89,7 @@ export default function NousRejoindre() {
 }
 
 function ContactForm() {
-  const [form, setForm] = useState({ nom: '', email: '', commune: '', engagement: '', message: '' })
+  const [form, setForm] = useState({ nom: '', email: '', commune: '', engagement: '', message: '', optinNewsletter: false })
   const [status, setStatus] = useState(null)
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
 
@@ -116,14 +118,16 @@ function ContactForm() {
       <input type="text" className="input-field" placeholder="Commune" value={form.commune} onChange={set('commune')} disabled={status === 'loading'} />
       <select className="input-field" value={form.engagement} onChange={set('engagement')} disabled={status === 'loading'}>
         <option value="">Type d'engagement souhaité</option>
-        <option>Bénévolat — filière informatique</option>
-        <option>Bénévolat — filière végétale</option>
-        <option>Bénévolat — événements</option>
-        <option>Mécénat / Sponsoring</option>
-        <option>Partenariat institutionnel</option>
-        <option>Autre</option>
+        {/* Les options viennent de lib/brevo.js : le libellé affiché et la
+            liste Brevo où atterrit la personne y sont définis ensemble. */}
+        {ENGAGEMENTS.map((e) => <option key={e.label}>{e.label}</option>)}
       </select>
       <textarea rows={3} className="input-field resize-none" placeholder="Votre message…" value={form.message} onChange={set('message')} disabled={status === 'loading'} />
+      <OptinNewsletter
+        checked={form.optinNewsletter}
+        onChange={(v) => setForm(f => ({ ...f, optinNewsletter: v }))}
+        disabled={status === 'loading'}
+      />
       {status === 'error' && <p className="text-xs text-red-500">Une erreur est survenue, veuillez réessayer.</p>}
       <button type="submit" className="btn-ocre" disabled={status === 'loading'}>{status === 'loading' ? 'Envoi…' : 'Envoyer'}</button>
     </form>

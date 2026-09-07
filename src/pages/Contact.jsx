@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import OptinNewsletter from '../components/OptinNewsletter'
+import { SUJETS_CONTACT } from '../../lib/brevo'
 
 export default function Contact() {
   return (
@@ -157,6 +159,7 @@ function ContactForm() {
     telephone: '',
     sujet: '',
     message: '',
+    optinNewsletter: false,
   })
   const [status, setStatus] = useState(null)
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
@@ -233,12 +236,9 @@ function ContactForm() {
             disabled={status === 'loading'}
           >
             <option value="">Choisir un sujet…</option>
-            <option value="Don de matériel informatique">Don de matériel informatique</option>
-            <option value="Don de plantes ou végétaux">Don de plantes ou végétaux</option>
-            <option value="Achat solidaire (équipement reconditionné)">Achat solidaire (équipement reconditionné)</option>
-            <option value="Bénévolat ou adhésion">Bénévolat ou adhésion</option>
-            <option value="Partenariat ou mécénat">Partenariat ou mécénat</option>
-            <option value="Autre question">Autre question</option>
+            {/* Les options viennent de lib/brevo.js : le libellé affiché et la
+                liste Brevo où atterrit la personne y sont définis ensemble. */}
+            {SUJETS_CONTACT.map((s) => <option key={s.label}>{s.label}</option>)}
           </select>
         </div>
       </div>
@@ -256,6 +256,12 @@ function ContactForm() {
         />
       </div>
 
+      <OptinNewsletter
+        checked={form.optinNewsletter}
+        onChange={(v) => setForm(f => ({ ...f, optinNewsletter: v }))}
+        disabled={status === 'loading'}
+      />
+
       {status === 'error' && (
         <p className="text-xs text-red-500">Une erreur est survenue, veuillez réessayer ou écrire directement à contact@ressourcesrecyclerie.fr</p>
       )}
@@ -269,7 +275,7 @@ function ContactForm() {
       </button>
 
       <p className="text-xs text-terre/35 leading-relaxed">
-        Vos données sont utilisées uniquement pour traiter votre demande et ne sont pas transmises à des tiers.
+        Sans la case ci-dessus, vos données servent uniquement à traiter votre demande. Elles ne sont pas transmises à des tiers.
       </p>
     </form>
   )

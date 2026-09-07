@@ -8,7 +8,9 @@
     "build": "node scripts/vitrine.mjs && vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node prerender.js",
     "build:client": "vite build",
     "preview": "vite preview",
-    "vitrine": "node scripts/vitrine.mjs"
+    "vitrine": "node scripts/vitrine.mjs",
+    "brevo:setup": "node scripts/brevo-setup.mjs",
+    "brevo:test": "node scripts/brevo-test.mjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
