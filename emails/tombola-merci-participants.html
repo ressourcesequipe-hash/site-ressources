@@ -56,21 +56,17 @@
           </td>
         </tr>
 
-        <!-- Filet ocre a la jonction : l'affiche commence par une bande olive
-             claire, l'en-tete est en vert fonce. Le filet fait de cette rupture
-             un detail voulu plutot qu'une couture. -->
+        <!-- L'affiche de la tombola, avant tout texte, dans un cadre ocre.
+             Le cadre est le fond de la cellule et non un `border` : Outlook rend
+             mal les bordures de cellule, un fond avec marge interieure passe
+             partout. 6 px de chaque cote, donc une image de 588 px dans les 600.
+             Le corps de l'affiche est en #414D2E, soit le vert de l'en-tete a
+             deux points pres : l'ensemble se tient malgre sa bande claire. -->
         <tr>
-          <td style="background-color:#C49845;font-size:0;line-height:0;height:3px;">&nbsp;</td>
-        </tr>
-
-        <!-- L'affiche de la tombola, avant tout texte. Le corps de l'affiche est
-             en #414D2E, soit le vert de l'en-tete a deux points pres : l'ensemble
-             se tient malgre la bande claire du haut. -->
-        <tr>
-          <td style="font-size:0;line-height:0;">
+          <td bgcolor="#C49845" style="background-color:#C49845;padding:6px;font-size:0;line-height:0;">
             <img src="https://www.ressourcesrecyclerie.fr/photos/email-tombola-affiche.jpg"
-                 width="600" alt="Tombola solidaire de l'association Ressources, pour l'inauguration de la recyclerie le 3 octobre 2026. Billet à 5 euros."
-                 style="display:block;border:0;outline:none;text-decoration:none;width:100%;max-width:600px;height:auto;">
+                 width="588" alt="Tombola solidaire de l'association Ressources, pour l'inauguration de la recyclerie le 3 octobre 2026. Billet à 5 euros."
+                 style="display:block;border:0;outline:none;text-decoration:none;width:100%;max-width:588px;height:auto;">
           </td>
         </tr>
         <!-- Merci et reassurance -->
