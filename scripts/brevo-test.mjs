@@ -13,17 +13,9 @@ process.env.BREVO_API_KEY ||= 'cle-de-test'
 
 const appels = []
 
-// Contact que Brevo est censé renvoyer sur GET /contacts/{email} : null pour un
-// inconnu. Sert à simuler quelqu'un déjà inscrit à la lettre d'information.
-let contactExistant = null
 
 globalThis.fetch = async (url, opts = {}) => {
-  const methode = opts.method || 'GET'
-  appels.push({ url, methode, body: opts.body ? JSON.parse(opts.body) : null })
-  if (methode === 'GET') {
-    const corps = JSON.stringify(contactExistant || { code: 'document_not_found' })
-    return { ok: Boolean(contactExistant), status: contactExistant ? 200 : 404, text: async () => corps, json: async () => JSON.parse(corps) }
-  }
+  appels.push({ url, methode: opts.method || 'GET', body: opts.body ? JSON.parse(opts.body) : null })
   return { ok: true, status: 200, text: async () => '{}' }
 }
 
@@ -53,8 +45,7 @@ function ok(label, condition, detail = '') {
 
 const contactsDe = (r) => r.appels.find((a) => a.url.endsWith('/v3/contacts') && a.methode === 'POST')
 const doiDe = (r) => r.appels.find((a) => a.url.includes('doubleOptinConfirmation'))
-const mailDe = (r) => r.appels.find((a) => a.url.endsWith('/smtp/email') && !a.body.templateId)
-const bienvenueDe = (r) => r.appels.find((a) => a.url.endsWith('/smtp/email') && a.body.templateId)
+const mailDe = (r) => r.appels.find((a) => a.url.endsWith('/smtp/email'))
 
 const LISTES = process.env.BREVO_LISTS ? JSON.parse(process.env.BREVO_LISTS) : null
 const DOI = Boolean(process.env.BREVO_DOI_TEMPLATE_ID)
@@ -147,51 +138,6 @@ if (LISTES) {
     ok('email normalisé en minuscules', contactsDe(r)?.body.email === 'alice@example.fr')
   }
 
-  if (process.env.BREVO_TEMPLATE_BIENVENUE) {
-    console.log('\n── Email de bienvenue ──')
-    const idModele = Number(process.env.BREVO_TEMPLATE_BIENVENUE)
-
-    // Inconnu au bataillon : il rejoint la liste, donc il est accueilli.
-    {
-      contactExistant = null
-      const r = await envoie({ type: 'newsletter', email: 'neuf@exemple.fr' })
-      const b = bienvenueDe(r)
-      ok('nouvel inscrit → bienvenue envoyée', DOI ? !b : Boolean(b))
-      if (b && !DOI) {
-        ok('bienvenue → bon modèle', b.body.templateId === idModele, String(b.body.templateId))
-        ok('bienvenue → adressée à l\'inscrit', b.body.to[0].email === 'neuf@exemple.fr')
-      }
-      if (DOI) ok('en double opt-in, pas de bienvenue', !b)
-    }
-
-    // Déjà dans la liste : il remplit un autre formulaire, on ne le réaccueille pas.
-    {
-      contactExistant = { email: 'connu@exemple.fr', listIds: [LISTES.newsletter], attributes: {} }
-      const r = await envoie({ type: 'benevole', nom: 'A B', email: 'connu@exemple.fr', optinNewsletter: true })
-      ok('déjà inscrit → aucune seconde bienvenue', !bienvenueDe(r))
-      contactExistant = null
-    }
-
-    // Inscrit ailleurs mais pas à la lettre : il coche la case, il est accueilli.
-    {
-      contactExistant = { email: 'ailleurs@exemple.fr', listIds: [LISTES.benevoles], attributes: {} }
-      const r = await envoie({ type: 'benevole', nom: 'C D', email: 'ailleurs@exemple.fr', optinNewsletter: true })
-      ok('inscrit à une autre liste → bienvenue envoyée', DOI ? !bienvenueDe(r) : Boolean(bienvenueDe(r)))
-      contactExistant = null
-    }
-
-    // Sans consentement, jamais de bienvenue.
-    {
-      const r = await envoie({ type: 'benevole', nom: 'E F', email: 'sans@exemple.fr' })
-      ok('sans consentement → aucune bienvenue', !bienvenueDe(r))
-    }
-
-    // La notification à l'équipe part toujours, bienvenue ou pas.
-    {
-      const r = await envoie({ type: 'newsletter', email: 'neuf2@exemple.fr' })
-      ok('la notification à l\'équipe part aussi', Boolean(mailDe(r)))
-    }
-  }
 }
 
 console.log('\n── Robustesse ──')

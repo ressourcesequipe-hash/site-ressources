@@ -124,7 +124,6 @@ Dans Vercel → `Settings → Environment Variables`, ajouter :
 | --- | --- | --- |
 | `BREVO_API_KEY` | la clé du compte Ressources | Production, Preview |
 | `BREVO_LISTS` | le JSON affiché par le script | Production, Preview |
-| `BREVO_TEMPLATE_BIENVENUE` | l'identifiant du modèle (voir plus bas) | Production, Preview |
 
 Puis redéployer.
 
@@ -160,26 +159,28 @@ visiteurs saisissent « 06 12 34 56 78 ».
 
 ## L'email de bienvenue
 
-Qui rejoint la lettre d'information reçoit aussitôt un message de remerciement —
-quelques secondes, pas cinq minutes.
+Il est envoyé par un **scénario d'automatisation Brevo**, pas par le site.
 
-Le HTML vit dans [`emails/newsletter-bienvenue.html`](../emails/newsletter-bienvenue.html),
-versionné dans ce dépôt. `npm run brevo:template` le pousse dans Brevo, où il
-devient un modèle transactionnel. Le script retrouve le modèle par son nom et le
-met à jour : relancé, il ne crée pas de doublon.
+Le modèle s'appelle « Bienvenue — lettre d'information ». Son HTML vit dans
+[`emails/newsletter-bienvenue.html`](../emails/newsletter-bienvenue.html) et
+`npm run brevo:template` le pousse dans Brevo.
 
-> ⚠️ Retoucher le modèle dans l'interface Brevo puis relancer le script **écrase
-> les retouches**. Reportez-les dans `emails/` sinon elles sont perdues.
+Le scénario se construit à la main dans Brevo (`Automations`) : déclencheur
+« un contact est ajouté à une liste » sur 001-NEWSLETTERS, délai, puis envoi du
+modèle. L'API `/v3/automations` renvoie 404 sur ce compte : les scénarios ne se
+créent pas en ligne de commande.
 
-**Qui le reçoit, et une seule fois.** Avant d'enregistrer le contact, l'API
-demande à Brevo s'il figure déjà dans 001-NEWSLETTERS. Si oui, pas de second
-message : quelqu'un qui remplit un autre formulaire des mois plus tard n'est pas
-réaccueilli. Quelqu'un inscrit à une autre liste qui coche enfin la case, lui,
-le reçoit. En cas de doute — contact inconnu, appel en échec — le message part :
-mieux vaut un email de trop qu'un abonné jamais accueilli.
+**Pourquoi pas par le code.** Une première version envoyait l'email depuis
+`api/contact.js` via la variable `BREVO_TEMPLATE_BIENVENUE`. Elle a été retirée
+le 7 septembre 2026 au profit du scénario, plus simple à modifier sans
+développeur et déclenché quelle que soit l'origine du contact — formulaire,
+import, ajout manuel.
 
-En double opt-in, aucun email de bienvenue : l'email de confirmation joue ce
-rôle, et l'inscription n'est pas encore acquise au moment de l'envoi.
+> ⚠️ **Ne jamais réactiver les deux en même temps.** Si un envoi est réintroduit
+> dans `api/contact.js` alors que le scénario tourne, chaque inscrit reçoit le
+> message en double. Le code n'a plus aucune trace de
+> `BREVO_TEMPLATE_BIENVENUE` : la variable peut être supprimée de Vercel, elle
+> n'est plus lue.
 
 **Contraintes du format**, à respecter en modifiant le fichier — elles sont
 rappelées en commentaire en tête :
@@ -188,8 +189,8 @@ rappelées en commentaire en tête :
 - 600 px de large, la valeur que tous les clients gèrent ;
 - pas de police web : Open Sans n'est pas chargeable dans un email, les replis
   Helvetica et Georgia sont ce que la plupart des gens verront ;
-- images en PNG servies par le site, jamais en WebP, qu'Outlook desktop ne sait
-  pas afficher ;
+- images en PNG ou JPEG servies par le site, jamais en WebP, qu'Outlook desktop
+  ne sait pas afficher ;
 - couleurs de fond toujours explicites, sinon le mode sombre de certains clients
   les remplace.
 
@@ -200,8 +201,7 @@ d'application de la charte ; il diverge de la charte officielle. Ses pastilles
 « Les fonds » : l'ocre réel, relevé dans l'image, est **`#C49845`**.
 
 Trois écarts de contraste ont été corrigés par rapport à une lecture littérale
-de la palette, une case de consentement et un appel à l'action devant rester
-lisibles :
+de la palette, un appel à l'action devant rester lisible :
 
 | Élément | Choix littéral | Retenu | Contraste |
 | --- | --- | --- | --- |
@@ -209,9 +209,11 @@ lisibles :
 | Sous-titre du bandeau | crème sur vert | blanc sur vert | 3,79 → 4,55:1 |
 | Texte du pied | `#726E24` sur crème | `#404C2F` sur crème | 4,40 → 7,63:1 |
 
-**Désabonnement.** Le lien du pied est un `mailto:` : un email transactionnel
-n'a pas de lien de désinscription géré par Brevo. Les campagnes, elles, ont le
-vrai lien (voir ci-dessous).
+Le bandeau est en vert foncé `#404C2F` et non `#6C7C49` : le logo est un arbre
+sauge pâle, qui n'y ressortait qu'à 2,48:1 contre 5,0:1 sur le vert foncé.
+
+**Désabonnement.** Le lien du pied est un . Si le scénario Brevo envoie
+l'email comme une campagne, Brevo ajoute son propre lien de désinscription.
 
 ---
 
@@ -318,9 +320,8 @@ opt-in :
 BREVO_LISTS='{"newsletter":2,"donateurs":3,"benevoles":4,"partenaires":5,"tombola":6}' npm run brevo:test
 ```
 
-En ajoutant `BREVO_TEMPLATE_BIENVENUE=1`, il vérifie aussi l'email de bienvenue :
-envoyé au nouvel inscrit, jamais à quelqu'un déjà dans la liste, jamais sans
-consentement, et jamais en double opt-in.
+L'email de bienvenue n'y figure pas : il est envoyé par un scénario Brevo, hors
+du code du site.
 
 ### Après déploiement
 

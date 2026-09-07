@@ -24,11 +24,6 @@ const LIST_IDS = (() => {
 const DOI_TEMPLATE_ID = Number(process.env.BREVO_DOI_TEMPLATE_ID) || null
 const DOI_REDIRECT_URL = process.env.BREVO_DOI_REDIRECT_URL || null
 
-// Email de bienvenue envoyé à qui rejoint la lettre d'information. Son modèle
-// est produit par `npm run brevo:template` depuis emails/newsletter-bienvenue.html.
-// Variable absente : aucun email de bienvenue, le reste fonctionne à l'identique.
-const TEMPLATE_BIENVENUE = Number(process.env.BREVO_TEMPLATE_BIENVENUE) || null
-
 const templates = {
   newsletter: (d) => ({
     subject: '📬 Nouvelle inscription newsletter — Ressources',
@@ -135,29 +130,6 @@ function brevo(chemin, payload) {
   })
 }
 
-function brevoGet(chemin) {
-  return fetch(`https://api.brevo.com/v3${chemin}`, {
-    headers: { 'api-key': BREVO_API_KEY, accept: 'application/json' },
-  })
-}
-
-// La personne figure-t-elle déjà dans la liste de diffusion ? Interrogé avant
-// l'upsert, sans quoi la réponse serait toujours « oui » : c'est ce qui évite
-// de renvoyer l'email de bienvenue à quelqu'un qui remplit un second
-// formulaire. Un doute quelconque — contact inconnu, appel en échec — répond
-// « non » : mieux vaut un message de trop qu'un abonné jamais accueilli.
-async function dejaDansLaListe(email, idListe) {
-  if (!Number.isInteger(idListe)) return false
-  try {
-    const r = await brevoGet(`/contacts/${encodeURIComponent(email)}`)
-    if (!r.ok) return false
-    const c = await r.json()
-    return Array.isArray(c.listIds) && c.listIds.includes(idListe)
-  } catch {
-    return false
-  }
-}
-
 // Retire les champs vides et rogne les valeurs trop longues : Brevo refuse le
 // contact entier si un attribut texte dépasse sa limite, et une adresse ou une
 // mission saisies librement peuvent être bavardes.
@@ -220,12 +192,6 @@ async function upsertContact(type, data) {
   const idNewsletter = LIST_IDS.newsletter
   const listesDirectes = listes.filter((id) => !(doi && id === idNewsletter))
 
-  // Email de bienvenue : seulement pour une inscription réellement nouvelle.
-  // En double opt-in il n'a pas lieu d'être, l'email de confirmation joue ce
-  // rôle et l'inscription n'est pas encore acquise.
-  const bienvenue = optin && TEMPLATE_BIENVENUE && !doi
-    && !(await dejaDansLaListe(email, idNewsletter))
-
   const r = await brevo('/contacts', {
     email,
     attributes,
@@ -237,15 +203,6 @@ async function upsertContact(type, data) {
     return
   }
   console.log('Contact Brevo enregistré:', type, 'listes', listesDirectes.join(','))
-
-  if (bienvenue) {
-    const b = await brevo('/smtp/email', {
-      to: [{ email }],
-      templateId: TEMPLATE_BIENVENUE,
-    })
-    if (!b.ok) console.error('Brevo bienvenue HTTP', b.status, await b.text())
-    else console.log('Email de bienvenue envoyé:', email)
-  }
 
   if (doi && Number.isInteger(idNewsletter)) {
     const d = await brevo('/contacts/doubleOptinConfirmation', {

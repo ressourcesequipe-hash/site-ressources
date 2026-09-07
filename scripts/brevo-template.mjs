@@ -25,8 +25,6 @@ const MODELES = [
     nom: 'Bienvenue — lettre d\'information',
     sujet: 'Bienvenue chez Ressources — merci pour votre inscription',
     tag: 'newsletter',
-    // Clé d'environnement où reporter l'identifiant renvoyé par Brevo.
-    variable: 'BREVO_TEMPLATE_BIENVENUE',
   },
 ]
 
@@ -100,12 +98,12 @@ async function main() {
     if (existant) {
       console.log(`  ${DRY_RUN ? '~' : '↻'}  « ${m.nom} » — #${existant.id}, ${DRY_RUN ? 'à mettre à jour' : 'mis à jour'} (${html.length} caractères)`)
       if (!DRY_RUN) await api('PUT', `/smtp/templates/${existant.id}`, corps)
-      ids[m.variable] = existant.id
+      ids[m.nom] = existant.id
     } else {
       console.log(`  ${DRY_RUN ? '~' : '+'}  « ${m.nom} » — ${DRY_RUN ? 'à créer' : 'créé'} (${html.length} caractères)`)
       if (!DRY_RUN) {
         const nouveau = await api('POST', '/smtp/templates', corps)
-        ids[m.variable] = nouveau.id
+        ids[m.nom] = nouveau.id
       }
     }
   }
@@ -174,10 +172,11 @@ async function main() {
   console.log('\nLes campagnes sont des brouillons : rien n\'est envoyé tant que')
   console.log('vous ne cliquez pas « Envoyer » dans Brevo.')
 
-  console.log('\nVariable(s) d\'environnement à ajouter dans Vercel :\n')
-  for (const [cle, id] of Object.entries(ids)) console.log(`  ${cle} = ${id}`)
-  console.log('\nSans elle, aucun email de bienvenue n\'est envoyé : les inscriptions')
-  console.log('fonctionnent comme avant.\n')
+  console.log('\nModèles disponibles dans Brevo :\n')
+  for (const [nom, id] of Object.entries(ids)) console.log(`  #${id}  ${nom}`)
+  console.log('\nAucune variable d\'environnement à reporter : ces modèles sont')
+  console.log('choisis depuis Brevo, dans un scénario ou une campagne. Le site')
+  console.log('ne les envoie pas lui-même. Voir docs/brevo.md.\n')
 }
 
 main().catch((e) => {
