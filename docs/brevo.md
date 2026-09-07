@@ -226,6 +226,27 @@ main. Même principe que les modèles : le HTML vit dans `emails/`, et
 | Campagne | Fichier | Destinataires |
 | --- | --- | --- |
 | Challenge de la demi-tonne & tombola solidaire | `emails/tombola-defi-collecte.html` | 001-NEWSLETTERS |
+| Tombola - merci aux participants | `emails/tombola-merci-participants.html` | 005 - Tombola |
+
+La seconde remercie les acheteurs de billets et les invite à faire circuler la
+tombola. Elle vise 005 - Tombola et jamais 001-NEWSLETTERS : acheter un billet
+n'est pas consentir à la lettre d'information.
+
+### Importer un export HelloAsso
+
+```bash
+BREVO_API_KEY="xkeysib-…" node scripts/brevo-import-helloasso.mjs <export.csv> --dry-run
+```
+
+Relançable après chaque nouvel export : les contacts déjà présents sont mis à
+jour, pas dupliqués. Le script regroupe les lignes par adresse (l'export en
+compte une par billet), écarte les commandes non validées, et n'écrit `SOURCE`
+et `OPTIN_NEWSLETTER` que sur un contact inconnu. Les réécrire sur quelqu'un de
+déjà présent effacerait sa provenance et remettrait son consentement à `false`
+alors qu'il a peut-être demandé la lettre par ailleurs.
+
+⚠️ **L'export HelloAsso ne comporte aucune colonne de consentement.** Ces
+contacts vont donc dans 005 - Tombola uniquement.
 
 **Le script n'envoie jamais.** Il crée ou met à jour un **brouillon**, sans
 date de programmation. L'envoi reste une décision humaine, prise dans Brevo
