@@ -2,13 +2,13 @@
 // espion qui note les appels et répond OK. Rien n'est envoyé, aucune clé réelle
 // n'est nécessaire.
 //
-//   npm run brevo:test                       — mode repli, sans BREVO_LISTS
+//   npm run brevo:test                       - mode repli, sans BREVO_LISTS
 //   BREVO_LISTS='{"newsletter":2,…}' npm run brevo:test
 //
 // Voir docs/brevo.md.
 
 // Clé factice : le handler refuse de démarrer sans, et fetch est de toute façon
-// remplacé ci-dessous — elle n'atteint jamais Brevo.
+// remplacé ci-dessous - elle n'atteint jamais Brevo.
 process.env.BREVO_API_KEY ||= 'cle-de-test'
 
 const appels = []
@@ -39,7 +39,7 @@ async function envoie(body) {
 
 let echecs = 0
 function ok(label, condition, detail = '') {
-  console.log(`${condition ? '  ok  ' : ' ÉCHEC'} ${label}${detail ? ' — ' + detail : ''}`)
+  console.log(`${condition ? '  ok  ' : ' ÉCHEC'} ${label}${detail ? ' - ' + detail : ''}`)
   if (!condition) { echecs++; process.exitCode = 1 }
 }
 

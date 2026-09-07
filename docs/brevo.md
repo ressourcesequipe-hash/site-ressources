@@ -1,4 +1,4 @@
-# Brevo — listes de contacts et formulaires
+# Brevo - listes de contacts et formulaires
 
 Les formulaires du site font deux choses à chaque envoi : ils **notifient
 l'équipe par email** (comme avant) et ils **enregistrent le contact dans Brevo**
@@ -34,7 +34,7 @@ la liste. Les options sont définies dans `lib/brevo.js` (`ENGAGEMENTS` et
 `SUJETS_CONTACT`) et les pages les affichent depuis là : renommer une option la
 renomme à l'écran **et** met à jour le routage, sans risque de divergence.
 
-**Nous rejoindre** — menu « type d'engagement » :
+**Nous rejoindre** - menu « type d'engagement » :
 
 | Choix | Liste |
 | --- | --- |
@@ -43,7 +43,7 @@ renomme à l'écran **et** met à jour le routage, sans risque de divergence.
 | Partenariat institutionnel | 004 - Partenaires / Prospects |
 | Autre, ou menu non renseigné | 003 - Bénévoles / Candidats |
 
-**Contact** — menu « sujet » :
+**Contact** - menu « sujet » :
 
 | Choix | Liste |
 | --- | --- |
@@ -65,7 +65,7 @@ la notification. Il n'entre simplement dans aucune liste de diffusion.
 **Une campagne marketing ne cible que 001-NEWSLETTERS.**
 
 Les autres listes contiennent des gens qui ont écrit à l'association pour une
-raison précise — donner un ordinateur, proposer un local — sans avoir demandé à
+raison précise - donner un ordinateur, proposer un local - sans avoir demandé à
 recevoir quoi que ce soit d'autre. Leur envoyer une campagne, c'est de la
 prospection sans consentement.
 
@@ -76,7 +76,7 @@ Trois garde-fous sont en place :
   001-NEWSLETTERS ;
 - deux formulaires y entrent sans case, parce que s'y inscrire **est** l'acte de
   consentement : le formulaire newsletter, et l'inscription à l'événement de
-  lancement — dont le texte annonce explicitement qu'on rejoint la lettre de
+  lancement - dont le texte annonce explicitement qu'on rejoint la lettre de
   l'association ;
 - l'attribut `OPTIN_NEWSLETTER` vaut `true` ou `false` sur chaque contact, ce qui
   permet de construire un segment de sécurité dans Brevo si besoin.
@@ -91,7 +91,7 @@ ne peut pas être réinscrit de force en renvoyant un formulaire.
 ### 1. La clé API
 
 Elle est déjà en place sur ce poste : `C:\Users\Mini7\secrets\brevo-ressources.txt`,
-hors de tout dépôt Git. Ne jamais la déposer dans ce dépôt — il est public.
+hors de tout dépôt Git. Ne jamais la déposer dans ce dépôt - il est public.
 
 ### 2. Créer les attributs et relever les identifiants de listes
 
@@ -129,7 +129,7 @@ Puis redéployer.
 
 > Tant que `BREVO_LISTS` est absente, le site se comporte exactement comme
 > avant : les formulaires notifient l'équipe par email, sans rien écrire dans
-> Brevo. C'est le repli en cas de problème — il suffit de retirer la variable.
+> Brevo. C'est le repli en cas de problème - il suffit de retirer la variable.
 
 ---
 
@@ -161,7 +161,7 @@ visiteurs saisissent « 06 12 34 56 78 ».
 
 Il est envoyé par un **scénario d'automatisation Brevo**, pas par le site.
 
-Le modèle s'appelle « Bienvenue — lettre d'information ». Son HTML vit dans
+Le modèle s'appelle « Bienvenue - lettre d'information ». Son HTML vit dans
 [`emails/newsletter-bienvenue.html`](../emails/newsletter-bienvenue.html) et
 `npm run brevo:template` le pousse dans Brevo.
 
@@ -173,7 +173,7 @@ créent pas en ligne de commande.
 **Pourquoi pas par le code.** Une première version envoyait l'email depuis
 `api/contact.js` via la variable `BREVO_TEMPLATE_BIENVENUE`. Elle a été retirée
 le 7 septembre 2026 au profit du scénario, plus simple à modifier sans
-développeur et déclenché quelle que soit l'origine du contact — formulaire,
+développeur et déclenché quelle que soit l'origine du contact - formulaire,
 import, ajout manuel.
 
 > ⚠️ **Ne jamais réactiver les deux en même temps.** Si un envoi est réintroduit
@@ -182,7 +182,7 @@ import, ajout manuel.
 > `BREVO_TEMPLATE_BIENVENUE` : la variable peut être supprimée de Vercel, elle
 > n'est plus lue.
 
-**Contraintes du format**, à respecter en modifiant le fichier — elles sont
+**Contraintes du format**, à respecter en modifiant le fichier - elles sont
 rappelées en commentaire en tête :
 
 - mise en page en tableaux et styles en ligne, Outlook ignore le CSS moderne ;
@@ -194,7 +194,7 @@ rappelées en commentaire en tête :
 - couleurs de fond toujours explicites, sinon le mode sombre de certains clients
   les remplace.
 
-**Palette.** Relevée dans `charte-graphique-site.png` — attention, ce document
+**Palette.** Relevée dans `charte-graphique-site.png` - attention, ce document
 s'intitule « Analyse du site » et se présente comme une *proposition*
 d'application de la charte ; il diverge de la charte officielle. Ses pastilles
 « Éléments annexes » portent des codes erronés, recopiés de la ligne
@@ -240,7 +240,7 @@ transactionnel, et c'est obligatoire pour un envoi marketing.
 (`src/data/lotsTombola.js`, `src/data/defiCollecte.js`), pas d'une saisie à la
 main : 500 kg visés, 15 points de collecte dans 13 communes, billet à 5 €,
 38 lots (37 confirmés plus le gros lot), plus de 4 500 € de dotation. Si ces
-données changent, le texte de l'email ne se met pas à jour tout seul — c'est le
+données changent, le texte de l'email ne se met pas à jour tout seul - c'est le
 prix d'un HTML figé, à relire avant chaque envoi.
 
 **Deux règles à ne pas enfreindre** en modifiant cette campagne, rappelées en
@@ -285,8 +285,8 @@ dans les deux cas.
 
 1. Créer la liste dans Brevo, puis la déclarer dans `LISTES` (`lib/brevo.js`)
    avec son nom exact.
-2. Déclarer le formulaire dans `FORMULAIRES` : les listes visées — un tableau,
-   ou une fonction des données saisies pour un routage selon un menu — et la
+2. Déclarer le formulaire dans `FORMULAIRES` : les listes visées - un tableau,
+   ou une fonction des données saisies pour un routage selon un menu - et la
    traduction de ses champs en attributs.
 3. Ajouter son libellé dans `SOURCES`.
 4. Ajouter le modèle d'email de notification dans `templates`

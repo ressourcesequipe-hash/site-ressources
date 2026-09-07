@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 // Elle est décochée par défaut, et doit le rester : quelqu'un qui demande un
 // enlèvement de matériel n'a pas demandé à recevoir la newsletter. Sans cette
 // case, le contact est bien enregistré dans Brevo mais reste hors de la liste
-// Newsletter — la seule utilisable pour une campagne.
+// Newsletter - la seule utilisable pour une campagne.
 //
 // variant 'clair' pour les formulaires posés sur un fond sombre, comme dans
 // NewsletterForm.

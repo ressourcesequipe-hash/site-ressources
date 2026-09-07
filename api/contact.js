@@ -26,60 +26,60 @@ const DOI_REDIRECT_URL = process.env.BREVO_DOI_REDIRECT_URL || null
 
 const templates = {
   newsletter: (d) => ({
-    subject: '📬 Nouvelle inscription newsletter — Ressources',
+    subject: '📬 Nouvelle inscription newsletter - Ressources',
     html: row('Inscription newsletter', [['Email', d.email]]),
   }),
   rejoindre: (d) => ({
-    subject: '✉️ Nouveau message — Prendre contact',
+    subject: '✉️ Nouveau message - Prendre contact',
     html: row('Prendre contact', [
-      ['Nom', d.nom], ['Email', d.email], ['Commune', d.commune || '—'],
-      ['Engagement souhaité', d.engagement || '—'], ['Message', d.message || '—'],
+      ['Nom', d.nom], ['Email', d.email], ['Commune', d.commune || '-'],
+      ['Engagement souhaité', d.engagement || '-'], ['Message', d.message || '-'],
     ]),
   }),
   benevole: (d) => ({
-    subject: '🙋 Nouvelle candidature bénévole — Ressources',
+    subject: '🙋 Nouvelle candidature bénévole - Ressources',
     html: row('Inscription bénévole', [
-      ['Nom', d.nom], ['Email', d.email], ['Téléphone', d.telephone || '—'],
-      ['Commune', d.commune || '—'], ['Mission souhaitée', d.mission || '—'],
-      ['Message', d.message || '—'],
+      ['Nom', d.nom], ['Email', d.email], ['Téléphone', d.telephone || '-'],
+      ['Commune', d.commune || '-'], ['Mission souhaitée', d.mission || '-'],
+      ['Message', d.message || '-'],
     ]),
   }),
   donMateriel: (d) => ({
-    subject: "📦 Demande d'enlèvement matériel — Ressources",
+    subject: "📦 Demande d'enlèvement matériel - Ressources",
     html: row("Demande d'enlèvement", [
       ['Nom', d.nom], ['Téléphone', d.telephone], ['Email', d.email],
       ['Adresse', d.adresse], ['Matériel', d.materiel],
     ]),
   }),
   evenement: (d) => ({
-    subject: '🎟️ Nouvelle inscription événement — Ressources',
+    subject: '🎟️ Nouvelle inscription événement - Ressources',
     html: row('Inscription événement', [
       ['Prénom', d.prenom], ['Nom', d.nom], ['Email', d.email],
-      ['Commune', d.commune || '—'], ['Message', d.message || '—'],
+      ['Commune', d.commune || '-'], ['Message', d.message || '-'],
     ]),
   }),
   pointCollecte: (d) => ({
-    subject: '📍 Candidature point de collecte — Ressources',
+    subject: '📍 Candidature point de collecte - Ressources',
     html: row('Nouveau point de collecte proposé', [
       ['Structure', d.structure], ['Nom du contact', d.nom],
-      ['Email', d.email], ['Téléphone', d.telephone || '—'],
-      ['Commune', d.commune], ['Type de structure', d.typeStructure || '—'],
-      ['Message', d.message || '—'],
+      ['Email', d.email], ['Téléphone', d.telephone || '-'],
+      ['Commune', d.commune], ['Type de structure', d.typeStructure || '-'],
+      ['Message', d.message || '-'],
     ]),
   }),
   partenaireVegetal: (d) => ({
-    subject: '🌿 Nouveau partenaire végétal — Ressources',
+    subject: '🌿 Nouveau partenaire végétal - Ressources',
     html: row('Proposition de partenariat végétal', [
       ['Structure', d.structure], ['Nom du contact', d.contact],
       ['Email', d.email], ['Commune', d.commune],
-      ['Partenariat envisagé', d.partenariat || '—'],
+      ['Partenariat envisagé', d.partenariat || '-'],
     ]),
   }),
   contact: (d) => ({
-    subject: `📩 Nouveau message — ${d.sujet || 'Contact général'}`,
+    subject: `📩 Nouveau message - ${d.sujet || 'Contact général'}`,
     html: row('Message de contact', [
-      ['Nom', d.nom], ['Email', d.email], ['Téléphone', d.telephone || '—'],
-      ['Sujet', d.sujet || '—'], ['Message', d.message],
+      ['Nom', d.nom], ['Email', d.email], ['Téléphone', d.telephone || '-'],
+      ['Sujet', d.sujet || '-'], ['Message', d.message],
     ]),
   }),
 }
@@ -100,9 +100,9 @@ function row(title, fields) {
     .map(([label, val]) => `<tr><td style="padding:6px 12px;color:#666;width:160px">${esc(label)}</td><td style="padding:6px 12px;color:#222">${esc(val).replace(/\n/g, '<br>')}</td></tr>`)
     .join('')
   return `<div style="font-family:sans-serif;max-width:560px;margin:0 auto">
-    <h2 style="background:#5a6b3a;color:#fff;padding:16px 20px;margin:0;font-size:16px">${esc(title)} — Ressources Landes</h2>
+    <h2 style="background:#5a6b3a;color:#fff;padding:16px 20px;margin:0;font-size:16px">${esc(title)} - Ressources Landes</h2>
     <table style="width:100%;border-collapse:collapse;border:1px solid #e5e0d5">${rows}</table>
-    <p style="color:#aaa;font-size:11px;padding:12px">Message automatique — site ressourcesrecyclerie.fr</p>
+    <p style="color:#aaa;font-size:11px;padding:12px">Message automatique - site ressourcesrecyclerie.fr</p>
   </div>`
 }
 
@@ -151,9 +151,9 @@ function nettoyerAttributs(attrs) {
 // Crée ou met à jour le contact dans Brevo et l'inscrit aux bonnes listes.
 //
 // Deux règles tiennent le RGPD :
-//   — `emailBlacklisted` n'est jamais renvoyé, pour ne pas réabonner de force
+//   - `emailBlacklisted` n'est jamais renvoyé, pour ne pas réabonner de force
 //     quelqu'un qui s'est désinscrit ;
-//   — la liste Newsletter n'est alimentée que si le consentement est explicite
+//   - la liste Newsletter n'est alimentée que si le consentement est explicite
 //     (formulaire newsletter, ou case cochée ailleurs).
 async function upsertContact(type, data) {
   const conf = FORMULAIRES[type]
@@ -167,8 +167,8 @@ async function upsertContact(type, data) {
 
   const optin = conf.optinImplicite === true || data.optinNewsletter === true
 
-  // Les listes du formulaire — fixes, ou déduites du menu choisi par le
-  // visiteur — plus la newsletter si le consentement est donné : c'est la case
+  // Les listes du formulaire - fixes, ou déduites du menu choisi par le
+  // visiteur - plus la newsletter si le consentement est donné : c'est la case
   // cochée qui fait entrer dans la liste de diffusion, quel que soit le
   // formulaire d'origine.
   const cles = listesDe(type, data)

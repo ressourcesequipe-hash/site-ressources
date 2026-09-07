@@ -1,7 +1,7 @@
 // Pousse emails/*.html dans Brevo sous forme de modèles transactionnels.
 //
 // Le HTML versionné dans ce dépôt est la source de vérité. Le script crée le
-// modèle s'il n'existe pas, le met à jour sinon — en le retrouvant par son nom,
+// modèle s'il n'existe pas, le met à jour sinon - en le retrouvant par son nom,
 // jamais par un identifiant codé en dur.
 //
 //   BREVO_API_KEY="xkeysib-…" node scripts/brevo-template.mjs --dry-run
@@ -22,8 +22,8 @@ const RACINE = join(dirname(fileURLToPath(import.meta.url)), '..')
 const MODELES = [
   {
     fichier: 'emails/newsletter-bienvenue.html',
-    nom: 'Bienvenue — lettre d\'information',
-    sujet: 'Bienvenue chez Ressources — merci pour votre inscription',
+    nom: 'Bienvenue - lettre d\'information',
+    sujet: 'Bienvenue chez Ressources - merci pour votre inscription',
     tag: 'newsletter',
   },
 ]
@@ -35,9 +35,17 @@ const CAMPAGNES = [
   {
     fichier: 'emails/tombola-defi-collecte.html',
     nom: 'Challenge de la demi-tonne & tombola solidaire',
-    sujet: '500 kg à réunir, 38 lots à gagner — rendez-vous le 3 octobre',
+    sujet: '500 kg à réunir, 38 lots à gagner - rendez-vous le 3 octobre',
     // Clé de LISTES (lib/brevo.js) dont les abonnés recevront la campagne.
     liste: 'newsletter',
+  },
+  {
+    fichier: 'emails/tombola-merci-participants.html',
+    nom: 'Tombola - merci aux participants',
+    sujet: 'Merci pour votre billet - et un service à vous demander',
+    // 005 - Tombola, et surtout pas la lettre d'information : acheter un
+    // billet n'est pas consentir à recevoir la newsletter.
+    liste: 'tombola',
   },
 ]
 
@@ -75,7 +83,7 @@ function sansCommentaires(html) {
 
 async function main() {
   const compte = await api('GET', '/account')
-  console.log(`\nCompte Brevo : ${compte.companyName || '—'} (${compte.email})`)
+  console.log(`\nCompte Brevo : ${compte.companyName || '-'} (${compte.email})`)
   console.log(DRY_RUN ? 'Mode --dry-run : rien ne sera écrit.\n' : '')
 
   const { templates = [] } = await api('GET', '/smtp/templates?limit=100')
@@ -96,11 +104,11 @@ async function main() {
     }
 
     if (existant) {
-      console.log(`  ${DRY_RUN ? '~' : '↻'}  « ${m.nom} » — #${existant.id}, ${DRY_RUN ? 'à mettre à jour' : 'mis à jour'} (${html.length} caractères)`)
+      console.log(`  ${DRY_RUN ? '~' : '↻'}  « ${m.nom} » - #${existant.id}, ${DRY_RUN ? 'à mettre à jour' : 'mis à jour'} (${html.length} caractères)`)
       if (!DRY_RUN) await api('PUT', `/smtp/templates/${existant.id}`, corps)
       ids[m.nom] = existant.id
     } else {
-      console.log(`  ${DRY_RUN ? '~' : '+'}  « ${m.nom} » — ${DRY_RUN ? 'à créer' : 'créé'} (${html.length} caractères)`)
+      console.log(`  ${DRY_RUN ? '~' : '+'}  « ${m.nom} » - ${DRY_RUN ? 'à créer' : 'créé'} (${html.length} caractères)`)
       if (!DRY_RUN) {
         const nouveau = await api('POST', '/smtp/templates', corps)
         ids[m.nom] = nouveau.id
@@ -126,7 +134,7 @@ async function main() {
       const nomListe = LISTES[c.liste]?.nom
       const liste = listes.find((l) => l.name === nomListe)
       if (!liste) {
-        console.log(`  !  « ${c.nom} » — liste « ${nomListe} » introuvable, ignorée`)
+        console.log(`  !  « ${c.nom} » - liste « ${nomListe} » introuvable, ignorée`)
         continue
       }
 
@@ -135,7 +143,7 @@ async function main() {
       // Une campagne partie ne se retouche pas : on ne réécrit jamais ce que
       // des gens ont déjà reçu.
       if (existante && existante.status !== 'draft') {
-        console.log(`  ·  « ${c.nom} » — #${existante.id}, statut « ${existante.status} », laissée intacte`)
+        console.log(`  ·  « ${c.nom} » - #${existante.id}, statut « ${existante.status} », laissée intacte`)
         continue
       }
 
@@ -156,10 +164,10 @@ async function main() {
       // « créé » qui n'a pas eu lieu.
       if (existante) {
         if (!DRY_RUN) await api('PUT', `/emailCampaigns/${existante.id}`, corps)
-        console.log(`  ${DRY_RUN ? '~' : '↻'}  « ${c.nom} » — #${existante.id}, brouillon ${DRY_RUN ? 'à mettre à jour' : 'mis à jour'} → ${nomListe} (${html.length} caractères)`)
+        console.log(`  ${DRY_RUN ? '~' : '↻'}  « ${c.nom} » - #${existante.id}, brouillon ${DRY_RUN ? 'à mettre à jour' : 'mis à jour'} → ${nomListe} (${html.length} caractères)`)
       } else {
         const cree = DRY_RUN ? null : await api('POST', '/emailCampaigns', corps)
-        console.log(`  ${DRY_RUN ? '~' : '+'}  « ${c.nom} »${cree ? ' — #' + cree.id : ''} — brouillon ${DRY_RUN ? 'à créer' : 'créé'} → ${nomListe} (${html.length} caractères)`)
+        console.log(`  ${DRY_RUN ? '~' : '+'}  « ${c.nom} »${cree ? ' - #' + cree.id : ''} - brouillon ${DRY_RUN ? 'à créer' : 'créé'} → ${nomListe} (${html.length} caractères)`)
       }
     }
   }

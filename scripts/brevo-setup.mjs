@@ -57,7 +57,7 @@ async function tout(chemin, cle) {
 
 async function main() {
   const compte = await api('GET', '/account')
-  console.log(`\nCompte Brevo : ${compte.companyName || '—'} (${compte.email})`)
+  console.log(`\nCompte Brevo : ${compte.companyName || '-'} (${compte.email})`)
   console.log(DRY_RUN ? 'Mode --dry-run : rien ne sera écrit.\n' : '')
 
   // 1. Les listes existent-elles ? Le script ne les crée pas : elles sont
@@ -70,10 +70,10 @@ async function main() {
     const trouvee = listesBrevo.find((l) => l.name === def.nom)
     if (trouvee) {
       ids[cle] = trouvee.id
-      console.log(`  ·  « ${def.nom} » — #${trouvee.id}, ${trouvee.totalSubscribers} contacts`)
+      console.log(`  ·  « ${def.nom} » - #${trouvee.id}, ${trouvee.totalSubscribers} contacts`)
     } else {
       manquantes.push(def.nom)
-      console.log(`  !  « ${def.nom} » — INTROUVABLE`)
+      console.log(`  !  « ${def.nom} » - INTROUVABLE`)
     }
   }
 
@@ -92,11 +92,11 @@ async function main() {
   let crees = 0
   for (const [nom, type] of Object.entries(ATTRIBUTS)) {
     if (nomsExistants.has(nom)) {
-      console.log(`  ·  « ${nom} » — déjà présent`)
+      console.log(`  ·  « ${nom} » - déjà présent`)
       continue
     }
     crees++
-    console.log(`  ${DRY_RUN ? '~' : '+'}  « ${nom} » — ${DRY_RUN ? 'à créer' : 'créé'}`)
+    console.log(`  ${DRY_RUN ? '~' : '+'}  « ${nom} » - ${DRY_RUN ? 'à créer' : 'créé'}`)
     if (!DRY_RUN) await api('POST', `/contacts/attributes/normal/${nom}`, { type })
   }
 
