@@ -1,0 +1,160 @@
+<!-- Email de bienvenue envoyé à l'inscription à la lettre d'information.
+     Source de vérité : ce fichier. `npm run brevo:template` le pousse dans
+     Brevo, où il devient un modèle transactionnel éditable.
+
+     Contraintes propres à l'email, à respecter en le modifiant :
+       — mise en page en tableaux, styles en ligne : Outlook ignore le CSS
+         moderne (flex, grid, classes) ;
+       — largeur fixée à 600 px, la valeur que tous les clients gèrent ;
+       — aucune police web : Open Sans n'est pas chargeable, les replis
+         Helvetica / Georgia sont ce que la plupart des gens verront ;
+       — images en PNG servies par le site, jamais en WebP : Outlook desktop
+         ne sait pas l'afficher ;
+       — couleurs de fond toujours explicites, sinon le mode sombre de
+         certains clients les remplace.
+
+     Palette relevée dans charte-graphique-site.png :
+       #6C7C49 vert · #404C2F vert foncé · #2B3520 texte · #726E24 olive
+       #C4C28F sauge · #EDECCE crème · #EFEBDF parchemin · #C49845 ocre -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EFEBDF;margin:0;padding:0;">
+  <tr>
+    <td align="center" style="padding:24px 12px;">
+
+      <!-- Texte d'aperçu : visible dans la liste des messages, pas dans l'email -->
+      <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;height:0;width:0;">
+        Votre inscription est bien enregistrée. Voici ce que vous allez recevoir.
+      </div>
+
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:100%;background-color:#FFFFFF;border-collapse:collapse;">
+
+        <!-- Bandeau -->
+        <tr>
+          <td align="center" style="background-color:#6C7C49;padding:28px 24px;">
+            <img src="https://www.ressourcesrecyclerie.fr/logos/logo-ressources-192.png"
+                 width="76" height="76" alt="Ressources"
+                 style="display:block;border:0;outline:none;text-decoration:none;width:76px;height:auto;">
+            <div style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:20px;font-weight:700;color:#FFFFFF;letter-spacing:0.04em;padding-top:12px;">
+              RESSOURCES
+            </div>
+            <div style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:11px;color:#FFFFFF;letter-spacing:0.22em;padding-top:5px;text-transform:uppercase;">
+              Recyclerie solidaire
+            </div>
+          </td>
+        </tr>
+
+        <!-- Message -->
+        <tr>
+          <td style="padding:36px 40px 8px 40px;">
+            <h1 style="margin:0 0 18px 0;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.25;font-weight:400;color:#2B3520;">
+              Merci, votre inscription est enregistrée.
+            </h1>
+            <p style="margin:0 0 16px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;">
+              Bonjour,
+            </p>
+            <p style="margin:0 0 16px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;">
+              Vous venez de rejoindre la lettre d'information de l'association
+              Ressources, recyclerie solidaire dans les Landes. Merci de votre
+              intérêt : ce sont des gens comme vous qui font qu'un ordinateur
+              oublié dans un placard reprend du service chez quelqu'un qui en a
+              besoin.
+            </p>
+          </td>
+        </tr>
+
+        <!-- Ce que la personne va recevoir -->
+        <tr>
+          <td style="padding:8px 40px 4px 40px;">
+            <div style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#726E24;padding-bottom:14px;">
+              Ce que vous allez recevoir
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td width="18" valign="top" style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#726E24;">&#8226;</td>
+                <td style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;padding-bottom:8px;">
+                  L'avancée de nos collectes et l'ouverture de nouveaux points de dépôt
+                </td>
+              </tr>
+              <tr>
+                <td width="18" valign="top" style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#726E24;">&#8226;</td>
+                <td style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;padding-bottom:8px;">
+                  Nos événements sur le territoire, et les manières d'y prendre part
+                </td>
+              </tr>
+              <tr>
+                <td width="18" valign="top" style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#726E24;">&#8226;</td>
+                <td style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#404C2F;padding-bottom:8px;">
+                  Ce que devient le matériel donné : reconditionnement et redistribution
+                </td>
+              </tr>
+            </table>
+            <p style="margin:14px 0 0 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;color:#726E24;">
+              Quelques envois par an, pas davantage. Nous n'avons ni le temps ni
+              l'envie d'encombrer votre boîte.
+            </p>
+          </td>
+        </tr>
+
+        <!-- Bouton -->
+        <tr>
+          <td align="center" style="padding:30px 40px 34px 40px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" bgcolor="#C49845" style="background-color:#C49845;">
+                  <a href="https://www.ressourcesrecyclerie.fr/"
+                     style="display:inline-block;padding:14px 32px;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:0.04em;color:#2B3520;text-decoration:none;">
+                    Découvrir l'association
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Trois portes d'entrée -->
+        <tr>
+          <td style="padding:0 40px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #C4C28F;">
+              <tr><td style="height:24px;line-height:24px;font-size:0;">&nbsp;</td></tr>
+            </table>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.7;color:#404C2F;padding-bottom:6px;">
+                  <a href="https://www.ressourcesrecyclerie.fr/recyclerie-informatique/comment-donner/" style="color:#726E24;text-decoration:underline;">Donner du matériel informatique</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.7;color:#404C2F;padding-bottom:6px;">
+                  <a href="https://www.ressourcesrecyclerie.fr/soutenir/benevole/" style="color:#726E24;text-decoration:underline;">Devenir bénévole</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.7;color:#404C2F;padding-bottom:26px;">
+                  <a href="https://www.ressourcesrecyclerie.fr/recyclerie-vegetale/" style="color:#726E24;text-decoration:underline;">Découvrir la filière végétale</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Pied -->
+        <tr>
+          <td style="background-color:#EDECCE;padding:24px 40px;">
+            <p style="margin:0 0 10px 0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#404C2F;">
+              <strong style="color:#404C2F;">Association Ressources</strong><br>
+              80 allée des Cigales, 40560 Vielle-Saint-Girons<br>
+              <a href="mailto:contact@ressourcesrecyclerie.fr" style="color:#404C2F;text-decoration:underline;">contact@ressourcesrecyclerie.fr</a>
+            </p>
+            <p style="margin:0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:11px;line-height:1.6;color:#404C2F;">
+              Vous recevez ce message parce que vous vous êtes inscrit à notre lettre
+              d'information sur ressourcesrecyclerie.fr.
+              <a href="mailto:contact@ressourcesrecyclerie.fr?subject=D%C3%A9sabonnement%20lettre%20d%27information" style="color:#404C2F;text-decoration:underline;">Se désabonner</a>
+              &nbsp;·&nbsp;
+              <a href="https://www.ressourcesrecyclerie.fr/confidentialite/" style="color:#404C2F;text-decoration:underline;">Vos données</a>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>

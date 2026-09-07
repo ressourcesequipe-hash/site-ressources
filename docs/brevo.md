@@ -124,6 +124,7 @@ Dans Vercel → `Settings → Environment Variables`, ajouter :
 | --- | --- | --- |
 | `BREVO_API_KEY` | la clé du compte Ressources | Production, Preview |
 | `BREVO_LISTS` | le JSON affiché par le script | Production, Preview |
+| `BREVO_TEMPLATE_BIENVENUE` | l'identifiant du modèle (voir plus bas) | Production, Preview |
 
 Puis redéployer.
 
@@ -154,6 +155,63 @@ dans la politique de confidentialité (« 3 ans après le dernier contact »).
 Le téléphone est un attribut **texte**, pas l'attribut standard `SMS` : Brevo
 rejette le contact entier si le numéro n'est pas au format international, et les
 visiteurs saisissent « 06 12 34 56 78 ».
+
+---
+
+## L'email de bienvenue
+
+Qui rejoint la lettre d'information reçoit aussitôt un message de remerciement —
+quelques secondes, pas cinq minutes.
+
+Le HTML vit dans [`emails/newsletter-bienvenue.html`](../emails/newsletter-bienvenue.html),
+versionné dans ce dépôt. `npm run brevo:template` le pousse dans Brevo, où il
+devient un modèle transactionnel. Le script retrouve le modèle par son nom et le
+met à jour : relancé, il ne crée pas de doublon.
+
+> ⚠️ Retoucher le modèle dans l'interface Brevo puis relancer le script **écrase
+> les retouches**. Reportez-les dans `emails/` sinon elles sont perdues.
+
+**Qui le reçoit, et une seule fois.** Avant d'enregistrer le contact, l'API
+demande à Brevo s'il figure déjà dans 001-NEWSLETTERS. Si oui, pas de second
+message : quelqu'un qui remplit un autre formulaire des mois plus tard n'est pas
+réaccueilli. Quelqu'un inscrit à une autre liste qui coche enfin la case, lui,
+le reçoit. En cas de doute — contact inconnu, appel en échec — le message part :
+mieux vaut un email de trop qu'un abonné jamais accueilli.
+
+En double opt-in, aucun email de bienvenue : l'email de confirmation joue ce
+rôle, et l'inscription n'est pas encore acquise au moment de l'envoi.
+
+**Contraintes du format**, à respecter en modifiant le fichier — elles sont
+rappelées en commentaire en tête :
+
+- mise en page en tableaux et styles en ligne, Outlook ignore le CSS moderne ;
+- 600 px de large, la valeur que tous les clients gèrent ;
+- pas de police web : Open Sans n'est pas chargeable dans un email, les replis
+  Helvetica et Georgia sont ce que la plupart des gens verront ;
+- images en PNG servies par le site, jamais en WebP, qu'Outlook desktop ne sait
+  pas afficher ;
+- couleurs de fond toujours explicites, sinon le mode sombre de certains clients
+  les remplace.
+
+**Palette.** Relevée dans `charte-graphique-site.png` — attention, ce document
+s'intitule « Analyse du site » et se présente comme une *proposition*
+d'application de la charte ; il diverge de la charte officielle. Ses pastilles
+« Éléments annexes » portent des codes erronés, recopiés de la ligne
+« Les fonds » : l'ocre réel, relevé dans l'image, est **`#C49845`**.
+
+Trois écarts de contraste ont été corrigés par rapport à une lecture littérale
+de la palette, une case de consentement et un appel à l'action devant rester
+lisibles :
+
+| Élément | Choix littéral | Retenu | Contraste |
+| --- | --- | --- | --- |
+| Texte du bouton | blanc sur ocre | `#2B3520` sur ocre | 2,65 → 4,85:1 |
+| Sous-titre du bandeau | crème sur vert | blanc sur vert | 3,79 → 4,55:1 |
+| Texte du pied | `#726E24` sur crème | `#404C2F` sur crème | 4,40 → 7,63:1 |
+
+**Désabonnement.** Le lien du pied est un `mailto:` : un email transactionnel
+n'a pas de lien de désinscription géré par Brevo. Les vraies campagnes, elles,
+en reçoivent un automatiquement.
 
 ---
 
@@ -223,6 +281,10 @@ opt-in :
 BREVO_LISTS='{"newsletter":2,"donateurs":3,"benevoles":4,"partenaires":5,"tombola":6}' npm run brevo:test
 ```
 
+En ajoutant `BREVO_TEMPLATE_BIENVENUE=1`, il vérifie aussi l'email de bienvenue :
+envoyé au nouvel inscrit, jamais à quelqu'un déjà dans la liste, jamais sans
+consentement, et jamais en double opt-in.
+
 ### Après déploiement
 
 Envoyer un formulaire de test puis :
@@ -248,6 +310,14 @@ confirmation, et l'erreur est tracée dans les logs.
 - **Page de confirmation** `/newsletter-confirmee/`, préalable au double opt-in.
 - **Contrat de sous-traitance (DPA).** Brevo en fournit un ; il doit être
   accepté depuis le compte de l'association.
+- **Plafond du plan gratuit : 300 envois par jour**, partagés entre les
+  notifications à l'équipe et les emails de bienvenue. Chaque formulaire envoyé
+  coûte un crédit, deux si la personne s'abonne. À surveiller si le trafic
+  monte.
+- **Scénarios d'automatisation.** L'endpoint `/v3/automations` renvoie 404 sur
+  ce compte : les workflows Brevo ne se créent que dans leur interface, et
+  l'option n'apparaît pas sur le plan gratuit. D'où l'envoi par le code plutôt
+  que par un scénario.
 - **Après le 3 octobre 2026.** L'inscription à l'événement de lancement
   disparaîtra avec la page ; rien à défaire côté Brevo, les contacts restent
   dans 001-NEWSLETTERS.
