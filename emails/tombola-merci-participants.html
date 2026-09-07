@@ -19,18 +19,23 @@
          tranche le 7 septembre 2026 : pas d'urgence sur le conditionnement du
          deploiement.
 
-     La mise en page sert le partage, dans cet ordre : ce qu'il y a a gagner en
-     photo avant tout texte, trois chiffres scannables, la reassurance, ce que
-     l'argent finance avec une photo d'atelier, puis le bloc de partage pose
-     sur le vert fonce pour qu'il soit le point d'ancrage visuel.
+     La mise en page suit l'ordre du message : le merci et la reassurance
+     d'abord, puis ce que l'argent finance avec une photo d'atelier, puis
+     l'affiche de la tombola, puis le bloc de partage pose sur le vert fonce
+     pour qu'il soit le point d'ancrage visuel.
+
+     L'affiche est volontairement placee juste avant la demande de partage et
+     non en ouverture : c'est une image promotionnelle, et c'est l'objet meme
+     qu'on demande de faire circuler. En tete, elle ouvrait un email de
+     remerciement sur une reclame.
+
+     Elle annonce « + de 4000 € de lots » alors que la dotation est de plus de
+     4 500 €. L'ecart est connu et assume, et il ne gene pas ici : le texte de
+     l'email ne cite aucun montant total, il parle de 38 lots.
 
      Memes contraintes que les autres emails : tableaux, styles en ligne,
      600 px, pas de police web, JPEG ou PNG servis par le site, fonds
-     explicites. Voir emails/newsletter-bienvenue.html.
-
-     L'affiche de la tombola n'est pas utilisee : elle annonce 4000 € alors que
-     la dotation est de plus de 4 500 €. Ecart connu et assume, mais la placer
-     ici la ferait contredire le texte voisin. -->
+     explicites. Voir emails/newsletter-bienvenue.html. -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EFEBDF;margin:0;padding:0;">
   <tr>
     <td align="center" style="padding:24px 12px;">
@@ -56,19 +61,6 @@
           </td>
         </tr>
 
-        <!-- L'affiche de la tombola, avant tout texte, dans un cadre ocre.
-             Le cadre est le fond de la cellule et non un `border` : Outlook rend
-             mal les bordures de cellule, un fond avec marge interieure passe
-             partout. 6 px de chaque cote, donc une image de 588 px dans les 600.
-             Le corps de l'affiche est en #414D2E, soit le vert de l'en-tete a
-             deux points pres : l'ensemble se tient malgre sa bande claire. -->
-        <tr>
-          <td bgcolor="#C49845" style="background-color:#C49845;padding:6px;font-size:0;line-height:0;">
-            <img src="https://www.ressourcesrecyclerie.fr/photos/email-tombola-affiche.jpg"
-                 width="588" alt="Tombola solidaire de l'association Ressources, pour l'inauguration de la recyclerie le 3 octobre 2026. Billet à 5 euros."
-                 style="display:block;border:0;outline:none;text-decoration:none;width:100%;max-width:588px;height:auto;">
-          </td>
-        </tr>
         <!-- Merci et reassurance -->
         <tr>
           <td style="padding:34px 40px 0 40px;">
@@ -126,9 +118,27 @@
           </td>
         </tr>
 
+        <!-- L'affiche, juste avant la demande de partage : c'est l'objet meme
+             qu'on demande de faire circuler. En retrait a 520 px comme la photo
+             d'atelier, dans un cadre ocre de 6 px, soit 508 px d'image. Le cadre
+             est un fond de cellule et non un `border`, qu'Outlook rend mal. -->
+        <tr>
+          <td style="padding:30px 40px 0 40px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+              <tr>
+                <td bgcolor="#C49845" style="background-color:#C49845;padding:6px;font-size:0;line-height:0;">
+                  <img src="https://www.ressourcesrecyclerie.fr/photos/email-tombola-affiche.jpg"
+                       width="508" alt="Tombola solidaire de l'association Ressources, pour l'inauguration de la recyclerie le 3 octobre 2026. Billet à 5 euros."
+                       style="display:block;border:0;outline:none;text-decoration:none;width:100%;max-width:508px;height:auto;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
         <!-- Le partage : point d'ancrage visuel de l'email -->
         <tr>
-          <td style="padding:28px 40px 0 40px;">
+          <td style="padding:16px 40px 0 40px;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#404C2F;border-collapse:collapse;">
               <tr>
                 <td style="padding:28px 26px 26px 26px;">
