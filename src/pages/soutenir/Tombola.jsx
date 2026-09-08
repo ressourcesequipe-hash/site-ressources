@@ -62,6 +62,19 @@ const faqSchema = {
   ],
 }
 
+// Le REEL de la tombola, déclaré pour les résultats enrichis vidéo. La vignette
+// est l'affiche du lecteur, extraite de la première image du film.
+const videoSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: 'Tombola solidaire Ressources : participez au tirage du 03 octobre 2026',
+  description: `Présentation en 40 secondes de la tombola solidaire de l'association Ressources : plus de ${VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots offerts par les commerçants et producteurs landais, billet à ${PRIX_BILLET} €, tirage le 03 octobre 2026 à Vielle-Saint-Girons.`,
+  thumbnailUrl: 'https://www.ressourcesrecyclerie.fr/photos/reel-tombola-poster.jpg',
+  contentUrl: 'https://www.ressourcesrecyclerie.fr/photos/Reel-Tombola-Ressources.mp4',
+  uploadDate: '2026-09-07',
+  duration: 'PT42S',
+}
+
 const BREADCRUMBS = [
   { label: 'Soutenir', href: '/soutenir/' },
   { label: 'Tombola solidaire' },
@@ -82,7 +95,7 @@ export default function Tombola() {
         title={`Tombola solidaire Landes 2026 — plus de ${VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots · Association Ressources`}
         description={`Participez à la tombola solidaire de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons. Billet à ${PRIX_BILLET} €, en ligne ou chez nos commerçants partenaires : plus de ${VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots à gagner, répartis sur plus de ${NOMBRE_LOTS_ARRONDI} lots offerts par les commerçants, artisans et producteurs du territoire landais.`}
         canonical="/soutenir/tombola/"
-        schema={faqSchema}
+        schema={[faqSchema, videoSchema]}
         ogImage="https://www.ressourcesrecyclerie.fr/og-tombola.jpg"
         ogImageWidth={1280}
         ogImageHeight={720}
@@ -147,31 +160,70 @@ export default function Tombola() {
               au-dessus, il faut le dégager pour que le titre ne soit pas
               masqué à l'arrivée sur l'ancre. */}
           <div id="lots" className="text-center bg-ocre-pale border border-ocre/20 p-10 mb-12 scroll-mt-28 md:scroll-mt-32">
-            <p className="font-sans text-xs text-ocre font-semibold tracking-widest uppercase mb-3">
-              Lots à gagner
-            </p>
-            <p className="font-serif text-5xl md:text-7xl text-ocre leading-none mb-2">
-              Plus de {VALEUR_ARRONDIE.toLocaleString('fr-FR')} €
-            </p>
-            <p className="font-sans text-xl text-terre/60 mb-2">
-              de lots à gagner, répartis sur plus de {NOMBRE_LOTS_ARRONDI} lots
-              offerts par nos partenaires locaux
-            </p>
-            <p className="text-sm text-terre/50 max-w-md mx-auto mb-7">
-              La dotation est complète : tous les lots mis en jeu le 03 octobre
-              sont dès maintenant visibles ci-dessous.
-            </p>
+            {/* Deux colonnes : le REEL à gauche, tout le discours de l'encart à
+                droite, du montant jusqu'au bouton d'achat. Les deux colonnes
+                font sensiblement la même hauteur, donc rien ne dépasse et le
+                bouton reste à côté de la vidéo. En dessous de md, la colonne de
+                droite se replie sous la vidéo.
 
-            {/* Prix du billet */}
-            <div className="inline-flex items-baseline gap-2 border-y border-ocre/25 px-6 py-3 mb-7">
-              <span className="font-serif text-3xl text-ocre leading-none">{PRIX_BILLET} €</span>
-              <span className="font-sans text-sm text-terre/55">le billet</span>
-            </div>
+                Vidéo verticale 9:16 auto-hébergée : pas de lecteur tiers, donc
+                aucun cookie ni traceur à déclarer. Avec preload="none" et une
+                affiche de 43 Ko, la page ne télécharge rien du fichier de 9,3 Mo
+                tant que personne ne clique. Le master non compressé est gardé
+                hors dépôt, dans design/videos-sources/. */}
+            <div className="md:flex md:items-center md:justify-center md:gap-8 lg:gap-12">
+              {/* La vidéo se resserre entre md et lg : à 768 px la colonne de
+                  droite n'a plus que 355 px et « Plus de 4 500 € » y passait
+                  sur deux lignes. */}
+              <div className="w-full max-w-[230px] md:max-w-[190px] lg:max-w-[230px] mx-auto md:mx-0 shrink-0 mb-8 md:mb-0">
+                <video
+                  controls
+                  playsInline
+                  preload="none"
+                  poster="/photos/reel-tombola-poster.jpg"
+                  aria-label="Vidéo de présentation de la tombola solidaire Ressources"
+                  className="w-full aspect-[9/16] bg-black object-cover shadow-lg shadow-terre/20"
+                >
+                  <source src="/photos/Reel-Tombola-Ressources.mp4" type="video/mp4" />
+                  <a href="/photos/Reel-Tombola-Ressources.mp4" className="underline">
+                    Télécharger la vidéo de présentation
+                  </a>
+                </video>
+                <p className="font-sans text-xs text-terre/50 mt-3">
+                  La tombola en 40 secondes
+                </p>
+              </div>
 
-            <div>
-              <button onClick={() => setModalOpen(true)} className="btn-ocre">
-                Acheter mes billets maintenant
-              </button>
+              <div className="md:flex-1 md:max-w-lg">
+                <p className="font-sans text-xs text-ocre font-semibold tracking-widest uppercase mb-3">
+                  Lots à gagner
+                </p>
+                {/* Plus de text-7xl ici : la colonne fait au mieux 490 px, le
+                    montant y tiendrait mal en 72 px. */}
+                <p className="font-serif text-5xl lg:text-6xl text-ocre leading-none mb-3">
+                  Plus de {VALEUR_ARRONDIE.toLocaleString('fr-FR')} €
+                </p>
+                <p className="font-sans text-lg md:text-xl text-terre/60 mb-2">
+                  de lots à gagner, répartis sur plus de {NOMBRE_LOTS_ARRONDI} lots
+                  offerts par nos partenaires locaux
+                </p>
+                <p className="text-sm text-terre/50 max-w-md mx-auto mb-7">
+                  La dotation est complète : tous les lots mis en jeu le 03 octobre
+                  sont dès maintenant visibles ci-dessous.
+                </p>
+
+                {/* Prix du billet */}
+                <div className="inline-flex items-baseline gap-2 border-y border-ocre/25 px-6 py-3 mb-7">
+                  <span className="font-serif text-3xl text-ocre leading-none">{PRIX_BILLET} €</span>
+                  <span className="font-sans text-sm text-terre/55">le billet</span>
+                </div>
+
+                <div>
+                  <button onClick={() => setModalOpen(true)} className="btn-ocre">
+                    Acheter mes billets maintenant
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
