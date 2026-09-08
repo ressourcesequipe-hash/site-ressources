@@ -20,7 +20,11 @@ export const CATEGORIES = [
 export const LOT_PRINCIPAL = {
   numero: '1',
   titre: 'Le gros lot',
-  lot: 'Un séjour d’une semaine en villa sur la côte landaise pour 4 personnes',
+  // Trois chambres et la piscine, confirmés le 04/09/2026 : la piscine n'était
+  // jusque-là visible que dans la description de la photo, et le communiqué de
+  // presse en dit maintenant plus que le site. La capacité de 4 personnes est
+  // conservée telle qu'elle était publiée.
+  lot: 'Une semaine sur la côte landaise, en villa de trois chambres avec piscine, pour 4 personnes',
   detail: 'Don d’un particulier',
   valeur: 1500,
   // Photo d'extérieur de la villa (fichier dans /public/lots/).
@@ -118,8 +122,6 @@ export const POINTS_VENTE = [
   { nom: 'Bar Tabac Presse du Marensin', ville: 'Vielle-Saint-Girons', adresse: '3198 route des Lacs', coords: [43.9500, -1.3020] },
   // OpenStreetMap connaît la boulangerie elle-même (shop=bakery) : position exacte.
   { nom: 'Boulangerie La Linxoise', ville: 'Linxe', adresse: '254 route de l’Océan', coords: [43.9221, -1.2480] },
-  // Le numéro n'est pas cartographié : épingle sur la place, qui est petite.
-  { nom: 'Boulangerie La Linxoise', ville: 'Castets', adresse: '26 place Pierre-Barrère', coords: [43.8824, -1.1473] },
   // Le moins précis de la liste : ni le numéro ni l'enseigne ne sont cartographiés,
   // l'épingle est posée sur l'avenue. À resserrer si tu passes devant.
   { nom: 'Boulangerie La Linxoise', ville: 'Lit-et-Mixe', adresse: '3 avenue de la Côte d’Argent', coords: [44.0318, -1.2548] },
