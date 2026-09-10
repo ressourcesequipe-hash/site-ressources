@@ -19,14 +19,26 @@ import { LISTES } from '../lib/brevo.js'
 
 const RACINE = join(dirname(fileURLToPath(import.meta.url)), '..')
 
+// La lettre d'information est signée Ressources Recyclerie, et non Association
+// Ressources : ce n'est pas la lettre de l'association (Boris, 10 septembre
+// 2026). Les campagnes tombola gardent l'expéditeur de l'association.
+const RECYCLERIE = { name: 'Ressources Recyclerie', email: 'contact@ressourcesrecyclerie.fr' }
+
 const MODELES = [
   {
     fichier: 'emails/newsletter-bienvenue.html',
     nom: 'Bienvenue - lettre d\'information',
-    sujet: 'Bienvenue chez Ressources - merci pour votre inscription',
+    sujet: 'Bienvenue chez Ressources Recyclerie - merci pour votre inscription',
     tag: 'newsletter',
+    expediteur: RECYCLERIE,
   },
 ]
+// Le scénario « Message de bienvenue » n'envoie pas ce modèle mais une copie
+// que Brevo en a faite pour son étape 3 (« Message de bienvenue_step_#3 »).
+// Cette copie ne suit pas les mises à jour du modèle, et l'API refuse de
+// l'écrire (PUT /smtp/templates/4 → 404 document_not_found, 10 septembre
+// 2026). Après chaque modification de la lettre de bienvenue, il faut donc
+// aussi reprendre l'email de l'étape 3 dans le scénario, depuis Brevo.
 
 // Campagnes marketing, créées et laissées **en brouillon**. Le script ne les
 // envoie ni ne les programme : c'est une décision humaine, prise dans Brevo
@@ -92,27 +104,29 @@ async function main() {
   for (const m of MODELES) {
     const html = sansCommentaires(readFileSync(join(RACINE, m.fichier), 'utf8'))
     const existant = templates.find((t) => t.name === m.nom)
-
+    const expediteur = m.expediteur ?? EXPEDITEUR
     const corps = {
       templateName: m.nom,
       subject: m.sujet,
-      sender: EXPEDITEUR,
-      replyTo: EXPEDITEUR.email,
+      sender: expediteur,
+      replyTo: expediteur.email,
       htmlContent: html,
       isActive: true,
       tag: m.tag,
     }
 
+    // L'appel précède le message, comme pour les campagnes : un échec ne doit
+    // pas laisser à l'écran un « mis à jour » qui n'a pas eu lieu.
     if (existant) {
-      console.log(`  ${DRY_RUN ? '~' : '↻'}  « ${m.nom} » - #${existant.id}, ${DRY_RUN ? 'à mettre à jour' : 'mis à jour'} (${html.length} caractères)`)
       if (!DRY_RUN) await api('PUT', `/smtp/templates/${existant.id}`, corps)
+      console.log(`  ${DRY_RUN ? '~' : '↻'}  « ${m.nom} » - #${existant.id}, ${DRY_RUN ? 'à mettre à jour' : 'mis à jour'} (${html.length} caractères)`)
       ids[m.nom] = existant.id
     } else {
-      console.log(`  ${DRY_RUN ? '~' : '+'}  « ${m.nom} » - ${DRY_RUN ? 'à créer' : 'créé'} (${html.length} caractères)`)
       if (!DRY_RUN) {
         const nouveau = await api('POST', '/smtp/templates', corps)
         ids[m.nom] = nouveau.id
       }
+      console.log(`  ${DRY_RUN ? '~' : '+'}  « ${m.nom} » - ${DRY_RUN ? 'à créer' : 'créé'} (${html.length} caractères)`)
     }
   }
 
