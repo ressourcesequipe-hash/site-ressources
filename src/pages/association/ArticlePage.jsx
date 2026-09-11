@@ -38,9 +38,15 @@ export default function ArticlePage() {
 
   const body = useReveal()
 
-  // Schema.org : l'article, et la piste audio quand l'article en embarque une.
+  // Schema.org : l'article, et la piste audio ou la vidéo quand l'article en
+  // embarque une.
   const BASE = 'https://www.ressourcesrecyclerie.fr'
+  const absolue = (src) => (src.startsWith('http') ? src : `${BASE}${src}`)
   const audio = article.content.find(b => b.type === 'audio')
+  const video = article.content.find(b => b.type === 'video')
+  // Une vidéo en tête d'article tient lieu de visuel : l'image de couverture
+  // ne sert alors qu'aux vignettes de la liste et aux aperçus de partage.
+  const videoEnTete = article.content[0]?.type === 'video'
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -60,6 +66,18 @@ export default function ArticlePage() {
         name: audio.title,
         ...(audio.durationIso ? { duration: audio.durationIso } : {}),
         ...(audio.credit ? { creditText: audio.credit } : {}),
+      },
+    } : {}),
+    ...(video ? {
+      video: {
+        '@type': 'VideoObject',
+        name: video.title,
+        description: video.description || article.excerpt,
+        contentUrl: absolue(video.src),
+        ...(video.thumbnailUrl ? { thumbnailUrl: absolue(video.thumbnailUrl) } : {}),
+        ...(video.uploadDate ? { uploadDate: video.uploadDate } : {}),
+        ...(video.durationIso ? { duration: video.durationIso } : {}),
+        ...(video.credit ? { creditText: video.credit } : {}),
       },
     } : {}),
   }
@@ -121,7 +139,7 @@ export default function ArticlePage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
 
           {/* Visuel de couverture */}
-          {article.image && (
+          {article.image && !videoEnTete && (
             <figure className="mb-10">
               <div className="rounded-xl overflow-hidden">
                 {/* imageFit 'natural' : pour les visuels composes (affiches,
@@ -207,6 +225,63 @@ export default function ArticlePage() {
                         </figcaption>
                       )}
                     </div>
+                  </figure>
+                )
+              }
+              if (block.type === 'video') {
+                return (
+                  <figure key={i} className={i === 0 ? 'mb-10' : 'my-9'}>
+                    <div className="rounded-xl overflow-hidden bg-black">
+                      {/* preload="metadata" : tant que personne ne clique, le
+                          lecteur ne lit que l'en-tête du fichier (durée,
+                          première image). Une vidéo de presse reste chez le
+                          média qui l'a produite : on la lit à sa source. */}
+                      <video
+                        controls
+                        playsInline
+                        preload="metadata"
+                        {...(block.poster ? { poster: block.poster } : {})}
+                        className="w-full aspect-video bg-black"
+                        title={block.title || 'Vidéo'}
+                      >
+                        <source src={block.src} type="video/mp4" />
+                        Votre navigateur ne permet pas la lecture vidéo.{' '}
+                        <a href={block.src}>Ouvrir la vidéo</a>.
+                      </video>
+                    </div>
+                    <figcaption className="border-l-2 border-ocre pl-4 mt-4">
+                      <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-1.5">
+                        {block.label || 'Regarder'}
+                        {block.duration && (
+                          <span className="font-mono font-normal tracking-normal normal-case text-terre/40">
+                            {' · '}⏱ {block.duration}
+                          </span>
+                        )}
+                      </p>
+                      {block.title && (
+                        <p className="font-serif text-lg text-terre leading-snug mb-1.5">
+                          {block.title}
+                        </p>
+                      )}
+                      {(block.credit || block.sourceUrl) && (
+                        <p className="text-xs text-terre/45 leading-relaxed">
+                          {block.credit}
+                          {block.sourceUrl && (
+                            <>
+                              {' '}
+                              <a
+                                href={block.sourceUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-kaki underline underline-offset-2 hover:text-ocre transition-colors"
+                              >
+                                {block.sourceLabel || 'Voir à la source'}
+                              </a>
+                            </>
+                          )}
+                        </p>
+                      )}
+                    </figcaption>
                   </figure>
                 )
               }

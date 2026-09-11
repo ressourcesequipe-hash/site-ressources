@@ -39,6 +39,14 @@ const REPERES = [
 // Revue de presse. article = notre récap interne ; source = le média d'origine.
 const RETOMBEES = [
   {
+    date: '10 septembre 2026',
+    media: 'TV Landes (landes-info.fr)',
+    format: 'Plateau vidéo, sujet de Pierre Poinsignon',
+    titre: 'Challenge territorial et tombola : association Ressources',
+    article: '/association/actualites/ressources-tv-landes-challenge-territorial-tombola/',
+    source: 'https://www.landes-info.fr/%e2%99%bb%ef%b8%8f-challenge-territorial-tombola-association-ressources/',
+  },
+  {
     date: '24 août 2026',
     media: 'ICI Gascogne (France Bleu)',
     format: 'Émission « ICI Gascogne, ça marche » — Marie-Cécile Gardey',

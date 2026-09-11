@@ -4,6 +4,10 @@
  * Ajouter un article ici suffit pour l'afficher sur le site.
  */
 
+// Les chiffres de la tombola viennent des dotations elles-mêmes : un article
+// qui les recopierait finirait par contredire la page de la tombola.
+import { PRIX_BILLET, VALEUR_ARRONDIE } from './lotsTombola.js'
+
 export const CATEGORIES = [
   { id: 'all',              label: 'Tous les articles' },
   { id: 'association',      label: 'Vie de l\'association' },
@@ -64,6 +68,88 @@ export const ARTICLES = [
       {
         type: 'paragraph',
         text: 'L\'association prépare ses premières actions de collecte pour l\'automne 2026. Si vous souhaitez contribuer — en donnant du matériel, en devenant bénévole, ou en soutenant le projet — toutes les informations sont disponibles sur ce site.',
+      },
+    ],
+  },
+
+  // ── Retombée presse : TV Landes, plateau vidéo (10/09/2026) ──
+  // La vidéo est lue sur le serveur de TV Landes (qui autorise l'intégration),
+  // pas copiée ici. Si le lien casse un jour, c'est là qu'il faut regarder.
+  {
+    slug: 'ressources-tv-landes-challenge-territorial-tombola',
+    title: 'Ressources sur le plateau de TV Landes : le challenge territorial et la tombola en vidéo',
+    excerpt: 'Le 10 septembre 2026, TV Landes a mis en ligne un sujet vidéo consacré à Ressources, la recyclerie informatique et végétale de Vielle-Saint-Girons : le challenge pour réunir une demi-tonne de matériel d\'ici au 3 octobre, et la tombola solidaire qui accompagne l\'inauguration. Regardez le plateau en entier.',
+    category: 'association',
+    date: '2026-09-11',
+    dateLabel: 'Septembre 2026',
+    readingTime: '3 min',
+    featured: false,
+    // Vignette de la liste et apercu de partage. Sur la page, la video en tete
+    // d'article tient lieu de visuel.
+    image: '/photos/challenge-vignette.webp',
+    imageAlt: 'Visuel du challenge territorial de l\'association Ressources : objectif une demi-tonne de matériel électronique et informatique, du 1er septembre au 3 octobre.',
+    imageFit: 'natural',
+    imageWidth: 1280,
+    imageHeight: 720,
+    content: [
+      {
+        type: 'video',
+        label: 'Regarder le plateau',
+        src: 'https://videos.cdn.tvlandes.fr/Plateau-260907-Les-ressources-20260909-075239-compressed-20260909-080002.mp4',
+        title: 'Challenge territorial et tombola : l\'association Ressources sur le plateau de TV Landes',
+        duration: '11 min 43',
+        durationIso: 'PT11M43S',
+        uploadDate: '2026-09-10',
+        thumbnailUrl: 'https://www.landes-info.fr/wp-content/uploads/2026/09/Capture-decran-2026-09-09-a-09.17.18-1-1024x560.png',
+        credit: '© TV Landes. Sujet publié sur landes-info.fr le 10 septembre 2026, sous la responsabilité de Pierre Poinsignon.',
+        sourceUrl: 'https://www.landes-info.fr/%e2%99%bb%ef%b8%8f-challenge-territorial-tombola-association-ressources/',
+        sourceLabel: 'Voir le sujet sur landes-info.fr',
+      },
+      {
+        type: 'paragraph',
+        text: 'Après ICI Gascogne au mois d\'août, c\'est au tour de la télévision locale. TV Landes a reçu l\'association Ressources sur son plateau, et le sujet a été mis en ligne le 10 septembre 2026 sur landes-info.fr. Près de douze minutes pour présenter la recyclerie qui sera inaugurée le 3 octobre à Vielle-Saint-Girons, et les deux rendez-vous qui y mènent : le challenge territorial et la tombola solidaire.',
+      },
+      {
+        type: 'heading',
+        text: 'Le challenge territorial : une demi-tonne d\'ici au 3 octobre',
+      },
+      {
+        type: 'paragraph',
+        text: 'Du 1er septembre au 3 octobre 2026, l\'association invite les habitants, les entreprises et les collectivités des Landes à rassembler une demi-tonne de matériel électronique et informatique : ordinateurs, écrans, tablettes, téléphones, périphériques. En état de marche ou en panne, chaque appareil déposé est pesé et compte pour l\'objectif commun. La pesée finale se fera en public, le jour de l\'inauguration.',
+      },
+      {
+        type: 'link',
+        label: 'Où déposer son matériel',
+        href: '/defi-collecte/',
+      },
+      {
+        type: 'heading',
+        text: 'Une tombola pour lancer la recyclerie',
+      },
+      {
+        type: 'paragraph',
+        text: `Pour accompagner cette mobilisation, l'association organise une tombola solidaire : un billet à ${PRIX_BILLET} €, plus de ${VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots offerts par des commerçants, des artisans et des particuliers du territoire, et un tirage en public le 3 octobre à Vielle-Saint-Girons. Les recettes servent au lancement de la recyclerie.`,
+      },
+      {
+        type: 'link',
+        label: 'Prendre un billet de tombola',
+        href: '/soutenir/tombola/',
+      },
+      {
+        type: 'heading',
+        text: 'Une recyclerie informatique et végétale',
+      },
+      {
+        type: 'paragraph',
+        text: 'Comme le rappelle TV Landes, la future recyclerie réunit deux filières sous le même toit. L\'une pour le matériel informatique, collecté, effacé de façon sécurisée, reconditionné puis redistribué sur le territoire. L\'autre pour les plantes, les boutures, les pots et les outils de jardin, qui trouvent de nouveaux jardiniers au lieu de finir à la déchèterie. Une même idée les relie : donner une seconde vie à ce qui dort, et faire vivre une économie plus locale et plus solidaire.',
+      },
+      {
+        type: 'heading',
+        text: 'Merci à TV Landes',
+      },
+      {
+        type: 'paragraph',
+        text: 'Pour une association qui démarre, passer à l\'écran fait connaître le projet bien au-delà de Vielle-Saint-Girons. Merci à Pierre Poinsignon et à l\'équipe de TV Landes pour leur accueil et pour ce relais. Rendez-vous le samedi 3 octobre 2026 à Vielle-Saint-Girons pour la pesée finale, l\'inauguration et le tirage de la tombola.',
       },
     ],
   },
