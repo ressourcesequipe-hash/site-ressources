@@ -100,7 +100,7 @@ export default function DefiCollecte() {
   const [pointActif, setPointActif] = useState(null)
 
   return (
-    <Layout breadcrumbs={BREADCRUMBS}>
+    <Layout breadcrumbs={BREADCRUMBS} newsletter={false}>
       <SEO
         title="Challenge collecte — 500 kg de matériel informatique et électronique · Landes"
         description="Du 1er septembre au 3 octobre 2026, l'association Ressources relève le challenge de collecter 500 kg de matériel informatique et électronique dormant sur le territoire landais. Points de collecte en mairie et chez les structures partenaires, pesée finale le 3 octobre à Vielle-Saint-Girons."

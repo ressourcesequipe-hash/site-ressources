@@ -96,7 +96,7 @@ export default function Home() {
   }, [])
 
   return (
-    <Layout>
+    <Layout newsletter={false}>
       <SEO
         title="Recyclerie Solidaire Landes | Association Ressources"
         description="Ressources : recyclerie informatique et végétale solidaire dans les Landes (40). Donnez vos équipements et plantes, soutenez le réemploi à Vielle-Saint-Girons (40560)."

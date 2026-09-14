@@ -64,7 +64,7 @@ export default function Evenement() {
   }, [])
 
   return (
-    <Layout>
+    <Layout newsletter={false}>
       <SEO
         title="Lancement Recyclerie Solidaire Landes — 03 octobre 2026 | Ressources"
         description="Rejoignez le lancement de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons (Landes). Challenge collecte 1/2 tonne de matériel, tombola solidaire avec plus de 30 lots, festivités."

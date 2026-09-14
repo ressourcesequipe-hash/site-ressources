@@ -1,7 +1,9 @@
 import { useState } from 'react'
 
-// Formulaire d'inscription à la newsletter, partagé entre la page d'accueil,
-// les actualités et le pied de page. variant 'clair' pour un fond sombre.
+// Formulaire d'inscription à la newsletter, affiché dans le pied de page de
+// toutes les pages. L'accueil, le défi collecte et les actualités ont leur
+// propre bloc et masquent celui du pied de page (voir Layout).
+// variant 'clair' pour un fond sombre.
 export default function NewsletterForm({ variant = 'sombre' }) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState(null)

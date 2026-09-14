@@ -33,7 +33,7 @@ export default function Actualites() {
   }
 
   return (
-    <Layout breadcrumbs={BREADCRUMBS}>
+    <Layout breadcrumbs={BREADCRUMBS} newsletter={false}>
       <SEO
         title="Actualités Ressources | Recyclerie solidaire dans les Landes"
         description="Suivez les actualités de Ressources, recyclerie informatique et végétale solidaire dans les Landes : réemploi, inclusion numérique, collecte, ateliers, partenariats et économie circulaire."

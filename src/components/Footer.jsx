@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
+import NewsletterForm from './NewsletterForm'
 
 const SILOS = [
   {
@@ -47,7 +48,7 @@ const SILOS = [
   },
 ]
 
-export default function Footer() {
+export default function Footer({ newsletter = true }) {
   return (
     <footer className="bg-kaki-dark font-sans">
 
@@ -96,6 +97,28 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Newsletter */}
+      {newsletter && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 md:pt-12">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-10 md:pb-12 border-b border-white/10">
+            <div className="max-w-md">
+              <p className="font-sans text-ocre text-xs tracking-[0.18em] uppercase font-semibold mb-2">
+                Lettre d'information
+              </p>
+              <h2 className="font-serif text-lg md:text-xl text-white leading-snug mb-2">
+                Suivez la recyclerie informatique et végétale
+              </h2>
+              <p className="text-sm text-white/50 leading-relaxed">
+                Collectes, ateliers et événements dans les Landes, quelques envois par an.
+              </p>
+            </div>
+            <div className="w-full md:max-w-md">
+              <NewsletterForm variant="clair" />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-10 md:pt-16 md:pb-12">
