@@ -35,7 +35,7 @@ const eventSchema = {
     },
   },
   description: "Journée de lancement de l'association Ressources — recyclerie informatique et végétale solidaire dans les Landes. Challenge collecte 1/2 tonne de matériel informatique, tombola solidaire avec plus de 30 lots offerts par les partenaires locaux, festivités à Vielle-Saint-Girons (40560).",
-  image: 'https://www.ressourcesrecyclerie.fr/og-cover.png',
+  image: 'https://www.ressourcesrecyclerie.fr/photos/banniere3ocotobre.jpg',
   organizer: {
     '@type': 'NGO',
     name: 'Association Ressources',
@@ -74,6 +74,10 @@ export default function Evenement() {
         canonical="/evenement-lancement-03-octobre-2026/"
         type="event"
         schema={eventSchema}
+        ogImage="https://www.ressourcesrecyclerie.fr/photos/banniere3ocotobre.jpg"
+        ogImageWidth={1280}
+        ogImageHeight={640}
+        ogImageAlt="Programme de la journée du 3 octobre 2026 : village associatif, ateliers, tombola et concert solidaire, à Vielle-Saint-Girons"
       />
 
       {/* Hero événement */}
