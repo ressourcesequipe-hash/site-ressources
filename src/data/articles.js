@@ -7,6 +7,7 @@
 // Les chiffres de la tombola viennent des dotations elles-mêmes : un article
 // qui les recopierait finirait par contredire la page de la tombola.
 import { PRIX_BILLET, VALEUR_ARRONDIE } from './lotsTombola.js'
+import { AFFICHE } from './evenement.js'
 
 export const CATEGORIES = [
   { id: 'all',              label: 'Tous les articles' },
@@ -586,7 +587,14 @@ export const ARTICLES = [
     dateLabel: 'Septembre 2026',
     readingTime: '2 min',
     featured: false,
-    image: null,
+    image: AFFICHE.src,
+    imageAlt: AFFICHE.alt,
+    imageFit: 'natural',
+    // La carte des actualités rogne son image en bandeau : sur une affiche en
+    // hauteur, un cadrage centré ne montrait que le milieu. 'top' garde le titre.
+    imagePosition: 'top',
+    imageWidth: AFFICHE.largeur,
+    imageHeight: AFFICHE.hauteur,
     externalLink: '/evenement-lancement-03-octobre-2026/',
     content: [],
   },

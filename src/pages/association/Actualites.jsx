@@ -205,7 +205,7 @@ function FeaturedCard({ article }) {
             src={article.image}
             alt={article.imageAlt || article.title}
             loading="lazy"
-            className="w-full h-52 md:h-64 object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+            className={`w-full h-52 md:h-64 object-cover ${article.imagePosition === 'top' ? 'object-top' : ''} opacity-90 transition-transform duration-700 group-hover:scale-105`}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-kaki-dark via-kaki-dark/30 to-transparent" aria-hidden />
         </div>
@@ -271,7 +271,7 @@ function ArticleCard({ article, index, visible }) {
             src={article.image}
             alt={article.imageAlt || article.title}
             loading="lazy"
-            className="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-105"
+            className={`w-full h-40 object-cover ${article.imagePosition === 'top' ? 'object-top' : ''} transition-transform duration-500 group-hover:scale-105`}
           />
         </div>
       )}

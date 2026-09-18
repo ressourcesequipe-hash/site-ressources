@@ -6,7 +6,7 @@ import NewsletterForm from '../components/NewsletterForm'
 import BandeauTempsForts from '../components/BandeauTempsForts'
 import { useReveal } from '../hooks/useReveal'
 import { COOPERATIONS_EN_COURS, PARTENAIRES_CONFIRMES, PAYS_ZONE_ACTION } from '../data/partenaires'
-import { NOMBRE_LOTS_ARRONDI } from '../data/lotsTombola'
+import { AFFICHE } from '../data/evenement'
 import { afficher, objectifs, MENTION_PHASE_PILOTE } from '../data/objectifs'
 
 /* ── Count-up hook ── */
@@ -573,42 +573,24 @@ export default function Home() {
               <div className="absolute -inset-8 rounded-3xl blur-3xl pointer-events-none"
                 style={{ background: 'radial-gradient(ellipse, rgba(200,151,58,0.12), transparent 70%)' }} aria-hidden />
 
-              {/* Carte evenement, et non la vignette tombola : celle-ci est deja
-                  affichee dans le bloc de conversion sous le hero. La montrer deux
-                  fois sur la meme page affaiblirait les deux emplacements. */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-kaki/25"
-                style={{ background: 'linear-gradient(135deg, #2B3520 0%, #404C2F 60%, #4a5935 100%)' }}>
-                <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-ocre to-transparent" aria-hidden />
-                <div className="absolute top-0 right-0 w-40 h-40 rounded-bl-full" aria-hidden
-                  style={{ background: 'radial-gradient(circle at top right, rgba(200,151,58,0.12), transparent 60%)' }} />
-                <div className="absolute bottom-0 left-0 w-28 h-28 rounded-tr-full" aria-hidden
-                  style={{ background: 'radial-gradient(circle at bottom left, rgba(200,151,58,0.07), transparent 60%)' }} />
-
-                <div className="relative p-10 md:p-12">
-                  <p className="font-sans text-ocre text-[10px] tracking-[0.22em] uppercase font-semibold mb-5">
-                    Samedi 03 octobre 2026
-                  </p>
-
-                  <div className="font-serif leading-none mb-6 select-none" aria-hidden
-                    style={{ fontSize: 'clamp(5rem, 12vw, 7rem)', color: 'rgba(255,255,255,0.06)' }}>
-                    03<br />OCT
-                  </div>
-
-                  <p className="font-serif text-xl text-white mb-2">Rejoignez-nous pour le lancement</p>
-                  <p className="text-white/45 text-sm leading-relaxed mb-7">
-                    Vielle-Saint-Girons (Landes, 40560)<br />
-                    Programme complet à venir
-                  </p>
-
-                  <div className="border-t border-white/10 pt-6">
-                    <p className="text-[10px] text-white/35 uppercase tracking-widest mb-1.5">Lots à gagner</p>
-                    <p className="font-serif text-3xl"
-                      style={{ background: 'linear-gradient(135deg, #C8973A, #D4AA5A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                      + de {NOMBRE_LOTS_ARRONDI}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              {/* L'affiche de la journée, à la place de la carte événement qui
+                  annonçait « Programme complet à venir ». La vignette tombola
+                  reste réservée au bandeau des temps forts, sous le hero : la
+                  montrer deux fois sur la même page affaiblirait les deux. */}
+              <Link
+                to="/evenement-lancement-03-octobre-2026/"
+                className="relative group block max-w-sm mx-auto rounded-2xl overflow-hidden border-4 border-white shadow-2xl shadow-kaki/25"
+              >
+                <img
+                  src={AFFICHE.src}
+                  width={AFFICHE.largeur}
+                  height={AFFICHE.hauteur}
+                  loading="lazy"
+                  decoding="async"
+                  alt={AFFICHE.alt}
+                  className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none"
+                />
+              </Link>
             </div>
           </div>
         </div>

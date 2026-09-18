@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
+import { AFFICHE } from '../../data/evenement'
 // Les objectifs chiffres ne sont pas redefinis ici : ce sont ceux de la page
 // d'accueil, qui fait autorite. Un dossier de presse qui annoncerait d'autres
 // chiffres que la page publique serait le pire endroit ou introduire un ecart.
@@ -259,7 +260,8 @@ export default function Presse() {
           </div>
 
           {/* Événement */}
-          <div className="bg-beige-light border border-beige-dark p-6 md:p-8 mb-12">
+          <div className="bg-beige-light border border-beige-dark p-6 md:p-8 mb-12 sm:flex sm:items-start sm:gap-8">
+            <div className="flex-1 min-w-0">
             <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
               Temps fort
             </p>
@@ -281,6 +283,29 @@ export default function Presse() {
                 L'équipe fondatrice
               </Link>
             </div>
+            </div>
+
+            {/* L'affiche, à reprendre telle quelle par un média : la vignette
+                ouvre le fichier, le lien le télécharge. */}
+            <figure className="mt-6 sm:mt-0 w-40 shrink-0">
+              <a href={AFFICHE.src} target="_blank" rel="noopener noreferrer" className="block border border-beige-dark shadow-md hover:shadow-lg transition-shadow">
+                <img
+                  src={AFFICHE.src}
+                  width={AFFICHE.largeur}
+                  height={AFFICHE.hauteur}
+                  loading="lazy"
+                  decoding="async"
+                  alt={AFFICHE.alt}
+                  className="w-full h-auto block"
+                />
+              </a>
+              <figcaption className="mt-2 text-xs leading-snug">
+                <a href={AFFICHE.src} download={AFFICHE.nomTelechargement} className="font-medium text-kaki hover:text-ocre transition-colors">
+                  Télécharger l'affiche
+                </a>
+                <span className="block text-terre/40">JPEG, {AFFICHE.poids}</span>
+              </figcaption>
+            </figure>
           </div>
 
         </div>
