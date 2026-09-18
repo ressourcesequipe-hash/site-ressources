@@ -84,6 +84,41 @@ const SLIDES = [
         `et informatique, du ${DEFI.debut} au ${DEFI.fin} — voir comment participer`,
     },
   },
+  {
+    cle: 'programme',
+    surtitre: 'Journée du 3 octobre',
+    titre: 'Le programme complet de la journée',
+    texte:
+      'Village associatif, ateliers de sensibilisation et de réparation, sauvetage ' +
+      'de plantes, tirage au sort de la tombola et remise des lots, puis concert ' +
+      'solidaire en clôture de journée. Buvette et food truck sur place.',
+    repere: (
+      <>
+        <span className="text-ocre font-bold text-base">Samedi 3 octobre</span>, dès 10 h
+        <span className="text-white/25 mx-2">·</span>
+        Vielle-Saint-Girons, salle Yvonne Meister
+      </>
+    ),
+    actions: [
+      { to: '/evenement-lancement-03-octobre-2026/', label: 'Voir le programme complet', style: 'principal' },
+      {
+        to: 'https://www.helloasso.com/associations/ressources-association/evenements/concert-solidaire-de-lancement-de-la-recyclerie-ressources',
+        label: 'Réserver ma place pour le concert',
+        style: 'secondaire',
+      },
+    ],
+    // Meme banniere qu'en tete de la page evenement : c'est elle qui porte le
+    // programme illustre, inutile d'en refaire une variante pour le carrousel.
+    vignette: {
+      src: '/photos/banniere3ocotobre.jpg',
+      largeur: 1280,
+      hauteur: 640,
+      lien: '/evenement-lancement-03-octobre-2026/',
+      alt:
+        'Programme de la journée du 3 octobre 2026 : village associatif, ateliers, ' +
+        'tirage au sort de la tombola et concert solidaire en clôture — voir le détail',
+    },
+  },
 ]
 
 const CLASSES_ACTION = {
@@ -199,11 +234,17 @@ export default function BandeauTempsForts() {
                 <p className="font-sans text-sm text-white/75 mb-6">{slide.repere}</p>
 
                 <div className="flex flex-wrap items-center gap-4">
-                  {slide.actions.map(({ to, label, style }) => (
-                    <Link key={to} to={to} className={CLASSES_ACTION[style]}>
-                      {label}
-                    </Link>
-                  ))}
+                  {slide.actions.map(({ to, label, style }) =>
+                    /^https?:\/\//.test(to) ? (
+                      <a key={to} href={to} target="_blank" rel="noopener noreferrer" className={CLASSES_ACTION[style]}>
+                        {label}
+                      </a>
+                    ) : (
+                      <Link key={to} to={to} className={CLASSES_ACTION[style]}>
+                        {label}
+                      </Link>
+                    )
+                  )}
                 </div>
               </div>
 
@@ -214,8 +255,8 @@ export default function BandeauTempsForts() {
                 >
                   <img
                     src={vignette.src}
-                    width={1280}
-                    height={720}
+                    width={vignette.largeur ?? 1280}
+                    height={vignette.hauteur ?? 720}
                     loading="lazy"
                     decoding="async"
                     alt={vignette.alt}
