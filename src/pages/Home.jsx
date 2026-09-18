@@ -5,7 +5,8 @@ import SEO from '../components/SEO'
 import NewsletterForm from '../components/NewsletterForm'
 import BandeauTempsForts from '../components/BandeauTempsForts'
 import { useReveal } from '../hooks/useReveal'
-import { COOPERATIONS_EN_COURS, PARTENAIRES_CONFIRMES, PAYS_ZONE_ACTION } from '../data/partenaires'
+import { PARTENAIRES_CONFIRMES, PAYS_ZONE_ACTION } from '../data/partenaires'
+import { POINTS_OUVERTS } from '../data/defiCollecte'
 import { AFFICHE } from '../data/evenement'
 import { afficher, objectifs, MENTION_PHASE_PILOTE } from '../data/objectifs'
 
@@ -59,6 +60,18 @@ function useCountUp(target, duration = 2000) {
 }
 
 /* ── Data ── */
+// Book photo de l'association : des preuves en image plutot que des mots,
+// piochees parmi les photos non deja utilisees sur cette meme page (elles
+// vivent ailleurs sur le site — atelier, defi collecte — jamais en double ici).
+const BANDEAU_PHOTOS = [
+  { src: '/photos/francois-atelier.webp', alt: "Reconditionnement d'un ordinateur dans l'atelier Ressources" },
+  { src: '/photos/mains-reparation.webp', alt: "Réparation d'une carte mère à l'atelier" },
+  { src: '/photos/collecte-en-mairie.jpg', alt: 'Matériel informatique déposé sur un point de collecte du territoire' },
+  { src: '/photos/ressource-remise-de-don.jpg', alt: "Remise d'un écran d'ordinateur lors d'un dépôt de matériel" },
+  { src: '/photos/espace-tri-materiel.jpg', alt: "Équipements en attente de tri dans l'espace de la recyclerie" },
+  { src: '/photos/ressource-remise-de-don-tablette.jpg', alt: 'Ordinateur portable et tablette prêts à être déposés' },
+]
+
 const STEPS = [
   { num: '01', title: 'Collecter', desc: 'Points de collecte sur le territoire landais' },
   { num: '02', title: 'Trier', desc: 'Identification et qualification de chaque appareil' },
@@ -468,6 +481,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ══════════════ BANDEAU PHOTOS ══════════════ */}
+      <BandeauPhotos />
+
       {/* ══════════════ 6 ÉTAPES ══════════════ */}
       <section className="py-20 md:py-28 bg-white overflow-hidden" ref={steps.ref}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -515,6 +531,27 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Photo d'atelier, rattachee a l'etape Securiser : le geste reel
+              derriere le pictogramme, plutot qu'une septieme case abstraite. */}
+          <div className={`mt-14 grid md:grid-cols-[2fr_3fr] rounded-2xl overflow-hidden border border-beige transition-all duration-700 delay-500 ${steps.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="relative min-h-[280px] md:min-h-[340px]">
+              <img
+                src="/photos/francois-effacement-donnees.jpg"
+                loading="lazy"
+                decoding="async"
+                alt="Effacement sécurisé d'un disque dur avant reconditionnement, dans l'atelier Ressources"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-8 md:p-10 flex flex-col justify-center bg-beige-light">
+              <p className="font-sans text-[10px] font-bold text-ocre tracking-[0.22em] uppercase mb-2">Étape 03 · Sécuriser</p>
+              <p className="text-terre/60 text-sm leading-relaxed">
+                Chaque disque dur est intégralement effacé avant tout reconditionnement,
+                dans le respect de vos données personnelles.
+              </p>
             </div>
           </div>
         </div>
@@ -608,21 +645,34 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Zone */}
-          <div className={`relative overflow-hidden rounded-2xl border border-beige p-8 md:p-12 mb-10 text-center transition-all duration-700 delay-100 ${territoire.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-            style={{ background: 'linear-gradient(135deg, #EFEBDF 0%, #E5E4D5 100%)' }}>
-            <div className="absolute inset-0 opacity-[0.02]"
-              style={{ backgroundImage: 'radial-gradient(circle, #404C2F 1px, transparent 1px)', backgroundSize: '20px 20px' }} aria-hidden />
-            <div className="relative">
-              <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8">
-                {['CC Côte Landes Nature', 'CC MACS'].map((cc) => (
-                  <div key={cc} className="bg-white border border-kaki/15 px-5 py-3 text-sm text-kaki font-medium rounded-xl hover:border-kaki/30 hover:shadow-md transition-all duration-200">
-                    {cc}
-                  </div>
-                ))}
+          {/* Zone — la photo à gauche ancre le propos dans du concret (une
+              equipe, un point de collecte reel) plutot que dans les seuls
+              badges et chiffres qui suivent. */}
+          <div className={`relative overflow-hidden rounded-2xl border border-beige mb-10 grid lg:grid-cols-2 transition-all duration-700 delay-100 ${territoire.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <div className="relative min-h-[260px] lg:min-h-0">
+              <img
+                src="/photos/accueil-des-dons-equipe.jpg"
+                loading="lazy"
+                decoding="async"
+                alt="L'équipe Ressources accueille un don de matériel informatique sur un point de collecte du territoire landais"
+                className="absolute inset-0 w-full h-full object-cover object-[center_65%]"
+              />
+            </div>
+            <div className="relative text-center p-8 md:p-12 flex flex-col justify-center"
+              style={{ background: 'linear-gradient(135deg, #EFEBDF 0%, #E5E4D5 100%)' }}>
+              <div className="absolute inset-0 opacity-[0.02]"
+                style={{ backgroundImage: 'radial-gradient(circle, #404C2F 1px, transparent 1px)', backgroundSize: '20px 20px' }} aria-hidden />
+              <div className="relative">
+                <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8">
+                  {['CC Côte Landes Nature', 'CC MACS'].map((cc) => (
+                    <div key={cc} className="bg-white border border-kaki/15 px-5 py-3 text-sm text-kaki font-medium rounded-xl hover:border-kaki/30 hover:shadow-md transition-all duration-200">
+                      {cc}
+                    </div>
+                  ))}
+                </div>
+                <p className="text-[10px] text-terre/35 tracking-[0.22em] uppercase font-sans mb-2">Zone d'action principale</p>
+                <p className="font-serif text-xl text-terre">{PAYS_ZONE_ACTION.join(' · ')}</p>
               </div>
-              <p className="text-[10px] text-terre/35 tracking-[0.22em] uppercase font-sans mb-2">Zone d'action principale</p>
-              <p className="font-serif text-xl text-terre">{PAYS_ZONE_ACTION.join(' · ')}</p>
             </div>
           </div>
 
@@ -646,17 +696,20 @@ export default function Home() {
             </div>
 
             <p className="text-[10px] text-terre/35 tracking-[0.22em] uppercase font-sans mb-3 text-center">
-              Échanges et coopérations en cours
+              Partenaires du challenge collecte
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-              {COOPERATIONS_EN_COURS.map(({ nom }) => (
-                <div
+            {/* Nuage de badges, pas une grille de cartes : quinze points de
+                collecte en cartes pleine taille auraient ecrase la section.
+                Ordre de la donnee, sans numerotation : les points de collecte
+                se valent, comme sur la page du challenge. */}
+            <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
+              {POINTS_OUVERTS.map(({ nom }) => (
+                <span
                   key={nom}
-                  className="border border-dashed border-beige-dark bg-transparent flex items-center justify-center p-4 text-center rounded-xl cursor-default"
-                  style={{ minHeight: 64 }}
+                  className="text-xs text-terre/50 font-sans bg-beige-light border border-beige-dark px-3 py-1.5 rounded-full"
                 >
-                  <p className="text-xs text-terre/35 font-sans leading-snug">{nom}</p>
-                </div>
+                  {nom}
+                </span>
               ))}
             </div>
           </div>
@@ -730,6 +783,49 @@ export default function Home() {
 }
 
 /* ── Sub-components ── */
+
+// Bandeau photo defilant : meme technique que le bandeau des partenaires de
+// la tombola (PartenairesTombola.jsx) — liste dupliquee pour un bouclage sans
+// saut, masque en degrade sur les bords, pause au survol, repli en grille
+// statique sous prefers-reduced-motion.
+function BandeauPhotos() {
+  const defilement = [...BANDEAU_PHOTOS, ...BANDEAU_PHOTOS]
+
+  return (
+    <section className="py-14 md:py-16 bg-white overflow-hidden">
+      <div
+        className="relative overflow-hidden group"
+        style={{
+          maskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)',
+        }}
+        aria-hidden
+      >
+        <ul className="flex gap-4 w-max animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none motion-reduce:flex-wrap motion-reduce:w-full motion-reduce:justify-center motion-reduce:max-w-6xl motion-reduce:mx-auto motion-reduce:px-4">
+          {defilement.map((photo, i) => (
+            <li key={`${photo.src}-${i}`} className="shrink-0 w-64 sm:w-72 h-44 sm:h-48 rounded-xl overflow-hidden shadow-md">
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover"
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Équivalent accessible et indexable du bandeau */}
+      <ul className="sr-only">
+        {BANDEAU_PHOTOS.map((photo) => (
+          <li key={photo.src}>{photo.alt}</li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
 function ImpactCounter({ value, suffix = '', label, index = 0 }) {
   const { ref, count } = useCountUp(value)
   const display = typeof count === 'number'
