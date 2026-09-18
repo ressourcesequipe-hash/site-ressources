@@ -8,7 +8,7 @@ import { useReveal } from '../hooks/useReveal'
 // Le prix vient de la meme source que la page tombola : une seule valeur a
 // changer si le tarif evolue, jamais deux pages a resynchroniser.
 import { PRIX_BILLET } from '../data/lotsTombola'
-import { IconFeuille, IconTicket } from '../components/Icons'
+import { IconFeuille, IconTicket, IconTransport } from '../components/Icons'
 
 const eventSchema = {
   '@context': 'https://schema.org',
@@ -218,6 +218,15 @@ export default function Evenement() {
                 alt={AFFICHE.alt}
                 className="w-full h-auto block rounded-xl border-4 border-beige-light shadow-xl"
               />
+
+              <div className="mt-6 bg-gradient-to-br from-ocre-pale to-beige border border-ocre/20 p-5 rounded-xl text-center">
+                <div className="w-10 h-10 rounded-full bg-ocre/12 text-ocre flex items-center justify-center mx-auto mb-3">
+                  <IconTransport className="w-5 h-5" />
+                </div>
+                <p className="text-sm text-terre/70 leading-relaxed">
+                  Buvette et food truck sur place toute la journée pour se restaurer.
+                </p>
+              </div>
             </div>
 
             <div>
@@ -260,7 +269,12 @@ export default function Evenement() {
                 </a>
               </MomentCle>
 
-              <div className="mt-2 bg-gradient-to-br from-ocre-pale to-beige border border-ocre/20 p-6 rounded-xl text-center">
+              {/* Sur desktop, la meme information vit sous l'affiche a gauche :
+                  pas de doublon la ou les deux colonnes sont visibles. */}
+              <div className="lg:hidden mt-2 bg-gradient-to-br from-ocre-pale to-beige border border-ocre/20 p-6 rounded-xl text-center">
+                <div className="w-10 h-10 rounded-full bg-ocre/12 text-ocre flex items-center justify-center mx-auto mb-3">
+                  <IconTransport className="w-5 h-5" />
+                </div>
                 <p className="text-terre/70 leading-relaxed">
                   Buvette et food truck sur place toute la journée pour se restaurer.
                 </p>
