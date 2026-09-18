@@ -356,27 +356,39 @@ export default function DefiCollecte() {
           {/* Pourquoi */}
           <div className="mb-12">
             <h2 className="font-serif text-2xl text-terre mb-4">Pourquoi ce challenge ?</h2>
-            <div className="space-y-4 max-w-2xl">
-              <p className="text-sm text-terre/65 leading-relaxed">
-                Dans les Landes comme ailleurs, une quantité considérable
-                d'équipements informatiques et électroniques dort au fond des tiroirs, des placards
-                et des réserves d'entreprises. Pendant ce temps, des familles, des
-                personnes âgées et des associations du territoire manquent de
-                matériel numérique en état de marche.
-              </p>
-              <p className="text-sm text-terre/65 leading-relaxed">
-                L'impact environnemental du numérique est bien réel, et la
-                raréfaction des composants se fait sentir de plus en plus nettement.
-                Prolonger la vie d'un équipement plutôt que d'en produire un neuf
-                est un levier concret, à la portée de chacun.
-              </p>
+            <div className="grid sm:grid-cols-[1fr_auto] gap-8 items-start">
+              <div className="space-y-4 max-w-2xl">
+                <p className="text-sm text-terre/65 leading-relaxed">
+                  Dans les Landes comme ailleurs, une quantité considérable
+                  d'équipements informatiques et électroniques dort au fond des tiroirs, des placards
+                  et des réserves d'entreprises. Pendant ce temps, des familles, des
+                  personnes âgées et des associations du territoire manquent de
+                  matériel numérique en état de marche.
+                </p>
+                <p className="text-sm text-terre/65 leading-relaxed">
+                  L'impact environnemental du numérique est bien réel, et la
+                  raréfaction des composants se fait sentir de plus en plus nettement.
+                  Prolonger la vie d'un équipement plutôt que d'en produire un neuf
+                  est un levier concret, à la portée de chacun.
+                </p>
+              </div>
+              {/* Preuve que la collecte a deja lieu sur le terrain. Volontairement
+                  sans nom de commune : les points de collecte se valent tous,
+                  et cette photo n'en illustre qu'un parmi d'autres. */}
+              <img
+                src="/photos/collecte-en-mairie.jpg"
+                loading="lazy"
+                decoding="async"
+                alt="Matériel informatique et électronique déposé sur l'un des points de collecte du territoire"
+                className="hidden sm:block w-40 h-auto rounded-lg border-4 border-beige-light shadow-md shrink-0"
+              />
             </div>
           </div>
 
           {/* Comment ça marche */}
           <div className="mb-12">
             <h2 className="font-serif text-2xl text-terre mb-6">Comment ça marche</h2>
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-6 mb-8">
               {ETAPES.map(({ num, titre, desc }) => (
                 <div key={num} className="border-t-2 border-ocre/30 pt-4">
                   <span className="font-serif text-2xl text-ocre/30 block mb-2 leading-none">{num}</span>
@@ -385,6 +397,13 @@ export default function DefiCollecte() {
                 </div>
               ))}
             </div>
+            <img
+              src="/photos/ressource-remise-de-don.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Remise d'un écran d'ordinateur lors d'un dépôt de matériel"
+              className="w-full h-48 sm:h-56 object-cover rounded-xl"
+            />
           </div>
 
           </div>
@@ -401,15 +420,26 @@ export default function DefiCollecte() {
 
           {/* Ce que nous acceptons */}
           <div className="bg-beige-light border border-beige-dark p-6 md:p-8 mb-12">
-            <h2 className="font-serif text-xl text-terre mb-4">Ce que vous pouvez déposer</h2>
-            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2 mb-5">
-              {ACCEPTE.map((item) => (
-                <li key={item} className="flex items-start gap-2 text-sm text-terre/65">
-                  <span className="text-ocre mt-0.5 shrink-0">→</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <div className="sm:flex sm:gap-6 sm:items-start mb-5">
+              <img
+                src="/photos/ressource-remise-de-don-tablette.jpg"
+                loading="lazy"
+                decoding="async"
+                alt="Ordinateur portable, tablette et disque dur externe prêts à être déposés"
+                className="w-full sm:w-36 h-auto rounded-lg border-4 border-white shadow-md mb-5 sm:mb-0 shrink-0"
+              />
+              <div className="flex-1 min-w-0">
+                <h2 className="font-serif text-xl text-terre mb-4">Ce que vous pouvez déposer</h2>
+                <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
+                  {ACCEPTE.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-terre/65">
+                      <span className="text-ocre mt-0.5 shrink-0">→</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
             {/* Consignes de l'affiche du kit de communication : c'est cette page
                 que son QR code ouvre, les deux doivent dire la même chose. */}
             <div className="border-t border-beige-dark pt-5">

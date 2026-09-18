@@ -7,7 +7,7 @@ export const DEFI = {
   fin: '3 octobre 2026',
   // Mettre à jour au fil des pesées. null tant qu'aucune pesée n'a eu lieu :
   // la page affiche alors le compteur comme « à venir » plutôt que « 0 kg ».
-  collecteKg: null,
+  collecteKg: '305,8',
   dernierePesee: null,
 }
 
