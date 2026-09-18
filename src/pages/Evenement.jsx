@@ -93,21 +93,9 @@ export default function Evenement() {
           <div className="absolute bottom-20 left-[30%] w-1.5 h-1.5 rounded-full bg-white/30 animate-float" style={{ animationDelay: '2s' }} />
         </div>
 
-        {/* Bannière pleine largeur en tête de section, candidate au LCP :
-            ni transition d'apparition ni chargement différé. */}
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 mb-10 md:mb-14">
-          <img
-            src="/photos/banniere3ocotobre.jpg"
-            width={1280}
-            height={640}
-            fetchpriority="high"
-            decoding="async"
-            alt="Bannière de l'événement de lancement de l'association Ressources, le 3 octobre 2026 à Vielle-Saint-Girons"
-            className="w-full h-auto block rounded-xl border-4 border-beige-light shadow-2xl shadow-black/30"
-          />
-        </div>
-
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
+        {/* Titre, au-dessus de la banniere : événement, date et lieu d'abord,
+            l'image vient ensuite illustrer le programme qu'ils annoncent. */}
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 mb-8 md:mb-10">
           <div className="text-center md:max-w-2xl md:mx-auto">
           <div className={`transition-all duration-700 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
             <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-ocre/15 border border-ocre/30 rounded-full">
@@ -124,10 +112,28 @@ export default function Evenement() {
           <h1 className={`font-serif text-4xl sm:text-5xl lg:text-6xl text-white leading-tight mb-4 transition-all duration-700 delay-100 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
             03 octobre 2026
           </h1>
-          <p className={`font-serif text-xl md:text-2xl text-white/70 mb-6 transition-all duration-700 delay-200 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <p className={`font-serif text-xl md:text-2xl text-white/70 transition-all duration-700 delay-200 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Vielle-Saint-Girons, Landes (40560)
           </p>
+          </div>
+        </div>
 
+        {/* Bannière pleine largeur, candidate au LCP : ni transition
+            d'apparition ni chargement différé. */}
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 mb-10 md:mb-14">
+          <img
+            src="/photos/banniere3ocotobre.jpg"
+            width={1280}
+            height={640}
+            fetchpriority="high"
+            decoding="async"
+            alt="Bannière de l'événement de lancement de l'association Ressources, le 3 octobre 2026 à Vielle-Saint-Girons"
+            className="w-full h-auto block rounded-xl border-4 border-beige-light shadow-2xl shadow-black/30"
+          />
+        </div>
+
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="text-center md:max-w-2xl md:mx-auto">
           <div className={`w-12 h-0.5 bg-ocre mx-auto mb-8 transition-all duration-700 delay-300 ${heroVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
           <p className={`text-white/60 max-w-xl mx-auto leading-relaxed transition-all duration-700 delay-400 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
