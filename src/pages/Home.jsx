@@ -329,6 +329,9 @@ export default function Home() {
           composant : deux diapositives, commandes et balayage tactile. */}
       <BandeauTempsForts />
 
+      {/* ══════════════ BANDEAU PHOTOS ══════════════ */}
+      <BandeauPhotos />
+
       {/* ══════════════ DEUX FILIÈRES ══════════════ */}
       <section className="py-20 md:py-28 bg-white" ref={filieres.ref}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -480,9 +483,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* ══════════════ BANDEAU PHOTOS ══════════════ */}
-      <BandeauPhotos />
 
       {/* ══════════════ 6 ÉTAPES ══════════════ */}
       <section className="py-20 md:py-28 bg-white overflow-hidden" ref={steps.ref}>
