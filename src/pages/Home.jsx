@@ -651,7 +651,7 @@ export default function Home() {
           <div className={`relative overflow-hidden rounded-2xl border border-beige mb-10 grid lg:grid-cols-2 transition-all duration-700 delay-100 ${territoire.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
             <div className="relative min-h-[260px] lg:min-h-0">
               <img
-                src="/photos/accueil-des-dons-equipe.jpg"
+                src="/photos/ici-gascogne-ca-marche.webp"
                 loading="lazy"
                 decoding="async"
                 alt="L'équipe Ressources accueille un don de matériel informatique sur un point de collecte du territoire landais"
