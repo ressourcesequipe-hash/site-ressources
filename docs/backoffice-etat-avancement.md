@@ -218,6 +218,20 @@ Il imite volontairement les deux comportements de Vercel qui nous avaient piég�
 
 `vercel dev` est retiré de `.claude/launch.json`, remplacé par cette configuration.
 
+## 20/09/2026 — Incident : des données réelles supprimées par un script de test
+
+**Ce qui s'est passé.** Les scripts de nettoyage exécutés après chaque série de tests faisaient `db.delete(table)` sans condition — c'est-à-dire un vidage complet de la table. Appliqué à `actualites` et à `versions`, cela a supprimé, en plus des données de démonstration, **un article de test créé par l'utilisateur depuis le back-office en production**, ainsi que tout l'historique des modifications.
+
+**Gravité réelle.** Faible : l'article était un essai, et la base ne contenait aucun contenu de production. **Gravité potentielle : élevée.** Le même script, exécuté une fois les vrais contenus saisis, aurait détruit du travail irremplaçable — exactement ce que le §24.7 demande d'empêcher. La base de travail étant la base de production, il n'existe aucun filet.
+
+**Règle adoptée, à ne plus enfreindre :**
+
+1. Un script de test ne supprime **jamais** une table entière. Il supprime uniquement les lignes qu'il a lui-même créées, désignées par leur identifiant ou par un marqueur explicite.
+2. Les comptes et contenus de test portent un préfixe reconnaissable (`tst-`, `tev-`, `visuel-`, ou un slug commençant par `test-`), et le nettoyage filtre dessus.
+3. Aucune instruction `delete` sans clause `where` dans un script touchant la base de production, quelle que soit la table.
+
+**Ce que cela dit du dispositif, au-delà du script.** Tant qu'il n'y a qu'une seule base, tout test se fait sur les données réelles. Deux pistes à arbitrer avant que l'équipe ne saisisse du contenu pour de bon : une base de développement séparée (Neon permet de créer une branche de base de données, ce qui serait l'option la plus propre), ou à défaut un export logique régulier, déjà prévu au §7 de l'architecture mais pas encore mis en place.
+
 ## `VITRINE_HOOK` — réponse obtenue le 20/09/2026, et ce qu'elle implique
 
 **C'est Ressources 360 qui l'appelle** : à chaque mise en vente d'un produit, pour rafraîchir la page Boutique du site. Des déploiements de production partent donc **automatiquement, à des moments imprévisibles, sans que le back-office en sache rien**. Quatre conséquences :
