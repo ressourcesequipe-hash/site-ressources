@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { appelerApi } from '../lib/api'
 import { authClient } from '../lib/authClient'
-import { EtiquetteStatut, Etiquette, LIBELLES_STATUT, Message } from '../components/Formulaire'
+import { BandeauNonBranche, EtiquetteStatut, Etiquette, LIBELLES_STATUT, Message } from '../components/Formulaire'
 import { etatCycleDeVie, LIBELLES_CYCLE } from '../../../lib/evenements.js'
 
 // Liste des événements — §10 du cahier des charges.
@@ -66,6 +66,8 @@ export default function Evenements() {
 
   return (
     <div>
+      <BandeauNonBranche quoi="les événements" />
+
       <div className="flex items-start justify-between gap-4 mb-5">
         <p className="text-sm text-terre/70 max-w-xl leading-relaxed">
           Les événements passés sortent d'eux-mêmes des « à venir » : leur état se

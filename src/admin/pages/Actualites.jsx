@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { appelerApi } from '../lib/api'
+import { BandeauNonBranche } from '../components/Formulaire'
 import { authClient } from '../lib/authClient'
 
 // Liste des actualités — §9 et §24.3 du cahier des charges.
@@ -80,10 +81,12 @@ export default function Actualites() {
 
   return (
     <div>
+      <BandeauNonBranche quoi="les articles" />
+
       <div className="flex items-start justify-between gap-4 mb-5">
         <p className="text-sm text-terre/70 max-w-xl leading-relaxed">
-          Les articles publiés apparaissent sur le site. Un brouillon reste invisible du
-          public tant qu'il n'est pas publié.
+          Un brouillon reste modifiable autant que nécessaire ; publier fige l’article
+          et l’enregistre comme prêt à paraître.
         </p>
         {peutCreer && (
           <Link

@@ -98,3 +98,30 @@ export function pourChampDate(valeur, avecHeure = false) {
   const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000)
   return local.toISOString().slice(0, avecHeure ? 16 : 10)
 }
+
+/**
+ * Bandeau d'information franc, affiché tant qu'une limite connue du
+ * back-office pourrait dérouter quelqu'un.
+ *
+ * Il existe parce que la version actuelle laisse croire qu'un contenu
+ * publié part sur le site, alors que le branchement du site public n'est
+ * pas fait (Étape 4). Laisser l'utilisateur le découvrir en cherchant son
+ * article est précisément ce que le §24.7 proscrit. À retirer le jour où le
+ * site lira réellement la base.
+ */
+export function BandeauNonBranche({ quoi }) {
+  return (
+    <div className="mb-5 rounded-xl border border-ocre/30 bg-ocre/[0.07] px-4 py-3">
+      <p className="text-[13px] text-terre leading-relaxed">
+        <span className="font-semibold">Le site public n{'’'}affiche pas encore {quoi} enregistrés ici.</span>{' '}
+        Il sert toujours le contenu écrit dans le code du site. Ce que vous créez est bien
+        conservé et retrouvé ici, mais restera invisible des visiteurs jusqu{'’'}au branchement
+        du site public, prévu à une étape ultérieure du projet.
+      </p>
+      <p className="text-[12.5px] text-terre/60 mt-1.5">
+        Pour la même raison, le contenu déjà en ligne sur le site n{'’'}apparaît pas dans cette
+        liste : il n{'’'}a pas encore été repris dans le back-office.
+      </p>
+    </div>
+  )
+}
