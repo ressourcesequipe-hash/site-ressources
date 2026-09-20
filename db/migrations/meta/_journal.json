@@ -22,6 +22,13 @@
       "when": 1789934466871,
       "tag": "0002_motionless_living_lightning",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789935854368,
+      "tag": "0003_bizarre_khan",
+      "breakpoints": true
     }
   ]
 }

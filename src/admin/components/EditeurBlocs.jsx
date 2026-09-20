@@ -64,8 +64,16 @@ function BoutonIcone({ onClick, titre, desactive, children }) {
   )
 }
 
-export default function EditeurBlocs({ blocs, onChange, desactive }) {
+// `typesAutorises` vient du module metier (lib/actualites.js,
+// lib/evenements.js…), la meme source que celle appliquee par le serveur.
+// Sans cela, l interface pourrait proposer un bloc que le serveur ecarte
+// en silence a l enregistrement : la personne remplirait son bloc, puis le
+// verrait disparaitre sans explication (§24.7).
+export default function EditeurBlocs({ blocs, onChange, desactive, typesAutorises }) {
   const liste = Array.isArray(blocs) ? blocs : []
+  const typesProposes = typesAutorises
+    ? TYPES.filter((t) => typesAutorises.includes(t.cle))
+    : TYPES
 
   const modifier = (index, cle, valeur) => {
     const copie = liste.map((b, i) => (i === index ? { ...b, [cle]: valeur } : b))
@@ -141,7 +149,7 @@ export default function EditeurBlocs({ blocs, onChange, desactive }) {
       </div>
 
       <div className="mt-3.5 flex flex-wrap gap-2">
-        {TYPES.map((t) => (
+        {typesProposes.map((t) => (
           <button
             key={t.cle}
             type="button"

@@ -249,3 +249,66 @@ export const versionContenu = pgTable('versions', {
   contenuPrecedent: jsonb('contenu_precedent'),
   creeLe: timestamp('cree_le').notNull().defaultNow(),
 })
+
+// ── Événements (§10 du cahier des charges) ───────────────────────────────
+//
+// Le §10 énumère comme « statuts » : brouillon, annoncé, en cours, terminé,
+// annulé, archivé. Ces valeurs mêlent deux choses distinctes, et les garder
+// dans un seul champ rendrait certains cas impossibles à représenter — un
+// brouillon d'événement déjà passé, par exemple.
+//
+// Séparation retenue :
+//   - `statut` : l'état de PUBLICATION, commun à tous les modules (§22).
+//     C'est lui qui décide de la visibilité sur le site.
+//   - `annule` : le seul état de cycle de vie qui relève d'une décision
+//     humaine, et qui doit rester visible même une fois l'événement passé.
+//   - « à venir / en cours / terminé » ne sont PAS stockés : ils se
+//     déduisent des dates à l'affichage. C'est ce qui réalise
+//     l'automatisation demandée au §10 (« un événement terminé ne figure
+//     plus dans les à venir ») sans que personne ait à y penser, et sans
+//     risque qu'un statut oublié contredise le calendrier.
+
+export const evenement = pgTable('evenements', {
+  id: serial('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  titre: text('titre').notNull(),
+  descriptionCourte: text('description_courte'),
+  descriptionComplete: jsonb('description_complete').default([]),
+  programme: jsonb('programme').default([]),
+
+  image: text('image'),
+  imageAlt: text('image_alt'),
+  imageCredit: text('image_credit'),
+
+  debutLe: timestamp('debut_le'),
+  finLe: timestamp('fin_le'),
+  journeeEntiere: boolean('journee_entiere').notNull().default(false),
+
+  lieu: text('lieu'),
+  adresse: text('adresse'),
+  codePostal: text('code_postal'),
+  commune: text('commune'),
+  lienCarte: text('lien_carte'),
+
+  urlInscription: text('url_inscription'),
+  appelAction: text('appel_action'),
+  partenaires: jsonb('partenaires').default([]),
+  documents: jsonb('documents').default([]),
+
+  // Décision humaine, distincte du fait que l'événement soit passé : un
+  // événement annulé doit le rester visiblement, même après sa date.
+  annule: boolean('annule').notNull().default(false),
+  motifAnnulation: text('motif_annulation'),
+
+  statut: text('statut').notNull().default('brouillon'),
+  datePublication: timestamp('date_publication'),
+  miseEnAvant: boolean('mise_en_avant').notNull().default(false),
+  surAccueil: boolean('sur_accueil').notNull().default(false),
+  seo: jsonb('seo').default({}),
+
+  auteurId: text('auteur_id').references(() => user.id),
+  modifieParId: text('modifie_par_id').references(() => user.id),
+  version: integer('version').notNull().default(1),
+  creeLe: timestamp('cree_le').notNull().defaultNow(),
+  majLe: timestamp('maj_le').notNull().defaultNow(),
+})

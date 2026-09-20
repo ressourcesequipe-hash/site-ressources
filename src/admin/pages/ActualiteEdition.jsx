@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { appelerApi } from '../lib/api'
 import { authClient } from '../lib/authClient'
 import EditeurBlocs from '../components/EditeurBlocs'
+import { BLOCS } from '../../../lib/actualites.js'
+import { Champ, classeSaisie, Message } from '../components/Formulaire'
 
 // Création et modification d'une actualité — §9, §22 et §24.4.
 //
@@ -31,25 +33,6 @@ function pourFormulaire(a) {
     seo: a.seo || {},
   }
 }
-
-function Champ({ label, aide, erreur, children }) {
-  return (
-    <div>
-      <label className="block text-[13px] font-semibold text-terre mb-1.5">{label}</label>
-      {children}
-      {erreur ? (
-        <p className="text-[12px] text-red-700 mt-1.5">{erreur}</p>
-      ) : aide ? (
-        <p className="text-[12px] text-terre/50 mt-1.5">{aide}</p>
-      ) : null}
-    </div>
-  )
-}
-
-const classeSaisie = (erreur) =>
-  `w-full px-3.5 py-2.5 rounded-lg border text-[14px] text-terre bg-white outline-none focus:border-ocre ${
-    erreur ? 'border-red-300' : 'border-beige-dark'
-  }`
 
 export default function ActualiteEdition() {
   const { id } = useParams()
@@ -230,7 +213,7 @@ export default function ActualiteEdition() {
 
         <div>
           <label className="block text-[13px] font-semibold text-terre mb-1.5">Contenu de l'article</label>
-          <EditeurBlocs blocs={form.contenu} onChange={(b) => majChamp('contenu', b)} desactive={lectureSeule} />
+          <EditeurBlocs blocs={form.contenu} onChange={(b) => majChamp('contenu', b)} desactive={lectureSeule} typesAutorises={Object.keys(BLOCS)} />
         </div>
 
         <div className="border-t border-beige-dark pt-4">
@@ -283,21 +266,13 @@ export default function ActualiteEdition() {
           )}
         </div>
 
-        {etat.type === 'conflit' && (
-          <p className="text-[13px] text-ocre-dark bg-ocre/10 border border-ocre/30 rounded-lg px-3.5 py-2.5">
-            {etat.message}
-          </p>
-        )}
-        {etat.type === 'erreur' && (
-          <p className="text-[13px] text-red-700 bg-red-50 border border-red-200 rounded-lg px-3.5 py-2.5">
-            {etat.message}
-          </p>
-        )}
+        {etat.type === 'conflit' && <Message type="avertissement">{etat.message}</Message>}
+        {etat.type === 'erreur' && <Message type="erreur">{etat.message}</Message>}
         {etat.type === 'succes' && (
-          <div className="text-[13px] text-olive bg-kaki-pale/40 border border-olive/30 rounded-lg px-3.5 py-2.5">
+          <Message type="succes">
             {etat.message}
             {etat.avertissement && <p className="text-ocre-dark mt-1.5">{etat.avertissement}</p>}
-          </div>
+          </Message>
         )}
 
         {!lectureSeule && (

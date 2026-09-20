@@ -6,6 +6,8 @@ import TableauDeBord from './pages/TableauDeBord'
 import MotDePasse from './pages/MotDePasse'
 import Actualites from './pages/Actualites'
 import ActualiteEdition from './pages/ActualiteEdition'
+import Evenements from './pages/Evenements'
+import EvenementEdition from './pages/EvenementEdition'
 
 // Chargé paresseusement depuis src/routes.jsx (React.lazy) : un visiteur du
 // site public ne télécharge jamais ce code.
@@ -31,6 +33,15 @@ export default function AdminRoutes() {
         <Route element={<ProtectedRoute titre="Rédiger une actualité" />}>
           <Route path="actualites/nouvelle" element={<ActualiteEdition />} />
           <Route path="actualites/:id" element={<ActualiteEdition />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Événements" />}>
+          <Route path="evenements" element={<Evenements />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Fiche événement" />}>
+          <Route path="evenements/nouveau" element={<EvenementEdition />} />
+          <Route path="evenements/:id" element={<EvenementEdition />} />
         </Route>
 
         <Route element={<ProtectedRoute titre="Mon mot de passe" />}>
