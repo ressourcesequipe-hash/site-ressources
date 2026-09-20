@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import Home from './pages/Home'
 import Evenement from './pages/Evenement'
 import DefiCollecte from './pages/DefiCollecte'
@@ -38,6 +38,12 @@ import BoutiqueProduit from './pages/BoutiqueProduit'
 import Contact from './pages/Contact'
 import MentionsLegales from './pages/MentionsLegales'
 import Confidentialite from './pages/Confidentialite'
+
+// Chargé paresseusement : un visiteur du site public ne télécharge jamais le
+// code du back-office. Jamais prérendu (absent de STATIC_ROUTES dans
+// prerender.js) — c'est un espace de gestion authentifié, pas du contenu
+// public (voir docs/backoffice-etat-avancement.md).
+const AdminRoutes = lazy(() => import('./admin/AdminRoutes'))
 
 // Remonte en haut à chaque changement de page — sauf si l'URL porte une ancre,
 // auquel cas on vise l'élément correspondant. Sans ce cas particulier, un lien
@@ -134,6 +140,14 @@ export default function AppRoutes() {
         <Route path="/contact/" element={<Contact />} />
         <Route path="/mentions-legales/" element={<MentionsLegales />} />
         <Route path="/confidentialite/" element={<Confidentialite />} />
+        <Route
+          path="/admin/*"
+          element={
+            <Suspense fallback={null}>
+              <AdminRoutes />
+            </Suspense>
+          }
+        />
       </Routes>
     </>
   )
