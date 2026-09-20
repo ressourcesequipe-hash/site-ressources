@@ -182,7 +182,13 @@ Après les deux correctifs, contrôlé directement contre `https://www.ressource
 
 **Mot de passe du compte super administrateur changé** le 20/09/2026, à la demande de l'utilisateur, le mot de passe généré à la création étant trop difficile à saisir. Posé en base avec le hachage de better-auth (`ctx.password.hash`), vérifié localement puis par une connexion réelle en production. La demande initiale portait sur un mot de passe à 4 chiffres : impossible sans abaisser `minPasswordLength` (12) dans `lib/auth.js`, ce qui a été écarté — `/admin` étant désormais public et ce compte contrôlant l'ensemble du back-office. Un mot de passe simple à taper de 14 caractères a été retenu à la place. L'écran de changement de mot de passe reste à faire à l'Étape 2.
 
-**Reste à confirmer** : que Vercel déclenche effectivement la tâche planifiée à l'heure dite. L'endpoint est fonctionnel et la déclaration est dans `vercel.json`, mais la première exécution réelle par la plateforme n'a pas encore eu lieu — page « Cron Jobs » du projet à consulter, et journal d'exécution à relire après le premier passage (prévu à 4 h UTC).
+**Tâche planifiée confirmée de bout en bout** (20/09/2026, 21 h 43). La page « Cron Jobs » du projet liste bien `/api/cron/taches` avec la cadence `0 4 * * *`, fonctionnalité `Enabled`. Déclenchée depuis le bouton `Run` de cette page, elle répond **200** dans les journaux d'exécution, sur l'hôte du déploiement : **Vercel injecte donc bien l'en-tête `Authorization` avec `CRON_SECRET`**, et le contrôle de `api/cron/taches.js` l'accepte. C'était le seul maillon qu'aucun test local ne pouvait couvrir, et le motif même de ce déploiement.
+
+Les journaux montrent aussi, sur l'hôte `www.ressourcesrecyclerie.fr`, les deux `401` puis le `200` des tests de protection menés juste avant — sans en-tête, avec un mauvais secret, puis avec le bon.
+
+**Palier Hobby désormais confirmé explicitement** : la page Cron Jobs affiche « Cron jobs on Hobby have a flexible time window of 1-hour ». L'Étape 0 ne l'avait déduit que par recoupement ; c'est maintenant écrit noir sur blanc. La conception, qui suppose déjà le scénario le plus défavorable, reste valable — et la vérification opportuniste à chaque publication reste le chemin normal, la tâche planifiée n'étant qu'un filet.
+
+**L'Étape 1 (socle) est donc terminée et vérifiée en conditions réelles, en production.**
 
 ## `VITRINE_HOOK` — réponse obtenue le 20/09/2026, et ce qu'elle implique
 
