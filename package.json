@@ -11,18 +11,27 @@
     "vitrine": "node scripts/vitrine.mjs",
     "brevo:setup": "node scripts/brevo-setup.mjs",
     "brevo:test": "node scripts/brevo-test.mjs",
-    "brevo:template": "node scripts/brevo-template.mjs"
+    "brevo:template": "node scripts/brevo-template.mjs",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node scripts/migrer.mjs",
+    "db:seed-permissions": "node scripts/seed-permissions.mjs"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "better-auth": "^1.2.7",
+    "drizzle-orm": "^0.45.2",
     "leaflet": "^1.9.4",
+    "octokit": "^4.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
-    "react-router-dom": "^6.26.2"
+    "react-router-dom": "^6.26.2",
+    "sharp": "^0.35.4"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
+    "drizzle-kit": "^0.31.4",
     "postcss": "^8.4.45",
     "tailwindcss": "^3.4.11",
     "vite": "^5.4.2"

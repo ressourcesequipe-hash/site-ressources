@@ -4,8 +4,16 @@
     {
       "name": "site-ressources",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["vite", "--port", "5173"],
-      "port": 5173
+      "runtimeArgs": ["vite"],
+      "port": 5173,
+      "autoPort": true
+    },
+    {
+      "name": "site-ressources-admin",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vercel@56.4.0", "dev", "--yes"],
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }

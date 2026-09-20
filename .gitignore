@@ -24,3 +24,6 @@ dist-ssr
 *API*.txt
 *api-key*
 *.key
+
+.vercel
+.env*
