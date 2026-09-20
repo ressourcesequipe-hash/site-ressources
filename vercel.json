@@ -23,6 +23,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/auth/(.*)",
+      "destination": "/api/auth/[...all]?__auth=$1"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
