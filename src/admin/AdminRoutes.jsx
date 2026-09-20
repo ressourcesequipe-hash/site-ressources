@@ -4,6 +4,8 @@ import ErreurAuth from './components/ErreurAuth'
 import Connexion from './pages/Connexion'
 import TableauDeBord from './pages/TableauDeBord'
 import MotDePasse from './pages/MotDePasse'
+import Actualites from './pages/Actualites'
+import ActualiteEdition from './pages/ActualiteEdition'
 
 // Chargé paresseusement depuis src/routes.jsx (React.lazy) : un visiteur du
 // site public ne télécharge jamais ce code.
@@ -20,6 +22,15 @@ export default function AdminRoutes() {
 
         <Route element={<ProtectedRoute titre="Tableau de bord" />}>
           <Route index element={<TableauDeBord />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Actualités" />}>
+          <Route path="actualites" element={<Actualites />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Rédiger une actualité" />}>
+          <Route path="actualites/nouvelle" element={<ActualiteEdition />} />
+          <Route path="actualites/:id" element={<ActualiteEdition />} />
         </Route>
 
         <Route element={<ProtectedRoute titre="Mon mot de passe" />}>
