@@ -15,6 +15,13 @@
       "when": 1789921087210,
       "tag": "0001_free_namorita",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789934466871,
+      "tag": "0002_motionless_living_lightning",
+      "breakpoints": true
     }
   ]
 }

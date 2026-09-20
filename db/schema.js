@@ -174,3 +174,78 @@ export const deploiement = pgTable('deploiements', {
   resoluLe: timestamp('resolu_le'),
   erreur: text('erreur'),
 })
+
+// ── Actualités (§9 du cahier des charges) ────────────────────────────────
+//
+// Le schéma accueille sans perte les 11 articles existants de
+// `src/data/articles.js` (migration prévue à l'Étape 4, jamais avant) :
+// leurs blocs de contenu (`paragraph`, `heading`, `link`, `video`, `audio`)
+// et les réglages de cadrage de l'image principale ont chacun leur place.
+//
+// `contenu` est un tableau de blocs en JSON plutôt que du HTML libre :
+// c'est ce qui permet au site public de garder la maîtrise des styles
+// (§8.3 : « l'utilisateur admin choisit le contenu, pas la charte »).
+//
+// `version` porte le verrou optimiste du §2 de l'architecture : un
+// enregistrement envoie la version chargée au départ, et l'écriture est
+// refusée si elle ne correspond plus — plutôt que d'écraser en silence le
+// travail d'un collègue.
+
+export const actualite = pgTable('actualites', {
+  id: serial('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  titre: text('titre').notNull(),
+  resume: text('resume'),
+  contenu: jsonb('contenu').notNull().default([]),
+
+  // Image principale et son cadrage — champs repris de l'existant.
+  image: text('image'),
+  imageAlt: text('image_alt'),
+  imageCredit: text('image_credit'),
+  imageLargeur: integer('image_largeur'),
+  imageHauteur: integer('image_hauteur'),
+  imageCadrage: text('image_cadrage'),
+  imagePosition: text('image_position'),
+  galerie: jsonb('galerie').default([]),
+
+  categorie: text('categorie'),
+  tags: jsonb('tags').default([]),
+  lienExterne: text('lien_externe'),
+
+  // §22 : brouillon | a_valider | programme | publie | archive
+  statut: text('statut').notNull().default('brouillon'),
+  datePublication: timestamp('date_publication'),
+  dateDepublication: timestamp('date_depublication'),
+
+  miseEnAvant: boolean('mise_en_avant').notNull().default(false),
+  surAccueil: boolean('sur_accueil').notNull().default(false),
+
+  // Calculé côté serveur à partir du contenu (§9) : jamais saisi à la main,
+  // donc jamais faux ni oublié.
+  tempsLectureMinutes: integer('temps_lecture_minutes'),
+
+  seo: jsonb('seo').default({}),
+
+  auteurId: text('auteur_id').references(() => user.id),
+  modifieParId: text('modifie_par_id').references(() => user.id),
+  version: integer('version').notNull().default(1),
+  creeLe: timestamp('cree_le').notNull().defaultNow(),
+  majLe: timestamp('maj_le').notNull().defaultNow(),
+})
+
+// ── Historique des versions (§23 du cahier des charges) ──────────────────
+//
+// Table transverse : une seule pour tous les types de contenu, plutôt
+// qu'une table d'historique par module. `contenuPrecedent` conserve l'état
+// AVANT la modification, ce qui permet de restaurer une version antérieure
+// sans reconstituer quoi que ce soit.
+
+export const versionContenu = pgTable('versions', {
+  id: serial('id').primaryKey(),
+  entiteType: text('entite_type').notNull(), // actualite | page | evenement…
+  entiteId: integer('entite_id').notNull(),
+  utilisateurId: text('utilisateur_id').references(() => user.id),
+  typeModification: text('type_modification').notNull(), // creation | modification | changement_statut
+  contenuPrecedent: jsonb('contenu_precedent'),
+  creeLe: timestamp('cree_le').notNull().defaultNow(),
+})

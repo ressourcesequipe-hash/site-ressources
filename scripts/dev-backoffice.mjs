@@ -86,6 +86,12 @@ const serveur = http.createServer(async (req, res) => {
     return res.end(JSON.stringify({ error: 'Aucune fonction pour ' + chemin }))
   }
 
+  // Comme Vercel : les paramètres d'URL sont exposés dans `req.query`.
+  // Sans cela, toute route lisant `req.query.id` se comporte différemment
+  // en local et en production — écart constaté le 20/09/2026, qui faisait
+  // silencieusement renvoyer une liste là où un détail était attendu.
+  req.query = Object.fromEntries(new URL(req.url, `http://localhost:${PORT}`).searchParams)
+
   // Comme Vercel : le corps JSON est parsé et le flux consommé.
   const brut = await lireCorps(req)
   if (brut) {
