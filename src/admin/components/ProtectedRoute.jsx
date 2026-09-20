@@ -7,9 +7,9 @@ import AdminLayout from './AdminLayout'
 // revérifie les droits côté serveur dans tous les cas (§1 de l'architecture,
 // §24.3 du cahier : masquer un écran ne suffit jamais à sécuriser une action).
 //
-// `titre` est fixe pour l'instant : une seule page existe (Tableau de bord).
-// À revoir (contexte de route, ou `titre` par route) dès qu'une deuxième page
-// rejoint l'espace protégé en Étape 2.
+// `titre` est fourni par route : chaque écran protégé est déclaré sous son
+// propre `ProtectedRoute` dans AdminRoutes.jsx, qui porte le titre affiché
+// dans l’en-tête.
 export default function ProtectedRoute({ titre }) {
   const { data: session, isPending } = authClient.useSession()
   const location = useLocation()

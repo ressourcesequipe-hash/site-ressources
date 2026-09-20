@@ -14,7 +14,8 @@
     "brevo:template": "node scripts/brevo-template.mjs",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "node scripts/migrer.mjs",
-    "db:seed-permissions": "node scripts/seed-permissions.mjs"
+    "db:seed-permissions": "node scripts/seed-permissions.mjs",
+    "dev:backoffice": "node scripts/dev-backoffice.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",

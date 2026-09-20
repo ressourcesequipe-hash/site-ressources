@@ -190,6 +190,34 @@ Les journaux montrent aussi, sur l'hôte `www.ressourcesrecyclerie.fr`, les deux
 
 **L'Étape 1 (socle) est donc terminée et vérifiée en conditions réelles, en production.**
 
+## 20/09/2026 — Faille trouvée juste après la mise en ligne : l'inscription était ouverte
+
+**N'importe qui sur internet pouvait se créer un compte sur le back-office.** better-auth expose `/api/auth/sign-up/email` dès que `emailAndPassword` est activé, et la configuration ne fermait pas cette porte. Vérifié contre la production : la requête était acceptée et ne tombait que sur la longueur du mot de passe (`PASSWORD_TOO_SHORT`) — avec un mot de passe conforme, le compte aurait été créé.
+
+Le compte obtenu aurait porté le rôle `lecture_seule`, donc sans droit de modification, mais avec accès en consultation à l'intérieur du back-office. Le §21 du cahier ne prévoit à aucun moment d'auto-inscription : les comptes sont créés par le Super administrateur.
+
+Corrigé par `disableSignUp: true` dans `lib/auth.js`, vérifié en local : la requête est désormais refusée avec `EMAIL_PASSWORD_SIGN_UP_DISABLED`. **À vérifier de nouveau en production dès le déploiement de ce correctif.**
+
+Cette faille n'existait que depuis la mise en ligne de `/admin` le jour même, et le trou est resté ouvert environ une heure.
+
+## 20/09/2026 — Étape 2 : écran de changement de mot de passe
+
+Premier écran de l'Étape 2, traité en priorité parce que `/admin` est désormais public et que le mot de passe du compte super administrateur ne pouvait être changé que par un script.
+
+`src/admin/pages/MotDePasse.jsx`, accessible depuis la barre latérale. **Aucune route d'API propre au projet** : better-auth expose déjà `change-password`, qui vérifie l'ancien mot de passe, applique le minimum de 12 caractères et gère le hachage — en écrire une aurait réimplémenté moins bien ce que la bibliothèque fait déjà (§26). Les codes d'erreur sont traduits en français et affichés près du champ concerné (§24.4), avec validation en direct (caractères restants, concordance des deux saisies) et une case « me déconnecter des autres appareils » cochée par défaut.
+
+`ProtectedRoute` porte désormais le titre par route, comme son propre commentaire le prévoyait à l'arrivée d'un deuxième écran.
+
+**Vérifié de bout en bout en local, dans un navigateur, réellement connecté** : rendu conforme à l'identité du site, bouton désactivé tant que la saisie est incomplète, mauvais mot de passe actuel rejeté avec un message clair, changement accepté, message de succès, champs vidés. Puis confirmé en base : connexion avec le nouveau mot de passe acceptée, ancien refusé. Compte de test créé pour l'occasion puis supprimé (un seul compte en base à l'arrivée).
+
+## 20/09/2026 — Un environnement de développement local qui fonctionne enfin
+
+`scripts/dev-backoffice.mjs` (`npm run dev:backoffice`) fait tourner Vite **et** les vraies fonctions de `api/` sur le même port. Il comble la limite d'outillage traînée depuis le 19/09 : `vercel dev` ne servait pas correctement les fichiers de développement de Vite sur ce projet, ce qui obligeait à déployer pour voir le moindre écran — et a coûté cher le 20/09, plusieurs défauts n'ayant été découverts qu'en production.
+
+Il imite volontairement les deux comportements de Vercel qui nous avaient piégés : corps JSON parsé dans `req.body` (flux vidé), et aides `res.status()` / `res.json()`. Il résout les routes comme Vercel : fichier exact, puis `[...nom].js` du répertoire le plus proche — **y compris à plusieurs segments**, ce que la plateforme ne fait pas nativement et que la réécriture de `vercel.json` compense en production.
+
+`vercel dev` est retiré de `.claude/launch.json`, remplacé par cette configuration.
+
 ## `VITRINE_HOOK` — réponse obtenue le 20/09/2026, et ce qu'elle implique
 
 **C'est Ressources 360 qui l'appelle** : à chaque mise en vente d'un produit, pour rafraîchir la page Boutique du site. Des déploiements de production partent donc **automatiquement, à des moments imprévisibles, sans que le back-office en sache rien**. Quatre conséquences :

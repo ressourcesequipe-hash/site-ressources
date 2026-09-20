@@ -4,16 +4,20 @@
     {
       "name": "site-ressources",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["vite"],
+      "runtimeArgs": [
+        "vite"
+      ],
       "port": 5173,
       "autoPort": true
     },
     {
-      "name": "site-ressources-admin",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["vercel@56.4.0", "dev", "--yes"],
-      "port": 3000,
-      "autoPort": true
+      "name": "back-office",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev:backoffice"
+      ],
+      "port": 5174
     }
   ]
 }
