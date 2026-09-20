@@ -168,6 +168,22 @@ Corrigé en excluant les chemins `/api/` du rewrite : `"source": "/((?!api/).*)"
 
 **Le déclenchement Git peut être très lent.** Le push de 16:38 UTC n'a produit son déploiement qu'environ quinze minutes plus tard. Entre-temps, ni déploiement, ni statut de commit publié par Vercel, alors que GitHub avait bien émis l'événement — ce qui a fait conclure à tort à une liaison rompue, et conduit à un déploiement CLI de contournement inutile (doublon sans conséquence). À retenir : avant de diagnostiquer une liaison Git cassée, laisser un délai franc. Le statut de commit GitHub est ensuite bien passé à `success`, et la liaison est saine.
 
+### Vérification complète en production — 20/09/2026, tout passe
+
+Après les deux correctifs, contrôlé directement contre `https://www.ressourcesrecyclerie.fr` :
+
+- **Connexion réelle** : acceptée, rôle `super_admin` renvoyé, cookie de session `HttpOnly; Secure; SameSite=Lax`.
+- **La session ouvre bien les portes** : `/api/auth/get-session` reconnaît l'utilisateur, `/api/admin/deploiement` et `/api/admin/parametres` répondent en 200.
+- **Sans session, tout reste fermé** : 401 sur les deux endpoints admin.
+- **Déconnexion** acceptée.
+- **Tâche planifiée** (`/api/cron/taches`) : refuse sans en-tête `Authorization` et avec un mauvais secret, s'exécute avec le bon, lit l'état de déploiement en base et le renvoie correctement.
+- **Site public intact** : pages en 200 avec leurs titres.
+- **Connexion confirmée depuis le navigateur** par l'utilisateur, en plus des tests automatisés.
+
+**Mot de passe du compte super administrateur changé** le 20/09/2026, à la demande de l'utilisateur, le mot de passe généré à la création étant trop difficile à saisir. Posé en base avec le hachage de better-auth (`ctx.password.hash`), vérifié localement puis par une connexion réelle en production. La demande initiale portait sur un mot de passe à 4 chiffres : impossible sans abaisser `minPasswordLength` (12) dans `lib/auth.js`, ce qui a été écarté — `/admin` étant désormais public et ce compte contrôlant l'ensemble du back-office. Un mot de passe simple à taper de 14 caractères a été retenu à la place. L'écran de changement de mot de passe reste à faire à l'Étape 2.
+
+**Reste à confirmer** : que Vercel déclenche effectivement la tâche planifiée à l'heure dite. L'endpoint est fonctionnel et la déclaration est dans `vercel.json`, mais la première exécution réelle par la plateforme n'a pas encore eu lieu — page « Cron Jobs » du projet à consulter, et journal d'exécution à relire après le premier passage (prévu à 4 h UTC).
+
 ## `VITRINE_HOOK` — réponse obtenue le 20/09/2026, et ce qu'elle implique
 
 **C'est Ressources 360 qui l'appelle** : à chaque mise en vente d'un produit, pour rafraîchir la page Boutique du site. Des déploiements de production partent donc **automatiquement, à des moments imprévisibles, sans que le back-office en sache rien**. Quatre conséquences :
