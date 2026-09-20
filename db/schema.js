@@ -312,3 +312,110 @@ export const evenement = pgTable('evenements', {
   creeLe: timestamp('cree_le').notNull().defaultNow(),
   majLe: timestamp('maj_le').notNull().defaultNow(),
 })
+
+// ── Organisations : partenaires et mécènes (§12 du cahier) ───────────────
+//
+// Collection unique plutôt qu'une table par type, comme le demande le §12 :
+// « cela évite de dupliquer les fiches ». Une même commune peut être à la
+// fois partenaire et hôte d'un point de collecte.
+//
+// Deux informations sont ici volontairement séparées :
+//   - `statut` : l'état de PUBLICATION de la fiche (§22). C'est lui qui
+//     décide de la visibilité sur le site — pas un second interrupteur
+//     « visible oui/non », qui créerait deux réglages contradictoires pour
+//     une même question.
+//   - `statutPartenariat` : le suivi INTERNE de la relation (prospect,
+//     échange en cours, convention signée…). Le §12 précise qu'il « ne doit
+//     pas nécessairement être visible publiquement » : il ne l'est jamais,
+//     et n'est renvoyé qu'aux comptes connectés.
+
+export const organisation = pgTable('organisations', {
+  id: serial('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  nom: text('nom').notNull(),
+  type: text('type'),
+  descriptionCourte: text('description_courte'),
+  siteInternet: text('site_internet'),
+  commune: text('commune'),
+  emailPublic: text('email_public'),
+  telephonePublic: text('telephone_public'),
+
+  logo: text('logo'),
+  logoAlt: text('logo_alt'),
+
+  // Suivi interne de la relation — jamais publié.
+  statutPartenariat: text('statut_partenariat').default('prospect'),
+  notesInternes: text('notes_internes'),
+  debutLe: timestamp('debut_le'),
+  finLe: timestamp('fin_le'),
+
+  categorieAffichage: text('categorie_affichage'),
+  ordre: integer('ordre').default(0),
+  surAccueil: boolean('sur_accueil').notNull().default(false),
+
+  statut: text('statut').notNull().default('brouillon'),
+  datePublication: timestamp('date_publication'),
+  seo: jsonb('seo').default({}),
+
+  auteurId: text('auteur_id').references(() => user.id),
+  modifieParId: text('modifie_par_id').references(() => user.id),
+  version: integer('version').notNull().default(1),
+  creeLe: timestamp('cree_le').notNull().defaultNow(),
+  majLe: timestamp('maj_le').notNull().defaultNow(),
+})
+
+// ── Points de collecte publics (§13 du cahier) ───────────────────────────
+//
+// Attention (§13) : il s'agit des lieux de dépôt ouverts au public, pas de
+// la traçabilité des collectes, qui reste dans Ressources 360.
+//
+// Le §13 exige qu'« une information modifiée ici soit répercutée partout où
+// le point apparaît ». C'est la raison d'être de cette table : une seule
+// ligne fait foi, et chaque page du site la relira au moment du build. Il
+// n'y a donc jamais deux endroits à corriger pour un horaire.
+//
+// Comme pour les événements, les états « prévu / actif / terminé » se
+// déduisent des dates et ne sont pas stockés. Seule la fermeture
+// temporaire, qui est une décision humaine, a son propre champ.
+
+export const pointCollecte = pgTable('points_collecte', {
+  id: serial('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  nom: text('nom').notNull(),
+
+  // Le logo et la commune peuvent être hérités de l'organisation (§13).
+  organisationId: integer('organisation_id').references(() => organisation.id),
+
+  adresse: text('adresse'),
+  complementAdresse: text('complement_adresse'),
+  codePostal: text('code_postal'),
+  commune: text('commune'),
+  latitude: text('latitude'),
+  longitude: text('longitude'),
+
+  horaires: jsonb('horaires').default([]),
+  consignes: text('consignes'),
+  informationsTemporaires: text('informations_temporaires'),
+
+  type: text('type'),
+  campagne: text('campagne'),
+  debutLe: timestamp('debut_le'),
+  finLe: timestamp('fin_le'),
+
+  fermeTemporairement: boolean('ferme_temporairement').notNull().default(false),
+  motifFermeture: text('motif_fermeture'),
+
+  visibleCarte: boolean('visible_carte').notNull().default(true),
+  visibleListe: boolean('visible_liste').notNull().default(true),
+  ordre: integer('ordre').default(0),
+
+  statut: text('statut').notNull().default('brouillon'),
+  datePublication: timestamp('date_publication'),
+  seo: jsonb('seo').default({}),
+
+  auteurId: text('auteur_id').references(() => user.id),
+  modifieParId: text('modifie_par_id').references(() => user.id),
+  version: integer('version').notNull().default(1),
+  creeLe: timestamp('cree_le').notNull().defaultNow(),
+  majLe: timestamp('maj_le').notNull().defaultNow(),
+})
