@@ -20,7 +20,7 @@ import { Champ, classeSaisie, Message, pourChampDate } from '../components/Formu
 const VIDE = {
   nom: '', type: '', descriptionCourte: '', logo: '', logoAlt: '',
   siteInternet: '', commune: '', emailPublic: '', telephonePublic: '',
-  statutPartenariat: 'prospect', notesInternes: '', debutLe: '', finLe: '',
+  statutPartenariat: 'prospect', libellePublic: '', notesInternes: '', debutLe: '', finLe: '',
   categorieAffichage: '', ordre: 0, surAccueil: false,
 }
 
@@ -30,7 +30,8 @@ function pourFormulaire(o) {
     nom: o.nom || '', type: o.type || '', descriptionCourte: o.descriptionCourte || '',
     logo: o.logo || '', logoAlt: o.logoAlt || '', siteInternet: o.siteInternet || '',
     commune: o.commune || '', emailPublic: o.emailPublic || '', telephonePublic: o.telephonePublic || '',
-    statutPartenariat: o.statutPartenariat || 'prospect', notesInternes: o.notesInternes || '',
+    statutPartenariat: o.statutPartenariat || 'prospect', libellePublic: o.libellePublic || '',
+    notesInternes: o.notesInternes || '',
     debutLe: pourChampDate(o.debutLe), finLe: pourChampDate(o.finLe),
     categorieAffichage: o.categorieAffichage || '', ordre: o.ordre ?? 0,
     surAccueil: Boolean(o.surAccueil),
@@ -179,6 +180,20 @@ export default function PartenaireEdition() {
           <textarea rows={3} value={form.descriptionCourte} disabled={lectureSeule}
             onChange={(e) => majChamp('descriptionCourte', e.target.value)}
             className={classeSaisie(false) + ' resize-y leading-relaxed'} />
+        </Champ>
+
+        {/* Volontairement ici, dans les champs publics, et non dans l'encadré
+            de suivi interne juste en dessous : ce libellé paraît sur le site.
+            Le placer à côté du statut interne inviterait à confondre les
+            deux, alors que toute la difficulté est justement de les tenir
+            séparés — on n'écrit pas publiquement « prospect » d'une mairie. */}
+        <Champ label="Mention affichée à côté du nom"
+          aide="Ce que le site indique publiquement sur la relation. Exemples : « Partenariat convenu », « Échange en cours ». Laissez vide pour n'afficher aucune mention."
+          erreur={erreursChamps.libellePublic}>
+          <input type="text" value={form.libellePublic} disabled={lectureSeule}
+            maxLength={60} placeholder="Partenariat convenu"
+            onChange={(e) => majChamp('libellePublic', e.target.value)}
+            className={classeSaisie(erreursChamps.libellePublic)} />
         </Champ>
 
         {/* Suivi interne : encadré à part, avec la mention explicite qu'il

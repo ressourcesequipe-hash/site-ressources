@@ -340,3 +340,126 @@ L'import est dynamique et conditionné à `DATABASE_URL` : sans cette variable, 
 **Vérifié en conditions réelles** (13 contrôles, Brevo intercepté, base réelle) : un formulaire rempli déclenche bien les trois effets ; la newsletter n'en crée toujours aucun ; le routage par menu déroulant aboutit aux bonnes rubriques.
 
 **Et la promesse la plus importante, testée pour de vrai** : avec une base délibérément injoignable, le visiteur reçoit `200 {ok:true}`, l'email part, le contact Brevo est mis à jour, et l'incident n'existe que dans les journaux. C'est ce test qui a révélé la fuite de données personnelles décrite plus haut.
+
+## 21/09/2026 — Base de développement séparée (enfin)
+
+Depuis le début, tous les tests tournaient sur la base de production. L'incident du 20/09 l'a montré : il n'existait aucun filet. C'est réglé.
+
+**Branche Neon `dev`**, créée depuis `main` en copie-sur-écriture (instantanée, sans coût de stockage tant qu'elle ne diverge pas), avec **auto-suppression désactivée** — le réglage par défaut était « After 1 day », ce qui aurait fait disparaître la branche du jour au lendemain sans prévenir.
+
+- `main` : `br-long-water-b2tlo9tm` — production, alimentée par Vercel
+- `dev` : `br-calm-poetry-b22ie2a0` — développement local, `.env.local`
+
+**Comment vérifier sur quelle branche on travaille**, sans comparer des chaînes de connexion qui se ressemblent : Postgres expose l'information côté Neon.
+
+```sql
+select current_setting('neon.branch_id', true);
+```
+
+C'est le seul contrôle fiable au moment de la création : les deux bases sont alors rigoureusement identiques, donc comparer les données ne prouverait rien.
+
+**Les 93 vérifications de l'Étape 3 ont été rejouées sur `dev`** : 15 unitaires, 65 sur l'API, 13 sur le chemin public. Aucun échec.
+
+### Conséquence sur les migrations — à ne pas oublier
+
+`scripts/migrer.mjs` s'exécute à la main et lit `.env.local` : **il n'atteint donc plus la production**. Le déploiement Vercel n'applique aucune migration non plus.
+
+Toute nouvelle migration suit désormais deux temps :
+
+1. générée et appliquée sur `dev`, testée ;
+2. appliquée sur `main` **explicitement**, avec la chaîne de production, une fois validée — avant ou avec le déploiement qui en dépend.
+
+Oublier le second temps déploierait du code attendant des colonnes absentes. Les migrations 0007 et 0008 sont déjà sur les deux branches : `dev` a été créée après leur application.
+
+C'est un manque du §7 de l'architecture, qui décrit les sauvegardes mais pas la procédure de migration en production. À trancher avant le branchement du site public, qui en apportera d'autres.
+
+### À refaire plus tard
+
+`dev` contient aujourd'hui une copie intégrale des données — sans conséquence : un compte, deux lignes de permissions, aucune demande. **Le jour où la boîte contiendra de vraies demandes**, avec des noms et des emails de visiteurs, cette branche devra être recréée avec l'option « Branch & anonymize data » : dupliquer des données personnelles dans une base de test n'aurait aucune justification (§27).
+
+## 21/09/2026 — Confrontation des schémas au contenu réel du site (avant Phase 3)
+
+Avant d'écrire la moindre migration, les données codées en dur du site ont été confrontées aux schémas de l'Étape 2. C'était la question ouverte depuis trois jours : ces schémas ont été conçus pour accueillir l'existant sans perte, sans que ce soit jamais vérifié.
+
+### Deux fichiers ne sont pas ce qu'on croyait
+
+- **`src/data/carte.js`** n'est pas du contenu : un tracé SVG d'épingle et un constructeur de liens OpenStreetMap, partagés par deux rendus. Rien à migrer.
+- **`src/data/ateliers.js`** ne contient **aucun atelier**. C'est la structure du silo SEO (5 pages, accroches, résumés) et des générateurs de JSON-LD. **Les ateliers n'existent nulle part comme données** : `FORMATS`, `DUREES`, `THEMES`, `FAQ` sont rédigés en dur dans `Ateliers.jsx` et ses cinq sous-pages.
+- **`src/data/evenement.js`** décrit l'affiche du 3 octobre (fichier, dimensions, poids, texte alternatif), pas un événement au sens du §10. Relève de la médiathèque, et son propre commentaire le dit temporaire.
+
+Le module Ateliers n'a donc **rien à reprendre** : son contenu reste à saisir, ou les cinq pages restent en dur. À trancher.
+
+### Actualités — le schéma tient
+
+Les cinq types de blocs utilisés (`paragraph`, `heading`, `link`, `video`, `audio`) correspondent exactement à ceux qu'accepte le module. Les sept catégories correspondent clé pour clé. Tous les champs trouvent leur colonne, `imageFit` et `imagePosition` compris. `dateLabel` n'a pas de colonne mais se déduit de la date — vérifié sur les 11 articles, un par un.
+
+### Partenaires — une colonne manquait, et pour une mauvaise raison
+
+Chaque partenaire porte un **libellé affiché publiquement** : « Réseau professionnel rejoint », « Partenariat convenu », « Échange en cours »… Aucune colonne ne l'accueillait.
+
+L'Étape 2 avait lu le §12 — « les statuts internes ne doivent **pas nécessairement** être visibles publiquement » — comme une interdiction de publier quoi que ce soit, et fait du statut de partenariat un suivi strictement interne. C'est une permission, pas une interdiction.
+
+Les deux ne se remplacent d'ailleurs pas : les 5 libellés existants ne correspondent à aucun des 8 statuts internes, et la nuance qu'ils portent est institutionnelle. Présenter une collectivité comme partenaire établi alors qu'aucune convention n'existe l'engage à tort — c'est exactement ce que le commentaire de `partenaires.js` défendait.
+
+**Colonne `libellePublic` ajoutée** (migration 0009), texte libre, 60 caractères, facultative, saisie **parmi les champs publics** et non dans l'encadré de suivi interne — les placer côte à côte inviterait à confondre ce qu'on note et ce qu'on publie. 8 vérifications en conditions réelles sur `dev`.
+
+### Temps de lecture : arrondi au supérieur
+
+Les valeurs saisies à la main sont incohérentes entre elles — 232 mots annoncés « 5 min », 502 mots annoncés « 3 min ». `Math.round` devenait `Math.ceil` : annoncer moins de temps qu'il n'en faut dessert le lecteur, en annoncer un peu plus ne coûte rien.
+
+**Des temps affichés vont baisser sur le site public** à la migration (jusqu'à « 5 min » → « 2 min »). C'est assumé : la valeur calculée est juste, celles saisies ne l'étaient pas.
+
+### Valeurs calculées : figées, décision du 21/09/2026
+
+Trois textes interpolent des valeurs venues d'autres fichiers — le prix du billet et la valeur des lots depuis `lotsTombola.js`, l'affiche depuis `evenement.js`, le nombre de déchèteries SITCOM depuis `defiCollecte.js`. En base, ils deviennent **figés**.
+
+C'est précisément ce que les commentaires de ces fichiers cherchaient à éviter (« serait resté faux quand il est passé à trois »). Décision prise en connaissance de cause : prévoir des variables dans le contenu serait plus coûteux et plus fragile qu'un texte qu'on relit.
+
+**À surveiller** : si le prix du billet, la valeur des lots ou le nombre de déchèteries change, les articles concernés devront être corrigés à la main. Rien ne le signalera.
+
+## 21/09/2026 — Phase 3 : le site public lit le back-office
+
+Les actualités et les partenaires ne sont plus écrits dans le code du site. **Aucune page n'a été modifiée**, ni `prerender.js` : c'est le résultat le plus important de cette étape.
+
+### Comment, sans toucher aux pages
+
+Le site est prérendu, il n'interroge aucune base à l'exécution. Le contenu est donc figé au build, exactement comme le catalogue de la boutique l'est déjà par `scripts/vitrine.mjs` — même principe, mêmes garde-fous.
+
+- **`scripts/contenus.mjs`** lit le contenu publié et écrit `src/data/cms.json`, dans la forme que le site a toujours connue. Ajouté au `npm run build`, avant `vite build`.
+- **`src/data/articles.js` et `src/data/partenaires.js`** ne contiennent plus de contenu : ils exposent `ARTICLES`, `CATEGORIES`, `PARTENAIRES_CONFIRMES`… en relisant ce fichier. Les pages et `prerender.js` importent la même chose qu'avant et ignorent tout de la base.
+- **`scripts/importer-contenu-existant.mjs`** a repris les 11 articles et les 5 structures. Idempotent : relancé, il ne réécrit rien — une correction faite depuis le back-office survit.
+
+`cms.json` est committé : il sert de repli, et permet de reconstruire le site sans accès à la base.
+
+### Trois pannes, trois fois testées pour de vrai
+
+Le pire résultat possible serait un site vidé de son contenu par une panne de base. Les trois cas ont été provoqués, pas raisonnés :
+
+| Panne | Comportement constaté |
+|---|---|
+| Base injoignable | Contenu précédent conservé, build poursuivi |
+| `DATABASE_URL` absente | Contenu précédent conservé, build poursuivi |
+| Base joignable, **aucun contenu publié** | Contenu précédent conservé, build poursuivi |
+
+Le troisième est le plus sournois : une mauvaise branche de base ou une migration en cours produirait un site sans aucun article, et le mal serait fait au déploiement suivant. Le repli a la **même forme** que le fichier nominal, les deux blocs de partenaires compris — un repli d'une autre forme ferait échouer les pages au moment précis où l'on cherche à les protéger.
+
+### La vérification : 49 pages identiques au caractère près
+
+Le HTML des 58 pages a été figé avant le branchement, puis comparé après (empreintes de bundle neutralisées).
+
+**49 pages rigoureusement identiques**, dont `/association/partenaires/` : la reprise des 5 structures est parfaite, libellés publics compris.
+
+**9 pages modifiées, et uniquement comme prévu :**
+- 8 pages d'articles : **le temps de lecture, et rien d'autre**. Pas un mot de contenu, pas un titre, pas une image.
+- `/association/actualites/` : l'ordre des cartes. L'ordre venait de la position dans le fichier, qui n'était pas chronologique — un article du 20 mai passait devant un du 15 septembre. Il vient désormais de la date. Aucun article perdu ni ajouté, l'article mis en avant reste en tête.
+
+### Deux défauts trouvés en chemin
+
+1. **Le lecteur de `.env.local` ne lisait rien**, sans le moindre message. Le fichier est en CRLF, et en JavaScript `.` ne matche pas `\r` : `(.*)$` ne correspondait jamais. `scripts/dev-backoffice.mjs` découpait déjà sur `/\r?\n/` — la raison est maintenant écrite à côté du code.
+2. **Le repli vide n'avait pas la bonne forme** (`organisations: []` au lieu des deux blocs). Il aurait fait échouer les pages dans le seul cas où il servait.
+
+### Ce qui reste en dur, volontairement
+
+- **Les six pages Ateliers** — décision du 21/09/2026. Leur contenu (formats, durées, thèmes, FAQ, JSON-LD par page) est rédigé dans les pages, le SEO y est travaillé, et le module Ateliers n'a rien à reprendre. Il servira aux ateliers à venir.
+- **`MENTION_COOPERATIONS` et `PAYS_ZONE_ACTION`** : ce ne sont pas des organisations. Ils restent dans `partenaires.js` et suivront les pages institutionnelles.
+- **`evenement.js`** (l'affiche) et **`carte.js`** (du code).

@@ -1,0 +1,1 @@
+ALTER TABLE "organisations" ADD COLUMN "libelle_public" text;

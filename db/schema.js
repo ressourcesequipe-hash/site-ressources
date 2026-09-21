@@ -366,8 +366,25 @@ export const organisation = pgTable('organisations', {
   logo: text('logo'),
   logoAlt: text('logo_alt'),
 
-  // Suivi interne de la relation — jamais publié.
+  // Deux informations distinctes, et non deux façons de dire la même chose.
+  //
+  // `statutPartenariat` suit la relation pour l'équipe : prospect, échange en
+  // cours, convention signée… Il ne sort jamais du back-office.
+  //
+  // `libellePublic` est ce que le site affiche à côté du partenaire :
+  // « Réseau professionnel rejoint », « Partenariat convenu », « Échange en
+  // cours ». Texte libre, parce que la nuance qu'il porte est institutionnelle
+  // avant d'être technique : présenter une collectivité comme partenaire
+  // établi alors qu'aucune convention n'existe l'engage à tort. Dériver ce
+  // libellé du statut interne obligerait à choisir entre huit formulations
+  // figées — et à dire publiquement « prospect » d'une mairie.
+  //
+  // L'Étape 2 avait lu le §12 (« les statuts internes ne doivent pas
+  // nécessairement être visibles publiquement ») comme une interdiction de
+  // publier quoi que ce soit ; c'est une permission. Écart constaté le
+  // 21/09/2026 en confrontant le schéma aux données réelles du site.
   statutPartenariat: text('statut_partenariat').default('prospect'),
+  libellePublic: text('libelle_public'),
   notesInternes: text('notes_internes'),
   debutLe: timestamp('debut_le'),
   finLe: timestamp('fin_le'),

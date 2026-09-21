@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/vitrine.mjs && vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node prerender.js",
+    "build": "node scripts/vitrine.mjs && node scripts/contenus.mjs && vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node prerender.js",
     "build:client": "vite build",
     "preview": "vite preview",
     "vitrine": "node scripts/vitrine.mjs",
@@ -15,7 +15,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "node scripts/migrer.mjs",
     "db:seed-permissions": "node scripts/seed-permissions.mjs",
-    "dev:backoffice": "node scripts/dev-backoffice.mjs"
+    "dev:backoffice": "node scripts/dev-backoffice.mjs",
+    "contenus:exporter": "node scripts/contenus.mjs",
+    "contenus:importer": "node --env-file=.env.local scripts/importer-contenu-existant.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",

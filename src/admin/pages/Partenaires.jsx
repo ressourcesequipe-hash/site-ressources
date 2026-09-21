@@ -116,6 +116,7 @@ export default function Partenaires() {
                 <div className="text-[12px] text-terre/55 truncate">
                   {libelle.type(o.type)}
                   {o.commune ? ` · ${o.commune}` : ''}
+                  {o.libellePublic ? ` · « ${o.libellePublic} »` : ''}
                   {libelle.partenariat(o.statutPartenariat) ? ` · ${libelle.partenariat(o.statutPartenariat)}` : ''}
                 </div>
               </div>
