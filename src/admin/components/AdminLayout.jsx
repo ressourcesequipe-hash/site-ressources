@@ -67,7 +67,7 @@ export default function AdminLayout({ titre, children }) {
           <LienAVenir label="Pages" />
           <LienActif to="/admin/actualites" label="Actualités" />
           <LienActif to="/admin/evenements" label="Événements" />
-          <LienAVenir label="Ateliers" />
+          <LienActif to="/admin/ateliers" label="Ateliers" />
           <LienActif to="/admin/partenaires" label="Partenaires" />
           <LienActif to="/admin/points-collecte" label="Points de collecte" />
           <LienAVenir label="Médiathèque" />

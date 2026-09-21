@@ -12,6 +12,9 @@ import Partenaires from './pages/Partenaires'
 import PartenaireEdition from './pages/PartenaireEdition'
 import PointsCollecte from './pages/PointsCollecte'
 import PointCollecteEdition from './pages/PointCollecteEdition'
+import Ateliers from './pages/Ateliers'
+import AtelierEdition from './pages/AtelierEdition'
+import CategoriesAteliers from './pages/CategoriesAteliers'
 
 // Chargé paresseusement depuis src/routes.jsx (React.lazy) : un visiteur du
 // site public ne télécharge jamais ce code.
@@ -64,6 +67,19 @@ export default function AdminRoutes() {
         <Route element={<ProtectedRoute titre="Fiche point de collecte" />}>
           <Route path="points-collecte/nouveau" element={<PointCollecteEdition />} />
           <Route path="points-collecte/:id" element={<PointCollecteEdition />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Ateliers" />}>
+          <Route path="ateliers" element={<Ateliers />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Catégories d’ateliers" />}>
+          <Route path="ateliers/categories" element={<CategoriesAteliers />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Fiche atelier" />}>
+          <Route path="ateliers/nouveau" element={<AtelierEdition />} />
+          <Route path="ateliers/:id" element={<AtelierEdition />} />
         </Route>
 
         <Route element={<ProtectedRoute titre="Mon mot de passe" />}>

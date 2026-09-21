@@ -419,3 +419,75 @@ export const pointCollecte = pgTable('points_collecte', {
   creeLe: timestamp('cree_le').notNull().defaultNow(),
   majLe: timestamp('maj_le').notNull().defaultNow(),
 })
+
+// ── Catégories d'ateliers (§11 du cahier des charges) ────────────────────
+//
+// Le §11 l'exige explicitement : « les catégories doivent être
+// administrables et non codées en dur ». C'est la seule liste du projet
+// dans ce cas — celles des actualités, des organisations ou des points de
+// collecte restent fixées dans le code, le cahier ne demandant rien de tel.
+//
+// `cle` est l'identifiant stable utilisé par le site public ; `libelle` est
+// ce que lit l'équipe. Renommer un libellé ne casse donc aucun lien.
+
+export const categorieAtelier = pgTable('categories_ateliers', {
+  id: serial('id').primaryKey(),
+  cle: text('cle').notNull().unique(),
+  libelle: text('libelle').notNull(),
+  ordre: integer('ordre').notNull().default(0),
+  actif: boolean('actif').notNull().default(true),
+  creeLe: timestamp('cree_le').notNull().defaultNow(),
+})
+
+// ── Ateliers (§11 du cahier des charges) ─────────────────────────────────
+//
+// `disponible` est distinct du statut de publication, pour la même raison
+// que partout ailleurs : une fiche d'atelier peut rester consultable sur le
+// site tout en indiquant que l'atelier n'est pas proposé en ce moment.
+// Les confondre obligerait à dépublier la fiche pour signaler une
+// indisponibilité, donc à la faire disparaître au lieu de l'expliquer.
+
+export const atelier = pgTable('ateliers', {
+  id: serial('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  nom: text('nom').notNull(),
+  theme: text('theme'),
+  publicCible: text('public_cible'),
+
+  image: text('image'),
+  imageAlt: text('image_alt'),
+  imageCredit: text('image_credit'),
+
+  description: jsonb('description').default([]),
+  objectifs: jsonb('objectifs').default([]),
+  programme: jsonb('programme').default([]),
+
+  duree: text('duree'),
+  capacite: integer('capacite'),
+  lieuPossible: text('lieu_possible'),
+  materielNecessaire: text('materiel_necessaire'),
+  modalites: text('modalites'),
+
+  // §11 : « tarif ou mention sur devis ». Deux champs plutôt qu'un texte
+  // libre, pour que le site sache quoi afficher sans interpréter.
+  surDevis: boolean('sur_devis').notNull().default(false),
+  tarif: text('tarif'),
+
+  disponible: boolean('disponible').notNull().default(true),
+  motifIndisponibilite: text('motif_indisponibilite'),
+
+  categories: jsonb('categories').default([]),
+  urlDemande: text('url_demande'),
+  libelleBoutonDemande: text('libelle_bouton_demande'),
+
+  statut: text('statut').notNull().default('brouillon'),
+  datePublication: timestamp('date_publication'),
+  ordre: integer('ordre').default(0),
+  seo: jsonb('seo').default({}),
+
+  auteurId: text('auteur_id').references(() => user.id),
+  modifieParId: text('modifie_par_id').references(() => user.id),
+  version: integer('version').notNull().default(1),
+  creeLe: timestamp('cree_le').notNull().defaultNow(),
+  majLe: timestamp('maj_le').notNull().defaultNow(),
+})

@@ -228,6 +228,7 @@ Quatre modules sur six, chacun avec schéma, logique métier vérifiable sans ba
 | Événements | 10 | 21 + 21 | Les statuts du §10 mêlaient publication et cycle de vie : séparés, l'état « à venir / en cours / terminé » se déduit des dates |
 | Partenaires | 12 | 10 + 9 | Le statut de partenariat est un suivi interne, jamais publié et absent de la liste |
 | Points de collecte | 13 | 17 + 16 | Même principe que les événements ; seule la fermeture temporaire est un geste humain, avec motif obligatoire |
+| Ateliers | 11 | 12 + 19 | Seul module dont les catégories sont administrables, comme le §11 l’exige : table dédiée, écran de gestion, amorçage automatique avec les exemples du cahier |
 
 **Socle commun** (`lib/contenus.js` pour les règles pures, `lib/module-contenu.js` pour la fabrique de gestionnaire HTTP) : statuts, transitions selon le rôle, verrou optimiste, historique et déclenchement du déploiement sont écrits une fois. Une route de module fait désormais 70 à 90 lignes de configuration. Le socle porte déjà la règle du §8.4 sur les pages protégées, dont le module Pages aura besoin.
 
@@ -236,7 +237,9 @@ Quatre modules sur six, chacun avec schéma, logique métier vérifiable sans ba
 - L'éditeur de blocs proposait des types que le serveur écartait en silence. Il est désormais piloté par la même source que le serveur — l'interface ne peut plus proposer ce qui sera refusé.
 - **Un compte ayant modifié du contenu ne peut pas être supprimé** : la clé étrangère de `versions` l'interdit. C'est le bon comportement — l'historique ne doit pas perdre son auteur — mais l'écran Utilisateurs & rôles devra donc **désactiver** un compte plutôt que le supprimer.
 
-**Reste :** Ateliers (§11, avec ses catégories administrables) et Pages (§8, avec les pages protégées à confirmer).
+**Reste :** Pages (§8, avec les pages protégées à confirmer).
+
+**Sur les catégories d’ateliers** : une catégorie ne se supprime pas, elle se désactive. Une suppression laisserait des fiches rattachées à une catégorie disparue et ferait perdre l’information sans retour possible (§24.7). Le nombre d’ateliers concernés est affiché à côté de chacune, pour qu’on sache ce qu’on déplace avant d’agir. La clé technique n’est jamais modifiée par un renommage : changer un libellé est sans conséquence sur les rattachements.
 
 ## 20/09/2026 — Incident : des données réelles supprimées par un script de test
 
