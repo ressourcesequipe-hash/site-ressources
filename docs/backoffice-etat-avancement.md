@@ -463,3 +463,68 @@ Le HTML des 58 pages a été figé avant le branchement, puis comparé après (e
 - **Les six pages Ateliers** — décision du 21/09/2026. Leur contenu (formats, durées, thèmes, FAQ, JSON-LD par page) est rédigé dans les pages, le SEO y est travaillé, et le module Ateliers n'a rien à reprendre. Il servira aux ateliers à venir.
 - **`MENTION_COOPERATIONS` et `PAYS_ZONE_ACTION`** : ce ne sont pas des organisations. Ils restent dans `partenaires.js` et suivront les pages institutionnelles.
 - **`evenement.js`** (l'affiche) et **`carte.js`** (du code).
+
+## 21/09/2026 — Utilisateurs et rôles : le back-office cesse d'être un outil personnel
+
+Jusqu'ici un seul compte pouvait se connecter. `disableSignUp: true` interdit toute inscription, et rien ne permettait d'en créer un autre sans passer par la base à la main.
+
+### Le mot de passe ne transite par personne
+
+Créer un compte envoie une **invitation par email** : la personne choisit son mot de passe elle-même, depuis un lien à usage unique valable 48 heures. Le Super administrateur ne le voit jamais et n'a donc jamais à le transmettre.
+
+Le mécanisme est celui de better-auth (`requestPasswordReset` / `resetPassword`), pas une invention maison : jetons, expiration et usage unique sont déjà éprouvés là. Deux textes d'email seulement, distingués par `doitDefinirMotDePasse` — écrire « réinitialisez votre mot de passe » à quelqu'un qui n'en a jamais eu n'aurait aucun sens.
+
+**Détail qui a demandé une vérification** : le lien de l'email porte le jeton dans son **chemin** (`/api/auth/reset-password/<jeton>`), et redirige vers `/admin/definir-mot-de-passe?token=…`. C'est la page qui le reçoit en paramètre, pas l'email. Supposé d'abord l'inverse, corrigé après constat.
+
+`/admin/definir-mot-de-passe` est la seule page de l'espace d'administration accessible sans session avec la connexion. Elle ne donne accès à rien : elle transmet à better-auth un jeton qu'il a lui-même émis, et c'est lui qui décide de sa validité.
+
+### On désactive, on ne supprime pas
+
+Colonnes `actif`, `desactiveLe` et `doitDefinirMotDePasse` ajoutées à `user` (migration 0010). La suppression reste impossible dès qu'une personne a modifié un contenu — la clé étrangère de `versions` l'interdit, et c'est le bon comportement.
+
+Désactiver produit **trois effets**, et il fallait les trois :
+1. le compte ne peut plus ouvrir de session — crochet `databaseHooks.session.create.before` ;
+2. ses sessions en cours sont supprimées, sans quoi il resterait connecté jusqu'à l'expiration de son cookie ;
+3. son rôle n'est plus modifiable tant qu'il est désactivé.
+
+La documentation de better-auth 1.7.5 précise que `user.validateUserInfo` n'est **pas** rappelé pour une connexion email/mot de passe d'un compte existant — d'où le choix du crochet de session. Vérifié en conditions réelles, pas seulement lu.
+
+### Trois garde-fous contre l'enfermement dehors
+
+Une seule erreur est irrattrapable depuis l'interface : se retirer, ou retirer au dernier administrateur, le droit de revenir. Il faudrait un accès direct à la base pour s'en sortir.
+
+- on ne change pas son propre rôle ;
+- on ne désactive pas son propre compte ;
+- on ne retire pas son rôle au **dernier** Super administrateur actif, ni ne le désactive.
+
+### La gestion des comptes n'est pas un droit comme les autres
+
+`verifierDroit` l'accorderait à la Coordination, dont le joker `*` couvre tout. Or le §21 réserve « utilisateurs » au Super administrateur et ajoute que la Coordination « ne doit pas avoir accès aux paramètres techniques critiques si ce n'est pas nécessaire ». D'où `peutGererLesComptes`, contrôle explicite qui ne passe pas par la table des droits généraux. Vérifié : un compte Coordination reçoit bien un 403.
+
+### L'écran des permissions de la boîte de demandes
+
+La table `rubrique_permissions` existait depuis l'Étape 1 sans aucune interface — et le module Demandes affichait pourtant « la Coordination peut vous en donner l'accès depuis l'écran Utilisateurs et rôles ». Le message ne mentait plus : le tableau est là, six rubriques par trois rôles.
+
+Super administrateur et Coordination n'y figurent pas : leur accès est garanti par le code, les afficher laisserait croire qu'on peut le leur retirer. Cocher « répondre » coche « voir » : un droit de répondre sans droit de consulter ne veut rien dire, et le serveur le corrige aussi.
+
+### Vérifications
+
+**34 contrôles en conditions réelles** sur `dev`, Brevo intercepté mais le lien d'invitation réellement suivi. Puis le parcours complet **dans un navigateur** : lien d'invitation → page de choix du mot de passe → refus d'un mot de passe trop court → refus de deux saisies différentes → enregistrement → connexion avec le mot de passe choisi. Et le lien rejoué, qui affiche bien son message d'expiration.
+
+**Un défaut trouvé là** : après avoir choisi son mot de passe, la personne était renvoyée vers un formulaire de connexion vide, sans la moindre confirmation (§24.7). Message ajouté.
+
+**Un défaut d'isolation de mes propres tests** : la section « permissions » remplace toutes les règles de rôle, et ne les rétablissait pas — elle détruisait le seed dont dépend la suite Demandes, qui est passée de 65 à 63. Le test relève désormais l'état d'origine et le rétablit.
+
+Total après correction : **15 unitaires + 34 utilisateurs + 65 demandes + 13 chemin public, aucun échec.**
+
+## 21/09/2026 — Vercel Security Checkpoint
+
+La surveillance du déploiement de la Phase 3 a échoué au bout de quinze minutes, et toutes les URLs du site répondaient alors `403` avec une page « Vercel Security Checkpoint ».
+
+**Ce n'était pas une panne** : vérifié dans un vrai navigateur, le site fonctionne, et le déploiement avait bien abouti — l'article affiche « 2 min de lecture » et la page Partenaires montre les cinq structures avec leurs libellés publics.
+
+Le défi anti-bot ne s'applique qu'aux clients qui n'exécutent pas de JavaScript, ce qui inclut `curl`. **Ma propre surveillance l'a probablement déclenché** : 45 requêtes sur la même URL en quinze minutes depuis une seule adresse ressemblent à du trafic automatisé.
+
+**À vérifier néanmoins** : Vercel → projet → Firewall. Si le mode challenge reste actif en permanence, il faut s'assurer que les robots d'indexation vérifiés sont exemptés — un Googlebot bloqué ferait sortir les pages de l'index, ce qui serait autrement plus grave que le désagrément d'un `curl` refusé.
+
+**Leçon de méthode** : ne plus surveiller un déploiement en martelant une URL. Un intervalle large, ou un navigateur qui passe le défi.

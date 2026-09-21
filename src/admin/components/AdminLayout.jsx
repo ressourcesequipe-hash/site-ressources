@@ -77,7 +77,7 @@ export default function AdminLayout({ titre, children }) {
 
           <EtiquetteSection>Administration</EtiquetteSection>
           <LienActif to="/admin/mot-de-passe" label="Mon mot de passe" />
-          <LienAVenir label="Utilisateurs & rôles" />
+          <LienActif to="/admin/utilisateurs" label="Utilisateurs & rôles" />
         </nav>
       </aside>
 

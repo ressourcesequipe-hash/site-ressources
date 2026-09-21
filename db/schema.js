@@ -35,8 +35,23 @@ export const user = pgTable('user', {
   image: text('image'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
-  // Champ additionnel propre au projet — §21 du cahier des charges.
+  // Champs additionnels propres au projet — §21 du cahier des charges.
   role: text('role').notNull().default('lecture_seule'),
+
+  // Un compte se désactive, il ne se supprime pas.
+  //
+  // Ce n'est pas une préférence : la clé étrangère de `versions` interdit de
+  // supprimer quelqu'un ayant modifié du contenu (constaté le 20/09/2026), et
+  // c'est le bon comportement — un historique sans auteur ne vaut plus grand
+  // chose. Désactiver retire l'accès sans effacer ce que la personne a fait.
+  actif: boolean('actif').notNull().default(true),
+  desactiveLe: timestamp('desactive_le'),
+
+  // Vrai entre la création du compte et le choix du mot de passe par la
+  // personne elle-même. Sert à deux choses : rédiger un email d'invitation
+  // plutôt qu'un email de réinitialisation — ce ne sont pas les mêmes mots —
+  // et montrer dans la liste qui n'est pas encore entré.
+  doitDefinirMotDePasse: boolean('doit_definir_mot_de_passe').notNull().default(false),
 })
 
 export const session = pgTable('session', {

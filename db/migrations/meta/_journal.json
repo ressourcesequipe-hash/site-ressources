@@ -71,6 +71,13 @@
       "when": 1790005666172,
       "tag": "0009_bumpy_carlie_cooper",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1790007526454,
+      "tag": "0010_cute_spitfire",
+      "breakpoints": true
     }
   ]
 }

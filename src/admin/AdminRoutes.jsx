@@ -18,6 +18,8 @@ import CategoriesAteliers from './pages/CategoriesAteliers'
 import Pages from './pages/Pages'
 import PageEdition from './pages/PageEdition'
 import Demandes from './pages/Demandes'
+import Utilisateurs from './pages/Utilisateurs'
+import DefinirMotDePasse from './pages/DefinirMotDePasse'
 import DemandeFiche from './pages/DemandeFiche'
 
 // Chargé paresseusement depuis src/routes.jsx (React.lazy) : un visiteur du
@@ -32,6 +34,10 @@ export default function AdminRoutes() {
     <ErreurAuth>
       <Routes>
         <Route path="connexion" element={<Connexion />} />
+        {/* Seule autre page accessible sans session : elle ne donne accès à
+            rien, elle transmet à better-auth un jeton qu'il a émis lui-même,
+            à usage unique et valable 48 heures. */}
+        <Route path="definir-mot-de-passe" element={<DefinirMotDePasse />} />
 
         <Route element={<ProtectedRoute titre="Tableau de bord" />}>
           <Route index element={<TableauDeBord />} />
@@ -101,6 +107,10 @@ export default function AdminRoutes() {
 
         <Route element={<ProtectedRoute titre="Demande" />}>
           <Route path="demandes/:id" element={<DemandeFiche />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Utilisateurs et rôles" />}>
+          <Route path="utilisateurs" element={<Utilisateurs />} />
         </Route>
 
         <Route element={<ProtectedRoute titre="Mon mot de passe" />}>

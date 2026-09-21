@@ -13,6 +13,11 @@ export default function Connexion() {
 
   const destination = location.state?.from?.pathname || '/admin/'
 
+  // Message transmis par la page de définition du mot de passe : sans lui,
+  // quelqu'un qui vient de choisir son mot de passe arrive devant un
+  // formulaire vide, sans savoir si son geste a abouti (§24.7).
+  const confirmation = location.state?.message
+
   async function handleSubmit(e) {
     e.preventDefault()
     setErreur(null)
@@ -47,6 +52,12 @@ export default function Connexion() {
         </div>
 
         <h1 className="font-serif text-xl text-terre mb-6">Connexion</h1>
+
+        {confirmation && (
+          <p className="mb-5 text-[13px] text-olive bg-kaki-pale/40 border border-olive/30 rounded-lg px-3.5 py-2.5 leading-relaxed">
+            {confirmation}
+          </p>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
