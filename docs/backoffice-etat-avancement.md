@@ -570,3 +570,37 @@ Le **point focal** est stocké et validé, mais aucun écran ne permet encore de
 Puis dans le navigateur : la grille, le compteur d'images sans description, l'ouverture du sélecteur depuis un formulaire d'article, le filtrage sur la rubrique, et le choix qui remplit le champ.
 
 Le menu du back-office n'a plus aucun module « à venir ».
+
+## Mot de passe de la base — décision du 21/09/2026 : on ne le régénère pas
+
+Deux fragments du mot de passe de la base sont apparus en clair au cours des échanges : une fois par un copier-coller PowerShell malheureux (20/09), une fois par un masquage défectueux de ma part (21/09, le texte était tronqué avant d'être masqué, si bien que le motif ne trouvait plus rien à masquer).
+
+**Décision prise : on garde le mot de passe actuel.** Ce qui a fuité est partiel dans les deux cas, et jamais la chaîne complète en un seul endroit.
+
+Ce que cela laisse comme risque, pour que ce soit écrit une fois et qu'on n'y revienne pas : quelqu'un qui disposerait des deux fragments et du nom d'hôte pourrait réduire l'espace de recherche. L'hôte Neon n'est pas public, et l'accès est limité aux adresses qui connaissent la chaîne complète — il n'y a pas de restriction par IP (« IP restrictions: None set », vu le 21/09).
+
+**À reconsidérer** si un jour la base contient de vraies demandes avec des données personnelles de visiteurs : le coût d'une fuite ne serait plus le même. Aujourd'hui elle contient onze articles, cinq organisations et deux comptes.
+
+La régénération reste possible à tout moment : Neon → `ressources-backoffice` → Settings → Reset password. L'intégration Vercel met `DATABASE_URL` à jour automatiquement ; seules les deux chaînes de `.env.local` seraient à recopier.
+
+## 21/09/2026 — Médiathèque vide en production : un manque, pas une panne
+
+Signalé après le déploiement : l'écran s'ouvrait sur une grille vide. C'était attendu au sens technique — **la médiathèque ne connaît que ce qu'elle a elle-même reçu** — et un manque au sens de l'usage : les 59 images du dépôt, commitées bien avant elle, lui étaient invisibles. Le sélecteur ne proposait rien, et il aurait fallu redéposer des fichiers déjà là.
+
+`scripts/importer-medias-existants.mjs` les reprend : 24 photos, 34 logos, 1 visuel de lot. Le texte alternatif est **récupéré depuis les contenus qui référencent l'image** plutôt que laissé vide — 15 images en héritent. Idempotent.
+
+**Ce qu'il ne reprend pas, et pourquoi :**
+- `public/vitrine/` (37 fichiers) : régénéré à chaque build depuis Ressources 360. Les enregistrer créerait des lignes pointant vers des images qui disparaissent au déploiement suivant ;
+- favicons et images de partage : habillage du site, pas du contenu éditorial.
+
+### Le risque que cette reprise crée, et comment il est traité
+
+Ces fichiers sont référencés **dans du code** autant qu'en base : `src/data/lotsTombola.js` pour les logos des commerçants, les pages Ateliers, plusieurs composants. Or la recherche d'usages n'interroge que la base — elle ne verrait rien, et conclurait qu'un logo de la tombola est libre.
+
+Les enregistrer sans plus de précaution aurait donc **ajouté un bouton « Supprimer » à côté d'images dont la suppression casse une page**, avec une vérification qui rassure à tort. C'est pire que l'absence de médiathèque.
+
+D'où la colonne `protege` (migration 0012), posée sur les 59 reprises : la suppression est refusée, et l'écran le dit plutôt que d'afficher un bouton qui échouera. À lever fichier par fichier, quand la page qui l'utilise aura été branchée sur le back-office.
+
+**43 vérifications** : 38 sur la médiathèque, 5 sur la protection — un média protégé n'est pas supprimable même quand rien ne le référence en base, un média ordinaire l'est toujours.
+
+**Leçon de méthode** : un test qui suppose une table vide finit par mesurer les données plutôt que le code. Celui de la panne GitHub affirmait « aucune ligne dans la catégorie événements » et a échoué dès que la reprise y a mis une image ; il compare désormais un avant et un après.

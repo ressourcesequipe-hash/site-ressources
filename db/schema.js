@@ -166,6 +166,21 @@ export const media = pgTable('medias', {
   pointFocal: jsonb('point_focal'),
 
   categorie: text('categorie').notNull(),
+
+  // Média présent dans le dépôt AVANT la médiathèque, repris par
+  // scripts/importer-medias-existants.mjs.
+  //
+  // Ces fichiers sont référencés dans du code autant qu'en base :
+  // src/data/lotsTombola.js, les pages Ateliers, les composants. La
+  // recherche d'usages ne regarde que la base — elle ne verrait donc rien,
+  // et conclurait à tort qu'un logo de la tombola est libre. D'où ce
+  // marqueur, qui interdit la suppression depuis l'interface plutôt que de
+  // laisser casser une page sur la foi d'une vérification aveugle.
+  //
+  // À lever fichier par fichier, quand la page qui l'utilise aura été
+  // branchée sur le back-office.
+  protege: boolean('protege').notNull().default(false),
+
   utilisateurId: text('utilisateur_id').references(() => user.id),
   // SHA du blob GitHub au dernier écrit — sert à détecter les conflits
   // d'écriture (409) et à retenter avec le SHA à jour (§4, §14.1).

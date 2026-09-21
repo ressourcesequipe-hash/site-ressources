@@ -1,0 +1,1 @@
+ALTER TABLE "medias" ADD COLUMN "protege" boolean DEFAULT false NOT NULL;

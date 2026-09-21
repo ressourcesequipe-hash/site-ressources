@@ -117,6 +117,7 @@ async function lister(req, res) {
       description: media.description,
       pointFocal: media.pointFocal,
       categorie: media.categorie,
+      protege: media.protege,
       creeLe: media.creeLe,
       auteurNom: user.name,
     })
@@ -326,6 +327,17 @@ async function supprimer(req, res, utilisateur, id) {
 
   const [ligne] = await db.select().from(media).where(eq(media.id, id))
   if (!ligne) return res.status(404).json({ error: 'Média introuvable.' })
+
+  // Un média repris du dépôt peut être référencé dans du code — pages
+  // Ateliers, données de la tombola — que la recherche d'usages ne voit pas,
+  // puisqu'elle n'interroge que la base. Refuser vaut mieux que conclure à
+  // tort qu'il est libre.
+  if (ligne.protege) {
+    return res.status(409).json({
+      error:
+        "Cette image faisait partie du site avant la médiathèque. Elle peut être utilisée par des pages qui ne sont pas encore gérées ici, et sa suppression demande une vérification technique.",
+    })
+  }
 
   // Si la recherche d'usages échoue, on refuse : effacer sur la foi d'une
   // liste incomplète reviendrait à casser une page sans le savoir.

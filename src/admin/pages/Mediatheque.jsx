@@ -103,7 +103,10 @@ export default function Mediatheque() {
               <div className="px-3 py-2.5">
                 <div className="text-[13px] font-semibold text-terre truncate">{m.titre || 'Sans titre'}</div>
                 <div className="text-[11.5px] text-terre/50 truncate mt-0.5">{dateCourte(m.creeLe)}</div>
-                {!m.alt && <div className="mt-1.5"><Etiquette ton="alerte">Sans description</Etiquette></div>}
+                <div className="flex flex-wrap gap-1.5 mt-1.5">
+                  {!m.alt && <Etiquette ton="alerte">Sans description</Etiquette>}
+                  {m.protege && <Etiquette ton="neutre">Image d'origine</Etiquette>}
+                </div>
               </div>
             </button>
           ))}
@@ -268,11 +271,16 @@ function Fiche({ media, peutModifier, peutSupprimer, onFermer, onFait }) {
                 className="px-4 py-2.5 rounded-lg bg-ocre text-white text-[13.5px] font-semibold hover:bg-ocre-dark disabled:opacity-40 transition-colors">
                 {etat.phase === 'envoi' ? 'Enregistrement…' : 'Enregistrer'}
               </button>
-              {peutSupprimer && (
+              {peutSupprimer && !media.protege && (
                 <button type="button" onClick={supprimer} disabled={etat.phase === 'envoi'}
                   className="ml-auto px-4 py-2.5 rounded-lg border border-red-200 text-[13.5px] font-semibold text-red-700 hover:border-red-400 transition-colors">
                   Supprimer
                 </button>
+              )}
+              {peutSupprimer && media.protege && (
+                <p className="ml-auto max-w-xs text-[12px] text-terre/55 leading-relaxed text-right">
+                  Image d'origine du site : sa suppression demande une vérification technique.
+                </p>
               )}
             </div>
           )}
