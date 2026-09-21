@@ -491,3 +491,40 @@ export const atelier = pgTable('ateliers', {
   creeLe: timestamp('cree_le').notNull().defaultNow(),
   majLe: timestamp('maj_le').notNull().defaultNow(),
 })
+
+// ── Pages institutionnelles (§8 du cahier des charges) ───────────────────
+//
+// `titreInterne` et `titrePublic` sont distincts (§8.2) : l'équipe a besoin
+// de retrouver « Page d'accueil du silo végétal » dans une liste, alors que
+// le visiteur lit « La recyclerie végétale ».
+//
+// `protegee` ne peut qu'AJOUTER une protection. Les pages juridiques listées
+// dans lib/pages.js le sont par leur slug, dans le code : une protection
+// désactivable depuis l'interface n'en serait pas une (§8.4).
+
+export const page = pgTable('pages', {
+  id: serial('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  titreInterne: text('titre_interne').notNull(),
+  titrePublic: text('titre_public'),
+  extrait: text('extrait'),
+  contenu: jsonb('contenu').notNull().default([]),
+
+  image: text('image'),
+  imageAlt: text('image_alt'),
+  imageCredit: text('image_credit'),
+
+  // Marquage manuel : protège une page de plus, n'en déprotège aucune.
+  protegee: boolean('protegee').notNull().default(false),
+
+  statut: text('statut').notNull().default('brouillon'),
+  datePublication: timestamp('date_publication'),
+  ordre: integer('ordre').default(0),
+  seo: jsonb('seo').default({}),
+
+  auteurId: text('auteur_id').references(() => user.id),
+  modifieParId: text('modifie_par_id').references(() => user.id),
+  version: integer('version').notNull().default(1),
+  creeLe: timestamp('cree_le').notNull().defaultNow(),
+  majLe: timestamp('maj_le').notNull().defaultNow(),
+})

@@ -64,7 +64,7 @@ export default function AdminLayout({ titre, children }) {
           <LienActif to="/admin/" label="Tableau de bord" end />
 
           <EtiquetteSection>Contenus</EtiquetteSection>
-          <LienAVenir label="Pages" />
+          <LienActif to="/admin/pages" label="Pages" />
           <LienActif to="/admin/actualites" label="Actualités" />
           <LienActif to="/admin/evenements" label="Événements" />
           <LienActif to="/admin/ateliers" label="Ateliers" />

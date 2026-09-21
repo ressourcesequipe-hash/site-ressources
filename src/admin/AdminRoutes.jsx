@@ -15,6 +15,8 @@ import PointCollecteEdition from './pages/PointCollecteEdition'
 import Ateliers from './pages/Ateliers'
 import AtelierEdition from './pages/AtelierEdition'
 import CategoriesAteliers from './pages/CategoriesAteliers'
+import Pages from './pages/Pages'
+import PageEdition from './pages/PageEdition'
 
 // Chargé paresseusement depuis src/routes.jsx (React.lazy) : un visiteur du
 // site public ne télécharge jamais ce code.
@@ -80,6 +82,15 @@ export default function AdminRoutes() {
         <Route element={<ProtectedRoute titre="Fiche atelier" />}>
           <Route path="ateliers/nouveau" element={<AtelierEdition />} />
           <Route path="ateliers/:id" element={<AtelierEdition />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Pages" />}>
+          <Route path="pages" element={<Pages />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Fiche page" />}>
+          <Route path="pages/nouvelle" element={<PageEdition />} />
+          <Route path="pages/:id" element={<PageEdition />} />
         </Route>
 
         <Route element={<ProtectedRoute titre="Mon mot de passe" />}>

@@ -229,6 +229,7 @@ Quatre modules sur six, chacun avec schéma, logique métier vérifiable sans ba
 | Partenaires | 12 | 10 + 9 | Le statut de partenariat est un suivi interne, jamais publié et absent de la liste |
 | Points de collecte | 13 | 17 + 16 | Même principe que les événements ; seule la fermeture temporaire est un geste humain, avec motif obligatoire |
 | Ateliers | 11 | 12 + 19 | Seul module dont les catégories sont administrables, comme le §11 l’exige : table dédiée, écran de gestion, amorçage automatique avec les exemples du cahier |
+| Pages | 8 | 13 + 14 | Pages juridiques du §8.4 : liste confirmée par l’association, figée dans le code, avec parcours de validation obligatoire |
 
 **Socle commun** (`lib/contenus.js` pour les règles pures, `lib/module-contenu.js` pour la fabrique de gestionnaire HTTP) : statuts, transitions selon le rôle, verrou optimiste, historique et déclenchement du déploiement sont écrits une fois. Une route de module fait désormais 70 à 90 lignes de configuration. Le socle porte déjà la règle du §8.4 sur les pages protégées, dont le module Pages aura besoin.
 
@@ -237,7 +238,17 @@ Quatre modules sur six, chacun avec schéma, logique métier vérifiable sans ba
 - L'éditeur de blocs proposait des types que le serveur écartait en silence. Il est désormais piloté par la même source que le serveur — l'interface ne peut plus proposer ce qui sera refusé.
 - **Un compte ayant modifié du contenu ne peut pas être supprimé** : la clé étrangère de `versions` l'interdit. C'est le bon comportement — l'historique ne doit pas perdre son auteur — mais l'écran Utilisateurs & rôles devra donc **désactiver** un compte plutôt que le supprimer.
 
-**Reste :** Pages (§8, avec les pages protégées à confirmer).
+**L’Étape 2 est complète : les six modules sont livrés.**
+
+**Pages juridiques (§8.4) — liste confirmée par l’association le 21/09/2026** : mentions légales, politique de confidentialité, effacement des données, garanties du matériel reconditionné. Ces slugs sont figés dans `lib/pages.js`, pas en base : une protection désactivable depuis l’interface n’en serait pas une. Une case permet d’en protéger une de plus, jamais d’en déprotéger une de la liste.
+
+**Le parcours d’une page juridique, tel qu’il est appliqué :** création ou modification → « à valider » → publication. Trois défauts ont été trouvés par les tests, à trois corrections d’intervalle, et méritent d’être notés parce qu’ils portaient tous sur la même règle lue trop vite :
+
+1. Enregistrer une page juridique déjà publiée en la laissant publiée contournait la validation — le contrôle sortait sur le raccourci « même statut ».
+2. La correction, trop stricte, rendait ces pages **impossibles à publier du tout**. Le §8.4 impose une étape de validation, pas une interdiction : seule la transition venant de « à valider » met en ligne.
+3. À la création, le contrôle s’exécutait **avant** le calcul du slug — or c’est le slug qui dit si la page est juridique. Une page pouvait donc être créée directement publiée.
+
+Aucun de ces trois défauts n’était visible à la lecture du code ; chacun a été révélé par un test qui exerçait le parcours réel.
 
 **Sur les catégories d’ateliers** : une catégorie ne se supprime pas, elle se désactive. Une suppression laisserait des fiches rattachées à une catégorie disparue et ferait perdre l’information sans retour possible (§24.7). Le nombre d’ateliers concernés est affiché à côté de chacune, pour qu’on sache ce qu’on déplace avant d’agir. La clé technique n’est jamais modifiée par un renommage : changer un libellé est sans conséquence sur les rattachements.
 
