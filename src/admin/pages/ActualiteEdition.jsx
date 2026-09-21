@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import SelecteurMedia from '../components/SelecteurMedia'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { appelerApi } from '../lib/api'
 import { authClient } from '../lib/authClient'
@@ -185,15 +186,14 @@ export default function ActualiteEdition() {
           </select>
         </Champ>
 
-        <Champ label="Photo principale" aide="Chemin de l'image, par exemple /photos/mon-image.webp">
-          <input
-            type="text"
-            value={form.image}
-            disabled={lectureSeule}
-            onChange={(e) => majChamp('image', e.target.value)}
-            className={classeSaisie(false)}
-          />
-        </Champ>
+        <SelecteurMedia
+          label="Photo principale"
+          aide="Choisissez une image de la médiathèque, ou déposez-en une nouvelle."
+          categorie="actualites"
+          valeur={form.image}
+          peutImporter={!lectureSeule}
+          onChange={(chemin) => majChamp('image', chemin)}
+        />
 
         {form.image && (
           <Champ

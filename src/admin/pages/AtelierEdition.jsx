@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import SelecteurMedia from '../components/SelecteurMedia'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { appelerApi } from '../lib/api'
 import { authClient } from '../lib/authClient'
@@ -271,8 +272,8 @@ export default function AtelierEdition() {
                   desactive={lectureSeule} typesAutorises={Object.keys(BLOCS)} />
               </div>
 
-              <Champ label="Photo"><input type="text" value={form.image} disabled={lectureSeule}
-                onChange={(e) => majChamp('image', e.target.value)} className={classeSaisie(false)} /></Champ>
+              <SelecteurMedia label="Photo" categorie="ateliers" valeur={form.image}
+                peutImporter={!lectureSeule} onChange={(chemin) => majChamp('image', chemin)} />
               {form.image && (
                 <Champ label="Description de la photo pour l'accessibilité"
                   aide="Exemple : « Des enfants démontent un ordinateur portable. »" erreur={erreursChamps.imageAlt}>

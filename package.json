@@ -13,11 +13,12 @@
     "brevo:test": "node scripts/brevo-test.mjs",
     "brevo:template": "node scripts/brevo-template.mjs",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "node scripts/migrer.mjs",
+    "db:migrate": "node --env-file=.env.local scripts/migrer.mjs",
     "db:seed-permissions": "node scripts/seed-permissions.mjs",
     "dev:backoffice": "node scripts/dev-backoffice.mjs",
     "contenus:exporter": "node scripts/contenus.mjs",
-    "contenus:importer": "node --env-file=.env.local scripts/importer-contenu-existant.mjs"
+    "contenus:importer": "node --env-file=.env.local scripts/importer-contenu-existant.mjs",
+    "db:migrate:prod": "node --env-file=.env.local scripts/migrer.mjs --production"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",

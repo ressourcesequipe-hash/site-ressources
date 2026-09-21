@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import SelecteurMedia from '../components/SelecteurMedia'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { appelerApi } from '../lib/api'
 import { authClient } from '../lib/authClient'
@@ -154,10 +155,14 @@ export default function PartenaireEdition() {
             onChange={(e) => majChamp('nom', e.target.value)} className={classeSaisie(erreursChamps.nom)} />
         </Champ>
 
-        <Champ label="Logo" aide="Chemin de l'image, par exemple /logos/mairie-castets.webp">
-          <input type="text" value={form.logo} disabled={lectureSeule}
-            onChange={(e) => majChamp('logo', e.target.value)} className={classeSaisie(false)} />
-        </Champ>
+        <SelecteurMedia
+          label="Logo"
+          aide="Choisissez un logo de la médiathèque, ou déposez-en un nouveau."
+          categorie="partenaires"
+          valeur={form.logo}
+          peutImporter={!lectureSeule}
+          onChange={(chemin) => majChamp('logo', chemin)}
+        />
 
         {form.logo && (
           <Champ label="Description du logo pour l'accessibilité"

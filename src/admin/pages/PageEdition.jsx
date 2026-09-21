@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import SelecteurMedia from '../components/SelecteurMedia'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { appelerApi } from '../lib/api'
 import { authClient } from '../lib/authClient'
@@ -187,10 +188,10 @@ export default function PageEdition() {
 
           {avance && (
             <div className="mt-4 space-y-4">
-              <Champ label="Image principale" aide="Affichée en haut de la page. Facultatif.">
-                <input type="text" value={form.image} disabled={verrouille}
-                  onChange={(e) => majChamp('image', e.target.value)} className={classeSaisie(false)} />
-              </Champ>
+              <SelecteurMedia label="Image principale"
+                aide="Affichée en haut de la page. Facultatif."
+                categorie="pages" valeur={form.image} peutImporter={!verrouille}
+                onChange={(chemin) => majChamp('image', chemin)} />
               {form.image && (
                 <Champ label="Description de l'image pour l'accessibilité"
                   aide="Exemple : « Vue de l'atelier de reconditionnement. »" erreur={erreursChamps.imageAlt}>

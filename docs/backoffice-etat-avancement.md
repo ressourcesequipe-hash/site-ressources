@@ -528,3 +528,45 @@ Le défi anti-bot ne s'applique qu'aux clients qui n'exécutent pas de JavaScrip
 **À vérifier néanmoins** : Vercel → projet → Firewall. Si le mode challenge reste actif en permanence, il faut s'assurer que les robots d'indexation vérifiés sont exemptés — un Googlebot bloqué ferait sortir les pages de l'index, ce qui serait autrement plus grave que le désagrément d'un `curl` refusé.
 
 **Leçon de méthode** : ne plus surveiller un déploiement en martelant une URL. Un intervalle large, ou un navigateur qui passe le défi.
+
+**Invitation vérifiée en production le 21/09/2026** : compte de test créé depuis `/admin/utilisateurs`, email reçu, lien suivi, mot de passe choisi, connexion réussie. C'était le dernier maillon jamais éprouvé — en local, Brevo était simulé, et le lien dépend de `BETTER_AUTH_URL`.
+
+Au passage, cette variable était stockée en **Secret** sur Vercel, donc illisible : impossible de vérifier sa valeur. Or ce n'est pas un secret, c'est une adresse publique. Recréée en **Config**. À retenir pour les autres variables : mettre en Secret ce qui en est un, et rien d'autre — sinon on perd la capacité de vérifier sans rien protéger.
+
+## 21/09/2026 — Médiathèque : choisir une image au lieu d'en taper le chemin
+
+Le circuit d'import existait depuis l'Étape 1 et n'avait jamais servi : aucun écran ne l'appelait. Pour illustrer un article, il fallait taper `/photos/mains-reparation.webp` de mémoire — ce qui suppose de connaître le nom exact du fichier et qu'il soit déjà dans le dépôt.
+
+### Ce qui change pour la saisie
+
+Un **sélecteur d'image** remplace le champ texte dans les cinq écrans concernés (actualités, événements, partenaires, ateliers, pages) : reprendre une image existante, ou en déposer une, sans quitter le formulaire. Le sélecteur s'ouvre filtré sur la rubrique du contenu, avec une case pour élargir à tout.
+
+**Le texte alternatif est demandé au dépôt**, pas plus tard : c'est le seul moment où la personne a l'image sous les yeux et sait ce qu'elle montre. Réclamé après coup, il finit rempli au jugé, ou pas du tout. L'écran de gestion compte d'ailleurs les images qui n'en ont pas et le dit en haut.
+
+### Regroupement derrière une seule fonction
+
+`api/admin/medias/upload.js` devient `api/admin/medias.js`, qui porte les quatre verbes. **Neuf fonctions serverless sur les douze** du forfait, alors qu'une route par verbe en aurait consommé douze à elle seule.
+
+### Trois défauts trouvés, dont un grave
+
+1. **La recherche d'usages échouait sur quatre tables sur six.** J'avais recopié une liste de colonnes au lieu de la lire : `blocs` et `galerie` n'existaient que dans ma tête, les événements rangent leur contenu dans `description_complete` et `programme`, et les points de collecte n'ont aucune colonne image. Conséquence : une image utilisée dans un événement pouvait être supprimée, et la page cassée sans le moindre avertissement — soit exactement ce que la vérification devait empêcher.
+
+   Corrigé en **découvrant les colonnes dans le schéma** au moment de la recherche, plutôt qu'en maintenant une liste qui se désaligne en silence. Et si une requête échoue, la suppression est désormais **refusée** : effacer sur la foi d'une liste incomplète reviendrait à casser une page sans le savoir.
+
+2. **Le paquet `octokit` rejoue automatiquement les 409, 500 et 502.** Deux conséquences, constatées en instrumentant les appels : mon propre réessai sur conflit ne s'exécutait quasiment jamais, alors que c'est le seul correct — il **relit le SHA** avant de réécrire, là où Octokit rejoue une requête identique qui échouera pareil ; et chaque tentative ajoutait jusqu'à quatre secondes d'attente, rapprochant la fonction de son délai maximal. Réessai automatique désactivé.
+
+3. **La limite de 12 Mo était inatteignable.** Une fonction serverless Vercel n'accepte qu'un corps de 4,5 Mo, et le base64 gonfle le fichier d'un tiers : une photo de téléphone aurait été refusée par la plateforme avant d'atteindre le code, avec une erreur incompréhensible. Les images sont désormais **réduites dans le navigateur** avant l'envoi (2400 px, qualité dégressive jusqu'à passer sous 3 Mo), et le fichier HEIC des iPhone est signalé nommément plutôt que de faire échouer l'envoi.
+
+### Ce qui n'est pas fait, et pourquoi
+
+Les **cinq déclinaisons** du §14 (miniature, carte, article, hero, partage) ne sont pas générées. Ce n'est pas un oubli : produire cinq fichiers par image alourdirait l'historique du dépôt — ce que le §14.1 demande justement d'éviter — sans qu'aucune page ne les utilise, puisque le site sert aujourd'hui une balise `<img>` simple. Elles prendront leur sens le jour où les pages publiques émettront un `srcset`, et il faudra alors les générer aussi pour les images déjà importées.
+
+Le **point focal** est stocké et validé, mais aucun écran ne permet encore de le poser à la souris.
+
+### Vérifications
+
+**38 contrôles en conditions réelles** sur `dev`, GitHub intercepté : le traitement `sharp` est réellement exécuté, et la requête d'écriture vérifiée — chemin sous `public/medias/`, nom de fichier généré, auteur de commit dédié, conversion WebP et réduction à 1600 px constatées sur le contenu envoyé.
+
+Puis dans le navigateur : la grille, le compteur d'images sans description, l'ouverture du sélecteur depuis un formulaire d'article, le filtrage sur la rubrique, et le choix qui remplit le champ.
+
+Le menu du back-office n'a plus aucun module « à venir ».

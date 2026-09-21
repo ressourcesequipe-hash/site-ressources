@@ -2,17 +2,10 @@ import { Helmet } from 'react-helmet-async'
 import { Link, NavLink } from 'react-router-dom'
 import { authClient } from '../lib/authClient'
 
-// Section « à venir » : le module existe dans les maquettes validées mais
-// pas encore dans le code (Étape 2/3). Affiché sans lien plutôt que de
-// pointer vers une page qui n'existe pas.
-function LienAVenir({ label }) {
-  return (
-    <span className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-[13.5px] font-medium text-white/30 cursor-default">
-      {label}
-      <span className="text-[9px] uppercase tracking-wider">à venir</span>
-    </span>
-  )
-}
+// `LienAVenir` a été retiré le 21/09/2026 : tous les modules du menu
+// existent désormais. Le remettre pour un module futur est trivial — il
+// affichait un libellé grisé, sans lien, plutôt que de pointer vers une page
+// qui n'existe pas.
 
 function LienActif({ to, label, end = false }) {
   return (
@@ -70,7 +63,7 @@ export default function AdminLayout({ titre, children }) {
           <LienActif to="/admin/ateliers" label="Ateliers" />
           <LienActif to="/admin/partenaires" label="Partenaires" />
           <LienActif to="/admin/points-collecte" label="Points de collecte" />
-          <LienAVenir label="Médiathèque" />
+          <LienActif to="/admin/mediatheque" label="Médiathèque" />
 
           <EtiquetteSection>Demandes</EtiquetteSection>
           <LienActif to="/admin/demandes" label="Boîte de demandes" />

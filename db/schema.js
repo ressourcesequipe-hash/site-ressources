@@ -157,6 +157,14 @@ export const media = pgTable('medias', {
   titre: text('titre'),
   alt: text('alt'),
   credit: text('credit'),
+  description: text('description'),
+
+  // Point focal (§14), en pourcentages de 0 à 100 depuis le coin haut-gauche :
+  // le point à garder visible quand l'image est recadrée. Stocké ici plutôt
+  // que sur chaque contenu, parce qu'il dépend de la photo — le visage est au
+  // même endroit quel que soit l'article qui l'utilise.
+  pointFocal: jsonb('point_focal'),
+
   categorie: text('categorie').notNull(),
   utilisateurId: text('utilisateur_id').references(() => user.id),
   // SHA du blob GitHub au dernier écrit — sert à détecter les conflits

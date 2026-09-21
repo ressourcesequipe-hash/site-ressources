@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import SelecteurMedia from '../components/SelecteurMedia'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { appelerApi } from '../lib/api'
 import { authClient } from '../lib/authClient'
@@ -185,10 +186,14 @@ export default function EvenementEdition() {
           </Champ>
         </div>
 
-        <Champ label="Visuel de l'événement" aide="Chemin de l'image, par exemple /photos/affiche.webp">
-          <input type="text" value={form.image} disabled={lectureSeule}
-            onChange={(e) => majChamp('image', e.target.value)} className={classeSaisie(false)} />
-        </Champ>
+        <SelecteurMedia
+          label="Visuel de l'événement"
+          aide="Choisissez une image de la médiathèque, ou déposez-en une nouvelle."
+          categorie="evenements"
+          valeur={form.image}
+          peutImporter={!lectureSeule}
+          onChange={(chemin) => majChamp('image', chemin)}
+        />
 
         {form.image && (
           <Champ label="Description du visuel pour l'accessibilité"

@@ -19,6 +19,7 @@ import Pages from './pages/Pages'
 import PageEdition from './pages/PageEdition'
 import Demandes from './pages/Demandes'
 import Utilisateurs from './pages/Utilisateurs'
+import Mediatheque from './pages/Mediatheque'
 import DefinirMotDePasse from './pages/DefinirMotDePasse'
 import DemandeFiche from './pages/DemandeFiche'
 
@@ -99,6 +100,10 @@ export default function AdminRoutes() {
         <Route element={<ProtectedRoute titre="Fiche page" />}>
           <Route path="pages/nouvelle" element={<PageEdition />} />
           <Route path="pages/:id" element={<PageEdition />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Médiathèque" />}>
+          <Route path="mediatheque" element={<Mediatheque />} />
         </Route>
 
         <Route element={<ProtectedRoute titre="Boîte de demandes" />}>
