@@ -8,6 +8,10 @@ import Actualites from './pages/Actualites'
 import ActualiteEdition from './pages/ActualiteEdition'
 import Evenements from './pages/Evenements'
 import EvenementEdition from './pages/EvenementEdition'
+import Partenaires from './pages/Partenaires'
+import PartenaireEdition from './pages/PartenaireEdition'
+import PointsCollecte from './pages/PointsCollecte'
+import PointCollecteEdition from './pages/PointCollecteEdition'
 
 // Chargé paresseusement depuis src/routes.jsx (React.lazy) : un visiteur du
 // site public ne télécharge jamais ce code.
@@ -42,6 +46,24 @@ export default function AdminRoutes() {
         <Route element={<ProtectedRoute titre="Fiche événement" />}>
           <Route path="evenements/nouveau" element={<EvenementEdition />} />
           <Route path="evenements/:id" element={<EvenementEdition />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Partenaires" />}>
+          <Route path="partenaires" element={<Partenaires />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Fiche partenaire" />}>
+          <Route path="partenaires/nouveau" element={<PartenaireEdition />} />
+          <Route path="partenaires/:id" element={<PartenaireEdition />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Points de collecte" />}>
+          <Route path="points-collecte" element={<PointsCollecte />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Fiche point de collecte" />}>
+          <Route path="points-collecte/nouveau" element={<PointCollecteEdition />} />
+          <Route path="points-collecte/:id" element={<PointCollecteEdition />} />
         </Route>
 
         <Route element={<ProtectedRoute titre="Mon mot de passe" />}>

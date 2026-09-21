@@ -218,6 +218,26 @@ Il imite volontairement les deux comportements de Vercel qui nous avaient piég�
 
 `vercel dev` est retiré de `.claude/launch.json`, remplacé par cette configuration.
 
+## Étape 2 — Contenus : modules livrés
+
+Quatre modules sur six, chacun avec schéma, logique métier vérifiable sans base, API et deux écrans, testés en local contre la vraie base.
+
+| Module | §  | Contrôles | Arbitrage notable |
+|---|---|---|---|
+| Actualités | 9 | 27 unitaires + 33 intégration | Schéma conçu pour accueillir sans perte les 11 articles existants (5 types de blocs, cadrage d'image) |
+| Événements | 10 | 21 + 21 | Les statuts du §10 mêlaient publication et cycle de vie : séparés, l'état « à venir / en cours / terminé » se déduit des dates |
+| Partenaires | 12 | 10 + 9 | Le statut de partenariat est un suivi interne, jamais publié et absent de la liste |
+| Points de collecte | 13 | 17 + 16 | Même principe que les événements ; seule la fermeture temporaire est un geste humain, avec motif obligatoire |
+
+**Socle commun** (`lib/contenus.js` pour les règles pures, `lib/module-contenu.js` pour la fabrique de gestionnaire HTTP) : statuts, transitions selon le rôle, verrou optimiste, historique et déclenchement du déploiement sont écrits une fois. Une route de module fait désormais 70 à 90 lignes de configuration. Le socle porte déjà la règle du §8.4 sur les pages protégées, dont le module Pages aura besoin.
+
+**Deux constats de conception relevés en chemin :**
+
+- L'éditeur de blocs proposait des types que le serveur écartait en silence. Il est désormais piloté par la même source que le serveur — l'interface ne peut plus proposer ce qui sera refusé.
+- **Un compte ayant modifié du contenu ne peut pas être supprimé** : la clé étrangère de `versions` l'interdit. C'est le bon comportement — l'historique ne doit pas perdre son auteur — mais l'écran Utilisateurs & rôles devra donc **désactiver** un compte plutôt que le supprimer.
+
+**Reste :** Ateliers (§11, avec ses catégories administrables) et Pages (§8, avec les pages protégées à confirmer).
+
 ## 20/09/2026 — Incident : des données réelles supprimées par un script de test
 
 **Ce qui s'est passé.** Les scripts de nettoyage exécutés après chaque série de tests faisaient `db.delete(table)` sans condition — c'est-à-dire un vidage complet de la table. Appliqué à `actualites` et à `versions`, cela a supprimé, en plus des données de démonstration, **un article de test créé par l'utilisateur depuis le back-office en production**, ainsi que tout l'historique des modifications.
