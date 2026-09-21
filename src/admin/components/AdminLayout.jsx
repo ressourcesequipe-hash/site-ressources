@@ -73,7 +73,7 @@ export default function AdminLayout({ titre, children }) {
           <LienAVenir label="Médiathèque" />
 
           <EtiquetteSection>Demandes</EtiquetteSection>
-          <LienAVenir label="Boîte de demandes" />
+          <LienActif to="/admin/demandes" label="Boîte de demandes" />
 
           <EtiquetteSection>Administration</EtiquetteSection>
           <LienActif to="/admin/mot-de-passe" label="Mon mot de passe" />

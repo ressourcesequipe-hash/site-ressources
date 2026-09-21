@@ -50,6 +50,20 @@
       "when": 1789977144885,
       "tag": "0006_flowery_medusa",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1789993882733,
+      "tag": "0007_round_korvac",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1790000137249,
+      "tag": "0008_melted_harrier",
+      "breakpoints": true
     }
   ]
 }

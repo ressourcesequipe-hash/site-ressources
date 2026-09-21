@@ -21,7 +21,9 @@ import {
   integer,
   serial,
   jsonb,
+  uniqueIndex,
 } from 'drizzle-orm/pg-core'
+import { sql } from 'drizzle-orm'
 
 // ── Authentification (better-auth) ──────────────────────────────────────
 
@@ -92,17 +94,38 @@ export const verification = pgTable('verification', {
 // de rôle correspondante. Super administrateur et Coordination ont un
 // plancher garanti par le code (lib/permissions.js), pas par cette table :
 // ils gardent toujours accès à tout, même si cette table est mal configurée.
+//
+// Les deux index uniques ne sont pas décoratifs : sans eux, rien n'empêche
+// deux lignes contradictoires pour le même rôle et la même rubrique, et
+// c'est alors l'ordre de lecture qui décide qui a le droit de répondre —
+// autrement dit le hasard. Constaté le 21/09/2026 en testant le module
+// Demandes, où une seconde ligne insérée sans le savoir prenait le pas sur
+// la première une fois sur deux.
 
-export const rubriquePermission = pgTable('rubrique_permissions', {
-  id: serial('id').primaryKey(),
-  role: text('role'),
-  utilisateurId: text('utilisateur_id').references(() => user.id, {
-    onDelete: 'cascade',
-  }),
-  rubriqueCle: text('rubrique_cle').notNull(),
-  peutConsulter: boolean('peut_consulter').notNull().default(false),
-  peutRepondre: boolean('peut_repondre').notNull().default(false),
-})
+export const rubriquePermission = pgTable(
+  'rubrique_permissions',
+  {
+    id: serial('id').primaryKey(),
+    role: text('role'),
+    utilisateurId: text('utilisateur_id').references(() => user.id, {
+      onDelete: 'cascade',
+    }),
+    rubriqueCle: text('rubrique_cle').notNull(),
+    peutConsulter: boolean('peut_consulter').notNull().default(false),
+    peutRepondre: boolean('peut_repondre').notNull().default(false),
+  },
+  (t) => ({
+    // Deux index partiels plutôt qu'un seul sur les trois colonnes : en SQL
+    // deux NULL ne sont pas égaux, si bien qu'un index ordinaire laisserait
+    // passer autant de doublons de règles de rôle qu'on voudrait.
+    uniqueParRole: uniqueIndex('rubrique_permissions_role_rubrique')
+      .on(t.role, t.rubriqueCle)
+      .where(sql`${t.utilisateurId} is null`),
+    uniqueParUtilisateur: uniqueIndex('rubrique_permissions_utilisateur_rubrique')
+      .on(t.utilisateurId, t.rubriqueCle)
+      .where(sql`${t.utilisateurId} is not null`),
+  })
+)
 
 // ── Médiathèque (§4 de l'architecture, §14 du cahier) ────────────────────
 //
@@ -527,4 +550,101 @@ export const page = pgTable('pages', {
   version: integer('version').notNull().default(1),
   creeLe: timestamp('cree_le').notNull().defaultNow(),
   majLe: timestamp('maj_le').notNull().defaultNow(),
+})
+
+// ── Demandes (§15 du cahier, §5 de l'architecture) ───────────────────────
+//
+// Le module ne remplace rien de l'existant : chaque envoi de formulaire
+// continue de déclencher l'email de notification et la mise à jour du
+// contact Brevo. L'écriture d'une ligne ici est une troisième conséquence,
+// pas un remplacement des deux premières.
+//
+// `donnees` conserve le formulaire d'origine tel quel. Les champs varient
+// d'un formulaire à l'autre et le §15 interdit explicitement d'en faire un
+// éditeur de formulaires : figer ces champs en colonnes obligerait à migrer
+// la base au moindre ajout de champ sur le site.
+
+export const demande = pgTable('demandes', {
+  id: serial('id').primaryKey(),
+  // Type de formulaire d'origine (donMateriel, contact, rejoindre…).
+  typeFormulaire: text('type_formulaire').notNull(),
+  // Rubrique déduite du type et, pour les formulaires à menu, du choix du
+  // visiteur — le même qui décide déjà de la liste Brevo (§5).
+  rubrique: text('rubrique').notNull(),
+
+  // Champs extraits pour la recherche et l'affichage en liste. Ils restent
+  // présents dans `donnees`, dont ils ne sont qu'une copie commode.
+  nom: text('nom'),
+  email: text('email'),
+  telephone: text('telephone'),
+  commune: text('commune'),
+  message: text('message'),
+
+  donnees: jsonb('donnees').notNull().default({}),
+
+  // §15 : nouveau | a_traiter | en_cours | en_attente | traite | cloture | spam
+  statut: text('statut').notNull().default('nouveau'),
+  assigneAId: text('assigne_a_id').references(() => user.id),
+
+  // Traces techniques utiles à l'anti-spam, jamais affichées dans la fiche.
+  // Empreinte de l'adresse IP, et non l'adresse elle-même : elle ne sert
+  // qu'à reconnaître un même expéditeur d'un envoi à l'autre (§16). Une
+  // empreinte suffit pour cela, et conserver l'adresse en clair serait
+  // garder une donnée personnelle dont on n'a aucun usage.
+  empreinteIp: text('empreinte_ip'),
+  scoreSpam: integer('score_spam'),
+
+  creeLe: timestamp('cree_le').notNull().defaultNow(),
+  majLe: timestamp('maj_le').notNull().defaultNow(),
+})
+
+export const demandeNote = pgTable('demande_notes', {
+  id: serial('id').primaryKey(),
+  demandeId: integer('demande_id')
+    .notNull()
+    .references(() => demande.id, { onDelete: 'cascade' }),
+  auteurId: text('auteur_id').references(() => user.id),
+  contenu: text('contenu').notNull(),
+  creeLe: timestamp('cree_le').notNull().defaultNow(),
+})
+
+// Suivi des envois — §5 de l'architecture, révisé.
+//
+// Quatre statuts et non trois : `incertain` existe parce que Brevo peut
+// accepter un message sans que la réponse nous parvienne (coupure réseau,
+// instance interrompue). Plutôt que de deviner — et risquer un vrai double
+// envoi en relançant — l'incertitude est rendue visible et l'équipe
+// tranche.
+
+export const demandeEmail = pgTable('demande_emails', {
+  id: serial('id').primaryKey(),
+  demandeId: integer('demande_id')
+    .notNull()
+    .references(() => demande.id, { onDelete: 'cascade' }),
+  auteurId: text('auteur_id').references(() => user.id),
+  destinataire: text('destinataire').notNull(),
+  sujet: text('sujet').notNull(),
+  corps: text('corps').notNull(),
+  // en_cours | envoye | echec | incertain
+  statutEnvoi: text('statut_envoi').notNull().default('en_cours'),
+  brevoMessageId: text('brevo_message_id'),
+  erreur: text('erreur'),
+  tentativeLe: timestamp('tentative_le').notNull().defaultNow(),
+  confirmeLe: timestamp('confirme_le'),
+})
+
+// Verrou de rédaction — §15 : « deux utilisateurs ne doivent pas pouvoir
+// répondre simultanément à la même demande sans le savoir ».
+//
+// Verrou actif et non simplement optimiste : contrairement à un contenu,
+// un double envoi d'email ne se rattrape pas. Il expire de lui-même pour ne
+// jamais bloquer définitivement une fiche sur un onglet resté ouvert.
+
+export const demandeVerrou = pgTable('demande_verrous', {
+  demandeId: integer('demande_id')
+    .primaryKey()
+    .references(() => demande.id, { onDelete: 'cascade' }),
+  verrouilleParId: text('verrouille_par_id').references(() => user.id),
+  verrouilleLe: timestamp('verrouille_le').notNull().defaultNow(),
+  expireLe: timestamp('expire_le').notNull(),
 })

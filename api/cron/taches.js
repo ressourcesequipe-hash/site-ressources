@@ -16,10 +16,19 @@
 //     et les campagnes/bandeaux `actif` dont la date de fin est dépassée,
 //     puis appeler `demanderDeploiement()` — le même mécanisme que la
 //     publication manuelle, aucune logique de déploiement dupliquée.
-//   - Étape 3 : basculer en `incertain` les lignes `demande_emails` restées
-//     `en_cours` au-delà de quelques minutes, et libérer le verrou associé.
+// Ce qui l'a rejointe depuis (Étape 3), sans nouvelle tâche planifiée :
+//   - requalifier en `incertain` les lignes `demande_emails` restées
+//     `en_cours` au-delà de quelques minutes ;
+//   - effacer les verrous de rédaction expirés.
+// Là encore ce n'est qu'un filet : les deux traitements ont un chemin plus
+// réactif à l'ouverture d'une fiche, sans quoi une demande resterait bloquée
+// jusqu'au lendemain.
 
 import { resoudreSiTermine, lireEtatDeploiement } from '../../lib/deploiement.js'
+import { rafraichirEnvoisOrphelins } from '../../lib/envoi-reponse.js'
+import { db } from '../../lib/db.js'
+import { demandeVerrou } from '../../db/schema.js'
+import { lt } from 'drizzle-orm'
 
 export default async function handler(req, res) {
   // Vercel ajoute automatiquement cet en-tête aux requêtes de cron dès que
@@ -43,6 +52,24 @@ export default async function handler(req, res) {
     // que les étapes 2 et 3 s'ajouteront ici).
     console.error('[cron] résolution du déploiement :', e)
     resultats.deploiement = { erreur: e.message }
+  }
+
+  try {
+    resultats.envoisOrphelins = await rafraichirEnvoisOrphelins(db)
+  } catch (e) {
+    console.error('[cron] requalification des envois orphelins :', e)
+    resultats.envoisOrphelins = { erreur: e.message }
+  }
+
+  try {
+    const effaces = await db
+      .delete(demandeVerrou)
+      .where(lt(demandeVerrou.expireLe, new Date()))
+      .returning({ demandeId: demandeVerrou.demandeId })
+    resultats.verrousExpires = effaces.length
+  } catch (e) {
+    console.error('[cron] nettoyage des verrous expirés :', e)
+    resultats.verrousExpires = { erreur: e.message }
   }
 
   const { etat } = await lireEtatDeploiement()

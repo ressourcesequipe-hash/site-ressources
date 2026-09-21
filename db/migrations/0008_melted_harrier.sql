@@ -1,0 +1,2 @@
+CREATE UNIQUE INDEX "rubrique_permissions_role_rubrique" ON "rubrique_permissions" USING btree ("role","rubrique_cle") WHERE "rubrique_permissions"."utilisateur_id" is null;--> statement-breakpoint
+CREATE UNIQUE INDEX "rubrique_permissions_utilisateur_rubrique" ON "rubrique_permissions" USING btree ("utilisateur_id","rubrique_cle") WHERE "rubrique_permissions"."utilisateur_id" is not null;

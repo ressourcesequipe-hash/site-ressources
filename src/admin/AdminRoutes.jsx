@@ -17,6 +17,8 @@ import AtelierEdition from './pages/AtelierEdition'
 import CategoriesAteliers from './pages/CategoriesAteliers'
 import Pages from './pages/Pages'
 import PageEdition from './pages/PageEdition'
+import Demandes from './pages/Demandes'
+import DemandeFiche from './pages/DemandeFiche'
 
 // Chargé paresseusement depuis src/routes.jsx (React.lazy) : un visiteur du
 // site public ne télécharge jamais ce code.
@@ -91,6 +93,14 @@ export default function AdminRoutes() {
         <Route element={<ProtectedRoute titre="Fiche page" />}>
           <Route path="pages/nouvelle" element={<PageEdition />} />
           <Route path="pages/:id" element={<PageEdition />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Boîte de demandes" />}>
+          <Route path="demandes" element={<Demandes />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Demande" />}>
+          <Route path="demandes/:id" element={<DemandeFiche />} />
         </Route>
 
         <Route element={<ProtectedRoute titre="Mon mot de passe" />}>

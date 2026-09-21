@@ -284,3 +284,59 @@ Aucun de ces trois défauts n’était visible à la lecture du code ; chacun a 
 ## Rappel de sécurité
 
 La chaîne de connexion à la base est apparue partiellement dans cette conversation lors d'un incident de copier-coller PowerShell. **Recommandé** : régénérer le mot de passe de la base depuis Neon (`ressources-backoffice` → Settings → Reset password) à l'occasion — l'intégration Vercel met à jour `DATABASE_URL` automatiquement quand vous le faites.
+
+## 21/09/2026 — Étape 3 : module Demandes (boîte, verrou, suivi des envois)
+
+**Ce qui est livré.** Quatre tables (`demandes`, `demande_notes`, `demande_emails`, `demande_verrous`), une route unique `api/admin/demandes.js`, deux écrans (boîte et fiche), et le balayage périodique ajouté à la tâche planifiée existante — sans en créer une seconde. Huit fonctions serverless sur les douze autorisées.
+
+**65 vérifications en conditions réelles**, sur la vraie base, plus 13 tests unitaires sur les règles pures. Le script de test crée trois comptes préfixés et ne supprime que les lignes dont il a l'identifiant — règle du 20/09 appliquée, base vérifiée vide après coup.
+
+### Le routage : une seule décision côté visiteur
+
+La rubrique ne se choisit pas, elle se déduit du formulaire rempli et, pour « Contact » et « Nous rejoindre », de l'option du menu déroulant — **la même option qui décide déjà de la liste Brevo**. Deux conséquences d'une seule décision, donc jamais de demande classée d'un côté et de contact rangé de l'autre. Un test compare d'ailleurs les deux routages option par option, pour que l'écart se voie s'il apparaît un jour.
+
+`optionsNonRoutees()` existe pour la même raison : ajouter une option aux menus de `lib/brevo.js` sans la router ici ferait silencieusement tomber la demande dans « Contact général ». Le test le signale au moment où l'oubli est commis.
+
+**Un arbitrage à confirmer** : « Don de plantes ou végétaux » (menu Contact) part dans *Partenariat végétal*, pas dans *Don de matériel*. C'est la filière végétale qui traite les deux, alors que « Don de matériel » désigne l'informatique.
+
+### Pourquoi quatre statuts d'envoi et non trois
+
+Un email parti ne revient pas. L'architecture prévoyait `en_cours | envoye | echec` ; il en manquait un. Brevo peut accepter un message sans que sa réponse nous parvienne — coupure réseau, fonction serverless interrompue. Classer ce cas en « échec » invite à renvoyer, donc à écrire deux fois à la même personne ; le classer en « envoyé » risque le silence. **`incertain` nomme l'ignorance au lieu de la masquer**, bloque toute relance, et demande à l'équipe de trancher après avoir regardé la boîte d'envoi.
+
+Trois règles en découlent, appliquées dans `lib/envoi-reponse.js` : la ligne de suivi est écrite **avant** l'appel à Brevo ; une panne réseau ne se confond jamais avec un refus de Brevo ; aucun envoi incertain n'est relancé automatiquement.
+
+Un envoi resté `en_cours` est requalifié en `incertain` à l'ouverture de la fiche, pas seulement par le cron : sur le palier Hobby la tâche ne passe qu'une fois par jour, ce qui bloquerait la demande vingt-quatre heures. Même schéma à deux chemins que le cycle de déploiement.
+
+### Le verrou est actif, pas optimiste
+
+Contrairement aux contenus, une écriture concurrente ne se rattrape pas ici. Le verrou se prend **avant** la rédaction — signaler le conflit au moment de l'envoi arriverait trop tard, le message est déjà écrit. Il expire au bout de dix minutes pour qu'un onglet laissé ouvert ne bloque jamais une demande, et se relâche quand on quitte l'écran.
+
+### Trois défauts trouvés par les tests
+
+1. **Le contrôle de cadence ne déclenchait jamais seul.** Il ajoutait 2 points à un score dont le seuil est 3 : une rafale de messages anodins passait intégralement. Corrigé avec deux niveaux — cinq envois en dix minutes depuis la même origine *signalent* (2 points), douze *classent* (seuil atteint). Cinq envois, c'est ce que produit une mairie ou une école dont tous les postes sortent par la même adresse ; douze, plus aucune explication ordinaire ne tient. Aucun envoi n'est jamais refusé, seulement classé : une erreur de jugement coûte un clic, pas une demande perdue.
+2. **Les coordonnées des visiteurs partaient dans les journaux Vercel.** Drizzle recopie les **paramètres** de la requête dans le message de ses erreurs : journaliser `e.message` après un échec d'insertion aurait écrit le nom, l'email, le téléphone, la commune et le message du visiteur dans les logs — exactement ce que le §16 interdit. Vérifié en provoquant l'échec, pas supposé. `messageSansDonnees()` retire la section `params:` de Drizzle et les `Key (colonne)=(valeur)` de Postgres, les deux seuls endroits où des valeurs se glissent dans un message ; le nom de la requête et des colonnes reste, il suffit au diagnostic. Appliqué aux trois points de journalisation (`api/contact.js`, `api/admin/demandes.js`, `lib/envoi-reponse.js`).
+
+   *Ce que cela dit au-delà du correctif* : « ne pas journaliser de données personnelles » ne s'obtient pas en écrivant des `console.error` prudents. La fuite ne venait pas de ce qu'on écrivait, mais de ce que la bibliothèque avait déjà mis dans l'objet d'erreur.
+
+3. **`rubrique_permissions` n'avait pas de contrainte d'unicité.** Deux lignes contradictoires pour le même rôle et la même rubrique étaient acceptées, et c'est l'ordre de lecture qui décidait qui avait le droit de répondre — autrement dit le hasard. Deux index uniques partiels ajoutés (migration 0008), partiels parce qu'en SQL deux `NULL` ne sont pas égaux et qu'un index ordinaire laisserait passer tous les doublons de règles de rôle.
+
+### Données personnelles (§16)
+
+L'adresse IP **n'est pas conservée** : seule une empreinte salée l'est, qui suffit à reconnaître un même expéditeur. Les journaux ne portent que l'identifiant de la demande, jamais son contenu. `donnees` garde le formulaire d'origine intact — les colonnes `nom`, `email`, `commune`, `message` n'en sont que des copies pour la liste et la recherche, jamais la source affichée.
+
+L'export CSV neutralise les cellules commençant par `=`, `+`, `-` ou `@`, qu'Excel interpréterait comme des formules — ces valeurs viennent d'un formulaire public.
+
+### Ce qui reste avant que la boîte serve à quelque chose
+
+- **Le champ piège anti-robot** est lu s'il existe, mais l'ajouter aux formulaires suppose de toucher à `src/pages` — non fait.
+- Le formulaire lui-même reste non modifiable depuis le back-office, conformément au §15.
+
+### `api/contact.js` : le branchement, validé et appliqué le 21/09/2026
+
+**19 lignes ajoutées, aucune retirée.** Le bloc s'exécute après l'email à l'équipe et après la mise à jour du contact Brevo : les deux conséquences historiques d'un envoi de formulaire sont intactes et se sont déjà produites quand on l'atteint. L'enregistrement de la demande est une troisième conséquence, pas un remplacement.
+
+L'import est dynamique et conditionné à `DATABASE_URL` : sans cette variable, le module de base de données n'est même pas chargé et le formulaire se comporte exactement comme avant.
+
+**Vérifié en conditions réelles** (13 contrôles, Brevo intercepté, base réelle) : un formulaire rempli déclenche bien les trois effets ; la newsletter n'en crée toujours aucun ; le routage par menu déroulant aboutit aux bonnes rubriques.
+
+**Et la promesse la plus importante, testée pour de vrai** : avec une base délibérément injoignable, le visiteur reçoit `200 {ok:true}`, l'email part, le contact Brevo est mis à jour, et l'incident n'existe que dans les journaux. C'est ce test qui a révélé la fuite de données personnelles décrite plus haut.

@@ -109,6 +109,12 @@ const serveur = http.createServer(async (req, res) => {
     res.end(JSON.stringify(donnees))
     return res
   }
+  // Utilisé par l'export CSV des demandes, qui a déjà posé son propre
+  // content-type : `send` ne doit donc pas en imposer un.
+  res.send = (donnees) => {
+    res.end(typeof donnees === 'string' || Buffer.isBuffer(donnees) ? donnees : JSON.stringify(donnees))
+    return res
+  }
 
   try {
     const mod = await import(pathToFileURL(fichier).href)

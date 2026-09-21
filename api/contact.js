@@ -276,5 +276,27 @@ export default async function handler(req, res) {
     console.error('Contact Brevo non enregistré:', e.message)
   }
 
+  // Troisième conséquence d'un envoi de formulaire, après la notification à
+  // l'équipe et la mise à jour du contact Brevo : la demande entre dans la
+  // boîte du back-office (§15). Les deux premières sont inchangées, et se
+  // sont déjà produites quand on arrive ici.
+  //
+  // Même règle que pour Brevo juste au-dessus : un échec ne remonte jamais
+  // au visiteur, sa demande est déjà arrivée. L'import est dynamique pour
+  // que le module de base de données ne soit même pas chargé tant que
+  // DATABASE_URL n'est pas configurée — sans cette variable, ce formulaire
+  // se comporte exactement comme avant.
+  if (process.env.DATABASE_URL) {
+    try {
+      const { enregistrerDemande } = await import('../lib/enregistrer-demande.js')
+      await enregistrerDemande(type, data, req)
+    } catch (e) {
+      // Jamais `e.message` brut : Drizzle y recopie les valeurs de la
+      // requête, donc les coordonnées du visiteur (§16).
+      const { messageSansDonnees } = await import('../lib/demandes.js')
+      console.error('Demande non enregistrée dans le back-office:', messageSansDonnees(e))
+    }
+  }
+
   return res.status(200).json({ ok: true })
 }
