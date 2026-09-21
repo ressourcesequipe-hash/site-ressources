@@ -604,3 +604,15 @@ D'où la colonne `protege` (migration 0012), posée sur les 59 reprises : la sup
 **43 vérifications** : 38 sur la médiathèque, 5 sur la protection — un média protégé n'est pas supprimable même quand rien ne le référence en base, un média ordinaire l'est toujours.
 
 **Leçon de méthode** : un test qui suppose une table vide finit par mesurer les données plutôt que le code. Celui de la panne GitHub affirmait « aucune ligne dans la catégorie événements » et a échoué dès que la reprise y a mis une image ; il compare désormais un avant et un après.
+
+### Compléter les métadonnées depuis le code (21/09/2026)
+
+Question posée après la reprise : les images du carrousel de la page d'accueil sont-elles identifiées ? Elles l'étaient — mais avec des titres dérivés des noms de fichiers (« Banniere3ocotobre ») et, pour 44 sur 59, aucune description.
+
+L'essentiel de ces 44 étaient les logos des commerçants de la tombola, dont `src/data/lotsTombola.js` connaît le nom et la ville. Le mode `--completer` les reprend : « Joe bike » devient « Joe Bike », avec « Logo de Joe Bike, Soorts-Hossegor — partenaire de la tombola ». Les déclinaisons du logo de l'association sont nommées par leur taille, pour cesser d'être cinq lignes indistinctes.
+
+**Il ne touche jamais à ce qu'une personne a saisi** : une description n'est écrite que si elle est absente, un titre que s'il est encore exactement celui dérivé du nom de fichier. C'est la condition pour pouvoir relancer le script sans détruire le travail de l'équipe.
+
+**44 images sur 59 ont désormais une description**, contre 15 après la première reprise.
+
+**Les 15 restantes ne peuvent pas être complétées automatiquement** : ce sont des photos de scènes et de personnes, dont la description n'existe nulle part. Il faut quelqu'un qui ait vu la photo. Elles sont signalées en haut de l'écran et corrigeables une par une.

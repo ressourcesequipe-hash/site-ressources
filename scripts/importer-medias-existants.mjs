@@ -22,8 +22,13 @@
  * Idempotent : un chemin déjà enregistré est laissé tel quel, jamais
  * réécrit — une description corrigée depuis le back-office survit.
  *
- * Usage : node --env-file=.env.local scripts/importer-medias-existants.mjs [--dry]
- *         (--production pour viser la base de production)
+ * Usage :
+ *   node --env-file=.env.local scripts/importer-medias-existants.mjs
+ *     --dry          simule, n'écrit rien
+ *     --completer    complète les lignes déjà reprises (description absente,
+ *                    titre encore dérivé du nom de fichier) sans jamais
+ *                    toucher à ce qu'une personne a saisi
+ *     --production   vise la base de production au lieu de dev
  */
 
 import fs from 'node:fs'
@@ -37,6 +42,10 @@ import * as schema from '../db/schema.js'
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 const RACINE = path.join(__dirname, '..')
 const SEC = process.argv.includes('--dry')
+// Complète les lignes déjà reprises : remplit une description absente, et
+// remplace un titre encore dérivé du nom de fichier. Ne touche JAMAIS à ce
+// qu'une personne a saisi — c'est la condition pour pouvoir relancer.
+const COMPLETER = process.argv.includes('--completer')
 const PROD = process.argv.includes('--production')
 
 const chaine = process.env[PROD ? 'DATABASE_URL_PROD' : 'DATABASE_URL']
@@ -62,6 +71,45 @@ const EXTENSIONS = /\.(webp|jpg|jpeg|png|svg)$/i
 function titreDepuisNom(nom) {
   const base = nom.replace(EXTENSIONS, '').replace(/[-_]+/g, ' ').trim()
   return base.charAt(0).toUpperCase() + base.slice(1)
+}
+
+// Ce que le CODE sait déjà de ces images, et que la base ignore.
+//
+// Les logos des commerçants de la tombola sont décrits dans
+// src/data/lotsTombola.js — nom de l'enseigne, ville, site. Sans cette
+// source, la reprise n'aurait produit que des titres dérivés du nom de
+// fichier (« Joe bike ») et aucune description : 31 entrées à corriger à la
+// main, ce que personne ne fait jamais.
+async function depuisLeCode() {
+  const table = {}
+  try {
+    const { PARTENAIRES } = await import('../src/data/lotsTombola.js')
+    for (const p of PARTENAIRES) {
+      if (!p.logo) continue
+      table[p.logo] = {
+        titre: p.nom,
+        alt: `Logo de ${p.nom}${p.ville ? `, ${p.ville}` : ''} — partenaire de la tombola de l'association Ressources.`,
+      }
+    }
+  } catch (e) {
+    console.warn('lotsTombola.js illisible, les logos garderont un titre dérivé du fichier :', e.message)
+  }
+
+  // Les déclinaisons du logo de l'association : même image, plusieurs
+  // tailles. Les nommer évite quatre lignes indistinctes dans la grille.
+  for (const [fichier, taille] of [
+    ['/logos/logo-ressources-96.webp', '96 px'],
+    ['/logos/logo-ressources-192.webp', '192 px'],
+    ['/logos/logo-ressources-192.png', '192 px'],
+    ['/logos/logo-ressources-288.webp', '288 px'],
+    ['/logos/logo-ressources-512.png', '512 px'],
+  ]) {
+    table[fichier] = {
+      titre: `Logo Ressources (${taille})`,
+      alt: "Logo de l'association Ressources, recyclerie solidaire dans les Landes.",
+    }
+  }
+  return table
 }
 
 // Le texte alternatif et le crédit existent déjà, dans les contenus qui
@@ -97,6 +145,7 @@ async function auteurParDefaut() {
 }
 
 const auteurId = await auteurParDefaut()
+const connuDuCode = await depuisLeCode()
 const branche = await db
   .execute(sql`select current_setting('neon.branch_id', true) as b`)
   .then((r) => (r.rows ?? r)[0]?.b ?? '(inconnue)')
@@ -107,6 +156,7 @@ console.log(`Branche : ${branche}`)
 console.log(SEC ? 'Mode    : simulation, rien ne sera écrit\n' : 'Mode    : écriture\n')
 
 let crees = 0
+let completes = 0
 let ignores = 0
 let absents = 0
 
@@ -120,15 +170,34 @@ for (const dossier of DOSSIERS) {
   for (const nom of fichiers) {
     const cheminPublic = `/${dossier.chemin}/${nom}`
     const [existant] = await db
-      .select({ id: schema.media.id })
+      .select()
       .from(schema.media)
       .where(eq(schema.media.chemin, cheminPublic))
-    if (existant) { ignores++; continue }
 
-    const { alt, credit } = await metadonneesConnues(cheminPublic)
+    const duCode = connuDuCode[cheminPublic] || {}
+    const { alt: altContenu, credit } = await metadonneesConnues(cheminPublic)
+    const alt = altContenu || duCode.alt || null
+    const titre = duCode.titre || titreDepuisNom(nom)
+
+    if (existant) {
+      if (!COMPLETER) { ignores++; continue }
+
+      // Un titre encore égal à celui que la reprise avait dérivé du nom de
+      // fichier n'a été choisi par personne : on peut le remplacer. Dès
+      // qu'il en diffère, on n'y touche plus.
+      const champs = {}
+      if (!existant.alt && alt) champs.alt = alt
+      if (existant.titre === titreDepuisNom(nom) && titre !== existant.titre) champs.titre = titre
+      if (Object.keys(champs).length === 0) { ignores++; continue }
+
+      if (SEC) console.log(`  [à compléter] ${cheminPublic} — ${Object.keys(champs).join(', ')}`)
+      else await db.update(schema.media).set(champs).where(eq(schema.media.id, existant.id))
+      completes++
+      continue
+    }
     const ligne = {
       chemin: cheminPublic,
-      titre: titreDepuisNom(nom),
+      titre,
       alt,
       credit,
       categorie: dossier.categorie,
@@ -149,6 +218,9 @@ for (const dossier of DOSSIERS) {
   }
 }
 
-console.log(`\n${crees} média(s) ${SEC ? 'à créer' : 'créé(s)'}, ${ignores} déjà présent(s).`)
+console.log(
+  `\n${crees} média(s) ${SEC ? 'à créer' : 'créé(s)'}, ` +
+    `${completes} ${SEC ? 'à compléter' : 'complété(s)'}, ${ignores} inchangé(s).`
+)
 if (absents) console.log(`${absents} dossier(s) introuvable(s), ignoré(s).`)
 console.log('Tous sont marqués « protégé » : ils peuvent être référencés dans du code.')
