@@ -616,3 +616,50 @@ L'essentiel de ces 44 étaient les logos des commerçants de la tombola, dont `s
 **44 images sur 59 ont désormais une description**, contre 15 après la première reprise.
 
 **Les 15 restantes ne peuvent pas être complétées automatiquement** : ce sont des photos de scènes et de personnes, dont la description n'existe nulle part. Il faut quelqu'un qui ait vu la photo. Elles sont signalées en haut de l'écran et corrigeables une par une.
+
+## 21/09/2026 — Campagnes et bandeaux temporaires (§19)
+
+« Publier une information temporaire **sans intervention dans le code** » — la raison d'être du module. Question déclenchante : comment modifier les images du carrousel de l'accueil ? La réponse honnête était « on ne peut pas », et le §19 existait précisément pour ça.
+
+Échéance concrète : l'événement du 3 octobre est dans douze jours, et `evenement.js` dit lui-même « à retirer de l'accueil après le 3 octobre 2026 ». Ce retrait demandait une intervention dans le code, un dimanche.
+
+### Deux axes, encore
+
+`actif` est l'interrupteur humain, les dates sont la fenêtre automatique ; une campagne s'affiche quand les deux disent oui. Les confondre obligerait à retenir une date de fin pour couper une annonce devenue fausse, ou à la retaper pour la remettre.
+
+Le formulaire **annonce l'état qui résultera de l'enregistrement** — « Programmée : le bandeau apparaîtra à la date de début », « Désactivée : rien ne s'affichera tant que la case n'est pas cochée » — calculé par la même fonction que le serveur et que le site public. Trois implémentations finiraient par se contredire, et l'écran dirait « en ligne » de ce que personne ne voit.
+
+Une campagne en ligne ne se supprime pas : il faut la désactiver d'abord. Le bandeau disparaît aussi vite, et le geste reste réversible.
+
+### Une dixième fonction serverless évitée
+
+`api/admin/reglages.js` route par `?module=`, comme `contenus.js`. Navigation (§18), SEO (§20) et historique (§23) le rejoindront. Avec une fonction par module de réglage, la marge aurait été épuisée en trois écrans.
+
+### Pourquoi l'affichage se décide dans le navigateur
+
+Le site est prérendu : son HTML est figé au build. Évaluer la fenêtre de dates là aurait laissé un bandeau terminé à 18 h affiché jusqu'à la reconstruction suivante — le lendemain matin au plus tôt, la tâche planifiée ne passant qu'une fois par jour.
+
+La décision est donc prise après le montage, à l'heure réelle du visiteur, et revérifiée chaque minute pour un onglet resté ouvert. **Conséquence assumée** : le bandeau n'est pas dans le HTML initial. Pour une annonce temporaire c'est le bon compromis, et cela évite une divergence d'hydratation.
+
+**Vérifié** : les 58 pages prérendues sont **rigoureusement identiques** à la référence d'avant le branchement. Le composant ne rend rien côté serveur, comme prévu.
+
+Un seul point d'accroche, dans `src/routes.jsx` : les trois emplacements du §19 sont gérés au même endroit, aucune page n'est modifiée.
+
+### Le défaut qui rendait tous les bandeaux invisibles
+
+L'export appliquait l'interrupteur `actif` dans sa requête mais **ne transmettait pas le champ**. Côté navigateur, `actif` valait `undefined`, et `estVisible` concluait « désactivée » — pour toutes les campagnes, sans le moindre message d'erreur.
+
+C'est le genre de défaut qu'aucune relecture ne trouve : la requête est juste, la fonction est juste, c'est leur contrat qui est rompu. Seul l'essai dans un navigateur l'a montré.
+
+Au passage, une insertion automatique n'avait posé que la ligne d'`import` du composant, pas le composant lui-même — le fichier compilait, et l'écran restait vide.
+
+### Vérifications
+
+**34 contrôles** : les règles pures (états, fenêtres, tri, ciblage de page, validations croisées bouton/lien), les droits, le verrou optimiste, et le refus de supprimer une campagne en ligne.
+
+Puis dans le navigateur, avec quatre campagnes réelles : deux bandeaux sur l'accueil, le global seul sur `/association/`, le global **et** celui de la page sur `/defi-collecte/`, et la campagne dont la fenêtre est refermée nulle part. Rôle `alert` pour les alertes, `region` pour le reste.
+
+### Ce qui reste à faire sur ce module
+
+- **Le carrousel riche de l'accueil** n'est pas remplacé : deux diapositives, boutons multiples, rotation automatique, repli si une image manque. Le rendre pilotable demande de réécrire `BandeauTempsForts.jsx` et de toucher `Home.jsx`. À voir après le 3 octobre, sans urgence.
+- **Pas de fermeture par le visiteur.** Un bandeau global sans croix sur toutes les pages peut agacer ; le §19 ne le demande pas, et l'ajouter plus tard est simple.

@@ -1,4 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
+import BandeauxCampagnes from './components/BandeauxCampagnes'
 import { useEffect, lazy, Suspense } from 'react'
 import Home from './pages/Home'
 import Evenement from './pages/Evenement'
@@ -101,6 +102,10 @@ export default function AppRoutes() {
   return (
     <>
       <ScrollToTop />
+      {/* Bandeaux temporaires (§19) : montés ici plutôt que dans chaque page,
+          pour que les trois emplacements soient gérés au même endroit. Ne
+          rend rien tant qu'aucune campagne n'est dans sa fenêtre de dates. */}
+      <BandeauxCampagnes />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/evenement-lancement-03-octobre-2026/" element={<Evenement />} />

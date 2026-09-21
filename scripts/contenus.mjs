@@ -56,7 +56,11 @@ function conserverExistant(raison) {
     // précis où l'on cherche à les protéger.
     fs.writeFileSync(
       CIBLE,
-      JSON.stringify({ maj: null, actualites: [], organisations: { confirmes: [], cooperations: [] } }, null, 2) + '\n'
+      JSON.stringify(
+        { maj: null, actualites: [], campagnes: [], organisations: { confirmes: [], cooperations: [] } },
+        null,
+        2
+      ) + '\n'
     )
   }
   process.exit(0)
@@ -67,9 +71,9 @@ if (!process.env.DATABASE_URL) {
 }
 
 const { db } = await import('../lib/db.js')
-const { actualite, organisation } = await import('../db/schema.js')
+const { actualite, campagne, organisation } = await import('../db/schema.js')
 const { STATUTS_EN_LIGNE } = await import('../lib/contenus.js')
-const { inArray, asc, desc } = await import('drizzle-orm')
+const { eq, inArray, asc, desc } = await import('drizzle-orm')
 
 // Le libellé de date (« Septembre 2026 ») était saisi à la main à côté de la
 // date elle-même, et pouvait donc la contredire. Il se déduit.
@@ -124,18 +128,41 @@ function versOrganisationPublique(o) {
 
 let actualites = []
 let organisations = []
+let campagnes = []
 
 try {
-  const [lignesA, lignesO] = await Promise.all([
+  const [lignesA, lignesO, lignesC] = await Promise.all([
     db.select().from(actualite)
       .where(inArray(actualite.statut, STATUTS_EN_LIGNE))
       .orderBy(desc(actualite.datePublication)),
     db.select().from(organisation)
       .where(inArray(organisation.statut, STATUTS_EN_LIGNE))
       .orderBy(asc(organisation.ordre), asc(organisation.nom)),
+    // Les campagnes ACTIVES sont exportées, y compris celles dont la fenêtre
+    // n'est pas encore ouverte ou déjà refermée : c'est la page qui tranche
+    // à l'affichage, d'après l'heure du visiteur. Attendre un déploiement
+    // pour qu'un bandeau apparaisse ou disparaisse le rendrait faux pendant
+    // des heures — la tâche planifiée ne passe qu'une fois par jour (§3).
+    db.select({
+      id: campagne.id, message: campagne.message, lien: campagne.lien,
+      texteBouton: campagne.texteBouton, type: campagne.type,
+      emplacement: campagne.emplacement, pageCible: campagne.pageCible,
+      debutLe: campagne.debutLe, finLe: campagne.finLe, ordre: campagne.ordre,
+      // `actif` est transmis alors que le filtre ci-dessous le garantit déjà
+      // vrai : `estVisible` le lit, et une campagne exportée sans ce champ
+      // est jugée désactivée. Le sélectionner par la requête plutôt que de
+      // l'écrire en dur garde une seule source de vérité — et l'oubli initial
+      // rendait tous les bandeaux invisibles, sans le moindre message
+      // (constaté le 21/09/2026).
+      actif: campagne.actif,
+    })
+      .from(campagne)
+      .where(eq(campagne.actif, true))
+      .orderBy(asc(campagne.ordre)),
   ])
   actualites = lignesA
   organisations = lignesO
+  campagnes = lignesC
 } catch (e) {
   // Drizzle recopie la requête entière, et ses paramètres, dans le message.
   // Un journal de build reste lisible : la première ligne suffit à situer
@@ -144,6 +171,8 @@ try {
   conserverExistant(`Base injoignable (${bref}).`)
 }
 
+// Les campagnes ne comptent pas dans ce contrôle : n'en avoir aucune est
+// l'état normal la plupart du temps, et ne dit rien sur la santé de la base.
 if (actualites.length === 0 && organisations.length === 0) {
   conserverExistant('La base ne contient aucun contenu publié.')
 }
@@ -151,6 +180,11 @@ if (actualites.length === 0 && organisations.length === 0) {
 const sortie = {
   maj: new Date().toISOString(),
   actualites: actualites.map(versArticlePublic),
+  campagnes: campagnes.map((c) => ({
+    ...c,
+    debutLe: c.debutLe ? new Date(c.debutLe).toISOString() : null,
+    finLe: c.finLe ? new Date(c.finLe).toISOString() : null,
+  })),
   organisations: {
     confirmes: organisations
       .filter((o) => STATUTS_FORMALISES.includes(o.statutPartenariat))
@@ -165,5 +199,6 @@ fs.writeFileSync(CIBLE, JSON.stringify(sortie, null, 2) + '\n')
 console.log(
   `[contenus] ${sortie.actualites.length} article(s), ` +
     `${sortie.organisations.confirmes.length} partenaire(s) confirmé(s), ` +
-    `${sortie.organisations.cooperations.length} coopération(s) en cours.`
+    `${sortie.organisations.cooperations.length} coopération(s) en cours, ` +
+    `${sortie.campagnes.length} campagne(s) active(s).`
 )

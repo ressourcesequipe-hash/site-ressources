@@ -64,6 +64,7 @@ export default function AdminLayout({ titre, children }) {
           <LienActif to="/admin/partenaires" label="Partenaires" />
           <LienActif to="/admin/points-collecte" label="Points de collecte" />
           <LienActif to="/admin/mediatheque" label="Médiathèque" />
+          <LienActif to="/admin/campagnes" label="Campagnes & bandeaux" />
 
           <EtiquetteSection>Demandes</EtiquetteSection>
           <LienActif to="/admin/demandes" label="Boîte de demandes" />

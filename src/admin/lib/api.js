@@ -22,12 +22,22 @@ const MODULES_REGROUPES = [
   'evenements', 'organisations', 'pages', 'points-collecte',
 ]
 
+// Les modules de réglage suivent le même principe que les contenus, avec
+// leur propre routeur : une seule fonction serverless pour plusieurs écrans.
+const MODULES_REGLAGES = ['campagnes']
+
 function versUrl(chemin) {
   const [base, requete] = chemin.replace(/^\//, '').split('?')
-  if (!MODULES_REGROUPES.includes(base)) return BASE + chemin
   const params = new URLSearchParams(requete || '')
-  params.set('module', base)
-  return `${BASE}/contenus?${params}`
+  if (MODULES_REGROUPES.includes(base)) {
+    params.set('module', base)
+    return `${BASE}/contenus?${params}`
+  }
+  if (MODULES_REGLAGES.includes(base)) {
+    params.set('module', base)
+    return `${BASE}/reglages?${params}`
+  }
+  return BASE + chemin
 }
 
 /**

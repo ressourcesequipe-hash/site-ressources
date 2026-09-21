@@ -20,6 +20,7 @@ import PageEdition from './pages/PageEdition'
 import Demandes from './pages/Demandes'
 import Utilisateurs from './pages/Utilisateurs'
 import Mediatheque from './pages/Mediatheque'
+import Campagnes from './pages/Campagnes'
 import DefinirMotDePasse from './pages/DefinirMotDePasse'
 import DemandeFiche from './pages/DemandeFiche'
 
@@ -104,6 +105,10 @@ export default function AdminRoutes() {
 
         <Route element={<ProtectedRoute titre="Médiathèque" />}>
           <Route path="mediatheque" element={<Mediatheque />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Campagnes et bandeaux" />}>
+          <Route path="campagnes" element={<Campagnes />} />
         </Route>
 
         <Route element={<ProtectedRoute titre="Boîte de demandes" />}>

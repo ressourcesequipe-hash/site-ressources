@@ -188,6 +188,53 @@ export const media = pgTable('medias', {
   creeLe: timestamp('cree_le').notNull().defaultNow(),
 })
 
+// ── Campagnes et bandeaux temporaires (§19 du cahier) ────────────────────
+//
+// « Publier une information temporaire sans intervention dans le code » :
+// c'est la raison d'être du module. Aujourd'hui, retirer le carrousel de
+// l'accueil après le 3 octobre demande de modifier `BandeauTempsForts.jsx`.
+//
+// DEUX AXES, comme pour les événements et les points de collecte, et pour la
+// même raison : `actif` est l'interrupteur humain, les dates sont la fenêtre
+// automatique. Une campagne s'affiche quand les deux sont vrais. Les
+// confondre obligerait à retenir une date de fin pour masquer une campagne
+// en urgence, ou à la retaper pour la remettre.
+
+export const campagne = pgTable('campagnes', {
+  id: serial('id').primaryKey(),
+
+  // Jamais affiché : sert à la retrouver dans la liste. Le §19 le nomme
+  // explicitement « titre interne ».
+  titreInterne: text('titre_interne').notNull(),
+
+  message: text('message').notNull(),
+  lien: text('lien'),
+  texteBouton: text('texte_bouton'),
+
+  // information | evenement | alerte | collecte | appel_benevoles | soutien
+  type: text('type').notNull().default('information'),
+
+  // bandeau_global | accueil | page_specifique
+  emplacement: text('emplacement').notNull().default('bandeau_global'),
+  // Renseigné uniquement pour `page_specifique` : le chemin de la page.
+  pageCible: text('page_cible'),
+
+  debutLe: timestamp('debut_le'),
+  finLe: timestamp('fin_le'),
+  actif: boolean('actif').notNull().default(false),
+
+  // Deux campagnes visibles au même endroit se départagent par là, du plus
+  // petit au plus grand. Sans cet ordre, c'est la date d'insertion qui
+  // déciderait — donc rien de maîtrisable.
+  ordre: integer('ordre').notNull().default(0),
+
+  auteurId: text('auteur_id').references(() => user.id),
+  modifieParId: text('modifie_par_id').references(() => user.id),
+  version: integer('version').notNull().default(1),
+  creeLe: timestamp('cree_le').notNull().defaultNow(),
+  majLe: timestamp('maj_le').notNull().defaultNow(),
+})
+
 // ── Paramètres généraux (§17 du cahier) ───────────────────────────────────
 // Singleton : une seule ligne, id fixé à 1.
 
