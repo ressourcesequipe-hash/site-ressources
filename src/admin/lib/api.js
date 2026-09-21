@@ -8,6 +8,28 @@
 
 const BASE = '/api/admin'
 
+// Les sept modules de contenu sont servis par une seule fonction
+// serverless (`api/admin/contenus.js`), parce que le palier Vercel du
+// projet limite leur nombre par déploiement — treize fonctions avaient fait
+// refuser le déploiement du 21/09/2026.
+//
+// Cette traduction est faite ici, en un seul endroit, pour que les écrans
+// continuent d'appeler `/actualites` ou `/pages` : ils n'ont pas à connaître
+// une contrainte d'hébergement, et le jour où elle disparaîtra, seule cette
+// liste sera à retirer.
+const MODULES_REGROUPES = [
+  'actualites', 'ateliers', 'categories-ateliers',
+  'evenements', 'organisations', 'pages', 'points-collecte',
+]
+
+function versUrl(chemin) {
+  const [base, requete] = chemin.replace(/^\//, '').split('?')
+  if (!MODULES_REGROUPES.includes(base)) return BASE + chemin
+  const params = new URLSearchParams(requete || '')
+  params.set('module', base)
+  return `${BASE}/contenus?${params}`
+}
+
 /**
  * @returns {Promise<{ok: boolean, statut: number, donnees: any, erreur: string|null,
  *   erreurs: Array<{champ: string, message: string}>|null, conflit: boolean}>}
@@ -15,7 +37,7 @@ const BASE = '/api/admin'
 export async function appelerApi(chemin, options = {}) {
   let reponse
   try {
-    reponse = await fetch(BASE + chemin, {
+    reponse = await fetch(versUrl(chemin), {
       method: options.methode || 'GET',
       headers: { 'content-type': 'application/json' },
       credentials: 'same-origin',

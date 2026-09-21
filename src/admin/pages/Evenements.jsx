@@ -66,7 +66,7 @@ export default function Evenements() {
 
   return (
     <div>
-      <BandeauNonBranche quoi="les événements" />
+      <BandeauNonBranche quoi="les événements enregistrés ici" />
 
       <div className="flex items-start justify-between gap-4 mb-5">
         <p className="text-sm text-terre/70 max-w-xl leading-relaxed">

@@ -57,7 +57,7 @@ export default function PointsCollecte() {
 
   return (
     <div>
-      <BandeauNonBranche quoi="les points de collecte" />
+      <BandeauNonBranche quoi="les points de collecte enregistrés ici" />
 
       <div className="flex items-start justify-between gap-4 mb-5">
         <p className="text-sm text-terre/70 max-w-xl leading-relaxed">

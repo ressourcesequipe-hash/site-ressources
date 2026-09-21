@@ -109,11 +109,14 @@ export function pourChampDate(valeur, avecHeure = false) {
  * article est précisément ce que le §24.7 proscrit. À retirer le jour où le
  * site lira réellement la base.
  */
+// `quoi` porte la formulation complete, accord compris : « les pages
+// enregistrees ici », « les articles enregistres ici ». Un accord fige dans
+// le composant produisait « les pages enregistres ».
 export function BandeauNonBranche({ quoi }) {
   return (
     <div className="mb-5 rounded-xl border border-ocre/30 bg-ocre/[0.07] px-4 py-3">
       <p className="text-[13px] text-terre leading-relaxed">
-        <span className="font-semibold">Le site public n{'’'}affiche pas encore {quoi} enregistrés ici.</span>{' '}
+        <span className="font-semibold">Le site public n{'’'}affiche pas encore {quoi}.</span>{' '}
         Il sert toujours le contenu écrit dans le code du site. Ce que vous créez est bien
         conservé et retrouvé ici, mais restera invisible des visiteurs jusqu{'’'}au branchement
         du site public, prévu à une étape ultérieure du projet.
