@@ -748,3 +748,9 @@ Le back-office est exclu des deux mesures, par `beforeSend` côté Vercel et par
 ### Textes juridiques
 
 Soumis et validés avant d'être écrits, comme pour Vercel. Deux pages modifiées, et seulement elles : la section Cookies des mentions légales — qui devenait fausse — et la politique de confidentialité, où s'ajoutent une section sur Google, la mention du transfert hors Union européenne, une ligne au tableau des finalités (14 mois) et la section « Vos choix ».
+
+**Collecte confirmée en production le 23/09/2026.** Le doute qui restait — les événements partent-ils vraiment chez Google ? — est levé : en interceptant `fetch` et `sendBeacon` sur la page en direct, deux requêtes vers `region1.google-analytics.com/g/collect` ont été capturées, avec le bon identifiant de mesure. La chaîne fonctionne de bout en bout.
+
+À savoir pour ne pas s'alarmer : l'écran « Détails du flux » de Google affiche « Aucune donnée reçue » et un avertissement sur la collecte pendant les premières minutes. Cet avertissement ne vaut qu'au-delà de 48 heures sans donnée ; seul l'écran **Temps réel** réagit immédiatement.
+
+L'écran « Instructions d'installation » que propose Google s'adresse aux sites WordPress, Wix ou Squarespace, dont les propriétaires ne peuvent pas modifier le code. Il n'a rien à voir avec ce projet et ne doit pas être suivi.
