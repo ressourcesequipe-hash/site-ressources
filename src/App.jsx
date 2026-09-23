@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import AppRoutes from './routes'
+import BandeauConsentement from './components/BandeauConsentement'
 
 // Mesure d'audience — Vercel Web Analytics.
 //
@@ -44,6 +45,10 @@ export default function App() {
     <BrowserRouter>
       <AppRoutes />
       <Analytics beforeSend={ecarterBackOffice} />
+      {/* Google Analytics ne se charge qu'après un accord explicite : tout
+          passe par ce composant, qui porte aussi la demande. Vercel Web
+          Analytics, lui, tourne sans condition — il n'en a pas besoin. */}
+      <BandeauConsentement />
     </BrowserRouter>
   )
 }

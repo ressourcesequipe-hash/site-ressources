@@ -707,3 +707,44 @@ Trois décisions de conception :
 **29 vérifications**, l'API de Vercel interceptée — ce qui permet d'éprouver les cas d'échec qu'on ne peut pas provoquer chez eux. Puis l'écran dans le navigateur, dans ses deux états : dégradé, tel que l'équipe le verra tant que Web Analytics n'est pas activé, et nominal.
 
 **Il reste un clic à faire, côté Vercel** : projet → Analytics → Enable. Sans lui, le script part mais rien n'est enregistré, et les chiffres ne remonteront pas dans le passé.
+
+## 23/09/2026 — Google Analytics, avec consentement
+
+Ajouté à côté de la mesure anonyme, et non à sa place : les deux se complètent là où chacune est faible. Vercel voit 100 % du trafic mais ne garde qu'un mois ; Google garde l'historique et suit les campagnes, mais ne voit que les visiteurs consentants. **Les deux tableaux n'afficheront jamais les mêmes chiffres, et c'est normal** — à dire à l'équipe avant qu'elle ne le prenne pour une panne.
+
+### Le fragment fourni par Google n'a pas été posé tel quel
+
+Celui que Google propose charge la mesure dès l'ouverture de la page : les cookies sont déposés avant que le visiteur ait pu répondre. C'est ce que la CNIL interdit, et ce qui rend un consentement **invalide** — donc les données inexploitables. L'association aurait fait le travail pour rien.
+
+Ici, rien ne part vers Google tant que personne n'a cliqué. Pas de « consent mode » qui chargerait quand même en mode dégradé : aucune requête.
+
+### Le texte du bandeau
+
+Rédigé pour convaincre, à la demande de l'association, et c'est légitime : une association d'intérêt général a de bonnes raisons de demander ce coup de main. L'argument retenu est « aidez-nous », pas la nécessité technique.
+
+**Une formule de la consigne initiale n'a pas été reprise** : « permet un fonctionnement optimal du site ». Elle est fausse — le site marche à l'identique sans — et c'est exactement ce qui vicie un consentement. Signalé, expliqué, remplacé par un argument vrai et plus efficace.
+
+### Ce qui n'est pas négociable, et pourquoi c'est vérifié par le code
+
+- **Les deux boutons ont des classes CSS strictement identiques.** Vérifié en lisant le DOM, pas à l'œil : une présentation qui pousse visuellement vers l'acceptation est le premier point que regarde un contrôle.
+- **L'inaction ne vaut pas accord.** Ni la fermeture, ni le défilement, ni le silence.
+- **Le refus dure aussi longtemps que l'accord** (6 mois, durée recommandée par la CNIL). Reposer la question à chaque page à qui a dit non serait du harcèlement déguisé — et vicierait l'accord qu'on finirait par obtenir.
+- **Retirer son accord efface les cookies déjà déposés.** Sans cela le retrait ne retirerait rien : le suivi reprendrait à la page suivante. C'est le point le plus souvent bâclé, et il est testé.
+- **Le retrait demande deux clics** depuis n'importe quelle page — autant que l'acceptation.
+
+### Vérifications en conditions réelles
+
+| | |
+|---|---|
+| Avant tout clic | `gtag` absent, aucune requête vers Google, aucun cookie |
+| Refus | rien ne se charge, et le choix tient après rechargement complet |
+| Acceptation | script chargé avec le bon identifiant, cookies `_ga` posés |
+| Retrait depuis la politique | cookies réellement supprimés, état affiché mis à jour |
+| Back-office | aucun bandeau, même sans choix enregistré |
+| Prérendu | 58 pages inchangées, aucune trace de Google dans le HTML |
+
+Le back-office est exclu des deux mesures, par `beforeSend` côté Vercel et par `send_page_view` côté Google : les deux outils comptent la même chose.
+
+### Textes juridiques
+
+Soumis et validés avant d'être écrits, comme pour Vercel. Deux pages modifiées, et seulement elles : la section Cookies des mentions légales — qui devenait fausse — et la politique de confidentialité, où s'ajoutent une section sur Google, la mention du transfert hors Union européenne, une ligne au tableau des finalités (14 mois) et la section « Vos choix ».

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 
@@ -80,9 +81,17 @@ export default function MentionsLegales() {
             <div>
               <h2 className="font-serif text-xl text-terre mb-4">Cookies</h2>
               <p>
-                Ce site n'utilise pas de cookies de traçage publicitaire. Des cookies techniques
-                strictement nécessaires au fonctionnement du site peuvent être déposés.
-                Aucune donnée à caractère personnel n'est collectée sans votre consentement explicite.
+                Ce site n'utilise aucun cookie publicitaire et ne revend aucune donnée.
+              </p>
+              <p className="mt-3">
+                Deux mesures d'audience y cohabitent. La première est anonyme et ne dépose
+                aucun cookie : elle fonctionne pour tous les visiteurs. La seconde, Google
+                Analytics, dépose des cookies et n'est activée que si vous l'acceptez — rien
+                n'est chargé tant que vous n'avez pas répondu. Vous pouvez revenir sur ce
+                choix à tout moment depuis la{' '}
+                <Link to="/confidentialite/" className="text-ocre hover:underline">
+                  politique de confidentialité
+                </Link>.
               </p>
             </div>
 

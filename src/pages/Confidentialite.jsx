@@ -1,4 +1,5 @@
 import Layout from '../components/Layout'
+import ChoixMesure from '../components/ChoixMesure'
 import SEO from '../components/SEO'
 
 export default function Confidentialite() {
@@ -101,6 +102,11 @@ export default function Confidentialite() {
                       <td className="p-3">Statistiques de fréquentation anonymes</td>
                       <td className="p-3">Comprendre l'usage du site</td>
                       <td className="p-3">1 mois</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3">Statistiques de navigation (Google Analytics, avec accord)</td>
+                      <td className="p-3">Comprendre l'usage du site sur la durée</td>
+                      <td className="p-3">14 mois</td>
                     </tr>
                   </tbody>
                 </table>
@@ -214,6 +220,35 @@ export default function Confidentialite() {
                   vercel.com
                 </a>.
               </p>
+            </div>
+
+            {/* Google Analytics — soumis au consentement */}
+            <div>
+              <h2 className="font-serif text-xl text-terre mb-4">
+                Google Analytics, avec votre accord
+              </h2>
+              <p>
+                Si vous l'acceptez, nous utilisons{' '}
+                <strong className="text-terre">Google Analytics</strong> pour comprendre sur
+                la durée comment le site est consulté. Cet outil dépose des cookies et n'est
+                chargé qu'après votre accord explicite : tant que vous n'avez pas répondu,
+                aucune donnée ne part vers Google.
+              </p>
+              <p className="mt-3">
+                Google agit comme sous-traitant et peut transférer ces données{' '}
+                <strong className="text-terre">hors de l'Union européenne</strong>, notamment
+                aux États-Unis, dans le cadre du <em>Data Privacy Framework</em>. C'est la
+                raison pour laquelle votre accord est requis, alors qu'il ne l'est pas pour
+                la mesure anonyme décrite plus haut.
+              </p>
+              <p className="mt-3">
+                L'association n'exploite ces données que pour améliorer le site et orienter
+                ses actions. Elles ne sont ni vendues, ni échangées, ni utilisées à des fins
+                publicitaires.
+              </p>
+
+              <h3 className="font-serif text-lg text-terre mt-6 mb-2">Vos choix</h3>
+              <ChoixMesure />
             </div>
 
             {/* Droits */}
