@@ -53,8 +53,9 @@ export default function Confidentialite() {
                 <li>Le formulaire d'inscription à la newsletter (email)</li>
               </ul>
               <p className="mt-3">
-                Nous ne collectons pas de données de navigation, de cookies publicitaires,
-                ni de données sensibles au sens du RGPD.
+                Nous ne déposons aucun cookie publicitaire et ne traitons aucune donnée
+                sensible au sens du RGPD. La fréquentation du site fait l'objet d'une
+                mesure anonyme, décrite plus bas.
               </p>
             </div>
 
@@ -95,6 +96,11 @@ export default function Confidentialite() {
                       <td className="p-3">Email (et nom si vous l'avez indiqué)</td>
                       <td className="p-3">Envoi de la newsletter de l'association</td>
                       <td className="p-3">Jusqu'à votre désabonnement</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3">Statistiques de fréquentation anonymes</td>
+                      <td className="p-3">Comprendre l'usage du site</td>
+                      <td className="p-3">1 mois</td>
                     </tr>
                   </tbody>
                 </table>
@@ -178,6 +184,34 @@ export default function Confidentialite() {
                   className="text-ocre hover:underline"
                 >
                   osmfoundation.org
+                </a>.
+              </p>
+            </div>
+
+            {/* Mesure d'audience */}
+            <div>
+              <h2 className="font-serif text-xl text-terre mb-4">Mesure d'audience</h2>
+              <p>
+                La fréquentation du site est mesurée avec{' '}
+                <strong className="text-terre">Vercel Web Analytics</strong>, fourni par
+                l'hébergeur du site. Cet outil ne dépose aucun cookie et ne permet pas de
+                vous identifier : votre navigateur est reconnu le temps d'une visite par
+                une empreinte calculée à partir de votre requête, abandonnée au bout de
+                vingt-quatre heures. Aucun suivi d'un site à l'autre n'est possible, et
+                l'association ne voit que des statistiques agrégées — pages consultées,
+                provenance, type d'appareil.
+              </p>
+              <p className="mt-3">
+                C'est parce que cette mesure ne permet ni de vous identifier ni de vous
+                suivre qu'elle ne requiert pas votre consentement préalable. Le traitement
+                par Vercel relève de sa propre politique, consultable sur{' '}
+                <a
+                  href="https://vercel.com/legal/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-ocre hover:underline"
+                >
+                  vercel.com
                 </a>.
               </p>
             </div>

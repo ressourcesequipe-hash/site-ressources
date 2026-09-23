@@ -663,3 +663,47 @@ Puis dans le navigateur, avec quatre campagnes réelles : deux bandeaux sur l'ac
 
 - **Le carrousel riche de l'accueil** n'est pas remplacé : deux diapositives, boutons multiples, rotation automatique, repli si une image manque. Le rendre pilotable demande de réécrire `BandeauTempsForts.jsx` et de toucher `Home.jsx`. À voir après le 3 octobre, sans urgence.
 - **Pas de fermeture par le visiteur.** Un bandeau global sans croix sur toutes les pages peut agacer ; le §19 ne le demande pas, et l'ajouter plus tard est simple.
+
+## 23/09/2026 — Mesure d'audience : Vercel Web Analytics, et une rubrique Statistiques
+
+Le site n'avait **aucun outil de mesure**. Seule une balise de vérification Search Console traînait dans `SEO.jsx` — la console Google existe donc pour le domaine, mais rien ne mesurait la fréquentation.
+
+À noter, parce que c'est une source de confusion : les serveurs GA4 et Search Console connectés à l'environnement de travail pointent sur **kingdomrise.fr**, un autre site. Ils ne voient rien de la recyclerie.
+
+### Pourquoi cet outil
+
+Vercel Web Analytics ne dépose aucun cookie : le visiteur est reconnu le temps d'une visite par une empreinte calculée depuis sa requête, abandonnée au bout de 24 heures, et les données sont agrégées. **Aucun bandeau de consentement n'est donc requis**, et l'outil voit 100 % du trafic — là où un outil soumis au consentement n'en voit qu'une partie.
+
+Sa limite, vérifiée dans la documentation Vercel plutôt que supposée : sur le forfait Hobby, **50 000 événements par mois et un seul mois d'historique**, sans paramètres UTM ni événements personnalisés. C'est un thermomètre fiable, pas une mémoire. Google Analytics viendra à côté pour l'historique long et le suivi de campagnes — avec le bandeau de consentement que cela impose.
+
+### Le back-office n'est pas mesuré
+
+L'exclusion passe par `beforeSend` et non par un montage conditionnel du composant : une navigation du site vers `/admin` **au sein de la même session** passerait à travers un montage conditionnel. Sept cas vérifiés, dont `/administration/` qui ne doit **pas** être écarté.
+
+Y mesurer l'audience gonflerait les chiffres avec le travail de l'équipe, et reviendrait à observer des personnes identifiables dans leur outil de travail.
+
+### Le prérendu n'est pas touché
+
+Le composant est monté dans `src/App.jsx`, alors que `entry-server.jsx` rend `AppRoutes` : la mesure ne s'exécute donc que chez le visiteur. Vérifié — les 58 pages prérendues sont inchangées, et le HTML ne contient aucune trace du script.
+
+### Les textes juridiques, validés avant modification
+
+La politique de confidentialité affirmait : « Nous ne collectons pas de données de navigation ». Installer n'importe quelle mesure rendait cette phrase fausse. Trois modifications, soumises et validées avant d'être écrites : la phrase corrigée, une ligne dans le tableau des finalités (durée : 1 mois), et une section « Mesure d'audience » rédigée dans le registre de la section OpenStreetMap, qui servait de précédent.
+
+Les mentions légales n'ont pas bougé : leur section Cookies reste vraie tant qu'aucun cookie n'est déposé. Elle devra être réécrite quand GA4 arrivera.
+
+### La rubrique Statistiques du tableau de bord
+
+Mesurer sans pouvoir consulter n'aurait servi à personne : les rapports Vercel demandent un compte Vercel, donc une seule personne de l'association les aurait vus. Le §7 prévoyait un tableau de bord, réduit jusqu'ici à un message de bienvenue ; la fréquentation en devient la première rubrique réelle.
+
+`api/admin/tableau-de-bord.js` — onzième fonction serverless sur douze. Les modules restants (navigation §18, SEO §20, historique §23) sont prévus dans `reglages.js`, la marge tient.
+
+Trois décisions de conception :
+
+- **Une statistique manquante ne casse jamais l'écran.** L'endpoint répond 200 avec la raison plutôt qu'une erreur : Web Analytics pas encore activé, configuration absente, panne. Le reste du tableau de bord — et bientôt les compteurs de contenus et de demandes — garde sa valeur.
+- **Aucune tendance n'est affirmée sous 20 vues.** Sur les volumes d'un site associatif qui démarre, trois visites d'écart produisent des pourcentages spectaculaires et faux. L'écran dit alors qu'il n'y a pas de quoi conclure.
+- **Le nom du champ de mesure n'est pas documenté** publiquement par Vercel. Le client accepte plusieurs variantes et **signale** le cas où aucune ne correspond, plutôt que d'afficher des zéros qui passeraient pour une absence de trafic.
+
+**29 vérifications**, l'API de Vercel interceptée — ce qui permet d'éprouver les cas d'échec qu'on ne peut pas provoquer chez eux. Puis l'écran dans le navigateur, dans ses deux états : dégradé, tel que l'équipe le verra tant que Web Analytics n'est pas activé, et nominal.
+
+**Il reste un clic à faire, côté Vercel** : projet → Analytics → Enable. Sans lui, le script part mais rien n'est enregistré, et les chiffres ne remonteront pas dans le passé.
