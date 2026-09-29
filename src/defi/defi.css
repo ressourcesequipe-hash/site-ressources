@@ -195,7 +195,7 @@
 .dfi-territoire-tete { display: flex; align-items: baseline; gap: calc(var(--u) * 24); }
 .dfi h2 { font-family: 'Playfair Display', Georgia, serif; font-size: calc(var(--u) * 36); font-weight: 700; }
 .dfi-territoire-tete p { font-size: calc(var(--u) * 24); color: var(--vert); font-weight: 500; }
-.dfi-colonnes { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.55fr 1fr 1.15fr; gap: calc(var(--u) * 18); }
+.dfi-colonnes { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.15fr 1fr; gap: calc(var(--u) * 18); }
 .dfi-carte {
   background: rgba(255, 255, 255, .62);
   border: calc(var(--u) * 2) solid var(--sauge);

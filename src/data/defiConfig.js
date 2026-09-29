@@ -29,8 +29,9 @@ export const collectionPoints = [
 
 // Pour ajouter un partenaire : une ligne de plus dans ce tableau.
 export const partners = [
-  'SITCOM 40',
-  'LANDES ATTRACTIVITÉ',
+  'Landes Attractivité',
+  'Domolandes',
+  'Agrolandes',
   'Landes Partage',
   'Comptoir Électroménager Solidaire',
 ]

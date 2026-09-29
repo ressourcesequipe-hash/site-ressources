@@ -252,12 +252,8 @@ export default function Defi() {
             <ul>{communes.map((c) => <Pastille key={c}>{c}</Pastille>)}</ul>
           </div>
           <div className="dfi-carte">
-            <h3>Points de collecte</h3>
-            <ul>{collectionPoints.map((c) => <Pastille key={c}>{c}</Pastille>)}</ul>
-          </div>
-          <div className="dfi-carte">
-            <h3>Partenaires du défi</h3>
-            <ul>{partners.map((c) => <Pastille key={c}>{c}</Pastille>)}</ul>
+            <h3>Entreprises, associations et organismes partenaires</h3>
+            <ul>{[...collectionPoints, ...partners].map((c) => <Pastille key={c}>{c}</Pastille>)}</ul>
           </div>
         </div>
       </section>
