@@ -6,9 +6,11 @@
  * être connus au moment du build, pas chargés dans le navigateur — sans quoi
  * Google verrait une page vide et n'indexerait rien.
  *
- * Deux choses en sortent :
+ * Trois choses en sortent :
  *   • `src/data/vitrine.json`, que les pages importent ;
- *   • `public/vitrine/*`, les photos, **recopiées** chez nous.
+ *   • `public/vitrine/*`, les photos, **recopiées** chez nous ;
+ *   • `src/data/operations.json`, les compteurs des opérations que Ressources
+ *     360 accepte de montrer — celui du défi collecte en vit.
  *
  * La recopie n'est pas un confort. Ressources 360 pose `X-Robots-Tag: noindex,
  * noimageindex` sur tout ce qu'il sert — c'est un back-office, et c'est voulu.
@@ -28,6 +30,7 @@ const racine = path.join(__dirname, '..')
 const SOURCE = process.env.VITRINE_URL || 'https://ressources-360.vercel.app'
 const CIBLE_JSON = path.join(racine, 'src', 'data', 'vitrine.json')
 const CIBLE_PHOTOS = path.join(racine, 'public', 'vitrine')
+const CIBLE_OPERATIONS = path.join(racine, 'src', 'data', 'operations.json')
 
 const EXTENSIONS = {
   'image/jpeg': 'jpg',
@@ -60,7 +63,48 @@ async function chercher(chemin, essais = 3) {
   throw derniere
 }
 
+/**
+ * Les compteurs d'opérations : le tonnage du défi collecte, aujourd'hui.
+ *
+ * Écrit dans son propre fichier, et jamais bloquant. Si Ressources 360 ne
+ * répond pas, on garde le fichier précédent : un compteur d'hier vaut mieux
+ * qu'un site qui ne se déploie pas, et la page sait retomber sur le dernier
+ * chiffre connu si même ce fichier manque.
+ */
+async function compteurs() {
+  try {
+    const reponse = await chercher('/api/vitrine/operations')
+    const flux = await reponse.json()
+    const operations = Array.isArray(flux.operations) ? flux.operations : []
+
+    fs.mkdirSync(path.dirname(CIBLE_OPERATIONS), { recursive: true })
+    fs.writeFileSync(
+      CIBLE_OPERATIONS,
+      JSON.stringify({ maj: flux.maj || null, operations }, null, 2) + '\n'
+    )
+
+    if (operations.length === 0) {
+      console.log('[vitrine] Aucune opération marquée « compteur public ».')
+    } else {
+      console.log(
+        `[vitrine] Compteurs : ${operations.map((o) => `${o.nom} ${o.poids_kg} kg`).join(' · ')}`
+      )
+    }
+  } catch (e) {
+    console.warn(`[vitrine] Compteurs d'opérations indisponibles (${e.message}).`)
+    if (!fs.existsSync(CIBLE_OPERATIONS)) {
+      fs.mkdirSync(path.dirname(CIBLE_OPERATIONS), { recursive: true })
+      fs.writeFileSync(
+        CIBLE_OPERATIONS,
+        JSON.stringify({ maj: null, operations: [] }, null, 2) + '\n'
+      )
+    }
+  }
+}
+
 async function main() {
+  await compteurs()
+
   let flux
   try {
     const reponse = await chercher('/api/vitrine')

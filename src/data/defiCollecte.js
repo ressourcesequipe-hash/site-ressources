@@ -1,14 +1,37 @@
 // Défi collecte : du 1er septembre au 3 octobre 2026, 500 kg de matériel
 // informatique et électronique à réunir sur le territoire.
 
+import operations from './operations.json'
+
+/*
+ * Le compteur vient de Ressources 360, où les pesées sont déjà saisies.
+ *
+ * Il était recopié à la main ici à chaque pesée : il vieillissait entre deux
+ * mises à jour, et personne ne savait de quand il datait. Le tonnage est
+ * maintenant relevé au build, par `scripts/vitrine.mjs`, sur l'opération que
+ * quelqu'un a cochée « compteur public » dans Ressources 360. Le chiffre se
+ * met donc à jour à chaque déploiement du site, et il est dans le HTML
+ * prérendu : Google le voit, et le visiteur n'attend rien.
+ *
+ * S'il n'y a rien à lire — aucune opération cochée, ou back-office injoignable
+ * au dernier build — on retombe sur le dernier chiffre connu ci-dessous
+ * plutôt que d'afficher un compteur à zéro.
+ */
+const COMPTEUR = operations.operations?.[0] ?? null
+
+const nombreFr = (n) => new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 }).format(n)
+
 export const DEFI = {
   objectifKg: 500,
   debut: '1er septembre 2026',
   fin: '3 octobre 2026',
-  // Mettre à jour au fil des pesées. null tant qu'aucune pesée n'a eu lieu :
-  // la page affiche alors le compteur comme « à venir » plutôt que « 0 kg ».
-  collecteKg: '305,8',
-  dernierePesee: null,
+  // Dernier chiffre connu, tenu à la main. Il ne sert que de filet : tant
+  // qu'une opération est cochée dans Ressources 360, c'est elle qui parle.
+  collecteKg: COMPTEUR ? nombreFr(COMPTEUR.poids_kg) : '305,8',
+  dernierePesee: COMPTEUR?.derniere_collecte ?? null,
+  // De quoi savoir, à la lecture d'une page, si le chiffre vient de l'outil
+  // ou de la ligne ci-dessus.
+  depuis360: Boolean(COMPTEUR),
 }
 
 // Points de collecte du défi.
