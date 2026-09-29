@@ -4,6 +4,7 @@ import {
   SOUND_ENABLED, challenge, collectionPoints, communes, partners,
 } from '../data/defiConfig'
 import Confetti from '../defi/Confetti'
+import Fin from '../defi/Fin'
 import Jauge from '../defi/Jauge'
 import Operateur, { BarreOperateur } from '../defi/Operateur'
 import { nombreFr, total } from '../defi/store'
@@ -45,6 +46,7 @@ export default function Defi() {
   const [panneau, setPanneau] = useState(false)
   const [plein, setPlein] = useState(false)
   const [barre, setBarre] = useState(true)
+  const [fin, setFin] = useState(false)
   const [musique, setMusique] = useState('attente') // 'on' | 'attente' | 'erreur'
   const [sourdine, setSourdine] = useState(false)
 
@@ -166,6 +168,7 @@ export default function Defi() {
         return
       }
       if (saisie || e.ctrlKey || e.altKey || e.metaKey) return
+      if (fin) return // écran de clôture ouvert : Échap le referme (géré dans Fin)
       // Touche O seule : même effet que Ctrl+Alt+O, pour les claviers où
       // Ctrl+Alt (= AltGr) est intercepté.
       if (e.key === 'o' || e.key === 'O') { ouvrirOperateur(); return }
@@ -177,8 +180,13 @@ export default function Defi() {
     }
     window.addEventListener('keydown', touche)
     return () => window.removeEventListener('keydown', touche)
-  }, [ouvrirOperateur, basculerPleinEcran, basculerSon, a])
+  }, [fin, ouvrirOperateur, basculerPleinEcran, basculerSon, a])
 
+
+  const ouvrirFin = () => {
+    setFin(true)
+    confetti.current?.rain(2500)
+  }
 
   const essaiObjectif = () => {
     if (celebActive.current) return
@@ -289,7 +297,8 @@ export default function Defi() {
       )}
 
       <Confetti ref={confetti} />
-      {barre && !panneau && <BarreOperateur store={store} onPanneau={() => setPanneau(true)} />}
+      {barre && !panneau && <BarreOperateur store={store} onPanneau={() => setPanneau(true)} onFin={ouvrirFin} />}
+      {fin && <Fin totalKg={total(etat)} onFermer={() => setFin(false)} />}
       {panneau && (
         <Operateur
           store={store}

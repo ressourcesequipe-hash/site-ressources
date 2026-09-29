@@ -130,7 +130,7 @@ const aujourdhui = () => {
 // Tout le déroulé du jour J sans ouvrir le panneau : compteur de collectes,
 // précédente / suivante, et saisie de la collecte du jour (date du jour
 // pré-remplie).
-export function BarreOperateur({ store, onPanneau }) {
+export function BarreOperateur({ store, onPanneau, onFin }) {
   const { etat, busy, a } = store
   const [date, setDate] = useState(aujourdhui)
   const [poids, setPoids] = useState('')
@@ -165,6 +165,7 @@ export function BarreOperateur({ store, onPanneau }) {
         {err && <span className="dfo-erreur">{err}</span>}
       </form>
       <button type="button" className="dfo-btn" onClick={onPanneau}>Panneau</button>
+      <button type="button" className="dfo-btn dfo-fin" onClick={onFin}>FIN</button>
     </div>
   )
 }
