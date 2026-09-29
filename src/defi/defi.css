@@ -1,0 +1,297 @@
+/* Interface de projection /defi — pensée pour 1920 × 1080.
+   Toutes les tailles sont en multiples de --u (1 px en Full HD), ce qui garde
+   la composition identique sur tout écran 16:9. */
+
+.dfi, .dfo-panneau, .dfo-voile {
+  --vert-profond: #1f4d2e;
+  --vert: #4e8b3a;
+  --sauge: #a9bfa0;
+  --sauge-clair: #dfe8d9;
+  --creme: #f7f1e3;
+  --creme-fonce: #efe6d0;
+  --ocre: #c8973a;
+  --jaune: #e8b84a;
+  --u: min(calc(100vw / 1920), calc(100vh / 1080));
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.dfi {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 6);
+  padding: calc(var(--u) * 22) calc(var(--u) * 56) calc(var(--u) * 24);
+  color: var(--vert-profond);
+  background:
+    radial-gradient(ellipse at 50% 30%, #fffaf0 0%, transparent 60%),
+    linear-gradient(180deg, var(--creme) 0%, var(--creme-fonce) 100%);
+  z-index: 100;
+}
+.dfi *, .dfi *::before, .dfi *::after { box-sizing: border-box; }
+.dfi h1, .dfi h2, .dfi h3, .dfi p, .dfi ul { margin: 0; padding: 0; }
+.dfi ul { list-style: none; }
+
+/* Feuillage discret */
+.dfi-deco { position: absolute; color: var(--sauge); opacity: .28; pointer-events: none; }
+.dfi-deco-a { width: calc(var(--u) * 260); left: calc(var(--u) * -70); top: calc(var(--u) * 250); transform: rotate(-20deg); }
+.dfi-deco-b { width: calc(var(--u) * 200); right: calc(var(--u) * -50); top: calc(var(--u) * 150); transform: rotate(150deg); }
+
+/* En-tête */
+.dfi-entete {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 28);
+  height: calc(var(--u) * 112);
+  flex: none;
+}
+.dfi-logo { border: 0; background: none; padding: 0; cursor: default; }
+.dfi-logo img { height: calc(var(--u) * 100); width: auto; display: block; }
+.dfi h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: calc(var(--u) * 56);
+  line-height: 1.05;
+  font-weight: 700;
+}
+.dfi-entete p { font-size: calc(var(--u) * 28); margin-top: calc(var(--u) * 6); color: var(--vert); font-weight: 500; }
+
+.dfi-celebration {
+  position: absolute;
+  inset: calc(var(--u) * -6) calc(var(--u) * -20);
+  display: grid;
+  place-items: center;
+  border-radius: calc(var(--u) * 32);
+  background: linear-gradient(90deg, var(--vert-profond), #2c6b3f);
+  color: var(--jaune);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: calc(var(--u) * 84);
+  letter-spacing: .02em;
+  animation: dfi-arrive .55s cubic-bezier(.2, 1.4, .4, 1) both;
+  box-shadow: 0 calc(var(--u) * 12) calc(var(--u) * 40) rgba(31, 77, 46, .35);
+  z-index: 5;
+}
+@keyframes dfi-arrive { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
+
+/* Compteur */
+.dfi-centre {
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: calc(var(--u) * 340) 1fr calc(var(--u) * 340);
+  align-items: center;
+}
+.dfi-infos { display: grid; gap: calc(var(--u) * 10); align-self: center; }
+.dfi-infos div {
+  background: rgba(255, 255, 255, .6);
+  border: calc(var(--u) * 2) solid var(--sauge);
+  border-radius: calc(var(--u) * 20);
+  padding: calc(var(--u) * 8) calc(var(--u) * 20);
+  display: flex; flex-direction: column;
+}
+.dfi-infos span { font-size: calc(var(--u) * 20); color: var(--vert); font-weight: 500; }
+.dfi-infos b { font-size: calc(var(--u) * 30); line-height: 1.15; }
+
+.dfi-compteur { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.dfi-nombre {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: calc(var(--u) * 210);
+  line-height: .95;
+  font-variant-numeric: tabular-nums;
+  color: var(--vert-profond);
+  min-width: calc(var(--u) * 480);
+}
+.dfi-unite { font-size: calc(var(--u) * 62); font-weight: 600; color: var(--vert); line-height: 1.1; margin-top: calc(var(--u) * 4); }
+.dfi-statut {
+  margin-top: calc(var(--u) * 12);
+  min-height: calc(var(--u) * 44);
+  display: flex; gap: calc(var(--u) * 22); align-items: baseline; justify-content: center;
+  font-size: calc(var(--u) * 34); font-weight: 600;
+}
+.dfi-statut strong {
+  background: var(--ocre); color: #fff; padding: calc(var(--u) * 2) calc(var(--u) * 20);
+  border-radius: 999px; font-weight: 700;
+}
+.dfi-statut span { color: var(--vert-profond); }
+
+.dfi-pop-zone { position: relative; height: 100%; }
+.dfi-pop {
+  position: absolute; left: calc(var(--u) * 10); top: 24%;
+  font-size: calc(var(--u) * 82); font-weight: 800; color: var(--ocre);
+  font-family: 'Playfair Display', Georgia, serif;
+  animation: dfi-pop 3.8s ease-out both;
+  white-space: nowrap;
+}
+@keyframes dfi-pop {
+  0% { opacity: 0; transform: translateY(calc(var(--u) * 50)) scale(.7); }
+  10% { opacity: 1; transform: translateY(calc(var(--u) * -8)) scale(1.12); }
+  16% { transform: translateY(0) scale(1); }
+  75% { opacity: 1; transform: translateY(calc(var(--u) * -34)); }
+  100% { opacity: 0; transform: translateY(calc(var(--u) * -60)); }
+}
+
+/* Jauge */
+.dfi-jauge { position: relative; flex: none; height: calc(var(--u) * 252); margin: 0 calc(var(--u) * 4); }
+.dfi-marqueur { position: absolute; top: 0; transform: translateX(-50%); z-index: 3; text-align: center; }
+.dfi-marqueur-carte {
+  display: flex; align-items: center; gap: calc(var(--u) * 12);
+  background: var(--vert-profond); color: var(--creme);
+  padding: calc(var(--u) * 8) calc(var(--u) * 22) calc(var(--u) * 8) calc(var(--u) * 12);
+  border-radius: calc(var(--u) * 26); text-align: left;
+  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 16) rgba(31, 77, 46, .28);
+}
+.dfi-marqueur-carte b { display: block; font-size: calc(var(--u) * 34); line-height: 1; }
+.dfi-marqueur-carte span { display: block; font-size: calc(var(--u) * 22); letter-spacing: .12em; color: var(--jaune); font-weight: 700; margin-top: calc(var(--u) * 2); }
+.dfi-cible { width: calc(var(--u) * 54); height: calc(var(--u) * 54); flex: none; }
+.dfi-marqueur-tige {
+  display: block; margin: 0 auto; width: calc(var(--u) * 6); height: calc(var(--u) * 46);
+  background: var(--vert-profond); border-radius: 3px;
+}
+.dfi-pulse .dfi-marqueur-carte { animation: dfi-battement .55s ease-in-out 4; background: var(--ocre); }
+@keyframes dfi-battement { 50% { transform: scale(1.22); } }
+
+.dfi-fleche {
+  --tete: calc(var(--u) * 84);
+  position: absolute; left: 0; right: 0; top: calc(var(--u) * 100); height: calc(var(--u) * 84);
+  background: var(--sauge-clair);
+  clip-path: polygon(0 0, calc(100% - var(--tete)) 0, 100% 50%, calc(100% - var(--tete)) 100%, 0 100%);
+  border-radius: calc(var(--u) * 42) 0 0 calc(var(--u) * 42);
+  box-shadow: inset 0 calc(var(--u) * 4) calc(var(--u) * 8) rgba(31, 77, 46, .12);
+}
+.dfi-remplissage, .dfi-depassement { position: absolute; top: 0; bottom: 0; }
+.dfi-remplissage {
+  left: 0;
+  background:
+    repeating-linear-gradient(115deg, rgba(255,255,255,.14) 0 calc(var(--u) * 18), transparent calc(var(--u) * 18) calc(var(--u) * 36)),
+    linear-gradient(180deg, #5da146, var(--vert) 55%, #3f7a2f);
+  background-size: calc(var(--u) * 72) 100%, 100% 100%;
+  animation: dfi-defile 2.4s linear infinite;
+}
+.dfi-depassement {
+  background:
+    repeating-linear-gradient(115deg, rgba(255,255,255,.2) 0 calc(var(--u) * 18), transparent calc(var(--u) * 18) calc(var(--u) * 36)),
+    linear-gradient(180deg, var(--jaune), var(--ocre));
+  background-size: calc(var(--u) * 72) 100%, 100% 100%;
+  animation: dfi-defile 2.4s linear infinite;
+}
+@keyframes dfi-defile { to { background-position: calc(var(--u) * 72) 0, 0 0; } }
+.dfi-grad { position: absolute; top: 0; bottom: 0; width: calc(var(--u) * 3); background: rgba(31, 77, 46, .25); }
+
+.dfi-graduations { position: absolute; left: 0; right: 0; top: calc(var(--u) * 194); height: calc(var(--u) * 58); }
+.dfi-graduations > span {
+  position: absolute; transform: translateX(-50%); white-space: nowrap;
+  font-size: calc(var(--u) * 28); font-weight: 600; color: var(--vert-profond);
+}
+.dfi-graduations > .dfi-grad-zero { transform: none; }
+.dfi-au-dela { text-align: center; }
+.dfi-au-dela b { display: block; font-size: calc(var(--u) * 28); color: var(--ocre); }
+.dfi-au-dela em { display: block; font-style: normal; font-size: calc(var(--u) * 22); color: var(--vert); font-weight: 500; }
+
+/* Territoire */
+.dfi-territoire { flex: none; height: calc(var(--u) * 318); display: flex; flex-direction: column; gap: calc(var(--u) * 8); }
+.dfi-territoire-tete { display: flex; align-items: baseline; gap: calc(var(--u) * 24); }
+.dfi h2 { font-family: 'Playfair Display', Georgia, serif; font-size: calc(var(--u) * 36); font-weight: 700; }
+.dfi-territoire-tete p { font-size: calc(var(--u) * 24); color: var(--vert); font-weight: 500; }
+.dfi-colonnes { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.55fr 1fr 1.15fr; gap: calc(var(--u) * 18); }
+.dfi-carte {
+  background: rgba(255, 255, 255, .62);
+  border: calc(var(--u) * 2) solid var(--sauge);
+  border-radius: calc(var(--u) * 26);
+  padding: calc(var(--u) * 12) calc(var(--u) * 22) calc(var(--u) * 14);
+  overflow: hidden;
+}
+.dfi h3 { font-size: calc(var(--u) * 24); text-transform: uppercase; letter-spacing: .09em; color: var(--ocre); font-weight: 700; margin-bottom: calc(var(--u) * 8); }
+.dfi-carte ul { display: flex; flex-wrap: wrap; gap: calc(var(--u) * 8); }
+.dfi-pill {
+  font-size: calc(var(--u) * 22); font-weight: 600; line-height: 1;
+  padding: calc(var(--u) * 8) calc(var(--u) * 16);
+  border-radius: 999px; background: var(--sauge-clair); color: var(--vert-profond);
+  border: calc(var(--u) * 2) solid rgba(78, 139, 58, .28);
+  white-space: nowrap;
+}
+
+/* Divers */
+.dfi-confetti { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+.dfi-discret {
+  position: absolute; right: calc(var(--u) * 14); bottom: calc(var(--u) * 8);
+  border: 0; background: none; color: var(--vert-profond); opacity: .18; font-size: calc(var(--u) * 28); cursor: pointer;
+}
+.dfi-discret:hover { opacity: .8; }
+.dfi-plein { cursor: none; }
+
+/* ---------- Panneau opérateur ---------- */
+.dfo-voile { position: fixed; inset: 0; z-index: 300; background: rgba(31, 77, 46, .45); display: grid; place-items: center; }
+.dfo-pin {
+  background: var(--creme); border-radius: 20px; padding: 28px 32px; width: 360px;
+  display: flex; flex-direction: column; gap: 14px; color: var(--vert-profond);
+}
+.dfo-pin h2 { margin: 0; font-size: 22px; }
+.dfo-pin input { font-size: 26px; padding: 10px 14px; border-radius: 12px; border: 2px solid var(--sauge); text-align: center; letter-spacing: .3em; }
+
+.dfo-panneau {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(520px, 100vw); z-index: 250;
+  background: var(--creme); color: var(--vert-profond); overflow-y: auto;
+  box-shadow: -8px 0 30px rgba(0, 0, 0, .3); padding: 18px 20px 24px; font-size: 15px;
+  display: flex; flex-direction: column; gap: 12px; cursor: default;
+}
+.dfo-panneau * { box-sizing: border-box; }
+.dfo-panneau header, .dfo-panneau footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.dfo-panneau footer { flex-direction: column; align-items: flex-start; }
+.dfo-panneau h2 { margin: 0; font-size: 22px; }
+.dfo-panneau h3 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--ocre); }
+.dfo-bloc { background: #fff; border: 1px solid var(--sauge); border-radius: 14px; padding: 12px 14px; }
+.dfo-ligne { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+.dfo-pile { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.dfo-info { margin: 0; font-size: 13px; opacity: .8; }
+.dfo-erreur { margin: 6px 0 0; color: #a22; font-size: 13px; font-weight: 600; }
+.dfo-btn, .dfo-table button {
+  font: inherit; font-weight: 600; cursor: pointer; padding: 8px 14px; border-radius: 10px;
+  border: 2px solid var(--sauge); background: #fff; color: var(--vert-profond);
+}
+.dfo-btn:hover:not(:disabled) { background: var(--sauge-clair); }
+.dfo-btn:disabled { opacity: .4; cursor: not-allowed; }
+.dfo-primaire { background: var(--vert-profond); border-color: var(--vert-profond); color: #fff; }
+.dfo-primaire:hover:not(:disabled) { background: #2c6b3f; }
+.dfo-danger { border-color: #c77; color: #922; }
+.dfo-confirme { display: inline-flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.dfo-champs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dfo-champs label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; font-size: 13px; }
+.dfo-champs input, .dfo-panneau textarea, .dfo-table input {
+  font: inherit; padding: 8px 10px; border-radius: 8px; border: 2px solid var(--sauge); background: #fff; color: inherit; width: 100%;
+}
+.dfo-panneau textarea { font-family: ui-monospace, monospace; font-size: 12px; margin-top: 8px; }
+.dfo-case { display: flex; gap: 8px; align-items: center; font-weight: 600; }
+.dfo-table { max-height: 240px; overflow-y: auto; }
+.dfo-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.dfo-table td { padding: 5px 4px; border-bottom: 1px solid var(--sauge-clair); }
+.dfo-table tr:not(.dfo-revelee) td:nth-child(4) { color: var(--ocre); }
+.dfo-revelee td { background: #f3f8ee; }
+.dfo-actions { white-space: nowrap; text-align: right; }
+.dfo-table button { padding: 3px 8px; font-size: 12px; margin-left: 4px; border-width: 1px; }
+.dfo-table .dfo-rouge { background: #a22; color: #fff; border-color: #a22; }
+
+/* Barre opérateur : visible seulement une fois le PIN saisi. B la masque. */
+.dfo-barre {
+  position: fixed; left: 12px; right: 12px; bottom: 10px; z-index: 240;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: rgba(247, 241, 227, .96); color: var(--vert-profond);
+  border: 2px solid var(--vert-profond); border-radius: 16px; padding: 8px 14px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .25); font-size: 16px;
+}
+.dfo-barre * { box-sizing: border-box; }
+.dfo-compte { flex: 1; min-width: 220px; }
+.dfo-compte em { font-style: normal; opacity: .75; }
+.dfo-barre-saisie { display: flex; align-items: center; gap: 8px; }
+.dfo-barre-saisie input { font: inherit; padding: 6px 8px; border-radius: 8px; border: 2px solid var(--sauge); }
+.dfo-barre .dfo-btn { font-size: 16px; padding: 6px 12px; }
+
+/* Barre opérateur affichée : toute la composition rétrécit d'autant, pour que
+   la barre ne recouvre jamais « Mobilisation du territoire ». */
+.dfi.dfi-avec-barre {
+  --u: min(calc(100vw / 1920), calc((100vh - 76px) / 1080));
+  padding-bottom: calc(76px + var(--u) * 24);
+}
+.dfi-avec-barre .dfi-discret { bottom: 84px; }

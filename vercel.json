@@ -36,5 +36,25 @@
       "path": "/api/cron/taches",
       "schedule": "0 4 * * *"
     }
+  ],
+  "headers": [
+    {
+      "source": "/defi",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
+      "source": "/defi/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    }
   ]
 }

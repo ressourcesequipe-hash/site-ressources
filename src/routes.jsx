@@ -46,6 +46,16 @@ import Confidentialite from './pages/Confidentialite'
 // public (voir docs/backoffice-etat-avancement.md).
 const AdminRoutes = lazy(() => import('./admin/AdminRoutes'))
 
+// Interface de projection du 3 octobre (/defi). Chargée à la demande, jamais
+// prérendue, hors du site : ni Layout, ni bandeaux (voir `estProjection`).
+const Defi = lazy(() => import('./pages/Defi'))
+export const estProjection = (pathname) => /^\/defi\/?$/.test(pathname)
+
+function BandeauxHorsProjection() {
+  const { pathname } = useLocation()
+  return estProjection(pathname) ? null : <BandeauxCampagnes />
+}
+
 // Remonte en haut à chaque changement de page — sauf si l'URL porte une ancre,
 // auquel cas on vise l'élément correspondant. Sans ce cas particulier, un lien
 // vers « /page/#ancre » était ramené en haut par le scrollTo et l'ancre restait
@@ -109,6 +119,7 @@ export default function AppRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/evenement-lancement-03-octobre-2026/" element={<Evenement />} />
+        <Route path="/defi" element={<Suspense fallback={null}><Defi /></Suspense>} />
         <Route path="/defi-collecte/" element={<DefiCollecte />} />
         <Route path="/materiel-disponible/" element={<Boutique />} />
         <Route path="/materiel-disponible/:code/" element={<BoutiqueProduit />} />

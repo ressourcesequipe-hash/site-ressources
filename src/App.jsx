@@ -1,6 +1,6 @@
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, useLocation } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
-import AppRoutes from './routes'
+import AppRoutes, { estProjection } from './routes'
 import BandeauConsentement from './components/BandeauConsentement'
 
 // Mesure d'audience — Vercel Web Analytics.
@@ -33,11 +33,18 @@ import BandeauConsentement from './components/BandeauConsentement'
 function ecarterBackOffice(evenement) {
   try {
     const chemin = new URL(evenement.url).pathname
-    if (chemin === '/admin' || chemin.startsWith('/admin/')) return null
+    if (chemin === '/admin' || chemin.startsWith('/admin/') || estProjection(chemin)) return null
   } catch {
     // URL illisible : on laisse passer plutôt que de perdre la mesure.
   }
   return evenement
+}
+
+// Ni demande de consentement ni mesure sur l'écran de projection : il n'a pas de
+// visiteurs, et une fenêtre de cookies n'a rien à faire devant une salle.
+function Consentement() {
+  const { pathname } = useLocation()
+  return estProjection(pathname) ? null : <BandeauConsentement />
 }
 
 export default function App() {
@@ -48,7 +55,7 @@ export default function App() {
       {/* Google Analytics ne se charge qu'après un accord explicite : tout
           passe par ce composant, qui porte aussi la demande. Vercel Web
           Analytics, lui, tourne sans condition — il n'en a pas besoin. */}
-      <BandeauConsentement />
+      <Consentement />
     </BrowserRouter>
   )
 }
