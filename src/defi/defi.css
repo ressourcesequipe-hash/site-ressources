@@ -22,7 +22,7 @@
   display: flex;
   flex-direction: column;
   gap: calc(var(--u) * 6);
-  padding: calc(var(--u) * 22) calc(var(--u) * 56) calc(var(--u) * 24);
+  padding: calc(var(--u) * 22) calc(var(--u) * 56) calc(var(--u) * 14);
   color: var(--vert-profond);
   background:
     radial-gradient(ellipse at 50% 30%, #fffaf0 0%, transparent 60%),
@@ -77,8 +77,8 @@
 
 /* Compteur */
 .dfi-centre {
-  flex: 1 1 0;
-  min-height: 0;
+  flex: none;
+  height: calc(var(--u) * 330);
   display: grid;
   grid-template-columns: calc(var(--u) * 340) 1fr calc(var(--u) * 340);
   align-items: center;
@@ -124,7 +124,7 @@
 }
 
 /* Jauge */
-.dfi-jauge { position: relative; flex: none; height: calc(var(--u) * 252); margin: 0 calc(var(--u) * 4) calc(var(--u) * 30); }
+.dfi-jauge { position: relative; flex: none; height: calc(var(--u) * 252); margin: auto calc(var(--u) * 4); }
 .dfi-marqueur { position: absolute; top: 0; transform: translateX(-50%); z-index: 3; text-align: center; }
 .dfi-marqueur-carte {
   display: flex; align-items: center; gap: calc(var(--u) * 12);
@@ -181,17 +181,16 @@
 .dfi-au-dela em { display: block; font-style: normal; font-size: calc(var(--u) * 22); color: var(--vert); font-weight: 500; }
 
 /* Territoire */
-.dfi-territoire { flex: none; height: calc(var(--u) * 318); display: flex; flex-direction: column; gap: calc(var(--u) * 8); }
+.dfi-territoire { flex: none; display: flex; flex-direction: column; gap: calc(var(--u) * 8); }
 .dfi-territoire-tete { display: flex; align-items: baseline; gap: calc(var(--u) * 24); }
 .dfi h2 { font-family: 'Playfair Display', Georgia, serif; font-size: calc(var(--u) * 36); font-weight: 700; }
 .dfi-territoire-tete p { font-size: calc(var(--u) * 24); color: var(--vert); font-weight: 500; }
-.dfi-colonnes { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.15fr 1fr; gap: calc(var(--u) * 18); }
+.dfi-colonnes { flex: none; display: grid; grid-template-columns: 1.15fr 1fr; gap: calc(var(--u) * 18); }
 .dfi-carte {
   background: rgba(255, 255, 255, .62);
   border: calc(var(--u) * 2) solid var(--sauge);
   border-radius: calc(var(--u) * 26);
-  padding: calc(var(--u) * 12) calc(var(--u) * 22) calc(var(--u) * 14);
-  overflow: hidden;
+  padding: calc(var(--u) * 10) calc(var(--u) * 22) calc(var(--u) * 12);
 }
 .dfi h3 { font-size: calc(var(--u) * 24); text-transform: uppercase; letter-spacing: .09em; color: var(--ocre); font-weight: 700; margin-bottom: calc(var(--u) * 8); }
 .dfi-carte ul { display: flex; flex-wrap: wrap; gap: calc(var(--u) * 12) calc(var(--u) * 30); }

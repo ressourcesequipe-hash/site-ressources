@@ -22,7 +22,6 @@ export const communes = [
 ]
 
 export const collectionPoints = [
-  'Mairies partenaires',
   'E.Leclerc Soustons',
   'Imagine Linxe',
 ]
