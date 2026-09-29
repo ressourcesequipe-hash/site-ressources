@@ -49,7 +49,7 @@ export const MUSIC_VOLUME = 0.3
 // Empreinte SHA-256 de « ressources-defi: » + PIN. Verrou d'usage, pas de
 // sécurité : il évite un geste malheureux sur le portable de la salle. Pour
 // changer de PIN : voir docs/defi-projection.md.
-export const PIN_HASH = '8495879a2eb6889446a59be29ffb64941692560b8d234c09203c175324845a3b'
+export const PIN_HASH = 'a670e2b0fb2eb1f01189629e46fd9f392a63c8e0c4275383e0a7abf986034b94'
 
 // Scénario de répétition (panneau opérateur → Charger la démonstration).
 export const demoCollectes = [

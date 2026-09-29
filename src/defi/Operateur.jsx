@@ -208,7 +208,8 @@ export function BarreOperateur({ store, onPanneau, musique, onMusique }) {
         <button type="submit" className="dfo-btn dfo-primaire" disabled={busy}>+ Ajouter</button>
         {err && <span className="dfo-erreur">{err}</span>}
       </form>
-      <button type="button" className="dfo-btn" onClick={onMusique} title="Touche M — fichier public/audio/fond.mp3">♪ {musique ? 'Couper' : 'Musique'}</button>
+      <button type="button" className="dfo-btn" onClick={onMusique} title="Touche M — fichier public/audio/fond.mp3">♪ {musique === 'on' ? 'Couper' : 'Musique'}</button>
+      {musique === 'erreur' && <span className="dfo-erreur">Musique introuvable ou bloquée</span>}
       <button type="button" className="dfo-btn" onClick={onPanneau}>Panneau</button>
     </div>
   )

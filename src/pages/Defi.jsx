@@ -50,7 +50,8 @@ export default function Defi() {
   const [demandePin, setDemandePin] = useState(false)
   const [plein, setPlein] = useState(false)
   const [barre, setBarre] = useState(true)
-  const [musique, setMusique] = useState(false)
+  const [musique, setMusique] = useState('off') // 'on' | 'off' | 'erreur'
+  const lancerMusique = useCallback(() => basculerMusique().then(setMusique), [])
 
   const confetti = useRef(null)
   const marqueur = useRef(null)
@@ -140,14 +141,14 @@ export default function Defi() {
       if (saisie || e.ctrlKey || e.altKey || e.metaKey) return
       if (e.key === 'f' || e.key === 'F') { basculerPleinEcran(); return }
       if (!operateur) return
-      if (e.key === 'm' || e.key === 'M') { basculerMusique().then(setMusique); return }
+      if (e.key === 'm' || e.key === 'M') { lancerMusique(); return }
       if (e.key === 'b' || e.key === 'B') { setBarre((b) => !b); return }
       if (e.key === 'ArrowRight') { e.preventDefault(); a.suivante() }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); a.precedente() }
     }
     window.addEventListener('keydown', touche)
     return () => window.removeEventListener('keydown', touche)
-  }, [operateur, ouvrirOperateur, basculerPleinEcran, a])
+  }, [operateur, ouvrirOperateur, basculerPleinEcran, lancerMusique, a])
 
   // Quintuple clic sur le logo : accès de secours si Ctrl+Alt+O est indisponible
   // (certains claviers AZERTY traitent Ctrl+Alt comme AltGr).
@@ -162,7 +163,7 @@ export default function Defi() {
     try { sessionStorage.setItem(CLE_SESSION, '1') } catch { /* tant pis */ }
     setOperateur(true)
     setDemandePin(false)
-    setPanneau(true)
+    setBarre(true)
   }
   const verrouiller = () => {
     try { sessionStorage.removeItem(CLE_SESSION) } catch { /* idem */ }
@@ -263,7 +264,7 @@ export default function Defi() {
       )}
 
       <Confetti ref={confetti} />
-      {operateur && barre && !panneau && <BarreOperateur store={store} onPanneau={() => setPanneau(true)} musique={musique} onMusique={() => basculerMusique().then(setMusique)} />}
+      {operateur && barre && !panneau && <BarreOperateur store={store} onPanneau={() => setPanneau(true)} musique={musique} onMusique={lancerMusique} />}
       {demandePin && <DialoguePin onOk={deverrouiller} onFermer={() => setDemandePin(false)} />}
       {operateur && panneau && (
         <Operateur

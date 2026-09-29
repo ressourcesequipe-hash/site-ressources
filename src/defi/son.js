@@ -86,10 +86,10 @@ export function fanfare() {
 let audio = null
 export const musiqueActive = () => Boolean(audio && !audio.paused)
 
-// Renvoie true si la musique joue après l'appel, false si elle est coupée ou
-// si le fichier est introuvable.
+// Renvoie 'on' (elle joue), 'off' (coupée) ou 'erreur' (fichier introuvable
+// ou lecture refusée par le navigateur).
 export async function basculerMusique() {
-  if (musiqueActive()) { audio.pause(); return false }
+  if (musiqueActive()) { audio.pause(); return 'off' }
   if (!audio) {
     audio = new Audio(MUSIC_FILE)
     audio.loop = true
@@ -97,10 +97,10 @@ export async function basculerMusique() {
   }
   try {
     await audio.play()
-    return true
+    return 'on'
   } catch {
     audio = null
-    return false
+    return 'erreur'
   }
 }
 
