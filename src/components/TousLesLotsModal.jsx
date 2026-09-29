@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react'
 import {
   LIBELLE_EN_COURS,
-  LOTS_PAR_CATEGORIE,
-  LOTS_PODIUM,
+  LOTS_DANS_L_ORDRE,
   LOT_PRINCIPAL,
   NB_LOTS_CONFIRMES,
   formatEuros,
@@ -27,9 +26,6 @@ export default function TousLesLotsModal({ isOpen, onClose }) {
   }, [isOpen, onClose])
 
   if (!isOpen) return null
-
-  // Le gros lot est le n° 1, le podium suit, puis les lots secondaires.
-  const numeroDepartSecondaires = LOTS_PODIUM.length + 2
 
   return (
     <div
@@ -88,56 +84,21 @@ export default function TousLesLotsModal({ isOpen, onClose }) {
             )}
           </div>
 
-          {/* Podium */}
-          <div className="mb-7">
-            <h3 className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
-              Les grands lots
-            </h3>
-            <ul className="divide-y divide-beige">
-              {LOTS_PODIUM.map(({ lot, partenaire, valeur, valeurMax, detail, statut }, i) => (
-                <LigneLot
-                  key={`podium-${lot}-${partenaire}-${i}`}
-                  numero={i + 2}
-                  lot={lot}
-                  partenaire={partenaire}
-                  valeur={valeur}
-                  valeurMax={valeurMax}
-                  detail={detail}
-                  statut={statut}
-                />
-              ))}
-            </ul>
-          </div>
-
-          {/* Lots secondaires, groupes par categorie */}
-          {LOTS_PAR_CATEGORIE.map(({ id, label, lots }, indexCategorie) => {
-            // Numerotation continue d'une categorie a l'autre.
-            const decalage = LOTS_PAR_CATEGORIE
-              .slice(0, indexCategorie)
-              .reduce((total, c) => total + c.lots.length, 0)
-
-            return (
-              <div key={id} className="mb-7 last:mb-0">
-                <h3 className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
-                  {label}
-                </h3>
-                <ul className="divide-y divide-beige">
-                  {lots.map(({ lot, partenaire, valeur, valeurMax, detail, statut }, i) => (
-                    <LigneLot
-                      key={`${id}-${lot}-${partenaire}-${i}`}
-                      numero={numeroDepartSecondaires + decalage + i}
-                      lot={lot}
-                      partenaire={partenaire}
-                      valeur={valeur}
-                      valeurMax={valeurMax}
-                      detail={detail}
-                      statut={statut}
-                    />
-                  ))}
-                </ul>
-              </div>
-            )
-          })}
+          {/* Tous les lots, dans l'ordre du tableau de suivi */}
+          <ul className="divide-y divide-beige">
+            {LOTS_DANS_L_ORDRE.map(({ lot, partenaire, valeur, valeurMax, detail, statut }, i) => (
+              <LigneLot
+                key={`${lot}-${partenaire}-${i}`}
+                numero={i + 2}
+                lot={lot}
+                partenaire={partenaire}
+                valeur={valeur}
+                valeurMax={valeurMax}
+                detail={detail}
+                statut={statut}
+              />
+            ))}
+          </ul>
         </div>
 
         <div className="px-6 py-3 border-t border-beige bg-beige-light">
