@@ -37,19 +37,13 @@ export const partners = [
 ]
 
 // Sons de la célébration des 500 kg : fanfare + applaudissements synthétisés.
-// Le navigateur ne les joue qu'après un geste (la saisie du PIN en est un).
+// Le navigateur ne les joue qu'après un geste (un clic ou une touche).
 export const SOUND_ENABLED = true
 
-// Musique de fond facultative : déposer un fichier libre de droits à cet
-// emplacement (public/audio/fond.mp3), puis touche M (ou bouton « Musique »)
-// pour la lancer / la couper. Sans fichier, le bouton reste sans effet.
+// Musique de fond : démarre à l'ouverture de la page (ou au premier clic si le
+// navigateur l'exige). L'icône en haut à droite et la touche M coupent / remettent le son.
 export const MUSIC_FILE = '/audio/fond.mp3'
 export const MUSIC_VOLUME = 0.3
-
-// Empreinte SHA-256 de « ressources-defi: » + PIN. Verrou d'usage, pas de
-// sécurité : il évite un geste malheureux sur le portable de la salle. Pour
-// changer de PIN : voir docs/defi-projection.md.
-export const PIN_HASH = 'a670e2b0fb2eb1f01189629e46fd9f392a63c8e0c4275383e0a7abf986034b94'
 
 // Scénario de répétition (panneau opérateur → Charger la démonstration).
 export const demoCollectes = [

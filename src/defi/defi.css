@@ -215,11 +215,9 @@
 
 /* Divers */
 .dfi-confetti { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
-.dfi-discret {
-  position: absolute; right: calc(var(--u) * 14); bottom: calc(var(--u) * 8);
-  border: 0; background: none; color: var(--vert-profond); opacity: .18; font-size: calc(var(--u) * 28); cursor: pointer;
-}
-.dfi-discret:hover { opacity: .8; }
+.dfi-discret { position: absolute; right: calc(var(--u) * 14); bottom: calc(var(--u) * 8); display: flex; gap: calc(var(--u) * 10); opacity: .2; }
+.dfi-discret button { border: 0; background: none; color: var(--vert-profond); font-size: calc(var(--u) * 28); cursor: pointer; }
+.dfi-discret:hover { opacity: .85; }
 .dfi-plein { cursor: none; }
 
 /* ---------- Panneau opérateur ---------- */
@@ -295,3 +293,24 @@
   padding-bottom: calc(76px + var(--u) * 24);
 }
 .dfi-avec-barre .dfi-discret { bottom: 84px; }
+
+/* Icône son, en haut à droite */
+.dfi-son {
+  position: absolute; right: 0; top: calc(var(--u) * 6); z-index: 6;
+  width: calc(var(--u) * 64); height: calc(var(--u) * 64); padding: calc(var(--u) * 10);
+  border: 0; border-radius: 50%; background: rgba(255, 255, 255, .55); color: var(--vert-profond);
+  opacity: .6; cursor: pointer;
+}
+.dfi-son:hover { opacity: 1; }
+.dfi-son svg { width: 100%; height: 100%; display: block; }
+
+/* Filigrane : les mains de François démontent un appareil. Très discret,
+   fondu vers la gauche pour ne jamais passer derrière le compteur. */
+.dfi-filigrane {
+  position: absolute; top: 0; right: 0; bottom: 0; width: 46%;
+  background: url('/photos/mains-reparation.webp') center 35% / cover no-repeat;
+  filter: grayscale(1) contrast(1.05);
+  opacity: .13; mix-blend-mode: multiply; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to left, #000 25%, transparent 100%);
+  mask-image: linear-gradient(to left, #000 25%, transparent 100%);
+}

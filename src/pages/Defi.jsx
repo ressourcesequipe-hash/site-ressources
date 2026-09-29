@@ -5,10 +5,10 @@ import {
 } from '../data/defiConfig'
 import Confetti from '../defi/Confetti'
 import Jauge from '../defi/Jauge'
-import Operateur, { BarreOperateur, DialoguePin } from '../defi/Operateur'
+import Operateur, { BarreOperateur } from '../defi/Operateur'
 import { nombreFr, total } from '../defi/store'
 import { useDefiStore } from '../defi/useDefiStore'
-import { applaudissements, atténuerMusique, basculerMusique, fanfare } from '../defi/son'
+import { applaudissements, atténuerMusique, basculerSourdine, demarrerMusique, fanfare } from '../defi/son'
 import '../defi/defi.css'
 
 // Interface de projection du 3 octobre 2026 — https://www.ressourcesrecyclerie.fr/defi
@@ -18,7 +18,6 @@ import '../defi/defi.css'
 // Tout se passe dans le navigateur : une fois chargée, elle n'appelle plus
 // le réseau. L'état vit dans le localStorage de l'ordinateur qui projette.
 
-const CLE_SESSION = 'ressources.defi.operateur'
 const easing = (p) => (p < 0.5 ? 4 * p * p * p : 1 - ((-2 * p + 2) ** 3) / 2)
 const jourMois = (iso) => iso.slice(5).split('-').reverse().join('/')
 
@@ -43,15 +42,11 @@ export default function Defi() {
   const [pop, setPop] = useState(null)
   const [celeb, setCeleb] = useState(null) // null | 'atteint' | 'continue'
   const [pulse, setPulse] = useState(false)
-  const [operateur, setOperateur] = useState(() => {
-    try { return sessionStorage.getItem(CLE_SESSION) === '1' } catch { return false }
-  })
   const [panneau, setPanneau] = useState(false)
-  const [demandePin, setDemandePin] = useState(false)
   const [plein, setPlein] = useState(false)
   const [barre, setBarre] = useState(true)
-  const [musique, setMusique] = useState('off') // 'on' | 'off' | 'erreur'
-  const lancerMusique = useCallback(() => basculerMusique().then(setMusique), [])
+  const [musique, setMusique] = useState('attente') // 'on' | 'attente' | 'erreur'
+  const [sourdine, setSourdine] = useState(false)
 
   const confetti = useRef(null)
   const marqueur = useRef(null)
@@ -112,6 +107,41 @@ export default function Defi() {
 
   useEffect(() => () => { timers.current.forEach(clearTimeout); cancelAnimationFrame(raf.current) }, [])
 
+  /* ---------- Musique de fond ---------- */
+
+  // Elle démarre à l'ouverture de la page. Si le navigateur refuse le
+  // démarrage automatique, elle démarre au premier clic ou à la première touche.
+  const musiqueRef = useRef('attente')
+  useEffect(() => {
+    let actif = true
+    const essayer = async () => {
+      if (musiqueRef.current === 'on') return
+      const r = await demarrerMusique()
+      if (!actif) return
+      musiqueRef.current = r
+      setMusique(r)
+    }
+    essayer()
+    window.addEventListener('pointerdown', essayer)
+    window.addEventListener('keydown', essayer)
+    return () => {
+      actif = false
+      window.removeEventListener('pointerdown', essayer)
+      window.removeEventListener('keydown', essayer)
+    }
+  }, [])
+
+  // Icône en haut à droite (et touche M) : sourdine / remise du son.
+  const basculerSon = useCallback(async () => {
+    if (musiqueRef.current !== 'on') {
+      const r = await demarrerMusique()
+      musiqueRef.current = r
+      setMusique(r)
+      return
+    }
+    setSourdine(basculerSourdine())
+  }, [])
+
   /* ---------- Plein écran, clavier, accès opérateur ---------- */
 
   const basculerPleinEcran = useCallback(() => {
@@ -125,10 +155,7 @@ export default function Defi() {
     return () => document.removeEventListener('fullscreenchange', surChangement)
   }, [])
 
-  const ouvrirOperateur = useCallback(() => {
-    if (operateur) setPanneau((p) => !p)
-    else setDemandePin(true)
-  }, [operateur])
+  const ouvrirOperateur = useCallback(() => setPanneau((pn) => !pn), [])
 
   useEffect(() => {
     const touche = (e) => {
@@ -139,37 +166,19 @@ export default function Defi() {
         return
       }
       if (saisie || e.ctrlKey || e.altKey || e.metaKey) return
+      // Touche O seule : même effet que Ctrl+Alt+O, pour les claviers où
+      // Ctrl+Alt (= AltGr) est intercepté.
+      if (e.key === 'o' || e.key === 'O') { ouvrirOperateur(); return }
       if (e.key === 'f' || e.key === 'F') { basculerPleinEcran(); return }
-      if (!operateur) return
-      if (e.key === 'm' || e.key === 'M') { lancerMusique(); return }
+      if (e.key === 'm' || e.key === 'M') { basculerSon(); return }
       if (e.key === 'b' || e.key === 'B') { setBarre((b) => !b); return }
       if (e.key === 'ArrowRight') { e.preventDefault(); a.suivante() }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); a.precedente() }
     }
     window.addEventListener('keydown', touche)
     return () => window.removeEventListener('keydown', touche)
-  }, [operateur, ouvrirOperateur, basculerPleinEcran, lancerMusique, a])
+  }, [ouvrirOperateur, basculerPleinEcran, basculerSon, a])
 
-  // Quintuple clic sur le logo : accès de secours si Ctrl+Alt+O est indisponible
-  // (certains claviers AZERTY traitent Ctrl+Alt comme AltGr).
-  const clics = useRef([])
-  const surLogo = () => {
-    const now = Date.now()
-    clics.current = [...clics.current.filter((t) => now - t < 2500), now]
-    if (clics.current.length >= 5) { clics.current = []; ouvrirOperateur() }
-  }
-
-  const deverrouiller = () => {
-    try { sessionStorage.setItem(CLE_SESSION, '1') } catch { /* tant pis */ }
-    setOperateur(true)
-    setDemandePin(false)
-    setBarre(true)
-  }
-  const verrouiller = () => {
-    try { sessionStorage.removeItem(CLE_SESSION) } catch { /* idem */ }
-    setOperateur(false)
-    setPanneau(false)
-  }
 
   const essaiObjectif = () => {
     if (celebActive.current) return
@@ -185,23 +194,36 @@ export default function Defi() {
   const vide = etat.revele === 0 && valeur === 0
 
   return (
-    <div className={`dfi${plein ? ' dfi-plein' : ''}${operateur && barre && !panneau ? ' dfi-avec-barre' : ''}`}>
+    <div className={`dfi${plein ? ' dfi-plein' : ''}${barre && !panneau ? ' dfi-avec-barre' : ''}`}>
       <Helmet>
         <title>Défi territorial de collecte informatique — Ressources</title>
         <meta name="robots" content="noindex, nofollow, noarchive" />
       </Helmet>
 
+      <div className="dfi-filigrane" aria-hidden="true" />
       <Feuille className="dfi-deco dfi-deco-a" />
       <Feuille className="dfi-deco dfi-deco-b" />
 
       <header className="dfi-entete">
-        <button type="button" className="dfi-logo" onClick={surLogo} tabIndex={-1} aria-label="Ressources">
-          <img src="/logos/logo-ressources-288.webp" alt="" />
-        </button>
+        <div className="dfi-logo">
+          <img src="/logos/logo-ressources-288.webp" alt="Ressources" />
+        </div>
         <div>
           <h1>Défi territorial de collecte informatique</h1>
           <p>Une mobilisation collective du 1er septembre au 3 octobre</p>
         </div>
+        <button
+          type="button" className="dfi-son" onClick={basculerSon}
+          aria-label={sourdine || musique !== 'on' ? 'Remettre le son (M)' : 'Couper le son (M)'}
+          title={musique === 'erreur' ? 'Musique introuvable' : 'Son (M)'}
+        >
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M6 18h8l10-8v28l-10-8H6z" fill="currentColor" />
+            {sourdine || musique !== 'on'
+              ? <path d="M30 18l12 12M42 18L30 30" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+              : <path d="M31 17c3 4 3 10 0 14M37 12c6 7 6 17 0 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />}
+          </svg>
+        </button>
         {celeb && (
           <div className="dfi-celebration" role="status" key={celeb}>
             {celeb === 'atteint' ? 'OBJECTIF ATTEINT !' : 'ET ON CONTINUE !'}
@@ -260,17 +282,18 @@ export default function Defi() {
       </section>
 
       {!plein && (
-        <button type="button" className="dfi-discret" onClick={basculerPleinEcran} aria-label="Plein écran (touche F)">⛶</button>
+        <div className="dfi-discret">
+          <button type="button" onClick={ouvrirOperateur} aria-label="Panneau opérateur (touche O)">⚙</button>
+          <button type="button" onClick={basculerPleinEcran} aria-label="Plein écran (touche F)">⛶</button>
+        </div>
       )}
 
       <Confetti ref={confetti} />
-      {operateur && barre && !panneau && <BarreOperateur store={store} onPanneau={() => setPanneau(true)} musique={musique} onMusique={lancerMusique} />}
-      {demandePin && <DialoguePin onOk={deverrouiller} onFermer={() => setDemandePin(false)} />}
-      {operateur && panneau && (
+      {barre && !panneau && <BarreOperateur store={store} onPanneau={() => setPanneau(true)} />}
+      {panneau && (
         <Operateur
           store={store}
           onFermer={() => setPanneau(false)}
-          onVerrouiller={verrouiller}
           onEssaiObjectif={essaiObjectif}
           onPleinEcran={basculerPleinEcran}
         />

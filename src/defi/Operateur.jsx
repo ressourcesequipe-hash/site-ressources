@@ -1,50 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
-import { PIN_HASH, challenge } from '../data/defiConfig'
-import { dateFr, hashPin, lireDate, lirePoids, nombreFr, total } from './store'
-
-/* ---------- Code PIN ---------- */
-
-export function DialoguePin({ onOk, onFermer }) {
-  const [pin, setPin] = useState('')
-  const [erreur, setErreur] = useState('')
-  const [essais, setEssais] = useState(0)
-  const [bloqueJusque, setBloque] = useState(0)
-  const champ = useRef(null)
-  useEffect(() => { champ.current?.focus() }, [])
-
-  const valider = async (e) => {
-    e.preventDefault()
-    if (Date.now() < bloqueJusque) { setErreur('Patientez quelques secondes.'); return }
-    try {
-      if ((await hashPin(pin.trim())) === PIN_HASH) { onOk(); return }
-    } catch {
-      setErreur('Le PIN exige une page en https ou en localhost.')
-      return
-    }
-    const n = essais + 1
-    setEssais(n)
-    setPin('')
-    if (n % 5 === 0) { setBloque(Date.now() + 30000); setErreur('Trop d’essais : attendez 30 secondes.') }
-    else setErreur('Code incorrect.')
-  }
-
-  return (
-    <div className="dfo-voile" onMouseDown={(e) => e.target === e.currentTarget && onFermer()}>
-      <form className="dfo-pin" onSubmit={valider}>
-        <h2>Accès opérateur</h2>
-        <input
-          ref={champ} type="password" inputMode="numeric" autoComplete="off"
-          value={pin} onChange={(e) => setPin(e.target.value)} placeholder="Code PIN" aria-label="Code PIN"
-        />
-        {erreur && <p className="dfo-erreur" role="alert">{erreur}</p>}
-        <div className="dfo-ligne">
-          <button type="submit" className="dfo-btn dfo-primaire">Ouvrir</button>
-          <button type="button" className="dfo-btn" onClick={onFermer}>Annuler</button>
-        </div>
-      </form>
-    </div>
-  )
-}
+import { useEffect, useState } from 'react'
+import { challenge } from '../data/defiConfig'
+import { dateFr, lireDate, lirePoids, nombreFr, total } from './store'
 
 /* ---------- Confirmation en deux temps ---------- */
 
@@ -174,7 +130,7 @@ const aujourdhui = () => {
 // Tout le déroulé du jour J sans ouvrir le panneau : compteur de collectes,
 // précédente / suivante, et saisie de la collecte du jour (date du jour
 // pré-remplie).
-export function BarreOperateur({ store, onPanneau, musique, onMusique }) {
+export function BarreOperateur({ store, onPanneau }) {
   const { etat, busy, a } = store
   const [date, setDate] = useState(aujourdhui)
   const [poids, setPoids] = useState('')
@@ -208,8 +164,6 @@ export function BarreOperateur({ store, onPanneau, musique, onMusique }) {
         <button type="submit" className="dfo-btn dfo-primaire" disabled={busy}>+ Ajouter</button>
         {err && <span className="dfo-erreur">{err}</span>}
       </form>
-      <button type="button" className="dfo-btn" onClick={onMusique} title="Touche M — fichier public/audio/fond.mp3">♪ {musique === 'on' ? 'Couper' : 'Musique'}</button>
-      {musique === 'erreur' && <span className="dfo-erreur">Musique introuvable ou bloquée</span>}
       <button type="button" className="dfo-btn" onClick={onPanneau}>Panneau</button>
     </div>
   )
@@ -217,7 +171,7 @@ export function BarreOperateur({ store, onPanneau, musique, onMusique }) {
 
 /* ---------- Panneau ---------- */
 
-export default function Operateur({ store, onFermer, onVerrouiller, onEssaiObjectif, onPleinEcran }) {
+export default function Operateur({ store, onFermer, onEssaiObjectif, onPleinEcran }) {
   const { etat, busy, histLen, a } = store
   const [json, setJson] = useState('')
   const [msgJson, setMsgJson] = useState('')
@@ -305,8 +259,7 @@ export default function Operateur({ store, onFermer, onVerrouiller, onEssaiObjec
       </section>
 
       <footer>
-        <button type="button" className="dfo-btn" onClick={onVerrouiller}>Verrouiller</button>
-        <p className="dfo-info">← → collecte précédente / suivante · F plein écran · Ctrl+Alt+O panneau</p>
+        <p className="dfo-info">← → collecte précédente / suivante · F plein écran · M son · O panneau</p>
       </footer>
     </aside>
   )

@@ -2,7 +2,8 @@
 // hors connexion) + lecteur de musique de fond optionnel.
 //
 // Les navigateurs interdisent tout son avant un geste de l'utilisateur : la
-// saisie du PIN opérateur en est un, donc le contexte audio est débloqué.
+// musique démarre donc au premier clic ou à la première touche si le
+// navigateur refuse le démarrage automatique.
 
 import { MUSIC_FILE, MUSIC_VOLUME } from '../data/defiConfig'
 
@@ -84,12 +85,10 @@ export function fanfare() {
 /* ---------- Musique de fond ---------- */
 
 let audio = null
-export const musiqueActive = () => Boolean(audio && !audio.paused)
-
-// Renvoie 'on' (elle joue), 'off' (coupée) ou 'erreur' (fichier introuvable
-// ou lecture refusée par le navigateur).
-export async function basculerMusique() {
-  if (musiqueActive()) { audio.pause(); return 'off' }
+// Lance la musique. Renvoie 'on', 'attente' (le navigateur exige d'abord un
+// geste : on réessaie au premier clic ou à la première touche) ou 'erreur'
+// (fichier introuvable).
+export async function demarrerMusique() {
   if (!audio) {
     audio = new Audio(MUSIC_FILE)
     audio.loop = true
@@ -98,10 +97,18 @@ export async function basculerMusique() {
   try {
     await audio.play()
     return 'on'
-  } catch {
+  } catch (e) {
+    if (e?.name === 'NotAllowedError') return 'attente'
     audio = null
     return 'erreur'
   }
+}
+
+// Sourdine on/off sans arrêter la lecture. Renvoie true si en sourdine.
+export function basculerSourdine() {
+  if (!audio) return false
+  audio.muted = !audio.muted
+  return audio.muted
 }
 
 // Baisse la musique pendant la célébration pour laisser passer les applaudissements.

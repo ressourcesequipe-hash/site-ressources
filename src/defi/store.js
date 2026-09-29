@@ -109,10 +109,3 @@ export function sauverHist(h) {
   try { localStorage.setItem(CLE_HIST, JSON.stringify(h.slice(-HIST_MAX))) } catch { /* idem */ }
 }
 
-/* ---------- PIN ---------- */
-
-export async function hashPin(pin) {
-  if (!globalThis.crypto?.subtle) throw new Error('crypto indisponible')
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`ressources-defi:${pin}`))
-  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('')
-}

@@ -13,34 +13,40 @@ Elle ne fait aucun appel réseau une fois chargée.
 ## Où vit l'état
 
 Dans le `localStorage` **du navigateur qui projette**. Conséquences :
-- un visiteur qui ouvre `/defi` voit un écran à 0 kg, sans rien pouvoir changer
-  sur l'ordinateur de la salle ;
+- un visiteur qui ouvre `/defi` voit son propre écran à 0 kg : il ne peut rien
+  changer sur l'ordinateur de la salle ;
 - il faut préparer et projeter **sur le même ordinateur et le même navigateur**
-  (ou transporter les données par le JSON, voir plus bas) ;
+  (ou transporter les données par le JSON) ;
 - vider les données du navigateur efface la présentation.
 
-Le PIN est un verrou d'usage contre le geste malheureux, pas une protection
-contre un attaquant : son empreinte est dans le code public.
+Il n'y a pas de code PIN : la barre du bas et le panneau sont accessibles à
+qui ouvre la page (décision du 29/09/2026).
 
 ## Utilisation le jour J
 
+La barre du bas est visible dès l'ouverture : compteur de collectes,
+précédente / suivante, saisie du jour (date du jour pré-remplie).
+
 | Geste | Effet |
 |---|---|
-| `Ctrl + Alt + O` | Ouvre/ferme le panneau opérateur (PIN demandé la 1re fois) |
-| 5 clics rapides sur le logo | Idem, si le clavier traite Ctrl+Alt comme AltGr |
-| `→` / `←` | Collecte suivante / précédente (une fois le PIN saisi) |
+| `→` / `←` | Collecte suivante / précédente |
 | `F` | Plein écran (`Échap` pour sortir) |
-| `M` | Musique de fond on/off (fichier `public/audio/fond.mp3`, à fournir, libre de droits) |
-| `B` | Masque / affiche la barre du bas (compteur, précédente/suivante, saisie du jour) |
+| `B` | Masque / affiche la barre du bas |
+| `O` ou ⚙ en bas à droite | Ouvre / ferme le panneau opérateur complet |
+| `M` ou icône en haut à droite | Sourdine / remise du son de la musique |
+
+La musique (`public/audio/fond.mp3`) démarre à l'ouverture de la page ; si le
+navigateur refuse le démarrage automatique, elle démarre au premier clic ou à
+la première touche.
 
 Mode B (recommandé) : collectes préparées, on appuie sur `→`.
-Mode A : saisie date + poids, « + Ajouter la collecte ».
+Mode A : saisie date + poids, « + Ajouter ».
 Les touches sont inactives pendant une animation (anti double-clic).
-« Annuler la dernière action » restaure l'état précédent (30 niveaux).
+« Annuler la dernière action » (panneau) restaure l'état précédent (30 niveaux).
 
 ## Préparer les collectes avant le 3 octobre
 
-1. Sur l'ordinateur de la salle : `Ctrl + Alt + O`, PIN.
+1. Sur l'ordinateur de la salle : touche `O` pour le panneau.
 2. Bloc « Enregistrement de collecte » : date, poids, **Préparer sans afficher**.
    Les collectes se rangent par date, l'écran reste à 0 kg.
 3. Ou, en bloc : `src/data/defiCollectes.json`
@@ -53,13 +59,7 @@ Les touches sont inactives pendant une animation (anti double-clic).
 ## Réglages
 
 `src/data/defiConfig.js` : objectif et dates (`challenge`), `communes`,
-`collectionPoints`, `partners`, `SOUND_ENABLED`, `PIN_HASH`, démo.
-
-Changer le PIN :
-```bash
-node -e "console.log(require('crypto').createHash('sha256').update('ressources-defi:NOUVEAUPIN').digest('hex'))"
-```
-et coller le résultat dans `PIN_HASH`.
+`collectionPoints`, `partners`, `SOUND_ENABLED`, `MUSIC_FILE`, `MUSIC_VOLUME`, démo.
 
 ## Règles de conception
 
@@ -74,5 +74,5 @@ et coller le résultat dans `PIN_HASH`.
 
 Au franchissement des 500 kg : fanfare + applaudissements synthétisés
 (`src/defi/son.js`), musique de fond baissée pendant la célébration. Coupure
-générale : `SOUND_ENABLED = false` dans `defiConfig.js`. Le son n'est joué
-qu'après un geste (le PIN en est un) ; après une actualisation, `M` relance la musique.
+générale : `SOUND_ENABLED = false` dans `defiConfig.js`. Le navigateur ne joue
+un son qu'après un clic ou une touche.
