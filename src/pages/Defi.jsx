@@ -202,6 +202,7 @@ export default function Defi() {
       </Helmet>
 
       <div className="dfi-filigrane" aria-hidden="true" />
+      <div className="dfi-filigrane-g" aria-hidden="true" />
 
       <header className="dfi-entete">
         <div className="dfi-logo">
