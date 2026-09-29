@@ -337,14 +337,3 @@
 }
 .dfi-fin-ferme:hover { opacity: 1; }
 
-/* Second filigrane, à gauche : un ordinateur de bureau reconditionné (photo vitrine). */
-.dfi-filigrane-g {
-  position: absolute; top: 9%; left: 1%; bottom: 60%; width: 28%;
-  background: url('/photos/filigrane-ordinateur.webp') center / contain no-repeat;
-  filter: grayscale(1) contrast(1.05);
-  opacity: .16; mix-blend-mode: multiply; pointer-events: none;
-  transform: scaleX(-1); /* effet miroir */
-  /* Bords estompés : la photo se fond dans le fond crème, sans aucun contour. */
-  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 30%, transparent 100%);
-  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 30%, transparent 100%);
-}
