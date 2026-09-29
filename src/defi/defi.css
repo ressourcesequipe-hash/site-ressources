@@ -44,11 +44,11 @@
   display: flex;
   align-items: center;
   gap: calc(var(--u) * 28);
-  height: calc(var(--u) * 112);
+  height: calc(var(--u) * 100);
   flex: none;
 }
 .dfi-logo { border: 0; background: none; padding: 0; cursor: default; }
-.dfi-logo img { height: calc(var(--u) * 100); width: auto; display: block; }
+.dfi-logo img { height: calc(var(--u) * 90); width: auto; display: block; }
 .dfi h1 {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: calc(var(--u) * 56);
@@ -78,7 +78,7 @@
 /* Compteur */
 .dfi-centre {
   flex: none;
-  height: calc(var(--u) * 330);
+  height: calc(var(--u) * 270);
   display: grid;
   grid-template-columns: calc(var(--u) * 340) 1fr calc(var(--u) * 340);
   align-items: center;
@@ -88,16 +88,16 @@
 .dfi-nombre {
   font-family: 'Playfair Display', Georgia, serif;
   font-weight: 700;
-  font-size: calc(var(--u) * 210);
+  font-size: calc(var(--u) * 170);
   line-height: .95;
   font-variant-numeric: tabular-nums;
   color: var(--vert-profond);
   min-width: calc(var(--u) * 480);
 }
-.dfi-unite { font-size: calc(var(--u) * 62); font-weight: 600; color: var(--vert); line-height: 1.1; margin-top: calc(var(--u) * 4); }
+.dfi-unite { font-size: calc(var(--u) * 56); font-weight: 600; color: var(--vert); line-height: 1.1; margin-top: calc(var(--u) * 4); }
 .dfi-statut {
-  margin-top: calc(var(--u) * 12);
-  min-height: calc(var(--u) * 44);
+  margin-top: calc(var(--u) * 8);
+  min-height: calc(var(--u) * 40);
   display: flex; gap: calc(var(--u) * 22); align-items: baseline; justify-content: center;
   font-size: calc(var(--u) * 34); font-weight: 600;
 }
@@ -124,7 +124,7 @@
 }
 
 /* Jauge */
-.dfi-jauge { position: relative; flex: none; height: calc(var(--u) * 252); margin: auto calc(var(--u) * 4); }
+.dfi-jauge { position: relative; flex: none; height: calc(var(--u) * 252); margin: 0 calc(var(--u) * 4); }
 .dfi-marqueur { position: absolute; top: 0; transform: translateX(-50%); z-index: 3; text-align: center; }
 .dfi-marqueur-carte {
   display: flex; align-items: center; gap: calc(var(--u) * 12);
@@ -181,7 +181,7 @@
 .dfi-au-dela em { display: block; font-style: normal; font-size: calc(var(--u) * 22); color: var(--vert); font-weight: 500; }
 
 /* Territoire */
-.dfi-territoire { flex: none; display: flex; flex-direction: column; gap: calc(var(--u) * 8); }
+.dfi-territoire { flex: none; margin-top: auto; display: flex; flex-direction: column; gap: calc(var(--u) * 8); }
 .dfi-territoire-tete { display: flex; align-items: baseline; gap: calc(var(--u) * 24); }
 .dfi h2 { font-family: 'Playfair Display', Georgia, serif; font-size: calc(var(--u) * 36); font-weight: 700; }
 .dfi-territoire-tete p { font-size: calc(var(--u) * 24); color: var(--vert); font-weight: 500; }
