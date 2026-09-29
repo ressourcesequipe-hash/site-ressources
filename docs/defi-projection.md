@@ -29,7 +29,7 @@ précédente / suivante, saisie du jour (date du jour pré-remplie).
 
 | Geste | Effet |
 |---|---|
-| `→` / `←` | Collecte suivante / précédente |
+| `→` / `←` | Semaine suivante / précédente (lundi → dimanche) |
 | `F` | Plein écran (`Échap` pour sortir) |
 | `B` | Masque / affiche la barre du bas |
 | `O` ou ⚙ en bas à droite | Ouvre / ferme le panneau opérateur complet |
@@ -39,7 +39,7 @@ La musique (`public/audio/fond.mp3`) démarre à l'ouverture de la page ; si le
 navigateur refuse le démarrage automatique, elle démarre au premier clic ou à
 la première touche.
 
-Mode B (recommandé) : collectes préparées, on appuie sur `→`.
+Mode B (recommandé) : collectes préparées, on appuie sur `→` : toutes les collectes de la semaine suivante apparaissent d'un coup (5 clics pour les 14 collectes de 360). Le panneau garde un pas « 1 collecte » pour la finesse.
 Mode A : saisie date + poids, « + Ajouter ».
 Les touches sont inactives pendant une animation (anti double-clic).
 « Annuler la dernière action » (panneau) restaure l'état précédent (30 niveaux).

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { challenge } from '../data/defiConfig'
-import { dateFr, lireDate, lirePoids, nombreFr, total } from './store'
+import { dateFr, lireDate, lirePoids, nombreFr, semaineSuivante, total } from './store'
 
 /* ---------- Confirmation en deux temps ---------- */
 
@@ -120,6 +120,9 @@ function BoutonSupprimer({ onOk }) {
     : <button type="button" onClick={() => setSur(true)}>Supprimer</button>
 }
 
+const courtFr = (d) => dateFr(d).slice(0, 5)
+const kg = (n) => `${nombreFr(n, n % 1 ? 1 : 0)} kg`
+
 /* ---------- Barre opérateur (sous la projection) ---------- */
 
 const aujourdhui = () => {
@@ -135,7 +138,7 @@ export function BarreOperateur({ store, onPanneau, onFin }) {
   const [date, setDate] = useState(aujourdhui)
   const [poids, setPoids] = useState('')
   const [err, setErr] = useState('')
-  const prochaine = etat.entries[etat.revele]
+  const prochaine = semaineSuivante(etat)
 
   const ajouter = (e) => {
     e.preventDefault()
@@ -154,10 +157,10 @@ export function BarreOperateur({ store, onPanneau, onFin }) {
     <div className="dfo-barre">
       <span className="dfo-compte">
         <b>{etat.revele}</b> / {etat.entries.length} collectes affichées
-        {prochaine && <em> · suivante : {dateFr(prochaine.date)}, {nombreFr(prochaine.poids, prochaine.poids % 1 ? 1 : 0)} kg</em>}
+        {prochaine && <em> · semaine suivante : {courtFr(prochaine.du)} → {courtFr(prochaine.au)} ({prochaine.n} coll., {kg(prochaine.poids)})</em>}
       </span>
-      <button type="button" className="dfo-btn" disabled={busy || etat.revele <= 0} onClick={a.precedente}>←</button>
-      <button type="button" className="dfo-btn dfo-primaire" disabled={busy || !prochaine} onClick={a.suivante}>Suivante →</button>
+      <button type="button" className="dfo-btn" disabled={busy || etat.revele <= 0} onClick={a.precedente} title="Semaine précédente">←</button>
+      <button type="button" className="dfo-btn dfo-primaire" disabled={busy || !prochaine} onClick={a.suivante}>Semaine suivante →</button>
       <form onSubmit={ajouter} className="dfo-barre-saisie">
         <input value={date} onChange={(e) => setDate(e.target.value)} aria-label="Date" size={10} placeholder="JJ/MM/AAAA" />
         <input value={poids} onChange={(e) => setPoids(e.target.value)} aria-label="Poids en kg" size={5} placeholder="kg" inputMode="decimal" />
@@ -192,11 +195,15 @@ export default function Operateur({ store, onFermer, onEssaiObjectif, onPleinEcr
         <h3>Déroulé</h3>
         <p className="dfo-info">
           {etat.revele} / {etat.entries.length} affichées · {nombreFr(total(etat), 1)} kg
-          {prochaine && <> · suivante : {dateFr(prochaine.date)}, {nombreFr(prochaine.poids, prochaine.poids % 1 ? 1 : 0)} kg</>}
+          {prochaine && <> · semaine suivante : {courtFr(prochaine.du)} → {courtFr(prochaine.au)} ({prochaine.n} coll., {kg(prochaine.poids)})</>}
         </p>
         <div className="dfo-ligne">
-          <button type="button" className="dfo-btn" disabled={busy || etat.revele <= 0} onClick={a.precedente}>← Précédente</button>
-          <button type="button" className="dfo-btn dfo-primaire" disabled={busy || !prochaine} onClick={a.suivante}>Collecte suivante →</button>
+          <button type="button" className="dfo-btn" disabled={busy || etat.revele <= 0} onClick={a.precedente}>← Semaine précédente</button>
+          <button type="button" className="dfo-btn dfo-primaire" disabled={busy || !prochaine} onClick={a.suivante}>Semaine suivante →</button>
+        </div>
+        <div className="dfo-ligne">
+          <button type="button" className="dfo-btn" disabled={busy || etat.revele <= 0} onClick={a.precedenteUne}>← 1 collecte</button>
+          <button type="button" className="dfo-btn" disabled={busy || !uneSuivante} onClick={a.suivanteUne}>1 collecte →</button>
         </div>
         <div className="dfo-ligne">
           <button type="button" className="dfo-btn" disabled={busy || !histLen} onClick={a.annuler}>
@@ -260,7 +267,7 @@ export default function Operateur({ store, onFermer, onEssaiObjectif, onPleinEcr
       </section>
 
       <footer>
-        <p className="dfo-info">← → collecte précédente / suivante · F plein écran · M son · O panneau</p>
+        <p className="dfo-info">← → semaine précédente / suivante · F plein écran · M son · O panneau</p>
       </footer>
     </aside>
   )

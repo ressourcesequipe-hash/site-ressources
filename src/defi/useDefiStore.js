@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { challenge, demoCollectes } from '../data/defiConfig'
 import {
-  CLE, charger, etatInitial, lireHist, nouvelId, normaliserListe, sauver, sauverHist, total,
+  CLE, charger, debutGroupe, etatInitial, finGroupe, lireHist, nouvelId, normaliserListe, sauver, sauverHist, total,
 } from './store'
 
 // Toute modification passe par `commit`, qui : recalcule le drapeau « 500 kg
@@ -81,12 +81,24 @@ export function useDefiStore() {
         .sort((x, y) => x.date.localeCompare(y.date))
       commit({ ...s, entries: [...tete, ...queue] }, 'meta')
     },
+    // Une semaine (lundi → dimanche) d'un coup : c'est le pas du déroulé.
     suivante() {
+      const s = etatRef.current
+      if (busyRef.current || s.revele >= s.entries.length) return
+      commit({ ...s, revele: finGroupe(s.entries, s.revele) }, 'avance')
+    },
+    precedente() {
+      const s = etatRef.current
+      if (busyRef.current || s.revele <= 0) return
+      commit({ ...s, revele: debutGroupe(s.entries, s.revele - 1) }, 'autre')
+    },
+    // Pas fin, collecte par collecte (panneau).
+    suivanteUne() {
       const s = etatRef.current
       if (busyRef.current || s.revele >= s.entries.length) return
       commit({ ...s, revele: s.revele + 1 }, 'avance')
     },
-    precedente() {
+    precedenteUne() {
       const s = etatRef.current
       if (busyRef.current || s.revele <= 0) return
       commit({ ...s, revele: s.revele - 1 }, 'autre')

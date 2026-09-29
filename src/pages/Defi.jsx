@@ -240,11 +240,7 @@ export default function Defi() {
       </header>
 
       <main className="dfi-centre">
-        <aside className="dfi-infos" aria-label="Le défi en bref">
-          <div><span>Objectif</span><b>{cible} kg</b></div>
-          <div><span>Période</span><b>{jourMois(challenge.startDate)} → {jourMois(challenge.endDate)}</b></div>
-          <div><span>Mobilisation</span><b>Collective</b></div>
-        </aside>
+        <div aria-hidden="true" />
 
         <section className="dfi-compteur" aria-live="polite">
           <div className="dfi-nombre">{nombreFr(valeur, decimales)}</div>

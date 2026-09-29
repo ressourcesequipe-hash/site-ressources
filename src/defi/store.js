@@ -49,6 +49,48 @@ export const dateFr = (iso) => iso.split('-').reverse().join('/')
 export const nombreFr = (n, decimales = 0) =>
   new Intl.NumberFormat('fr-FR', { minimumFractionDigits: decimales, maximumFractionDigits: decimales }).format(n)
 
+/* ---------- Semaines (lundi → dimanche) ---------- */
+
+const JOUR = 86400000
+const utc = (iso) => Date.parse(`${iso}T00:00:00Z`)
+const iso = (ms) => new Date(ms).toISOString().slice(0, 10)
+
+// Lundi de la semaine qui contient la date ISO.
+export const debutSemaine = (date) => {
+  const ms = utc(date)
+  return iso(ms - ((new Date(ms).getUTCDay() + 6) % 7) * JOUR)
+}
+export const finSemaine = (date) => iso(utc(debutSemaine(date)) + 6 * JOUR)
+
+// Fin (exclue) du groupe de la semaine qui commence à l'index `depuis`.
+export function finGroupe(entries, depuis) {
+  const semaine = debutSemaine(entries[depuis].date)
+  let n = depuis
+  while (n < entries.length && debutSemaine(entries[n].date) === semaine) n++
+  return n
+}
+
+// Début du groupe de la semaine qui contient l'index `dernier`.
+export function debutGroupe(entries, dernier) {
+  const semaine = debutSemaine(entries[dernier].date)
+  let n = dernier
+  while (n > 0 && debutSemaine(entries[n - 1].date) === semaine) n--
+  return n
+}
+
+// La prochaine semaine à révéler : { du, au, n, poids } ou null.
+export function semaineSuivante(etat) {
+  if (etat.revele >= etat.entries.length) return null
+  const fin = finGroupe(etat.entries, etat.revele)
+  const groupe = etat.entries.slice(etat.revele, fin)
+  return {
+    du: debutSemaine(groupe[0].date),
+    au: finSemaine(groupe[0].date),
+    n: groupe.length,
+    poids: arrondi(groupe.reduce((s, e) => s + e.poids, 0)),
+  }
+}
+
 /* ---------- Échelle de la jauge ---------- */
 
 // Position (0..1) sur la flèche. Jusqu'à l'objectif : 75 % de la longueur.

@@ -83,16 +83,6 @@
   grid-template-columns: calc(var(--u) * 340) 1fr calc(var(--u) * 340);
   align-items: center;
 }
-.dfi-infos { display: grid; gap: calc(var(--u) * 10); align-self: center; }
-.dfi-infos div {
-  background: rgba(255, 255, 255, .6);
-  border: calc(var(--u) * 2) solid var(--sauge);
-  border-radius: calc(var(--u) * 20);
-  padding: calc(var(--u) * 8) calc(var(--u) * 20);
-  display: flex; flex-direction: column;
-}
-.dfi-infos span { font-size: calc(var(--u) * 20); color: var(--vert); font-weight: 500; }
-.dfi-infos b { font-size: calc(var(--u) * 30); line-height: 1.15; }
 
 .dfi-compteur { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .dfi-nombre {
@@ -134,7 +124,7 @@
 }
 
 /* Jauge */
-.dfi-jauge { position: relative; flex: none; height: calc(var(--u) * 252); margin: 0 calc(var(--u) * 4); }
+.dfi-jauge { position: relative; flex: none; height: calc(var(--u) * 252); margin: 0 calc(var(--u) * 4) calc(var(--u) * 30); }
 .dfi-marqueur { position: absolute; top: 0; transform: translateX(-50%); z-index: 3; text-align: center; }
 .dfi-marqueur-carte {
   display: flex; align-items: center; gap: calc(var(--u) * 12);
@@ -204,13 +194,15 @@
   overflow: hidden;
 }
 .dfi h3 { font-size: calc(var(--u) * 24); text-transform: uppercase; letter-spacing: .09em; color: var(--ocre); font-weight: 700; margin-bottom: calc(var(--u) * 8); }
-.dfi-carte ul { display: flex; flex-wrap: wrap; gap: calc(var(--u) * 8); }
+.dfi-carte ul { display: flex; flex-wrap: wrap; gap: calc(var(--u) * 12) calc(var(--u) * 30); }
 .dfi-pill {
-  font-size: calc(var(--u) * 22); font-weight: 600; line-height: 1;
-  padding: calc(var(--u) * 8) calc(var(--u) * 16);
-  border-radius: 999px; background: var(--sauge-clair); color: var(--vert-profond);
-  border: calc(var(--u) * 2) solid rgba(78, 139, 58, .28);
-  white-space: nowrap;
+  display: flex; align-items: center; gap: calc(var(--u) * 10);
+  font-size: calc(var(--u) * 24); font-weight: 600; line-height: 1.15;
+  color: var(--vert-profond); white-space: nowrap;
+}
+.dfi-pill::before {
+  content: ''; flex: none; width: calc(var(--u) * 9); height: calc(var(--u) * 9);
+  border-radius: 50%; background: var(--sauge);
 }
 
 /* Divers */
