@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { challenge } from '../data/defiConfig'
 import { dateFr, lireDate, lirePoids, nombreFr, semaineSuivante, total } from './store'
 
@@ -139,6 +139,21 @@ export function BarreOperateur({ store, onPanneau, onFin }) {
   const [poids, setPoids] = useState('')
   const [err, setErr] = useState('')
   const prochaine = semaineSuivante(etat)
+  const racine = useRef(null)
+
+  // La barre peut passer sur deux lignes sur un écran étroit : on mesure sa
+  // vraie hauteur pour que la projection lui réserve exactement sa place et que
+  // « Mobilisation du territoire » reste juste au-dessus, jamais recouvert.
+  useEffect(() => {
+    const barre = racine.current
+    const ecran = barre?.closest('.dfi') ?? document.querySelector('.dfi')
+    if (!barre || !ecran) return undefined
+    const mesurer = () => ecran.style.setProperty('--barre-h', `${Math.ceil(barre.getBoundingClientRect().height)}px`)
+    mesurer()
+    const obs = new ResizeObserver(mesurer)
+    obs.observe(barre)
+    return () => { obs.disconnect(); ecran.style.removeProperty('--barre-h') }
+  }, [])
 
   const ajouter = (e) => {
     e.preventDefault()
@@ -154,7 +169,7 @@ export function BarreOperateur({ store, onPanneau, onFin }) {
   }
 
   return (
-    <div className="dfo-barre">
+    <div className="dfo-barre" ref={racine}>
       <span className="dfo-compte">
         <b>{etat.revele}</b> / {etat.entries.length} collectes affichées
         {prochaine && <em> · semaine suivante : {courtFr(prochaine.du)} → {courtFr(prochaine.au)} ({prochaine.n} coll., {kg(prochaine.poids)})</em>}

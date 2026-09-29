@@ -33,11 +33,6 @@
 .dfi h1, .dfi h2, .dfi h3, .dfi p, .dfi ul { margin: 0; padding: 0; }
 .dfi ul { list-style: none; }
 
-/* Feuillage discret */
-.dfi-deco { position: absolute; color: var(--sauge); opacity: .28; pointer-events: none; }
-.dfi-deco-a { width: calc(var(--u) * 260); left: calc(var(--u) * -70); top: calc(var(--u) * 250); transform: rotate(-20deg); }
-.dfi-deco-b { width: calc(var(--u) * 200); right: calc(var(--u) * -50); top: calc(var(--u) * 150); transform: rotate(150deg); }
-
 /* En-tête */
 .dfi-entete {
   position: relative;
@@ -280,10 +275,11 @@
 /* Barre opérateur affichée : toute la composition rétrécit d'autant, pour que
    la barre ne recouvre jamais « Mobilisation du territoire ». */
 .dfi.dfi-avec-barre {
-  --u: min(calc(100vw / 1920), calc((100vh - 76px) / 1080));
-  padding-bottom: calc(76px + var(--u) * 24);
+  --reserve: calc(var(--barre-h, 66px) + 14px);
+  --u: min(calc(100vw / 1920), calc((100vh - var(--reserve)) / 1080));
+  padding-bottom: calc(var(--reserve) + var(--u) * 6);
 }
-.dfi-avec-barre .dfi-discret { bottom: 84px; }
+.dfi-avec-barre .dfi-discret { bottom: calc(var(--reserve) + 6px); }
 
 /* Icône son, en haut à droite */
 .dfi-son {

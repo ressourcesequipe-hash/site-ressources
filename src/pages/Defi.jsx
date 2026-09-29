@@ -22,13 +22,6 @@ import '../defi/defi.css'
 const easing = (p) => (p < 0.5 ? 4 * p * p * p : 1 - ((-2 * p + 2) ** 3) / 2)
 const jourMois = (iso) => iso.slice(5).split('-').reverse().join('/')
 
-const Feuille = ({ className }) => (
-  <svg viewBox="0 0 120 120" className={className} aria-hidden="true">
-    <path d="M14 106C14 50 52 14 106 14c0 56-36 92-92 92Z" fill="currentColor" />
-    <path d="M14 106 78 42" stroke="#F7F1E3" strokeWidth="4" strokeLinecap="round" opacity=".55" />
-  </svg>
-)
-
 function Pastille({ children }) {
   return <li className="dfi-pill">{children}</li>
 }
@@ -209,8 +202,6 @@ export default function Defi() {
       </Helmet>
 
       <div className="dfi-filigrane" aria-hidden="true" />
-      <Feuille className="dfi-deco dfi-deco-a" />
-      <Feuille className="dfi-deco dfi-deco-b" />
 
       <header className="dfi-entete">
         <div className="dfi-logo">
