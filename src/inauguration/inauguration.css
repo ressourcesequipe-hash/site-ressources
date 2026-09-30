@@ -90,6 +90,7 @@
 .ino-a3 { animation-delay: 2.25s; }
 
 /* Slide 2 */
+.ino-amorce { margin-bottom: calc(var(--u) * -8); font-size: calc(var(--u) * 44); font-weight: 600; letter-spacing: .02em; color: var(--ocre-fonce); }
 .ino-phrase { font-size: calc(var(--u) * 64); line-height: 1.22; font-weight: 600; }
 .ino-phrase em { font-style: normal; color: var(--ocre-fonce); }
 .ino-filieres { display: flex; flex-direction: column; gap: calc(var(--u) * 40); margin-top: calc(var(--u) * 20); width: 100%; }
