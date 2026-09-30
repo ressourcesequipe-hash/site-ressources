@@ -81,7 +81,7 @@ export default function Defi() {
     }
     if (de === vers) return undefined
     const ecart = Math.abs(vers - de)
-    const duree = evt.kind === 'avance' ? Math.min(2500, Math.max(1500, 1400 + ecart * 12)) : 900
+    const duree = evt.kind === 'avance' ? Math.min(2500, Math.max(1500, 1400 + ecart * 12)) : Math.min(2200, 700 + ecart * 4)
     const t0 = performance.now()
     let franchi = false
     animActive.current = true

@@ -140,6 +140,12 @@ export function BarreOperateur({ store, onPanneau, onFin }) {
   const [err, setErr] = useState('')
   const prochaine = semaineSuivante(etat)
   const racine = useRef(null)
+  const [confirmer, setConfirmer] = useState(false)
+  useEffect(() => {
+    if (!confirmer) return undefined
+    const t = setTimeout(() => setConfirmer(false), 6000)
+    return () => clearTimeout(t)
+  }, [confirmer])
 
   // La barre peut passer sur deux lignes sur un écran étroit : on mesure sa
   // vraie hauteur pour que la projection lui réserve exactement sa place et que
@@ -184,6 +190,15 @@ export function BarreOperateur({ store, onPanneau, onFin }) {
       </form>
       <button type="button" className="dfo-btn" onClick={onPanneau}>Panneau</button>
       <button type="button" className="dfo-btn dfo-fin" onClick={onFin}>FIN</button>
+      {confirmer ? (
+        <span className="dfo-confirme">
+          <b>Revenir à 0 kg ?</b>
+          <button type="button" className="dfo-btn dfo-danger" onClick={() => { setConfirmer(false); a.recommencer() }}>Oui</button>
+          <button type="button" className="dfo-btn" onClick={() => setConfirmer(false)}>Non</button>
+        </span>
+      ) : (
+        <button type="button" className="dfo-btn" disabled={busy || etat.revele <= 0} onClick={() => setConfirmer(true)} title="Remet le compteur à 0 kg en gardant les collectes">⏮ Rembobiner</button>
+      )}
     </div>
   )
 }
@@ -194,7 +209,8 @@ export default function Operateur({ store, onFermer, onEssaiObjectif, onPleinEcr
   const { etat, busy, histLen, a } = store
   const [json, setJson] = useState('')
   const [msgJson, setMsgJson] = useState('')
-  const prochaine = etat.entries[etat.revele]
+  const prochaine = semaineSuivante(etat)
+  const uneSuivante = etat.entries[etat.revele]
 
   const jsonCourant = () =>
     JSON.stringify(etat.entries.map(({ id, date, poids }) => ({ id, date, poids })), null, 2)
