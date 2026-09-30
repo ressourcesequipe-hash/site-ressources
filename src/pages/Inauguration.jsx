@@ -171,7 +171,9 @@ function communesAffichees() {
 }
 
 function Territoire() {
-  const autres = [...collectionPoints, ...partners]
+  // Imagine Linxe en dernier (tout à droite), contrairement à defiConfig.js.
+  const tous = [...collectionPoints, ...partners]
+  const autres = [...tous.filter((n) => n !== 'Imagine Linxe'), ...tous.filter((n) => n === 'Imagine Linxe')]
   const sansLogo = autres.filter((n) => !logosPartenaires[n])
   return (
     <div className="ino-centre ino-territoire">
