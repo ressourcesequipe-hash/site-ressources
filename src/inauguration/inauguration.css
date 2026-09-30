@@ -4,14 +4,14 @@
    Mêmes couleurs que /defi : aucune teinte nouvelle. */
 
 .ino {
-  --vert-profond: #1f4d2e;
-  --vert: #4e8b3a;
-  --sauge-clair: #dfe8d9;
-  --creme: #f7f1e3;
-  --creme-fonce: #efe6d0;
-  --ocre: #c8973a;
-  --ocre-fonce: #9a6f1c;
-  --jaune: #e8b84a;
+  --vert-profond: #3D4A2D; /* kaki */
+  --vert: #59633F; /* olive foncé */
+  --sauge-clair: #EEF0EA; /* kaki pâle */
+  --creme: #F7F3ED; /* beige clair */
+  --creme-fonce: #EDE5D8; /* beige */
+  --ocre: #C8973A;
+  --ocre-fonce: #A07828; /* ocre foncé */
+  --jaune: #D4AA5A; /* ocre clair */
   --u: min(calc(100vw / 1920), calc(100vh / 1080));
   position: fixed;
   inset: 0;
@@ -80,7 +80,7 @@
 .ino-filiere li span {
   display: flex; align-items: center; gap: calc(var(--u) * 12);
   font-size: calc(var(--u) * 36); font-weight: 600; white-space: nowrap;
-  background: #fffaf0; border: calc(var(--u) * 3) solid var(--vert-profond); border-radius: calc(var(--u) * 50);
+  background: #ffffff; border: calc(var(--u) * 3) solid var(--vert-profond); border-radius: calc(var(--u) * 50);
   padding: calc(var(--u) * 10) calc(var(--u) * 26) calc(var(--u) * 10) calc(var(--u) * 12);
 }
 .ino-filiere li b {
@@ -92,8 +92,8 @@
 /* Slide 3 */
 .ino-piliers { display: grid; grid-template-columns: repeat(3, 1fr); gap: calc(var(--u) * 44); width: 100%; margin-top: calc(var(--u) * 26); }
 .ino-pilier {
-  background: #fffaf0; border-top: calc(var(--u) * 14) solid var(--ocre); border-radius: calc(var(--u) * 24);
-  box-shadow: 0 calc(var(--u) * 10) calc(var(--u) * 30) rgba(31, 77, 46, .14);
+  background: #ffffff; border-top: calc(var(--u) * 14) solid var(--ocre); border-radius: calc(var(--u) * 24);
+  box-shadow: 0 calc(var(--u) * 10) calc(var(--u) * 30) rgba(61, 74, 45, .14);
   padding: calc(var(--u) * 46) calc(var(--u) * 36) calc(var(--u) * 50);
 }
 .ino-pilier h3 { font-family: 'Playfair Display', Georgia, serif; font-size: calc(var(--u) * 62); font-weight: 700; color: var(--vert-profond); }
@@ -103,7 +103,7 @@
 .ino-etiquette { font-size: calc(var(--u) * 34); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ocre-fonce); margin-top: calc(var(--u) * 18); }
 .ino-pastilles { display: flex; flex-wrap: wrap; justify-content: center; gap: calc(var(--u) * 16) calc(var(--u) * 18); }
 .ino-pastilles li {
-  background: #fffaf0; border: calc(var(--u) * 3) solid var(--vert-profond); border-radius: calc(var(--u) * 50);
+  background: #ffffff; border: calc(var(--u) * 3) solid var(--vert-profond); border-radius: calc(var(--u) * 50);
   padding: calc(var(--u) * 10) calc(var(--u) * 30); font-weight: 600;
 }
 .ino-communes li { font-size: calc(var(--u) * 40); }
