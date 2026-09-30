@@ -143,7 +143,8 @@
 .ino-tuiles-communes .ino-tuile { width: calc(var(--u) * 300); height: calc(var(--u) * 150); }
 .ino-tuiles-communes .ino-tuile img { max-height: calc(var(--u) * 122); }
 .ino-tuiles-communes .ino-tuile:has(span) img { max-height: calc(var(--u) * 100); }
-.ino-tuiles-autres .ino-tuile { width: calc(var(--u) * 215); height: calc(var(--u) * 120); padding-left: calc(var(--u) * 14); padding-right: calc(var(--u) * 14); }
+.ino-tuiles-autres { gap: calc(var(--u) * 18); }
+.ino-tuiles-autres .ino-tuile { width: calc(var(--u) * 188); height: calc(var(--u) * 120); padding-left: calc(var(--u) * 12); padding-right: calc(var(--u) * 12); }
 .ino-tuiles-autres .ino-tuile img { max-height: calc(var(--u) * 92); }
 .ino-et-aussi { font-size: calc(var(--u) * 32); font-weight: 600; color: var(--vert); }
 

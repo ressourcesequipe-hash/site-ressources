@@ -149,6 +149,7 @@ const logosPartenaires = {
   'Saint-Vincent-de-Tyrosse': { fichier: 'saint-vincent-de-tyrosse', sombre: true },
   Labenne: { fichier: 'labenne', sombre: true },
   'E.Leclerc Soustons': { fichier: 'leclerc-soustons' },
+  'E.Leclerc Linxe': { fichier: 'leclerc-linxe' },
   'Imagine Linxe': { fichier: 'imagine-linxe' },
   'Landes Attractivité': { fichier: 'landes-attractivite' },
   'Landes Partage': { fichier: 'landes-partage' },
@@ -184,7 +185,9 @@ function communesAffichees() {
 
 function Territoire() {
   // Imagine Linxe en dernier (tout à droite), contrairement à defiConfig.js.
+  // E.Leclerc Linxe n'est pas dans defiConfig.js : ajouté ici, à côté de Soustons.
   const tous = [...collectionPoints, ...partners]
+  tous.splice(Math.max(tous.indexOf('E.Leclerc Soustons') + 1, 0), 0, 'E.Leclerc Linxe')
   const autres = [...tous.filter((n) => n !== 'Imagine Linxe'), ...tous.filter((n) => n === 'Imagine Linxe')]
   const sansLogo = autres.filter((n) => !logosPartenaires[n])
   return (
