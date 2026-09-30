@@ -241,8 +241,8 @@ function Final({ step }) {
         ))}
       </ul>
       <R n={3} step={step} className="ino-construire">
-        <p className="ino-construire-mot">CONSTRUIRE</p>
-        <p className="ino-construire-suite">ensemble, autour d’une dynamique locale</p>
+        <p className="ino-construire-mot">CONSTRUIRE ENSEMBLE</p>
+        <p className="ino-construire-suite">autour d’une dynamique locale</p>
       </R>
       <R n={4} step={step} className="ino-merci">
         <p>Merci à toutes celles et ceux<br />qui font vivre Ressources.</p>
