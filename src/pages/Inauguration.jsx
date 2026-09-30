@@ -80,10 +80,17 @@ function Accueil() {
   return (
     <div className="ino-centre ino-accueil">
       <img className="ino-logo-grand" src="/logos/logo-ressources-512.png" alt="Ressources" />
-      <h1 className="ino-titre-xxl">RESSOURCES</h1>
-      <p className="ino-sous-titre">Recyclerie solidaire</p>
-      <p className="ino-mots">Informatique · Végétal</p>
-      <p className="ino-lieu">Inauguration — 3 octobre 2026<br />Vielle-Saint-Girons</p>
+      {/* Les lettres montent une à une ; le trait ocre se dessine dessous ; le reste
+          suit. Une seule fois, en ~2,6 s, puis l'écran reste immobile. */}
+      <h1 className="ino-titre-xxl" aria-label="RESSOURCES">
+        {[...'RESSOURCES'].map((l, i) => (
+          <span key={i} className="ino-lettre" style={{ '--i': i }} aria-hidden="true">{l}</span>
+        ))}
+      </h1>
+      <div className="ino-trait" aria-hidden="true" />
+      <p className="ino-sous-titre ino-a1">Recyclerie solidaire</p>
+      <p className="ino-mots ino-a2">Informatique · Végétal</p>
+      <p className="ino-lieu ino-a3">Inauguration — 3 octobre 2026<br />Vielle-Saint-Girons</p>
     </div>
   )
 }

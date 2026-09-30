@@ -56,14 +56,38 @@
 .ino-mots-vert { color: var(--vert); font-size: calc(var(--u) * 44); }
 .ino-lieu { font-size: calc(var(--u) * 38); font-weight: 500; line-height: 1.4; margin-top: calc(var(--u) * 26); }
 
-/* Accueil */
+/* Accueil — animation d'ouverture, jouée une seule fois (~2,6 s) :
+   le logo pousse et se pose, les lettres montent une à une, le trait ocre se
+   dessine, puis le reste apparaît. */
 .ino-accueil { gap: calc(var(--u) * 14); }
-.ino-logo-grand { height: calc(var(--u) * 250); width: auto; margin-bottom: calc(var(--u) * 10); }
-.ino-accueil > * { animation: ino-entree .8s ease both; }
-.ino-accueil > :nth-child(2) { animation-delay: .15s; }
-.ino-accueil > :nth-child(3) { animation-delay: .3s; }
-.ino-accueil > :nth-child(4) { animation-delay: .45s; }
-.ino-accueil > :nth-child(5) { animation-delay: .6s; }
+.ino-logo-grand {
+  height: calc(var(--u) * 250); width: auto; margin-bottom: calc(var(--u) * 10);
+  transform-origin: 50% 90%;
+  animation: ino-pousse 1.1s cubic-bezier(.2, .8, .25, 1) both;
+}
+@keyframes ino-pousse {
+  0% { opacity: 0; transform: scale(.55) translateY(calc(var(--u) * 30)); filter: blur(calc(var(--u) * 8)); }
+  60% { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: none; filter: blur(0); }
+}
+.ino-lettre {
+  display: inline-block;
+  animation: ino-lettre .7s cubic-bezier(.2, .8, .25, 1) both;
+  animation-delay: calc(.55s + var(--i) * .07s);
+}
+@keyframes ino-lettre {
+  from { opacity: 0; transform: translateY(calc(var(--u) * 60)); }
+  to { opacity: 1; transform: none; }
+}
+.ino-trait {
+  height: calc(var(--u) * 6); width: 0; border-radius: 999px; background: var(--ocre);
+  animation: ino-trait .9s ease-out 1.5s both;
+}
+@keyframes ino-trait { from { width: 0; } to { width: calc(var(--u) * 520); } }
+.ino-a1, .ino-a2, .ino-a3 { animation: ino-entree .8s ease both; }
+.ino-a1 { animation-delay: 1.75s; }
+.ino-a2 { animation-delay: 2.0s; }
+.ino-a3 { animation-delay: 2.25s; }
 
 /* Slide 2 */
 .ino-phrase { font-size: calc(var(--u) * 64); line-height: 1.22; font-weight: 600; }
@@ -174,5 +198,6 @@
 .ino-fondu.ino-on { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ino-slide, .ino-accueil > *, .ino-r, .ino-fondu { animation: none !important; transition: none !important; }
+  .ino-slide, .ino-logo-grand, .ino-lettre, .ino-trait, .ino-a1, .ino-a2, .ino-a3, .ino-r, .ino-fondu { animation: none !important; transition: none !important; }
+  .ino-trait { width: calc(var(--u) * 520); }
 }
