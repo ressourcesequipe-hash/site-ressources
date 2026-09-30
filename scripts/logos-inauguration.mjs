@@ -22,7 +22,7 @@ const LOGOS = [
   ['Mairie-LINXE.webp', 'linxe'],
   ['logo-mairie de Saint-Michel-Escalus.webp', 'saint-michel-escalus'],
   ['logo Lit et MiXe.jpg', 'lit-et-mixe', true],
-  ['Mairie de St Geours de Maremne.jpg', 'saint-geours-de-maremne', true],
+  ['Mairie de St Geours de Maremne.jpg', 'saint-geours-de-maremne', true, true],
   ['Logo-Seignosse.png', 'seignosse'],
   ['LOGO DÉFINITIF VIEUX BOUCAU.png', 'vieux-boucau'],
   ['07-saint-vincent-de-tyrosse-logo-officiel.png', 'saint-vincent-de-tyrosse'],
@@ -37,10 +37,19 @@ const LOGOS = [
 mkdirSync(OUT, { recursive: true });
 // Le 3e champ (true) retire les marges blanches des JPG : le logo lui-même
 // n'est pas modifié, il occupe simplement toute la tuile.
-for (const [source, nom, rogner] of LOGOS) {
+// Le 4e champ (true) produit la version négative d'un logo noir sur blanc : le
+// noir devient blanc, le fond blanc devient transparent (canal alpha tiré de
+// la luminance, anti-crénelage conservé). Réservé aux logos monochromes.
+for (const [source, nom, rogner, negatif] of LOGOS) {
   const sortie = join(OUT, `${nom}.webp`);
   let image = sharp(join(SRC, source));
   if (rogner) image = sharp(await image.trim({ background: '#ffffff', threshold: 30 }).toBuffer());
+  if (negatif) {
+    const { data, info } = await image.greyscale().raw().toBuffer({ resolveWithObject: true });
+    const rgba = Buffer.alloc(info.width * info.height * 4, 255);
+    for (let i = 0; i < data.length; i++) rgba[i * 4 + 3] = 255 - data[i];
+    image = sharp(rgba, { raw: { width: info.width, height: info.height, channels: 4 } });
+  }
   await image
     .resize({ width: 520, height: 300, fit: 'inside', withoutEnlargement: true })
     .webp({ quality: 92, effort: 6 })

@@ -131,7 +131,7 @@ const logosPartenaires = {
   Linxe: { fichier: 'linxe' },
   'Saint-Michel-Escalus': { fichier: 'saint-michel-escalus' },
   'Lit-et-Mixe': { fichier: 'lit-et-mixe' },
-  'Saint-Geours-de-Maremne': { fichier: 'saint-geours-de-maremne' },
+  'Saint-Geours-de-Maremne': { fichier: 'saint-geours-de-maremne', sombre: true },
   Seignosse: { fichier: 'seignosse', sombre: true },
   'Vieux-Boucau': { fichier: 'vieux-boucau', sombre: true },
   'Saint-Vincent-de-Tyrosse': { fichier: 'saint-vincent-de-tyrosse', sombre: true },
