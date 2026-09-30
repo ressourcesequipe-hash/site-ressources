@@ -57,7 +57,11 @@ function R({ n = 1, step, delai = 0, className = '', children }) {
 }
 
 function Fleche() {
-  return <span className="ino-fleche" aria-hidden="true">→</span>
+  return (
+    <svg className="ino-fleche" viewBox="0 0 64 20" aria-hidden="true">
+      <path d="M2 10h58M50 3l10 7-10 7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
 }
 
 function Filiere({ titre, etapes }) {
