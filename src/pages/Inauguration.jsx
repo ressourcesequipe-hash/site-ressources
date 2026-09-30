@@ -104,7 +104,7 @@ function Ressources() {
     <div className="ino-centre">
       <h2 className="ino-titre">Ressources, c’est quoi ?</h2>
       <p className="ino-amorce">Une recyclerie solidaire pour</p>
-      <p className="ino-phrase">Faire de ce qui devait devenir un déchet<br />une nouvelle <em>ressource</em>.</p>
+      <p className="ino-phrase">faire de ce qui devait devenir un déchet<br />une nouvelle <em>ressource</em>.</p>
       <div className="ino-filieres">
         <Filiere titre="INFORMATIQUE" etapes={['Collecter', 'Diagnostiquer', 'Reconditionner', 'Redistribuer']} />
         <Filiere titre="VÉGÉTAL" etapes={['Récupérer', 'Préserver', 'Valoriser', 'Remettre en circulation']} />
