@@ -151,7 +151,7 @@
   left: 0;
   background:
     repeating-linear-gradient(115deg, rgba(255,255,255,.14) 0 calc(var(--u) * 18), transparent calc(var(--u) * 18) calc(var(--u) * 36)),
-    linear-gradient(180deg, #7D8862, #6B7550 55%, #59633F);
+    linear-gradient(180deg, #8FB04A, #769A36 55%, #5E8228); /* vert feuille : teinte de l olive de la charte, plus vive */
   background-size: calc(var(--u) * 72) 100%, 100% 100%;
   animation: dfi-defile 2.4s linear infinite;
 }
