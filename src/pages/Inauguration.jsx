@@ -158,6 +158,16 @@ function Tuile({ nom }) {
   )
 }
 
+// Ordre propre à cette slide : Saint-Vincent-de-Tyrosse et Vieux-Boucau sont
+// permutés par rapport à defiConfig.js (l'écran /defi garde son ordre).
+function communesAffichees() {
+  const liste = [...communes]
+  const a = liste.indexOf('Vieux-Boucau')
+  const b = liste.indexOf('Saint-Vincent-de-Tyrosse')
+  if (a >= 0 && b >= 0) [liste[a], liste[b]] = [liste[b], liste[a]]
+  return liste
+}
+
 function Territoire() {
   const autres = [...collectionPoints, ...partners]
   const sansLogo = autres.filter((n) => !logosPartenaires[n])
@@ -167,7 +177,7 @@ function Territoire() {
       <p className="ino-mots ino-mots-vert">Collectivités · Associations · Entreprises · Habitants</p>
       <h3 className="ino-etiquette">Communes partenaires du Challenge</h3>
       <ul className="ino-tuiles ino-tuiles-communes">
-        {communes.flatMap((n) => [
+        {communesAffichees().flatMap((n) => [
           // Saut de ligne : ligne 1 = Côte Landes Nature, ligne 2 = MACS.
           n === PREMIERE_COMMUNE_MACS && <li key="saut" className="ino-saut" aria-hidden="true" />,
           logosPartenaires[n] ? <Tuile key={n} nom={n} /> : <li key={n} className="ino-tuile ino-tuile-texte">{n}</li>,
