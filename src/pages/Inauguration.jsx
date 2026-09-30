@@ -122,19 +122,53 @@ function Dynamiques({ step }) {
   )
 }
 
-function Territoire() {
+// Logos officiels, tels que fournis (aucune recoloration). `sombre` : logo
+// blanc, posé sur une tuile kaki. `legende` : logo sans nom écrit. Un nom de
+// defiConfig.js sans entrée ici s'affiche en texte. Fichiers générés par
+// scripts/logos-inauguration.mjs.
+const logosPartenaires = {
+  'Vielle-Saint-Girons': { fichier: 'vielle-saint-girons', legende: true },
+  Linxe: { fichier: 'linxe' },
+  'Saint-Michel-Escalus': { fichier: 'saint-michel-escalus' },
+  'Lit-et-Mixe': { fichier: 'lit-et-mixe' },
+  'Saint-Geours-de-Maremne': { fichier: 'saint-geours-de-maremne' },
+  Seignosse: { fichier: 'seignosse', sombre: true },
+  'Vieux-Boucau': { fichier: 'vieux-boucau', sombre: true },
+  'Saint-Vincent-de-Tyrosse': { fichier: 'saint-vincent-de-tyrosse', sombre: true },
+  Labenne: { fichier: 'labenne', sombre: true },
+  'E.Leclerc Soustons': { fichier: 'leclerc-soustons' },
+  'Landes Partage': { fichier: 'landes-partage' },
+  Domolandes: { fichier: 'domolandes' },
+  Agrolandes: { fichier: 'agrolandes' },
+  'Comptoir Électroménager Solidaire': { fichier: 'comptoir-electromenager-solidaire' },
+}
+
+function Tuile({ nom }) {
+  const l = logosPartenaires[nom]
   return (
-    <div className="ino-centre">
+    <li className={`ino-tuile${l.sombre ? ' ino-tuile-sombre' : ''}`}>
+      <img src={`/logos/inauguration/${l.fichier}.webp`} alt={nom} />
+      {l.legende && <span>{nom}</span>}
+    </li>
+  )
+}
+
+function Territoire() {
+  const autres = [...collectionPoints, ...partners]
+  const sansLogo = autres.filter((n) => !logosPartenaires[n])
+  return (
+    <div className="ino-centre ino-territoire">
       <h2 className="ino-titre">Un territoire qui se mobilise</h2>
       <p className="ino-mots ino-mots-vert">Collectivités · Associations · Entreprises · Habitants</p>
       <h3 className="ino-etiquette">Communes partenaires du Challenge</h3>
-      <ul className="ino-pastilles ino-communes">
-        {communes.map((c) => <li key={c}>{c}</li>)}
+      <ul className="ino-tuiles ino-tuiles-communes">
+        {communes.map((n) => (logosPartenaires[n] ? <Tuile key={n} nom={n} /> : <li key={n} className="ino-tuile ino-tuile-texte">{n}</li>))}
       </ul>
       <h3 className="ino-etiquette">Points de collecte et partenaires</h3>
-      <ul className="ino-pastilles ino-autres">
-        {[...collectionPoints, ...partners].map((c) => <li key={c}>{c}</li>)}
+      <ul className="ino-tuiles ino-tuiles-autres">
+        {autres.filter((n) => logosPartenaires[n]).map((n) => <Tuile key={n} nom={n} />)}
       </ul>
+      {sansLogo.length > 0 && <p className="ino-et-aussi">{sansLogo.join(' · ')}</p>}
     </div>
   )
 }

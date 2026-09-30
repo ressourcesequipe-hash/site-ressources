@@ -101,10 +101,25 @@
 
 /* Slide 4 */
 .ino-etiquette { font-size: calc(var(--u) * 34); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ocre-fonce); margin-top: calc(var(--u) * 18); }
-.ino-pastilles { display: flex; flex-wrap: wrap; justify-content: center; gap: calc(var(--u) * 12) calc(var(--u) * 52); max-width: calc(var(--u) * 1600); }
-.ino-pastilles li { font-weight: 600; }
-.ino-communes li { font-size: calc(var(--u) * 46); }
-.ino-autres li { font-size: calc(var(--u) * 34); color: var(--vert); }
+.ino-territoire { gap: calc(var(--u) * 18); padding-top: calc(var(--u) * 50); padding-bottom: calc(var(--u) * 50); }
+.ino-territoire .ino-titre { font-size: calc(var(--u) * 80); }
+.ino-territoire .ino-mots-vert { font-size: calc(var(--u) * 38); }
+.ino-tuiles { display: flex; flex-wrap: wrap; justify-content: center; gap: calc(var(--u) * 22); }
+.ino-tuile {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(var(--u) * 4);
+  background: #ffffff; border-radius: calc(var(--u) * 20); box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 20) rgba(61, 74, 45, .14);
+  padding: calc(var(--u) * 14) calc(var(--u) * 22);
+}
+.ino-tuile-sombre { background: var(--vert-profond); }
+.ino-tuile img { display: block; max-width: 100%; object-fit: contain; }
+.ino-tuile span { font-size: calc(var(--u) * 24); font-weight: 600; color: var(--vert-profond); line-height: 1; }
+.ino-tuile-texte { font-size: calc(var(--u) * 34); font-weight: 600; }
+.ino-tuiles-communes .ino-tuile { width: calc(var(--u) * 300); height: calc(var(--u) * 150); }
+.ino-tuiles-communes .ino-tuile img { max-height: calc(var(--u) * 122); }
+.ino-tuiles-communes .ino-tuile:has(span) img { max-height: calc(var(--u) * 100); }
+.ino-tuiles-autres .ino-tuile { width: calc(var(--u) * 290); height: calc(var(--u) * 120); }
+.ino-tuiles-autres .ino-tuile img { max-height: calc(var(--u) * 92); }
+.ino-et-aussi { font-size: calc(var(--u) * 32); font-weight: 600; color: var(--vert); }
 
 /* Slides sombres */
 .ino-sombre { gap: calc(var(--u) * 26); }

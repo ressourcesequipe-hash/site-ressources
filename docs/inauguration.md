@@ -60,3 +60,15 @@ Plan B : onglet 2 sur `/defi`, onglet 3 sur `/inauguration?slide=final`.
 4. Couper notifications Windows, WhatsApp, Gmail.
 5. Dérouler une fois jusqu'à « Lancer », revenir en arrière avec `←`.
 6. Internet : utile seulement si les polices (bunny.net) ne sont pas en cache ; repli Georgia / Segoe UI.
+
+## Logos de la slide « territoire »
+
+Originaux dans `design/logos-sources/partenaires/` (ignoré par git, jamais
+déployé). `node scripts/logos-inauguration.mjs` les convertit en WebP dans
+`public/logos/inauguration/` (marges blanches des JPG retirées, logos jamais
+recolorés). La liste `logosPartenaires` de `Inauguration.jsx` associe chaque
+nom de `defiConfig.js` à son fichier ; les logos blancs (Seignosse,
+Vieux-Boucau, Saint-Vincent-de-Tyrosse, Labenne) sont posés sur une tuile
+kaki. Un nom sans logo (Imagine Linxe, Landes Attractivité) s'affiche en texte
+sous la rangée. Pour ajouter un logo : déposer le fichier, l'ajouter à
+`scripts/logos-inauguration.mjs` et à `logosPartenaires`.
