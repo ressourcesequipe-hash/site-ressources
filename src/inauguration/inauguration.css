@@ -110,6 +110,7 @@
   background: #ffffff; border-radius: calc(var(--u) * 20); box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 20) rgba(61, 74, 45, .14);
   padding: calc(var(--u) * 14) calc(var(--u) * 22);
 }
+.ino-saut { flex-basis: 100%; height: 0; margin-top: calc(var(--u) * -22); }
 .ino-tuile-sombre { background: var(--vert-profond); }
 .ino-tuile img { display: block; max-width: 100%; object-fit: contain; }
 .ino-tuile span { font-size: calc(var(--u) * 24); font-weight: 600; color: var(--vert-profond); line-height: 1; }

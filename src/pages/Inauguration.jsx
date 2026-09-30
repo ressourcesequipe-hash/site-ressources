@@ -143,6 +143,11 @@ const logosPartenaires = {
   'Comptoir Électroménager Solidaire': { fichier: 'comptoir-electromenager-solidaire' },
 }
 
+// Les communes sont groupées par communauté de communes : celles qui précèdent
+// cette commune dans defiConfig.js (Côte Landes Nature), puis celle-ci et les
+// suivantes (Maremne Adour Côte-Sud).
+const PREMIERE_COMMUNE_MACS = 'Saint-Geours-de-Maremne'
+
 function Tuile({ nom }) {
   const l = logosPartenaires[nom]
   return (
@@ -162,7 +167,11 @@ function Territoire() {
       <p className="ino-mots ino-mots-vert">Collectivités · Associations · Entreprises · Habitants</p>
       <h3 className="ino-etiquette">Communes partenaires du Challenge</h3>
       <ul className="ino-tuiles ino-tuiles-communes">
-        {communes.map((n) => (logosPartenaires[n] ? <Tuile key={n} nom={n} /> : <li key={n} className="ino-tuile ino-tuile-texte">{n}</li>))}
+        {communes.flatMap((n) => [
+          // Saut de ligne : ligne 1 = Côte Landes Nature, ligne 2 = MACS.
+          n === PREMIERE_COMMUNE_MACS && <li key="saut" className="ino-saut" aria-hidden="true" />,
+          logosPartenaires[n] ? <Tuile key={n} nom={n} /> : <li key={n} className="ino-tuile ino-tuile-texte">{n}</li>,
+        ])}
       </ul>
       <h3 className="ino-etiquette">Points de collecte et partenaires</h3>
       <ul className="ino-tuiles ino-tuiles-autres">
