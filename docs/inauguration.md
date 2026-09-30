@@ -15,8 +15,8 @@ appel réseau une fois chargée. Code : `src/pages/Inauguration.jsx`, style
 (les trois blocs apparaissent un à un) · 4. Un territoire qui se mobilise
 (communes et partenaires lus dans `src/data/defiConfig.js`) · 5. Le défi
 (4 apparitions : « Et pour le vérifier… », « Nous nous sommes lancé un défi. »,
-« 500 KG », détail et dates) · 6. Lancer le décompte · 7. Final (titre, quatre
-mots, remerciements).
+« 500 KG », détail et dates) · 6. Lancer le décompte · 7. Final (titre, trois verbes, CONSTRUIRE à part « ensemble, autour d’une dynamique locale »,
+remerciements, logo, adresse).
 
 Pour changer un texte : les slides sont les composants du haut de
 `Inauguration.jsx` ; l'ordre est le tableau `SLIDES`.

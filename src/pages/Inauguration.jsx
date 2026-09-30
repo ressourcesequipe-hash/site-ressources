@@ -24,7 +24,7 @@ const SLIDES = [
   { id: 'territoire', steps: 1 },
   { id: 'defi', steps: 4 },
   { id: 'lancer', steps: 1 },
-  { id: 'final', steps: 3 },
+  { id: 'final', steps: 4 },
 ]
 
 const CLE = 'inauguration-slide'
@@ -167,7 +167,7 @@ function Lancer({ onLancer, lance }) {
 }
 
 function Final({ step }) {
-  const mots = ['COLLECTER', 'RÉEMPLOYER', 'TRANSMETTRE', 'CONSTRUIRE']
+  const mots = ['COLLECTER', 'RÉEMPLOYER', 'TRANSMETTRE']
   return (
     <div className="ino-centre ino-final">
       <R n={1} step={step}><h2 className="ino-titre-xl">Ce n’est que le début.</h2></R>
@@ -176,7 +176,11 @@ function Final({ step }) {
           <li key={m}><R n={2} step={step} delai={i * 280}>{m}</R></li>
         ))}
       </ul>
-      <R n={3} step={step} className="ino-merci">
+      <R n={3} step={step} className="ino-construire">
+        <p className="ino-construire-mot">CONSTRUIRE</p>
+        <p className="ino-construire-suite">ensemble, autour d’une dynamique locale</p>
+      </R>
+      <R n={4} step={step} className="ino-merci">
         <p>Merci à toutes celles et ceux<br />qui font vivre Ressources.</p>
         <div className="ino-pied">
           <img src="/logos/logo-ressources-288.webp" alt="Ressources" />
