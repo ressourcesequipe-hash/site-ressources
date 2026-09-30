@@ -155,7 +155,7 @@
 .ino-plein-btn:hover { opacity: .8; }
 
 /* Fondu vers la jauge : même crème que /defi, pour une bascule sans à-coup. */
-.ino-fondu { position: absolute; inset: 0; background: #f7f1e3; opacity: 0; pointer-events: none; transition: opacity .45s ease; }
+.ino-fondu { position: absolute; inset: 0; background: #F7F3ED; opacity: 0; pointer-events: none; transition: opacity .45s ease; }
 .ino-fondu.ino-on { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {

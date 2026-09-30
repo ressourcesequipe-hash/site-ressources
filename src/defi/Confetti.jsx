@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 
-const COULEURS = ['#1F4D2E', '#4E8B3A', '#A9BFA0', '#F3E9D2', '#C8973A', '#E8B84A']
+const COULEURS = ['#3D4A2D', '#6B7550', '#D5C9B5', '#F7F3ED', '#C8973A', '#D4AA5A']
 
 // Confettis et petites feuilles aux couleurs de Ressources. Le canvas ne
 // tourne que tant qu'il reste des particules.

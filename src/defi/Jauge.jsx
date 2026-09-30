@@ -9,7 +9,7 @@ export function IconeCible() {
   return (
     <svg viewBox="0 0 48 48" aria-hidden="true" className="dfi-cible">
       <circle cx="24" cy="24" r="21" fill="#fff" stroke="#C8973A" strokeWidth="4" />
-      <circle cx="24" cy="24" r="13" fill="none" stroke="#1F4D2E" strokeWidth="4" />
+      <circle cx="24" cy="24" r="13" fill="none" stroke="#3D4A2D" strokeWidth="4" />
       <circle cx="24" cy="24" r="5.5" fill="#C8973A" />
     </svg>
   )

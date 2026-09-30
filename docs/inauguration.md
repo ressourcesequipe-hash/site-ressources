@@ -7,7 +7,7 @@ bascule vers la jauge `/defi` pour le décompte. Adresse :
 Même statut que `/defi` : hors du site (ni menu, ni bandeau, ni cookies, ni
 mesure d'audience), non prérendue, `noindex` (balise + `X-Robots-Tag`), aucun
 appel réseau une fois chargée. Code : `src/pages/Inauguration.jsx`, style
-`src/inauguration/inauguration.css`, couleurs de la charte du site (kaki, olive, ocre, beige de `tailwind.config.js`).
+`src/inauguration/inauguration.css`, couleurs de la charte du site (kaki, olive, ocre, beige de `tailwind.config.js`), les mêmes que `/defi`.
 
 ## Parcours
 

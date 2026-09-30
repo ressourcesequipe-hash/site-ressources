@@ -3,14 +3,14 @@
    la composition identique sur tout écran 16:9. */
 
 .dfi, .dfo-panneau, .dfo-voile {
-  --vert-profond: #1f4d2e;
-  --vert: #4e8b3a;
-  --sauge: #a9bfa0;
-  --sauge-clair: #dfe8d9;
-  --creme: #f7f1e3;
-  --creme-fonce: #efe6d0;
+  --vert-profond: #3D4A2D;
+  --vert: #59633F;
+  --sauge: #D5C9B5;
+  --sauge-clair: #EEF0EA;
+  --creme: #F7F3ED;
+  --creme-fonce: #EDE5D8;
   --ocre: #c8973a;
-  --jaune: #e8b84a;
+  --jaune: #D4AA5A;
   --u: min(calc(100vw / 1920), calc(100vh / 1080));
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
@@ -25,7 +25,7 @@
   padding: calc(var(--u) * 22) calc(var(--u) * 56) calc(var(--u) * 14);
   color: var(--vert-profond);
   background:
-    radial-gradient(ellipse at 50% 30%, #fffaf0 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 30%, #ffffff 0%, transparent 60%),
     linear-gradient(180deg, var(--creme) 0%, var(--creme-fonce) 100%);
   z-index: 100;
 }
@@ -58,14 +58,14 @@
   display: grid;
   place-items: center;
   border-radius: calc(var(--u) * 32);
-  background: linear-gradient(90deg, var(--vert-profond), #2c6b3f);
+  background: linear-gradient(90deg, var(--vert-profond), #556040);
   color: var(--jaune);
   font-family: 'Playfair Display', Georgia, serif;
   font-weight: 700;
   font-size: calc(var(--u) * 84);
   letter-spacing: .02em;
   animation: dfi-arrive .55s cubic-bezier(.2, 1.4, .4, 1) both;
-  box-shadow: 0 calc(var(--u) * 12) calc(var(--u) * 40) rgba(31, 77, 46, .35);
+  box-shadow: 0 calc(var(--u) * 12) calc(var(--u) * 40) rgba(61, 74, 45, .35);
   z-index: 5;
 }
 @keyframes dfi-arrive { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
@@ -126,7 +126,7 @@
   background: var(--vert-profond); color: var(--creme);
   padding: calc(var(--u) * 8) calc(var(--u) * 22) calc(var(--u) * 8) calc(var(--u) * 12);
   border-radius: calc(var(--u) * 26); text-align: left;
-  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 16) rgba(31, 77, 46, .28);
+  box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 16) rgba(61, 74, 45, .28);
 }
 .dfi-marqueur-carte b { display: block; font-size: calc(var(--u) * 34); line-height: 1; }
 .dfi-marqueur-carte span { display: block; font-size: calc(var(--u) * 22); letter-spacing: .12em; color: var(--jaune); font-weight: 700; margin-top: calc(var(--u) * 2); }
@@ -144,14 +144,14 @@
   background: var(--sauge-clair);
   clip-path: polygon(0 0, calc(100% - var(--tete)) 0, 100% 50%, calc(100% - var(--tete)) 100%, 0 100%);
   border-radius: calc(var(--u) * 42) 0 0 calc(var(--u) * 42);
-  box-shadow: inset 0 calc(var(--u) * 4) calc(var(--u) * 8) rgba(31, 77, 46, .12);
+  box-shadow: inset 0 calc(var(--u) * 4) calc(var(--u) * 8) rgba(61, 74, 45, .12);
 }
 .dfi-remplissage, .dfi-depassement { position: absolute; top: 0; bottom: 0; }
 .dfi-remplissage {
   left: 0;
   background:
     repeating-linear-gradient(115deg, rgba(255,255,255,.14) 0 calc(var(--u) * 18), transparent calc(var(--u) * 18) calc(var(--u) * 36)),
-    linear-gradient(180deg, #5da146, var(--vert) 55%, #3f7a2f);
+    linear-gradient(180deg, #7D8862, #6B7550 55%, #59633F);
   background-size: calc(var(--u) * 72) 100%, 100% 100%;
   animation: dfi-defile 2.4s linear infinite;
 }
@@ -163,7 +163,7 @@
   animation: dfi-defile 2.4s linear infinite;
 }
 @keyframes dfi-defile { to { background-position: calc(var(--u) * 72) 0, 0 0; } }
-.dfi-grad { position: absolute; top: 0; bottom: 0; width: calc(var(--u) * 3); background: rgba(31, 77, 46, .25); }
+.dfi-grad { position: absolute; top: 0; bottom: 0; width: calc(var(--u) * 3); background: rgba(61, 74, 45, .25); }
 
 .dfi-graduations { position: absolute; left: 0; right: 0; top: calc(var(--u) * 194); height: calc(var(--u) * 58); }
 .dfi-graduations > span {
@@ -207,7 +207,7 @@
 .dfi-plein { cursor: none; }
 
 /* ---------- Panneau opérateur ---------- */
-.dfo-voile { position: fixed; inset: 0; z-index: 300; background: rgba(31, 77, 46, .45); display: grid; place-items: center; }
+.dfo-voile { position: fixed; inset: 0; z-index: 300; background: rgba(61, 74, 45, .45); display: grid; place-items: center; }
 .dfo-pin {
   background: var(--creme); border-radius: 20px; padding: 28px 32px; width: 360px;
   display: flex; flex-direction: column; gap: 14px; color: var(--vert-profond);
@@ -238,7 +238,7 @@
 .dfo-btn:hover:not(:disabled) { background: var(--sauge-clair); }
 .dfo-btn:disabled { opacity: .4; cursor: not-allowed; }
 .dfo-primaire { background: var(--vert-profond); border-color: var(--vert-profond); color: #fff; }
-.dfo-primaire:hover:not(:disabled) { background: #2c6b3f; }
+.dfo-primaire:hover:not(:disabled) { background: #556040; }
 .dfo-danger { border-color: #c77; color: #922; }
 .dfo-confirme { display: inline-flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .dfo-champs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -252,7 +252,7 @@
 .dfo-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .dfo-table td { padding: 5px 4px; border-bottom: 1px solid var(--sauge-clair); }
 .dfo-table tr:not(.dfo-revelee) td:nth-child(4) { color: var(--ocre); }
-.dfo-revelee td { background: #f3f8ee; }
+.dfo-revelee td { background: #EEF0EA; }
 .dfo-actions { white-space: nowrap; text-align: right; }
 .dfo-table button { padding: 3px 8px; font-size: 12px; margin-left: 4px; border-width: 1px; }
 .dfo-table .dfo-rouge { background: #a22; color: #fff; border-color: #a22; }
@@ -261,7 +261,7 @@
 .dfo-barre {
   position: fixed; left: 12px; right: 12px; bottom: 10px; z-index: 240;
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  background: rgba(247, 241, 227, .96); color: var(--vert-profond);
+  background: rgba(247, 243, 237, .96); color: var(--vert-profond);
   border: 2px solid var(--vert-profond); border-radius: 16px; padding: 8px 14px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, .25); font-size: 16px;
 }
@@ -304,17 +304,17 @@
 
 /* Bouton FIN et écran de clôture */
 .dfo-fin { background: var(--ocre); border-color: var(--ocre); color: #fff; letter-spacing: .08em; }
-.dfo-fin:hover:not(:disabled) { background: #b5862c; }
+.dfo-fin:hover:not(:disabled) { background: #A07828; }
 .dfi-fin {
   position: fixed; inset: 0; z-index: 260; display: grid; place-items: center;
-  background: rgba(31, 77, 46, .82); animation: dfi-fondu .5s ease both;
+  background: rgba(61, 74, 45, .82); animation: dfi-fondu .5s ease both;
   --u: min(calc(100vw / 1920), calc(100vh / 1080));
   font-family: 'Inter', system-ui, sans-serif;
 }
 @keyframes dfi-fondu { from { opacity: 0; } to { opacity: 1; } }
 .dfi-fin-carte {
   width: calc(var(--u) * 1500); max-width: 94vw; text-align: center;
-  background: linear-gradient(180deg, #fffaf0, var(--creme));
+  background: linear-gradient(180deg, #ffffff, var(--creme));
   border: calc(var(--u) * 6) solid var(--ocre); border-radius: calc(var(--u) * 48);
   padding: calc(var(--u) * 50) calc(var(--u) * 70) calc(var(--u) * 40);
   color: var(--vert-profond);
