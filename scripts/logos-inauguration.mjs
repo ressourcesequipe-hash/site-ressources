@@ -28,6 +28,7 @@ const LOGOS = [
   ['07-saint-vincent-de-tyrosse-logo-officiel.png', 'saint-vincent-de-tyrosse'],
   ['08-labenne-logo-officiel-blanc.png', 'labenne'],
   ['Leclerc-Soustons-pour-PEG.jpg', 'leclerc-soustons', true],
+  ['Logo_Landes_Quadri_Fondblanc_72dpi.jpg', 'landes-attractivite', true],
   ['11-landes-partage-logo-officiel.png', 'landes-partage'],
   ['14-domolandes-logo-officiel.jpg', 'domolandes', true],
   ['logo Agrolandes.png', 'agrolandes'],

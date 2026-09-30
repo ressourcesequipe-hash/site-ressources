@@ -69,6 +69,6 @@ déployé). `node scripts/logos-inauguration.mjs` les convertit en WebP dans
 recolorés). La liste `logosPartenaires` de `Inauguration.jsx` associe chaque
 nom de `defiConfig.js` à son fichier ; les logos blancs (Saint-Geours, dont la version négative est générée par le script à partir du logo noir, Seignosse,
 Vieux-Boucau, Saint-Vincent-de-Tyrosse, Labenne) sont posés sur une tuile
-kaki. Un nom sans logo (Imagine Linxe, Landes Attractivité) s'affiche en texte
+kaki. Un nom sans logo (Imagine Linxe) s'affiche en texte
 sous la rangée. Pour ajouter un logo : déposer le fichier, l'ajouter à
 `scripts/logos-inauguration.mjs` et à `logosPartenaires`.

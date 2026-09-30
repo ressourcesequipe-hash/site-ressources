@@ -137,6 +137,7 @@ const logosPartenaires = {
   'Saint-Vincent-de-Tyrosse': { fichier: 'saint-vincent-de-tyrosse', sombre: true },
   Labenne: { fichier: 'labenne', sombre: true },
   'E.Leclerc Soustons': { fichier: 'leclerc-soustons' },
+  'Landes Attractivité': { fichier: 'landes-attractivite' },
   'Landes Partage': { fichier: 'landes-partage' },
   Domolandes: { fichier: 'domolandes' },
   Agrolandes: { fichier: 'agrolandes' },
