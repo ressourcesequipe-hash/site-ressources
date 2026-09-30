@@ -336,4 +336,10 @@
   border: 2px solid var(--sauge); background: transparent; color: var(--vert-profond); opacity: .5;
 }
 .dfi-fin-ferme:hover { opacity: 1; }
+.dfi-fin-continuer {
+  display: block; margin: calc(var(--u) * 26) auto 0; font: inherit; font-size: calc(var(--u) * 40); font-weight: 700;
+  padding: calc(var(--u) * 16) calc(var(--u) * 60); border-radius: 999px; cursor: pointer;
+  border: 0; background: var(--vert-profond); color: var(--creme);
+}
+.dfi-fin-continuer + .dfi-fin-ferme { margin-top: calc(var(--u) * 16); }
 

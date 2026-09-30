@@ -4,7 +4,7 @@ import { nombreFr } from './store'
 
 // Écran de clôture : remerciements, puis ouverture sur la suite. Ouvert par le
 // bouton FIN de la barre du bas, refermé par Échap, un clic dehors ou le bouton.
-export default function Fin({ totalKg, onFermer }) {
+export default function Fin({ totalKg, onFermer, onContinuer }) {
   useEffect(() => {
     const touche = (e) => { if (e.key === 'Escape') onFermer() }
     window.addEventListener('keydown', touche)
@@ -35,6 +35,7 @@ export default function Fin({ totalKg, onFermer }) {
           Ce n’est pas une fin, c’est un début.
           <br />Ensemble, continuons à donner une seconde vie au matériel du territoire.
         </p>
+        {onContinuer && <button type="button" className="dfi-fin-continuer" onClick={onContinuer}>Continuer →</button>}
         <button type="button" className="dfi-fin-ferme" onClick={onFermer}>Fermer</button>
       </div>
     </div>

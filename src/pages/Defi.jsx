@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { useNavigate } from 'react-router-dom'
 import {
   SOUND_ENABLED, challenge, collectionPoints, communes, partners,
 } from '../data/defiConfig'
@@ -27,6 +28,7 @@ function Pastille({ children }) {
 }
 
 export default function Defi() {
+  const navigate = useNavigate()
   const store = useDefiStore()
   const { etat, evt, busy, setBusy, a } = store
   const cible = challenge.target
@@ -285,7 +287,7 @@ export default function Defi() {
 
       <Confetti ref={confetti} />
       {barre && !panneau && <BarreOperateur store={store} onPanneau={() => setPanneau(true)} onFin={ouvrirFin} />}
-      {fin && <Fin totalKg={total(etat)} onFermer={() => setFin(false)} />}
+      {fin && <Fin totalKg={total(etat)} onFermer={() => setFin(false)} onContinuer={() => navigate('/inauguration?slide=final')} />}
       {panneau && (
         <Operateur
           store={store}

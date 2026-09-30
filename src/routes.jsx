@@ -49,7 +49,9 @@ const AdminRoutes = lazy(() => import('./admin/AdminRoutes'))
 // Interface de projection du 3 octobre (/defi). Chargée à la demande, jamais
 // prérendue, hors du site : ni Layout, ni bandeaux (voir `estProjection`).
 const Defi = lazy(() => import('./pages/Defi'))
-export const estProjection = (pathname) => /^\/defi\/?$/.test(pathname)
+// Présentation de la prise de parole (/inauguration) : même statut que /defi.
+const Inauguration = lazy(() => import('./pages/Inauguration'))
+export const estProjection = (pathname) => /^\/(defi|inauguration)\/?$/.test(pathname)
 
 function BandeauxHorsProjection() {
   const { pathname } = useLocation()
@@ -120,6 +122,7 @@ export default function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/evenement-lancement-03-octobre-2026/" element={<Evenement />} />
         <Route path="/defi" element={<Suspense fallback={null}><Defi /></Suspense>} />
+        <Route path="/inauguration" element={<Suspense fallback={null}><Inauguration /></Suspense>} />
         <Route path="/defi-collecte/" element={<DefiCollecte />} />
         <Route path="/materiel-disponible/" element={<Boutique />} />
         <Route path="/materiel-disponible/:code/" element={<BoutiqueProduit />} />
