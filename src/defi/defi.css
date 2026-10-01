@@ -343,3 +343,12 @@
 }
 .dfi-fin-continuer + .dfi-fin-ferme { margin-top: calc(var(--u) * 16); }
 
+
+/* Paliers au-delà de l'objectif : plus le palier est haut, plus la fête est grande. */
+.dfi-celeb-n3, .dfi-celeb-n4 {
+  background: linear-gradient(90deg, #b5862c, #e8b84a 50%, #b5862c);
+  color: var(--vert-profond);
+}
+.dfi-celeb-n4 { box-shadow: 0 0 0 calc(var(--u) * 10) rgba(232, 184, 74, .55), 0 calc(var(--u) * 12) calc(var(--u) * 50) rgba(31, 77, 46, .45); }
+.dfi-nombre-pulse { animation: dfi-battement-nombre .6s ease-in-out 4; }
+@keyframes dfi-battement-nombre { 50% { transform: scale(1.1); color: var(--ocre); } }

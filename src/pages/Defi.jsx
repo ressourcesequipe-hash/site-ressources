@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import {
-  SOUND_ENABLED, challenge, collectionPoints, communes, partners,
+  SOUND_ENABLED, challenge, collectionPoints, communes, paliers, partners,
 } from '../data/defiConfig'
 import Confetti from '../defi/Confetti'
 import Fin from '../defi/Fin'
@@ -38,6 +38,7 @@ export default function Defi() {
   const [pop, setPop] = useState(null)
   const [celeb, setCeleb] = useState(null) // null | 'atteint' | 'continue'
   const [pulse, setPulse] = useState(false)
+  const [pulseNombre, setPulseNombre] = useState(false)
   const [panneau, setPanneau] = useState(false)
   const [plein, setPlein] = useState(false)
   const [barre, setBarre] = useState(true)
@@ -55,19 +56,38 @@ export default function Defi() {
   const majBusy = useCallback(() => setBusy(animActive.current || celebActive.current), [setBusy])
   const apres = (ms, fn) => { timers.current.push(setTimeout(fn, ms)) }
 
-  const celebrer = useCallback(() => {
+  // Fête d'un palier. Plus le palier est haut, plus la fête est grande : volées
+  // de confettis supplémentaires, pluie et applaudissements plus longs, bandeau
+  // plus durable.
+  const celebrer = useCallback((palier) => {
+    const n = palier.niveau
     celebActive.current = true
     majBusy()
-    setCeleb('atteint')
-    setPulse(true)
+    setCeleb({ phase: 'atteint', palier })
+    if (n === 1) setPulse(true)
+    else setPulseNombre(true)
     const r = marqueur.current?.getBoundingClientRect()
-    confetti.current?.burst(r ? r.left + r.width / 2 : window.innerWidth * 0.75, r ? r.top + r.height / 2 : 300)
-    confetti.current?.rain(3200)
-    if (SOUND_ENABLED) { fanfare(); applaudissements(); atténuerMusique(true) }
-    apres(2300, () => setCeleb('continue'))
-    apres(2600, () => setPulse(false))
-    apres(4600, () => { setCeleb(null); celebActive.current = false; majBusy() })
-    apres(6500, () => atténuerMusique(false))
+    const L = window.innerWidth
+    const H = window.innerHeight
+    confetti.current?.burst(r ? r.left + r.width / 2 : L * 0.75, r ? r.top + r.height / 2 : 300, 110 + 30 * n)
+    for (let i = 1; i < n; i++) {
+      apres(i * 450, () => {
+        confetti.current?.burst(L * 0.15, H * 0.55, 100 + 30 * n)
+        confetti.current?.burst(L * 0.85, H * 0.55, 100 + 30 * n)
+      })
+    }
+    confetti.current?.rain(3200 + 1300 * (n - 1))
+    if (SOUND_ENABLED) {
+      fanfare()
+      if (n >= 3) apres(900, fanfare)
+      applaudissements(5.5 + 2 * (n - 1))
+      atténuerMusique(true)
+    }
+    const t1 = 2300 + 500 * (n - 1)
+    apres(t1, () => setCeleb((c) => (c ? { ...c, phase: 'continue' } : c)))
+    apres(t1 + 300, () => { setPulse(false); setPulseNombre(false) })
+    apres(2 * t1, () => { setCeleb(null); celebActive.current = false; majBusy() })
+    apres(2 * t1 + 1900, () => atténuerMusique(false))
   }, [majBusy])
 
   // Chaque événement du store (ajout, retour, correction…) lance UNE animation
@@ -93,7 +113,7 @@ export default function Defi() {
       const v = p >= 1 ? vers : de + (vers - de) * easing(p)
       valeurRef.current = v
       setValeur(v)
-      if (evt.cross && !franchi && v >= cible) { franchi = true; celebrer() }
+      if (evt.cross && !franchi && v >= evt.cross.kg) { franchi = true; celebrer(evt.cross) }
       if (p < 1) raf.current = requestAnimationFrame(pas)
       else { animActive.current = false; majBusy() }
     }
@@ -183,9 +203,9 @@ export default function Defi() {
     confetti.current?.rain(2500)
   }
 
-  const essaiObjectif = () => {
+  const essaiObjectif = (palier = paliers[0]) => {
     if (celebActive.current) return
-    celebrer()
+    celebrer(palier)
   }
 
   /* ---------- Affichage ---------- */
@@ -226,8 +246,8 @@ export default function Defi() {
           </svg>
         </button>
         {celeb && (
-          <div className="dfi-celebration" role="status" key={celeb}>
-            {celeb === 'atteint' ? 'OBJECTIF ATTEINT !' : 'ET ON CONTINUE !'}
+          <div className={`dfi-celebration dfi-celeb-n${celeb.palier.niveau}`} role="status" key={celeb.phase}>
+            {celeb.phase === 'atteint' ? celeb.palier.titre : celeb.palier.suite}
           </div>
         )}
       </header>
@@ -236,7 +256,7 @@ export default function Defi() {
         <div aria-hidden="true" />
 
         <section className="dfi-compteur" aria-live="polite">
-          <div className="dfi-nombre">{nombreFr(valeur, decimales)}</div>
+          <div className={`dfi-nombre${pulseNombre ? ' dfi-nombre-pulse' : ''}`}>{nombreFr(valeur, decimales)}</div>
           <div className="dfi-unite">kg {valeur < 2 ? 'collecté' : 'collectés'}</div>
           <div className="dfi-statut">
             {vide && <span>Le défi commence ici.</span>}

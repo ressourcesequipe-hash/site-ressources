@@ -5,7 +5,7 @@
 // on peut donc corriger, supprimer, revenir en arrière, ou préparer toutes
 // les collectes à l'avance et les révéler une à une.
 
-import { challenge } from '../data/defiConfig'
+import { challenge, paliers } from '../data/defiConfig'
 import prepares from '../data/defiCollectes.json'
 
 export const CLE = 'ressources.defi.v1'
@@ -20,6 +20,9 @@ export const nouvelId = () =>
 export function total(etat) {
   return arrondi(etat.entries.slice(0, etat.revele).reduce((s, e) => s + e.poids, 0))
 }
+
+// Plus haut palier atteint par un cumul (0 si aucun).
+export const palierAtteint = (v) => paliers.reduce((m, p) => (v >= p.kg ? Math.max(m, p.kg) : m), 0)
 
 /* ---------- Saisie ---------- */
 
@@ -120,7 +123,7 @@ export function normaliserListe(liste) {
 export const etatInitial = () => ({
   entries: normaliserListe(prepares),
   revele: 0,
-  celebre: false,
+  palier: 0, // plus haut palier déjà célébré (kg)
   merci: false,
 })
 
@@ -128,7 +131,7 @@ function validerEtat(s) {
   if (!s || typeof s !== 'object') return null
   const entries = normaliserListe(s.entries)
   const revele = Math.min(Math.max(parseInt(s.revele, 10) || 0, 0), entries.length)
-  return { entries, revele, celebre: Boolean(s.celebre), merci: Boolean(s.merci) }
+  return { entries, revele, palier: Number(s.palier) || (s.celebre ? challenge.target : 0), merci: Boolean(s.merci) }
 }
 
 export function charger() {

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { challenge, demoCollectes } from '../data/defiConfig'
+import { demoCollectes, paliers } from '../data/defiConfig'
 import {
-  CLE, charger, debutGroupe, etatInitial, finGroupe, lireHist, nouvelId, normaliserListe, sauver, sauverHist, total,
+  CLE, charger, debutGroupe, etatInitial, finGroupe, lireHist, nouvelId, normaliserListe, palierAtteint, sauver, sauverHist, total,
 } from './store'
 
 // Toute modification passe par `commit`, qui : recalcule le drapeau « 500 kg
@@ -28,17 +28,19 @@ export function useDefiStore() {
     const prec = etatRef.current
     const de = total(prec)
     const vers = total(suivant)
-    let celebre = suivant.celebre
-    let cross = false
+    let palier = suivant.palier
+    let cross = null
     if (kind !== 'meta') {
       if (kind === 'avance') {
-        cross = !prec.celebre && de < challenge.target && vers >= challenge.target
-        celebre = prec.celebre || cross
+        // Paliers franchis par cette étape : on ne célèbre que le plus haut.
+        const franchis = paliers.filter((p) => p.kg > prec.palier && de < p.kg && vers >= p.kg)
+        cross = franchis.length ? franchis[franchis.length - 1] : null
+        palier = Math.max(prec.palier, cross ? cross.kg : 0)
       } else {
-        celebre = vers >= challenge.target
+        palier = palierAtteint(vers)
       }
     }
-    const final = { ...suivant, celebre }
+    const final = { ...suivant, palier }
     if (historique) {
       histRef.current = [...histRef.current, prec].slice(-30)
       sauverHist(histRef.current)
@@ -126,13 +128,13 @@ export function useDefiStore() {
     // Revient à 0 kg en gardant les collectes préparées.
     recommencer() {
       const s = etatRef.current
-      commit({ ...s, revele: 0, celebre: false }, 'autre')
+      commit({ ...s, revele: 0, palier: 0 }, 'autre')
     },
     // Repart du fichier src/data/defiCollectes.json.
     restaurerFichier() { commit(etatInitial(), 'autre') },
     chargerDemo() {
       const entries = normaliserListe(demoCollectes)
-      commit({ entries, revele: 0, celebre: false, merci: false }, 'autre')
+      commit({ entries, revele: 0, palier: 0, merci: false }, 'autre')
     },
     // Renvoie un message d'erreur, ou null si tout va bien.
     importer(texte) {

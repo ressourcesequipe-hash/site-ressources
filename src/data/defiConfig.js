@@ -7,6 +7,17 @@ export const challenge = {
   endDate: '2026-10-03',
 }
 
+// Paliers célébrés : 500 kg est l'objectif, les suivants sont des multiples.
+// `niveau` règle l'ampleur de la fête (confettis, applaudissements, durée du
+// bandeau). Un palier ne se célèbre qu'une fois ; si une seule étape en
+// franchit plusieurs, seul le plus haut est célébré.
+export const paliers = [
+  { kg: 500, niveau: 1, titre: 'OBJECTIF ATTEINT !', suite: 'ET ON CONTINUE !' },
+  { kg: 1000, niveau: 2, titre: '1 TONNE COLLECTÉE !', suite: 'LE DOUBLE DE L’OBJECTIF !' },
+  { kg: 1500, niveau: 3, titre: '1 500 KG !', suite: 'TROIS FOIS L’OBJECTIF !' },
+  { kg: 2000, niveau: 4, titre: '2 TONNES !', suite: 'QUATRE FOIS L’OBJECTIF !' },
+]
+
 // Aucun poids n'est jamais rattaché à une commune, un point ou un partenaire :
 // ces listes ne servent qu'à dire « qui est mobilisé », toutes au même rang.
 export const communes = [

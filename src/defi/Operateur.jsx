@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { challenge } from '../data/defiConfig'
+import { paliers } from '../data/defiConfig'
 import { dateFr, lireDate, lirePoids, nombreFr, semaineSuivante, total } from './store'
 
 /* ---------- Confirmation en deux temps ---------- */
@@ -268,9 +268,11 @@ export default function Operateur({ store, onFermer, onEssaiObjectif, onPleinEcr
         </label>
         <div className="dfo-ligne">
           <button type="button" className="dfo-btn" onClick={onPleinEcran}>Plein écran (F)</button>
-          <button type="button" className="dfo-btn" disabled={busy} onClick={onEssaiObjectif}>
-            Tester l’animation {challenge.target} kg
-          </button>
+          {paliers.map((pal) => (
+            <button key={pal.kg} type="button" className="dfo-btn" disabled={busy} onClick={() => onEssaiObjectif(pal)}>
+              Tester {pal.kg} kg
+            </button>
+          ))}
         </div>
       </section>
 
