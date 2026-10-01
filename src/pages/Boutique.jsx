@@ -124,7 +124,7 @@ function Carte({ p, vendu = false }) {
       <div className="relative aspect-[4/3] overflow-hidden bg-beige-light">
         {vendu ? (
           <span className="absolute left-0 top-4 z-10 bg-kaki px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-white">
-            Vendu
+            {p.donne ? 'Donné' : 'Vendu'}
           </span>
         ) : null}
         <img
@@ -147,9 +147,14 @@ function Carte({ p, vendu = false }) {
           {p.description}
         </p>
         <div className="mt-4 flex items-baseline justify-between gap-3 border-t border-beige pt-3">
-          <span className={`font-serif text-xl ${vendu ? 'text-terre/40 line-through' : 'text-kaki'}`}>
-            {prix(p.prix)}
-          </span>
+          {/* Un don n'a pas de prix a barrer : l'appareil n'a pas ete vendu, il a ete offert. */}
+          {p.donne ? (
+            <span className="font-serif text-xl text-terre/60">Offert</span>
+          ) : (
+            <span className={`font-serif text-xl ${vendu ? 'text-terre/40 line-through' : 'text-kaki'}`}>
+              {prix(p.prix)}
+            </span>
+          )}
           {p.etat ? (
             <span className="font-sans text-xs text-terre/50">{ETATS[p.etat] || p.etat}</span>
           ) : null}

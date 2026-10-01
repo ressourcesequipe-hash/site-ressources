@@ -46,7 +46,7 @@ export default function BoutiqueProduit() {
       <SEO
         title={
           vendu
-            ? `${p.titre} reconditionné — vendu — Recyclerie Ressources (Landes)`
+            ? `${p.titre} reconditionné — ${p.donne ? 'donné' : 'vendu'} — Recyclerie Ressources (Landes)`
             : `${p.titre} reconditionné — ${prix(p.prix)} — Recyclerie Ressources (Landes)`
         }
         description={`${p.titre} : ${p.description.slice(0, 150)}${p.description.length > 150 ? '…' : ''} Reconditionné et vérifié par la recyclerie solidaire Ressources à Vielle-Saint-Girons (40).`}
@@ -67,7 +67,7 @@ export default function BoutiqueProduit() {
               <div className="relative aspect-[4/3] overflow-hidden border border-beige-dark bg-beige-light">
                 {vendu ? (
                   <span className="absolute left-0 top-5 z-10 bg-kaki px-4 py-1.5 font-sans text-xs font-bold uppercase tracking-[0.15em] text-white">
-                    Vendu
+                    {p.donne ? 'Donné' : 'Vendu'}
                   </span>
                 ) : null}
                 <img
@@ -110,11 +110,15 @@ export default function BoutiqueProduit() {
               <h1 className="mt-2 font-serif text-3xl leading-tight text-terre">{p.titre}</h1>
 
               <div className="mt-4 flex flex-wrap items-baseline gap-x-5 gap-y-2">
-                <span
-                  className={`font-serif text-3xl ${vendu ? 'text-terre/40 line-through' : 'text-kaki'}`}
-                >
-                  {prix(p.prix)}
-                </span>
+                {p.donne ? (
+                  <span className="font-serif text-3xl text-terre/60">Offert</span>
+                ) : (
+                  <span
+                    className={`font-serif text-3xl ${vendu ? 'text-terre/40 line-through' : 'text-kaki'}`}
+                  >
+                    {prix(p.prix)}
+                  </span>
+                )}
                 {etat ? (
                   <span className="font-sans text-sm text-terre/60">
                     {etat.libelle} — {etat.detail}
