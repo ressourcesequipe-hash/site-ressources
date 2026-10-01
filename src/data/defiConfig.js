@@ -7,6 +7,11 @@ export const challenge = {
   endDate: '2026-10-03',
 }
 
+// Jauge : à ce cumul (kg), la flèche est entièrement pleine et le repère
+// « objectif » s'est replié au tiers gauche de la flèche. Avant, le repère glisse
+// peu à peu vers la gauche (il est aux 3/4 tant que l'objectif n'est pas atteint).
+export const ECHELLE_PLEINE = 1900
+
 // Paliers célébrés : 500 kg est l'objectif, les suivants sont des multiples.
 // `niveau` règle l'ampleur de la fête (confettis, applaudissements, durée du
 // bandeau). Un palier ne se célèbre qu'une fois ; si une seule étape en

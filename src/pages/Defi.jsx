@@ -275,7 +275,7 @@ export default function Defi() {
         </div>
       </main>
 
-      <Jauge valeur={valeur} pulse={pulse} ref={marqueur} />
+      <Jauge valeur={valeur} pulse={pulse} decimales={decimales} ref={marqueur} />
 
       <section className="dfi-territoire">
         <div className="dfi-territoire-tete">

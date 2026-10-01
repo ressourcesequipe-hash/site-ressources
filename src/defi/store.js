@@ -5,7 +5,7 @@
 // on peut donc corriger, supprimer, revenir en arrière, ou préparer toutes
 // les collectes à l'avance et les révéler une à une.
 
-import { challenge, paliers } from '../data/defiConfig'
+import { ECHELLE_PLEINE, challenge, paliers } from '../data/defiConfig'
 import prepares from '../data/defiCollectes.json'
 
 export const CLE = 'ressources.defi.v1'
@@ -96,15 +96,23 @@ export function semaineSuivante(etat) {
 
 /* ---------- Échelle de la jauge ---------- */
 
-// Position (0..1) sur la flèche. Jusqu'à l'objectif : 75 % de la longueur.
-// Au-delà : les 25 % restants, dont l'échelle s'élargit toute seule
-// (800 kg au minimum, puis 125 % du total) sans jamais toucher au marqueur.
+// Géométrie de la flèche pour un cumul v : { f, pos } (fractions de 0 à 1).
+//   f   = position du repère « objectif » ;
+//   pos = bord avant du remplissage.
+//
+// Jusqu'à l'objectif, le repère reste aux 3/4 et le remplissage avance vers lui.
+// Au-delà, la flèche se recompose : le repère glisse vers la gauche (de 3/4 à
+// 1/3) pendant que le remplissage gagne le bout de la flèche, qui est entière-
+// ment pleine à ECHELLE_PLEINE kg et le reste ensuite. Le carré de u adoucit le
+// départ du glissement : le remplissage ne recule ainsi jamais.
 export const PART_OBJECTIF = 0.75
-export function position(v, cible = challenge.target) {
-  if (v <= 0) return 0
-  if (v <= cible) return PART_OBJECTIF * (v / cible)
-  const fin = Math.max(cible * 1.6, v * 1.25)
-  return PART_OBJECTIF + (1 - PART_OBJECTIF) * Math.min(1, (v - cible) / (fin - cible))
+export const PART_FINALE = 1 / 3
+export function geometrie(v, cible = challenge.target) {
+  if (v <= 0) return { f: PART_OBJECTIF, pos: 0 }
+  if (v <= cible) return { f: PART_OBJECTIF, pos: PART_OBJECTIF * (v / cible) }
+  const u = Math.min(1, (v - cible) / (ECHELLE_PLEINE - cible))
+  const f = PART_OBJECTIF - (PART_OBJECTIF - PART_FINALE) * u * u
+  return { f, pos: f + (1 - f) * u }
 }
 
 /* ---------- Stockage ---------- */
