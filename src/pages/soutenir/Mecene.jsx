@@ -118,6 +118,19 @@ export default function Mecene() {
             compétences, ou don de matériel informatique inutilisé.
           </p>
 
+          {/* Particuliers : le mécénat s'adresse aux entreprises, un particulier
+              passe par le don. */}
+          <div className="border border-beige-dark bg-beige-light p-6 mb-14 sm:flex sm:items-center sm:justify-between sm:gap-8">
+            <div className="mb-4 sm:mb-0">
+              <h2 className="font-serif text-xl text-terre mb-1.5">Vous êtes un particulier ?</h2>
+              <p className="text-sm text-terre/65 leading-relaxed max-w-lg">
+                Vous pouvez aussi soutenir Ressources par un don, avec une réduction
+                d'impôt de 66 % du montant versé, dans la limite de 20 % du revenu imposable.
+              </p>
+            </div>
+            <Link to="/soutenir/don/" className="btn-kaki text-sm shrink-0">Faire un don</Link>
+          </div>
+
           {/* Fiscalité + contact */}
           <div className="bg-beige p-6 md:p-8">
             <h2 className="font-serif text-xl text-terre mb-3">60 % de réduction d'impôt pour les entreprises</h2>
