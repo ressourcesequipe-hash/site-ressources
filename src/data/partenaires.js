@@ -19,9 +19,11 @@
 
 import cms from './cms.json' with { type: 'json' }
 
-// Partenaires ajoutés côté site, à la suite de ceux de la base : tant qu'ils n'y
-// sont pas saisis, le build régénère cms.json sans eux. Dès qu'une structure
-// porte le même nom dans la base, c'est la fiche de la base qui prime.
+// Partenaires ajoutés côté site, à la suite de ceux de la base, pour la seule
+// page Partenaires : tant qu'ils ne sont pas saisis dans la base, le build
+// régénère cms.json sans eux. Dès qu'une structure porte le même nom dans la
+// base, c'est la fiche de la base qui prime. L'accueil et la page Territoire
+// n'affichent que les partenaires de la base (PARTENAIRES_CONFIRMES).
 const PARTENAIRES_AJOUTES = [
   {
     nom: 'Landes Partage',
@@ -43,7 +45,9 @@ const PARTENAIRES_AJOUTES = [
   },
 ]
 
-export const PARTENAIRES_CONFIRMES = [
+export const PARTENAIRES_CONFIRMES = cms.organisations.confirmes
+
+export const PARTENAIRES_PAGE = [
   ...cms.organisations.confirmes,
   ...PARTENAIRES_AJOUTES.filter(
     ({ nom }) => !cms.organisations.confirmes.some((p) => p.nom === nom),

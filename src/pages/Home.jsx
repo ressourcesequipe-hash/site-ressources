@@ -685,14 +685,14 @@ export default function Home() {
             <p className="text-[10px] text-terre/35 tracking-[0.22em] uppercase font-sans mb-3 text-center">
               Nos partenaires
             </p>
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               {PARTENAIRES_CONFIRMES.map((partenaire, i) => {
                 const { nom } = partenaire
                 const logo = logoPartenaire(partenaire)
                 return (
                 <div
                   key={nom}
-                  className="w-full sm:w-[calc((100%-2rem)/3)] border border-beige-dark bg-beige-light flex flex-col items-center justify-center gap-3 p-5 text-center rounded-xl hover:shadow-lg hover:border-ocre/25 hover:-translate-y-1.5 transition-all duration-300 cursor-default"
+                  className="border border-beige-dark bg-beige-light flex flex-col items-center justify-center gap-3 p-5 text-center rounded-xl hover:shadow-lg hover:border-ocre/25 hover:-translate-y-1.5 transition-all duration-300 cursor-default"
                   style={{ minHeight: 80, transitionDelay: `${i * 50}ms` }}
                 >
                   {logo && (

@@ -4,7 +4,7 @@ import SEO from '../../components/SEO'
 import {
   COOPERATIONS_EN_COURS,
   MENTION_COOPERATIONS,
-  PARTENAIRES_CONFIRMES,
+  PARTENAIRES_PAGE,
 } from '../../data/partenaires'
 
 
@@ -21,7 +21,7 @@ const BLOCS = [
     titre: 'Nos partenaires',
     intro: 'Structures avec lesquelles un partenariat est formalisé ou un réseau rejoint.',
     accent: 'ocre',
-    partenaires: PARTENAIRES_CONFIRMES,
+    partenaires: PARTENAIRES_PAGE,
   },
   {
     titre: 'Échanges et coopérations territoriales en cours',
