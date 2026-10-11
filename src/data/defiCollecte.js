@@ -1,37 +1,21 @@
 // Défi collecte : du 1er septembre au 3 octobre 2026, 500 kg de matériel
 // informatique et électronique à réunir sur le territoire.
 
-import operations from './operations.json'
-
-/*
- * Le compteur vient de Ressources 360, où les pesées sont déjà saisies.
- *
- * Il était recopié à la main ici à chaque pesée : il vieillissait entre deux
- * mises à jour, et personne ne savait de quand il datait. Le tonnage est
- * maintenant relevé au build, par `scripts/vitrine.mjs`, sur l'opération que
- * quelqu'un a cochée « compteur public » dans Ressources 360. Le chiffre se
- * met donc à jour à chaque déploiement du site, et il est dans le HTML
- * prérendu : Google le voit, et le visiteur n'attend rien.
- *
- * S'il n'y a rien à lire — aucune opération cochée, ou back-office injoignable
- * au dernier build — on retombe sur le dernier chiffre connu ci-dessous
- * plutôt que d'afficher un compteur à zéro.
- */
-const COMPTEUR = operations.operations?.[0] ?? null
-
 const nombreFr = (n) => new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 }).format(n)
+
+// Le défi est terminé : le total est celui de la pesée finale, arrêté à la
+// main. Il ne se relit plus dans Ressources 360, où le compteur public pourrait
+// encore bouger après le 3 octobre.
+const TOTAL_FINAL_KG = 2013.8
 
 export const DEFI = {
   objectifKg: 500,
   debut: '1er septembre 2026',
   fin: '3 octobre 2026',
-  // Dernier chiffre connu, tenu à la main. Il ne sert que de filet : tant
-  // qu'une opération est cochée dans Ressources 360, c'est elle qui parle.
-  collecteKg: COMPTEUR ? nombreFr(COMPTEUR.poids_kg) : '305,8',
-  dernierePesee: COMPTEUR?.derniere_collecte ?? null,
-  // De quoi savoir, à la lecture d'une page, si le chiffre vient de l'outil
-  // ou de la ligne ci-dessus.
-  depuis360: Boolean(COMPTEUR),
+  termine: true,
+  collecteKg: nombreFr(TOTAL_FINAL_KG),
+  // Le total en multiples de l'objectif, arrondi à la décimale.
+  multiple: nombreFr(Math.round((TOTAL_FINAL_KG / 500) * 10) / 10),
 }
 
 // Points de collecte du défi.
@@ -407,22 +391,22 @@ export const KIT_COMMUNICATION =
 export const ETAPES = [
   {
     num: '01',
-    titre: 'Vous déposez',
-    desc: 'Apportez vos équipements inutilisés dans l’un des points de collecte du territoire, à partir du 1er septembre.',
+    titre: 'Vous avez déposé',
+    desc: 'Habitants, entreprises et collectivités ont apporté leurs équipements inutilisés dans les points de collecte du territoire, dès le 1er septembre.',
   },
   {
     num: '02',
-    titre: 'Nous pesons',
-    desc: 'Chaque dépôt est pesé et enregistré. Le total progresse semaine après semaine vers l’objectif des 500 kg.',
+    titre: 'Nous avons pesé',
+    desc: 'Chaque dépôt a été pesé et enregistré. Le total a progressé semaine après semaine, jusqu’à dépasser largement l’objectif des 500 kg.',
   },
   {
     num: '03',
     titre: 'Pesée finale le 3 octobre',
-    desc: 'L’ensemble du matériel est rassemblé et pesé en public lors de la journée de lancement à Vielle-Saint-Girons.',
+    desc: 'Le résultat a été annoncé en public lors de la journée de lancement à Vielle-Saint-Girons.',
   },
   {
     num: '04',
     titre: 'Tout est revalorisé',
-    desc: 'Tri, effacement sécurisé des données, reconditionnement, puis redistribution solidaire sur le territoire.',
+    desc: 'Tri, effacement sécurisé des données, reconditionnement, puis redistribution solidaire sur le territoire : c’est maintenant le travail de la recyclerie.',
   },
 ]

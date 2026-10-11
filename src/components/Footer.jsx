@@ -7,7 +7,7 @@ const SILOS = [
     links: [
       { to: '/recyclerie-informatique/', label: 'Présentation' },
       { to: '/recyclerie-informatique/comment-donner/', label: 'Comment donner' },
-      { to: '/defi-collecte/', label: 'Challenge territorial' },
+      { to: '/defi-collecte/', label: 'Bilan du challenge' },
       { to: '/recyclerie-informatique/materiel-accepte/', label: 'Matériel accepté' },
       { to: '/recyclerie-informatique/reconditionnement/', label: 'Notre processus' },
       { to: '/recyclerie-informatique/effacement-donnees/', label: 'Sécurité des données' },

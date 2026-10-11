@@ -136,8 +136,8 @@ export default function Association() {
                 végétale</strong> pour le réemploi des végétaux et du matériel de jardin.
               </p>
               <p className="text-terre/65 leading-relaxed mb-6">
-                La phase pilote démarre en septembre 2026, avec un événement
-                de lancement festif prévu le 03 octobre 2026 à Vielle-Saint-Girons.
+                La phase pilote a démarré en septembre 2026, avec un événement
+                de lancement festif le 03 octobre 2026 à Vielle-Saint-Girons.
               </p>
               <Link to="/association/gouvernance/" className="btn-outline-ocre text-sm">
                 Découvrir l'équipe

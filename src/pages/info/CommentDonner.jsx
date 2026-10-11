@@ -46,8 +46,8 @@ const FAQ = [
     a: 'Il est trié, ses données sont effacées de façon sécurisée, puis il est diagnostiqué et reconditionné par des bénévoles. Il repart ensuite vers des habitants, des associations ou des structures d\'accompagnement du territoire. Ce qui ne peut être réemployé part vers les filières de recyclage agréées : notre priorité reste le réemploi, le recyclage n\'est que le dernier recours.',
   },
   {
-    q: 'Puis-je participer au challenge des 500 kilos ?',
-    a: `Oui, et c\'est le bon moment. Du ${DEFI.debut} au ${DEFI.fin}, chaque dépôt est pesé et enregistré, et le total progresse vers l\'objectif des ${DEFI.objectifKg} kilos. La pesée finale a lieu en public lors de la journée de lancement de l\'association.`,
+    q: 'Le challenge des 500 kilos est-il terminé ?',
+    a: `Oui. Du ${DEFI.debut} au ${DEFI.fin}, ${DEFI.collecteKg} kg de matériel ont été collectés, soit ${DEFI.multiple} fois l'objectif de ${DEFI.objectifKg} kg. Merci à tous les donateurs. L'association continue de collecter du matériel : écrivez-nous pour convenir d'une remise ou d'un enlèvement.`,
   },
 ]
 
@@ -65,8 +65,8 @@ const FACONS = [
   {
     num: '1',
     title: 'Déposer dans un point de collecte',
-    desc: 'Plusieurs points sont ouverts sur le territoire landais pendant le challenge collecte. Le détail et les modalités figurent ci-dessous.',
-    note: 'Voir les points',
+    desc: 'Les points de collecte du challenge ont accueilli les dépôts sur le territoire landais. Le challenge est terminé : contactez-nous avant de vous déplacer.',
+    note: 'Voir les points du challenge',
   },
   {
     num: '2',
@@ -76,9 +76,9 @@ const FACONS = [
   },
   {
     num: '3',
-    title: 'Apporter le 3 octobre',
-    desc: 'Le jour de la journée de lancement à Vielle-Saint-Girons, vous pouvez déposer votre matériel sur place et assister à la pesée finale.',
-    note: 'Challenge 1/2 tonne',
+    title: 'Convenir d\'une remise',
+    desc: 'Vous préférez déposer vous-même votre matériel ? Écrivez-nous ou appelez : nous vous indiquons où et quand le déposer.',
+    note: 'Contact ci-dessous',
   },
 ]
 
@@ -167,10 +167,9 @@ export default function CommentDonner() {
           <div className="mb-14">
             <h2 className="font-serif text-2xl text-terre mb-5">Où déposer votre matériel</h2>
             <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
-              Les points ci-dessous accueillent les dépôts pendant le challenge collecte,
-              du {DEFI.debut} au {DEFI.fin}. Certains sont encore en cours de
-              formalisation avec nos partenaires : un message avant de vous déplacer
-              vous évitera un trajet inutile.
+              Les points ci-dessous ont accueilli les dépôts du challenge collecte,
+              du {DEFI.debut} au {DEFI.fin}. Le challenge est terminé : un message
+              avant de vous déplacer vous évitera un trajet inutile.
             </p>
 
             <div className="divide-y divide-beige-dark border-y border-beige-dark mb-6">
@@ -209,12 +208,8 @@ export default function CommentDonner() {
             </div>
 
             <div className="flex flex-wrap gap-4 text-sm">
-              {/* Vers l'ancre, pas vers le haut de la page : la liste ci-dessus
-                  donne les noms et les adresses, mais ni les horaires ni la
-                  carte — c'est cela qu'on va chercher là-bas, et le lien le
-                  dit. */}
-              <Link to="/defi-collecte/#ou-deposer" className="text-kaki hover:text-ocre transition-colors font-medium">
-                → Horaires et carte des points de collecte
+              <Link to="/defi-collecte/" className="text-kaki hover:text-ocre transition-colors font-medium">
+                → Le bilan du challenge collecte
               </Link>
               <a href="mailto:contact@ressourcesrecyclerie.fr" className="text-kaki hover:text-ocre transition-colors font-medium">
                 → Convenir d'une remise par mail
@@ -380,7 +375,7 @@ export default function CommentDonner() {
           </Link>
           <span className="text-terre/20">|</span>
           <Link to="/defi-collecte/" className="text-kaki hover:text-ocre transition-colors">
-            Challenge collecte 1/2 tonne →
+            Bilan du challenge collecte →
           </Link>
         </div>
       </section>

@@ -34,7 +34,7 @@ const REPERES = [
   { cle: 'Siège', valeur: '80 allée des Cigales, 40560 Vielle-Saint-Girons' },
   { cle: 'Territoire', valeur: PAYS_ZONE_ACTION.join(', ') },
   { cle: 'Filières', valeur: 'Réemploi informatique et recyclerie végétale' },
-  { cle: 'Lancement public', valeur: 'Samedi 03 octobre 2026, Vielle-Saint-Girons' },
+  { cle: 'Lancement public', valeur: 'Samedi 03 octobre 2026, Vielle-Saint-Girons (effectué)' },
 ]
 
 // Revue de presse. article = notre récap interne ; source = le média d'origine.
@@ -75,22 +75,18 @@ const ANGLES = [
     desc: 'Un ordinateur reconditionné pour une famille, un senior ou une association du territoire, avec effacement sécurisé des données. Le sujet croise fracture numérique et pouvoir d\'achat sur un territoire peu dense.',
   },
   {
-    // Le seul angle qui se passe maintenant : la collecte court jusqu'au
-    // 3 octobre. Les chiffres viennent des données du challenge, donc ils
-    // suivent les points qui ouvrent sans qu'on ait à repasser ici.
-    titre: 'Le challenge territorial et ceux qui le portent',
+    // Le défi est terminé : l'angle devient un bilan. Les chiffres viennent des
+    // données du défi, donc ils restent alignés avec la page du bilan.
+    titre: 'Le challenge territorial : une demi-tonne visée, plus de deux tonnes collectées',
     desc:
-      `Du ${DEFI.debut} au ${DEFI.fin}, l'association tente de réunir ${DEFI.objectifKg} kg ` +
-      'de matériel informatique dormant. Le challenge ne tient que par les structures qui ' +
-      `ont accepté d'accueillir un point de dépôt : ${POINTS_OUVERTS.length} points ouverts ` +
+      `Du ${DEFI.debut} au ${DEFI.fin}, l'association visait ${DEFI.objectifKg} kg de matériel ` +
+      `informatique dormant. Elle en a collecté ${DEFI.collecteKg} kg, soit ${DEFI.multiple} fois l'objectif, ` +
+      `grâce aux structures qui ont accepté d'accueillir un point de dépôt : ${POINTS_OUVERTS.length} points ` +
       `dans ${COMMUNES_OUVERTES.length} communes, entre mairies, tiers-lieu associatif, ` +
-      'structures de l\'économie sociale et solidaire, grande distribution et pépinières ' +
-      `d'entreprises. Un partenariat a par ailleurs été convenu avec le ${PARTENARIAT_SITCOM.nom} ` +
-      `pour installer un point de collecte dans ${PARTENARIAT_SITCOM.nombre} déchèteries du ` +
-      'département. Le réseau continue de s\'étoffer d\'ici à la pesée publique du 3 octobre : ' +
-      'le sujet peut se suivre en direct, semaine après semaine.',
+      "structures de l'économie sociale et solidaire, grande distribution et pépinières " +
+      "d'entreprises. Le résultat a été annoncé en public le 3 octobre à Vielle-Saint-Girons.",
     lien: '/defi-collecte/',
-    lienTexte: 'La page du challenge et ses points de collecte',
+    lienTexte: 'Le bilan du challenge et ses points de collecte',
   },
   {
     // « Plus de vingt » datait de la première vague de dotations et en annonçait
@@ -263,21 +259,20 @@ export default function Presse() {
           <div className="bg-beige-light border border-beige-dark p-6 md:p-8 mb-12 sm:flex sm:items-start sm:gap-8">
             <div className="flex-1 min-w-0">
             <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
-              Temps fort
+              Retour sur le temps fort
             </p>
             <h2 className="font-serif text-xl text-terre mb-3">
-              Journée de lancement — samedi 03 octobre 2026
+              Journée de lancement — samedi 03 octobre 2026 (retour)
             </h2>
             <p className="text-sm text-terre/65 leading-relaxed mb-5">
-              Une journée ouverte à tous à Vielle-Saint-Girons : challenge de
-              collecte d'une demi-tonne de matériel informatique, tombola solidaire
-              dotée par les commerçants du territoire, tirage au sort public et
-              festivités. Les journalistes sont les bienvenus, avec possibilité
-              d'interviews sur place.
+              Une journée ouverte à tous à Vielle-Saint-Girons : annonce du résultat du
+              challenge de collecte (objectif d'une demi-tonne dépassé), tombola
+              solidaire dotée par les commerçants du territoire, tirage au sort public et
+              festivités. Des interviews et visuels sont possibles sur demande.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/evenement-lancement-03-octobre-2026/" className="btn-ocre text-sm">
-                Détail de l'événement
+                Retour sur l'événement
               </Link>
               <Link to="/association/gouvernance/" className="btn-outline-ocre text-sm">
                 L'équipe fondatrice

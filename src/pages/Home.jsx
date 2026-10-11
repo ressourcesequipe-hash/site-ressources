@@ -6,7 +6,7 @@ import NewsletterForm from '../components/NewsletterForm'
 import BandeauTempsForts from '../components/BandeauTempsForts'
 import { useReveal } from '../hooks/useReveal'
 import { PARTENAIRES_CONFIRMES, PAYS_ZONE_ACTION } from '../data/partenaires'
-import { POINTS_OUVERTS } from '../data/defiCollecte'
+import { DEFI, POINTS_OUVERTS } from '../data/defiCollecte'
 import { AFFICHE } from '../data/evenement'
 import { afficher, objectifs, MENTION_PHASE_PILOTE } from '../data/objectifs'
 
@@ -470,7 +470,7 @@ export default function Home() {
             <p className="section-label">Phase pilote — An 1</p>
             <h2 className="font-serif text-3xl md:text-4xl text-terre">Nos objectifs d'impact</h2>
             {/* Sans cette mention, trois grands chiffres animes se lisent comme
-                un bilan. L'association ne se lance que le 03 octobre 2026. */}
+                un bilan. L'association s'est lancée le 03 octobre 2026. */}
             <p className="font-sans text-sm text-terre/70 leading-relaxed max-w-xl mx-auto mt-4">
               {MENTION_PHASE_PILOTE}
             </p>
@@ -570,9 +570,9 @@ export default function Home() {
               transform: event.visible ? 'translateX(0)' : 'translateX(-32px)',
               transition: 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1)',
             }}>
-              <p className="section-label">À ne pas manquer</p>
+              <p className="section-label">Retour sur le lancement</p>
               <h2 className="font-serif text-3xl md:text-4xl text-terre mb-4">
-                Événement de lancement<br />
+                Merci pour la journée<br />
                 <span style={{
                   background: 'linear-gradient(135deg, #C8973A, #D4AA5A)',
                   WebkitBackgroundClip: 'text',
@@ -582,20 +582,21 @@ export default function Home() {
               </h2>
               <div className="decorative-line" />
               <p className="text-terre/60 leading-relaxed mb-7">
-                Une journée festive et solidaire pour marquer le lancement officiel
-                de l'association Ressources à Vielle-Saint-Girons. Venez nombreux !
+                Le 3 octobre, la journée festive et solidaire de lancement de
+                l'association Ressources a réuni habitants, partenaires et bénévoles à
+                Vielle-Saint-Girons. Merci à toutes et à tous !
               </p>
               <div className="space-y-4 mb-9">
-                <EventFeature icon={<IconChallenge />} title="Challenge collecte — 1/2 tonne" desc="500 kg à réunir du 1er septembre au 3 octobre, dans les points de collecte du territoire" />
-                <EventFeature icon={<IconTombola />} title="Tombola solidaire" desc="Plus de 30 lots offerts par nos partenaires locaux" />
+                <EventFeature icon={<IconChallenge />} title={`Challenge collecte — ${DEFI.collecteKg} kg`} desc={`Objectif d'une demi-tonne dépassé : ${DEFI.multiple} fois plus de matériel collecté, du 1er septembre au 3 octobre`} />
+                <EventFeature icon={<IconTombola />} title="Tombola solidaire" desc="Tirage effectué : plus de 30 lots offerts par nos partenaires locaux" />
                 <EventFeature icon={<IconLieu />} title="Vielle-Saint-Girons, Landes" desc="Dans les locaux et espaces partenaires de la commune" />
               </div>
               <div className="flex flex-wrap gap-4">
                 <Link to="/evenement-lancement-03-octobre-2026/" className="btn-ocre shadow-ocre-glow">
-                  Je participe à l'événement
+                  Revivre la journée
                 </Link>
                 <Link to="/defi-collecte/" className="btn-outline-ocre">
-                  Le challenge collecte
+                  Le bilan du challenge
                 </Link>
               </div>
             </div>
@@ -696,7 +697,7 @@ export default function Home() {
             </div>
 
             <p className="text-[10px] text-terre/35 tracking-[0.22em] uppercase font-sans mb-3 text-center">
-              Partenaires du challenge collecte
+              Points de collecte du challenge
             </p>
             {/* Nuage de badges, pas une grille de cartes : quinze points de
                 collecte en cartes pleine taille auraient ecrase la section.
@@ -766,12 +767,11 @@ export default function Home() {
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <p className="section-label">Restons en contact</p>
           <h2 className="font-serif text-2xl md:text-3xl text-terre mb-3">
-            Suivez le lancement de la recyclerie
+            Suivez la vie de la recyclerie
           </h2>
           <p className="text-sm text-terre/60 leading-relaxed mb-7 max-w-lg mx-auto">
-            Ouverture de la billetterie de la tombola, dévoilement des lots,
-            points de collecte, appels à bénévoles : recevez les actualités de
-            l'association, sans plus.
+            Prochaines collectes, ateliers, rendez-vous, appels à bénévoles :
+            recevez les actualités de l'association, sans plus.
           </p>
           <div className="max-w-md mx-auto text-left">
             <NewsletterForm />

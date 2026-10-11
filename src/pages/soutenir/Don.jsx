@@ -114,7 +114,7 @@ export default function Don() {
               Faire un don maintenant
             </button>
             <Link to="/soutenir/tombola/" className="btn-kaki">
-              Tombola solidaire — 03 octobre
+              Tombola solidaire — tirage effectué
             </Link>
             <Link to="/soutenir/" className="text-sm text-kaki hover:text-ocre transition-colors pt-3.5">
               ← Retour à soutenir

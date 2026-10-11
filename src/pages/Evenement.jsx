@@ -2,12 +2,9 @@
 import { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
-import CompteARebours from '../components/CompteARebours'
+import { DEFI } from '../data/defiCollecte'
 import { AFFICHE } from '../data/evenement'
 import { useReveal } from '../hooks/useReveal'
-// Le prix vient de la meme source que la page tombola : une seule valeur a
-// changer si le tarif evolue, jamais deux pages a resynchroniser.
-import { PRIX_BILLET } from '../data/lotsTombola'
 import { IconFeuille, IconTicket, IconTransport } from '../components/Icons'
 
 const eventSchema = {
@@ -34,22 +31,13 @@ const eventSchema = {
       longitude: -1.3019,
     },
   },
-  description: "Journée de lancement de l'association Ressources — recyclerie informatique et végétale solidaire dans les Landes. Challenge collecte 1/2 tonne de matériel informatique, tombola solidaire avec plus de 30 lots offerts par les partenaires locaux, festivités à Vielle-Saint-Girons (40560).",
+  description: "Journée de lancement de l'association Ressources — recyclerie informatique et végétale solidaire dans les Landes. Annonce du résultat du challenge collecte (objectif d'une demi-tonne dépassé), tombola solidaire avec plus de 30 lots offerts par les partenaires locaux, festivités à Vielle-Saint-Girons (40560).",
   image: 'https://www.ressourcesrecyclerie.fr/photos/banniere3ocotobre.jpg',
   organizer: {
     '@type': 'NGO',
     name: 'Association Ressources',
     url: 'https://www.ressourcesrecyclerie.fr',
     email: 'contact@ressourcesrecyclerie.fr',
-  },
-  offers: {
-    '@type': 'Offer',
-    name: 'Billets de tombola solidaire',
-    url: 'https://www.helloasso.com/associations/ressources-association/evenements/evenement-ressources-tirage-public-de-la-tombola',
-    price: String(PRIX_BILLET),
-    priceCurrency: 'EUR',
-    availability: 'https://schema.org/InStock',
-    validFrom: '2026-09-01',
   },
   keywords: 'tombola solidaire Landes, recyclerie informatique, réemploi numérique, Vielle-Saint-Girons',
 }
@@ -69,8 +57,8 @@ export default function Evenement() {
   return (
     <Layout newsletter={false}>
       <SEO
-        title="Lancement Recyclerie Solidaire Landes — 03 octobre 2026 | Ressources"
-        description="Rejoignez le lancement de l'association Ressources le 03 octobre 2026 à Vielle-Saint-Girons (Landes). Challenge collecte 1/2 tonne de matériel, tombola solidaire avec plus de 30 lots, festivités."
+        title="Retour sur le lancement de la Recyclerie Solidaire — 03 octobre 2026 | Ressources"
+        description={`Retour sur le lancement de l'association Ressources, le 03 octobre 2026 à Vielle-Saint-Girons (Landes) : ${DEFI.collecteKg} kg collectés pour le challenge d'une demi-tonne, tirage de la tombola solidaire, village associatif, ateliers et concert.`}
         canonical="/evenement-lancement-03-octobre-2026/"
         type="event"
         schema={eventSchema}
@@ -104,7 +92,7 @@ export default function Evenement() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-ocre" />
               </span>
               <span className="font-sans text-ocre text-xs font-semibold tracking-[0.15em] uppercase">
-                Événement de lancement
+                Retour sur le lancement
               </span>
             </div>
           </div>
@@ -138,12 +126,10 @@ export default function Evenement() {
 
           <p className={`text-white/60 max-w-xl mx-auto leading-relaxed transition-all duration-700 delay-400 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Une journée festive et solidaire pour célébrer le lancement officiel
-            de l'association Ressources — recyclerie informatique et végétale du territoire landais.
+            de l'association Ressources — recyclerie informatique et végétale du
+            territoire landais. Merci à toutes celles et ceux qui sont venus, aux
+            bénévoles, aux associations et aux partenaires.
           </p>
-
-          <div className={`mt-9 transition-all duration-700 delay-500 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <CompteARebours variant="clair" />
-          </div>
           </div>
         </div>
       </section>
@@ -153,9 +139,9 @@ export default function Evenement() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { num: '01', label: 'Challenge collecte', title: '1/2 tonne de matériel', desc: "Lancé le 1er septembre dans les points de collecte du territoire, le challenge s'achève par la pesée finale du 3 octobre. Objectif : 500 kg au total.", accent: 'ocre', delay: 0 },
-              { num: '02', label: 'Tombola solidaire', title: 'Plus de 30 lots', desc: 'Plus de 30 lots offerts par les commerçants, artisans et producteurs du territoire. Chaque billet soutient directement la recyclerie.', accent: 'ocre', delay: 100 },
-              { num: '03', label: 'Village associatif', title: 'Des associations invitées', desc: "Des associations locales du réemploi et de l'économie circulaire seront présentes pour partager leurs actions, aux côtés de l'équipe Ressources.", accent: 'kaki', delay: 200 },
+              { num: '01', label: 'Challenge collecte', title: `${DEFI.collecteKg} kg de matériel`, desc: `Lancé le 1er septembre dans les points de collecte du territoire, le challenge s'est achevé le 3 octobre. Objectif : ${DEFI.objectifKg} kg, dépassé ${DEFI.multiple} fois.`, accent: 'ocre', delay: 0 },
+              { num: '02', label: 'Tombola solidaire', title: 'Plus de 30 lots', desc: 'Plus de 30 lots offerts par les commerçants, artisans et producteurs du territoire. Chaque billet a soutenu directement la recyclerie.', accent: 'ocre', delay: 100 },
+              { num: '03', label: 'Village associatif', title: 'Des associations invitées', desc: "Des associations locales du réemploi et de l'économie circulaire étaient présentes pour partager leurs actions, aux côtés de l'équipe Ressources.", accent: 'kaki', delay: 200 },
             ].map((card) => (
               <HighlightCard key={card.num} {...card} />
             ))}
@@ -168,10 +154,10 @@ export default function Evenement() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center mb-12">
           <p className="section-label">Programme</p>
           <h2 className="font-serif text-3xl md:text-4xl text-terre mb-3">
-            Le programme du 3 octobre
+            Le programme de la journée du 3 octobre
           </h2>
           <p className="text-terre/55 max-w-md mx-auto leading-relaxed mb-6">
-            Une journée pour découvrir, réparer, partager et célébrer le réemploi.
+            Une journée pour découvrir, réparer, partager et célébrer le réemploi : voici ce qui s'est passé.
           </p>
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-ocre/10 border border-ocre/25 rounded-full">
             <span className="w-1.5 h-1.5 rounded-full bg-ocre shrink-0" aria-hidden />
@@ -188,7 +174,7 @@ export default function Evenement() {
           <div className="grid sm:grid-cols-3 gap-5">
             {[
               { heure: '10 h – 17h30', titre: 'Village associatif', desc: 'Ateliers, stands, animations', icon: <IconFeuille className="w-5 h-5" /> },
-              { heure: '18 h – 19 h', titre: 'Tombola & challenge', desc: 'Tirage public, remise des lots', icon: <IconTicket className="w-5 h-5" /> },
+              { heure: '18 h – 19 h', titre: 'Tombola & challenge', desc: 'Tirage public, remise des lots, résultat du challenge', icon: <IconTicket className="w-5 h-5" /> },
               { heure: '20 h', titre: 'Concert solidaire', desc: 'DuoDangar et Evie', icon: <IconMusique className="w-5 h-5" /> },
             ].map((tf) => (
               <div key={tf.titre} className="bg-beige-light border border-beige-dark rounded-xl p-5 text-center hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
@@ -250,7 +236,7 @@ export default function Evenement() {
                 heure="18 h"
                 fin="jusqu'à 19 h"
                 titre="Le grand rendez-vous"
-                desc="Tirage public de la tombola et remise des lots, puis pesée finale du challenge de collecte informatique."
+                desc={`Tirage public de la tombola et remise des lots, puis annonce du résultat du challenge de collecte informatique : ${DEFI.collecteKg} kg.`}
               />
 
               <MomentCle
@@ -259,14 +245,6 @@ export default function Evenement() {
                 desc="DuoDangar et Evie, en clôture de la journée. Entrée à prix libre."
                 dernier
               >
-                <a
-                  href="https://www.helloasso.com/associations/ressources-association/evenements/concert-solidaire-de-lancement-de-la-recyclerie-ressources"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-ocre rounded-lg inline-block mt-4 text-sm"
-                >
-                  Réserver ma place pour le concert
-                </a>
               </MomentCle>
 
               {/* Sur desktop, la meme information vit sous l'affiche a gauche :
@@ -293,34 +271,34 @@ export default function Evenement() {
             <div className={`transition-all duration-700 ${tombola.visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
               <p className="section-label">Tombola solidaire</p>
               <h2 className="font-serif text-3xl md:text-4xl text-white mb-4">
-                Soutenez le projet,<br />tentez votre chance
+                Merci aux participants<br />de la tombola
               </h2>
               <div className="decorative-line" />
               <p className="text-white/60 leading-relaxed mb-6">
-                La tombola est notre principal levier de financement pour cette
+                La tombola a été notre principal levier de financement pour cette
                 première année. Elle nous permettra d'acquérir les équipements
                 nécessaires au reconditionnement et de pérenniser la filière.
               </p>
               <div className="bg-white/5 border border-ocre/25 p-6 mb-6 rounded-xl">
-                <p className="font-sans text-xs text-ocre font-semibold tracking-wider uppercase mb-2">Objectif</p>
+                <p className="font-sans text-xs text-ocre font-semibold tracking-wider uppercase mb-2">Tirage effectué</p>
                 <p className="font-serif text-4xl text-ocre mb-1">+ de 30 lots</p>
                 <p className="text-sm text-white/50">
-                  à gagner lors du tirage au sort public, le samedi 3 octobre 2026
+                  mis en jeu lors du tirage au sort public, le samedi 3 octobre 2026
                   à Vielle-Saint-Girons
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Link to="/soutenir/tombola/" className="btn-ocre rounded-lg">En savoir plus sur la tombola</Link>
+                <Link to="/soutenir/tombola/" className="btn-ocre rounded-lg">Revoir les lots de la tombola</Link>
                 <Link to="/soutenir/don/" className="btn-outline-white rounded-lg">Faire un don</Link>
               </div>
             </div>
             <div className={`space-y-4 transition-all duration-700 delay-200 ${tombola.visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
-              <h3 className="font-serif text-xl text-white">Comment participer ?</h3>
+              <h3 className="font-serif text-xl text-white">Comment ça s'est passé</h3>
               {[
-                { step: '1', text: `Achetez vos billets de tombola — ${PRIX_BILLET} € le billet` },
-                { step: '2', text: 'Tirage au sort public le samedi 3 octobre 2026 à Vielle-Saint-Girons — pas besoin d\'être présent pour gagner' },
-                { step: '3', text: 'Tentez de gagner l\'un des lots offerts par nos partenaires' },
-                { step: '4', text: 'Votre participation finance directement l\'association' },
+                { step: '1', text: 'Les billets de tombola étaient en vente en ligne et chez nos commerçants partenaires' },
+                { step: '2', text: 'Le tirage au sort public a eu lieu le samedi 3 octobre 2026 à Vielle-Saint-Girons' },
+                { step: '3', text: "Les gagnants ont été contactés et ont reçu l'un des lots offerts par nos partenaires" },
+                { step: '4', text: 'Chaque billet a financé directement l\'association' },
               ].map(({ step, text }) => (
                 <div key={step} className="flex gap-4 group">
                   <span className="w-7 h-7 rounded-full bg-ocre text-white text-xs font-bold flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-200">
@@ -356,18 +334,10 @@ export default function Evenement() {
               </h2>
               <div className="decorative-line" />
               <p className="text-terre/60 leading-relaxed mb-6">
-                La journée se termine en musique, à 20 h, avec un mini concert de
-                DuoDangar et Evie. Réservez votre place dès maintenant sur HelloAsso
-                pour soutenir le lancement de la recyclerie.
+                La journée s'est terminée en musique, à 20 h, avec un mini concert de
+                DuoDangar et Evie, pour soutenir le lancement de la recyclerie.
+                Merci aux artistes et au public.
               </p>
-              <a
-                href="https://www.helloasso.com/associations/ressources-association/evenements/concert-solidaire-de-lancement-de-la-recyclerie-ressources"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-ocre rounded-lg inline-block"
-              >
-                Réserver ma place pour le concert
-              </a>
             </div>
           </div>
         </div>
@@ -381,14 +351,18 @@ export default function Evenement() {
           <div className={`transition-all duration-700 ${challenge.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <p className="section-label text-ocre">Challenge collecte</p>
             <h2 className="font-serif text-3xl md:text-5xl text-white mb-6">
-              1/2 tonne de matériel informatique
+              {DEFI.collecteKg} kg de matériel informatique
             </h2>
             <div className="w-12 h-0.5 bg-ocre mx-auto mb-8" />
             <p className="text-white/65 max-w-xl mx-auto leading-relaxed mb-10">
-              Dès le 1<sup>er</sup> septembre, déposez vos équipements informatiques hors
-              d'usage ou dont vous n'avez plus besoin dans l'un des points de collecte du
-              territoire. Tout est pesé au fil des semaines, jusqu'à la pesée finale du
-              03 octobre. Ordinateurs, écrans, câbles, smartphones, tablettes… tout est bon.
+              L'objectif était d'une demi-tonne : il a été dépassé {DEFI.multiple} fois.
+              Du 1<sup>er</sup> septembre au 3 octobre, habitants, entreprises et
+              collectivités ont déposé leurs équipements informatiques dans les points
+              de collecte du territoire. Tout a été pesé au fil des semaines, jusqu'au
+              résultat annoncé le 3 octobre. Merci à toutes et à tous.
+            </p>
+            <p className="font-sans text-xs text-ocre font-semibold tracking-wider uppercase mb-4">
+              Ce que nous collectons toujours
             </p>
             <div className="grid sm:grid-cols-3 gap-6 mb-10 text-left max-w-2xl mx-auto">
               {[
@@ -408,13 +382,13 @@ export default function Evenement() {
             </div>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/defi-collecte/" className="btn-ocre rounded-lg">
-                Tout savoir sur le challenge collecte
+                Le bilan du challenge collecte
               </Link>
               <Link
                 to="/recyclerie-informatique/comment-donner/"
                 className="border border-white/25 text-white/75 px-6 py-3 text-sm font-medium rounded-lg hover:border-white/50 hover:text-white transition-all duration-200"
               >
-                Je prépare ma donation
+                Je prépare un don de matériel
               </Link>
             </div>
           </div>
@@ -425,11 +399,11 @@ export default function Evenement() {
       <section className="py-16 md:py-20 bg-beige-light" ref={inscription.ref}>
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
           <div className={`text-center mb-10 transition-all duration-700 ${inscription.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <p className="section-label">Inscription</p>
-            <h2 className="font-serif text-3xl text-terre mb-3">Restez informé·e</h2>
+            <p className="section-label">Contact</p>
+            <h2 className="font-serif text-3xl text-terre mb-3">Restons en contact</h2>
             <p className="text-terre/55 text-sm leading-relaxed">
-              Laissez-nous vos coordonnées pour recevoir le programme complet
-              et les informations pratiques de l'événement.
+              Laissez-nous vos coordonnées pour recevoir les prochaines nouvelles
+              de la recyclerie et ses rendez-vous.
             </p>
           </div>
           <div className={`transition-all duration-700 delay-200 ${inscription.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>

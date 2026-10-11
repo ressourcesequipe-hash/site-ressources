@@ -8,7 +8,7 @@ const NAV = [
     children: [
       { to: '/materiel-disponible/', label: 'Matériel disponible' },
       { to: '/recyclerie-informatique/comment-donner/', label: 'Comment donner ?' },
-      { to: '/defi-collecte/', label: 'Challenge territorial' },
+      { to: '/defi-collecte/', label: 'Bilan du challenge' },
       { to: '/recyclerie-informatique/materiel-accepte/', label: 'Matériel accepté' },
       { to: '/recyclerie-informatique/reconditionnement/', label: 'Reconditionnement' },
       { to: '/recyclerie-informatique/effacement-donnees/', label: 'Effacement des données' },

@@ -1,40 +1,18 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import NewsletterForm from '../components/NewsletterForm'
 import PointCollecteForm from '../components/PointCollecteForm'
-import EncartTombola from '../components/EncartTombola'
-import CartePoints from '../components/CartePoints'
-import { EPINGLE_TRACE, lienCarte } from '../data/carte'
 import {
   ACCEPTE,
   ACCEPTE_TEXTE,
   CONSIGNES,
   DEFI,
   ETAPES,
-  KIT_COMMUNICATION,
-  POINTS_EN_COURS,
   POINTS_OUVERTS,
-  horairesTexte,
 } from '../data/defiCollecte'
 
-const BREADCRUMBS = [{ label: 'Challenge collecte — 1/2 tonne' }]
-
-// Épingle nue, sans libellé, à la fois dans la liste et sur la carte : les
-// points de collecte se valent, et un numéro laisserait entendre un classement
-// entre eux. Le tracé est celui des marqueurs de la carte, pour que la liste
-// et la carte montrent exactement le même objet.
-function Epingle({ className = '' }) {
-  return (
-    <svg viewBox="0 0 24 32" className={className} fill="currentColor" aria-hidden focusable="false">
-      <path d={EPINGLE_TRACE} />
-      {/* beige-light : la couleur du fond de la carte qui porte l'épingle,
-          pour que l'œil soit un trou et non une pastille claire posée dessus. */}
-      <circle cx="12" cy="11" r="3.8" fill="#F7F3ED" />
-    </svg>
-  )
-}
+const BREADCRUMBS = [{ label: 'Challenge collecte — bilan' }]
 
 // Défilement doux vers une ancre de la page. On ne bloque volontairement pas
 // le comportement natif du lien : si scrollIntoView échoue, le saut d'ancre du
@@ -50,29 +28,26 @@ const faqSchema = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Quand a lieu le challenge collecte d\'une demi-tonne ?',
+      name: 'Quel est le résultat du challenge collecte d\'une demi-tonne ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: `Du ${DEFI.debut} au ${DEFI.fin}. Les dépôts sont possibles pendant toute cette période dans les points de collecte partenaires, et la pesée finale a lieu le 3 octobre 2026 à Vielle-Saint-Girons.`,
+        text: `${DEFI.collecteKg} kg de matériel informatique et électronique ont été collectés du ${DEFI.debut} au ${DEFI.fin}, soit ${DEFI.multiple} fois l'objectif de ${DEFI.objectifKg} kg. Le résultat a été annoncé le 3 octobre 2026 à Vielle-Saint-Girons.`,
       },
     },
     {
       '@type': 'Question',
-      name: 'Où déposer mon matériel informatique et électronique pendant le challenge ?',
+      name: 'Que devient le matériel collecté pendant le challenge ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: `Dans l'un des points de collecte du territoire — mairies et structures partenaires — à leurs heures d'ouverture : ${POINTS_OUVERTS.map(
-          ({ nom, adresse, ville, horaires }) =>
-            `${nom} (${adresse}, ${ville}) — ${horairesTexte(horaires)}`,
-        ).join(' ; ')}.`,
+        text: 'Il est trié, ses données sont effacées de façon sécurisée, puis il est diagnostiqué et reconditionné par les bénévoles de l\'association. Il repart ensuite vers des habitants, des associations et des structures d\'accompagnement du territoire.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Quel matériel informatique et électronique puis-je déposer ?',
+      name: 'Peut-on encore donner du matériel informatique et électronique ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: `${ACCEPTE_TEXTE}. Le matériel n'a pas besoin d'être fonctionnel : l'association assure le tri et le diagnostic afin d'identifier ce qui peut être réemployé, reconditionné ou orienté vers la filière adaptée.`,
+        text: `Oui, l'association continue de collecter, sur demande ou lors d'un enlèvement. Le matériel accepté : ${ACCEPTE_TEXTE}. Il n'a pas besoin d'être fonctionnel : l'association assure le tri et le diagnostic afin d'identifier ce qui peut être réemployé, reconditionné ou orienté vers la filière adaptée.`,
       },
     },
     {
@@ -95,15 +70,11 @@ const faqSchema = {
 }
 
 export default function DefiCollecte() {
-  // Point de collecte à mettre en avant sur la carte, choisi depuis la liste.
-  // Le jeton rend l'objet distinct à chaque clic, y compris sur la même ligne.
-  const [pointActif, setPointActif] = useState(null)
-
   return (
     <Layout breadcrumbs={BREADCRUMBS} newsletter={false}>
       <SEO
-        title="Challenge collecte — 500 kg de matériel informatique et électronique · Landes"
-        description="Du 1er septembre au 3 octobre 2026, l'association Ressources relève le challenge de collecter 500 kg de matériel informatique et électronique dormant sur le territoire landais. Points de collecte en mairie et chez les structures partenaires, pesée finale le 3 octobre à Vielle-Saint-Girons."
+        title="Bilan du challenge collecte — plus de 2 tonnes de matériel informatique collectées · Landes"
+        description={`Du 1er septembre au 3 octobre 2026, le territoire landais a collecté ${DEFI.collecteKg} kg de matériel informatique et électronique, soit ${DEFI.multiple} fois l'objectif d'une demi-tonne du challenge de l'association Ressources. Merci aux communes, structures partenaires et habitants.`}
         canonical="/defi-collecte/"
         schema={faqSchema}
       />
@@ -134,10 +105,10 @@ export default function DefiCollecte() {
           {/* Entete */}
           <div className="lg:col-start-1 lg:row-start-1">
             <p className="font-sans text-ocre text-xs font-semibold tracking-[0.2em] uppercase mb-3">
-              Du {DEFI.debut} au {DEFI.fin}
+              Challenge terminé · du {DEFI.debut} au {DEFI.fin}
             </p>
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white mb-0 lg:mb-4 leading-tight">
-              Le challenge de la demi-tonne
+              Le challenge de la demi-tonne : objectif dépassé
             </h1>
           </div>
 
@@ -157,30 +128,25 @@ export default function DefiCollecte() {
           {/* Corps */}
           <div className="lg:col-start-1 lg:row-start-2">
           <p className="text-white/65 max-w-xl leading-relaxed mb-8">
-            Réunir {DEFI.objectifKg} kilos de matériel informatique et électronique
-            dormant sur le territoire landais, en cinq semaines. Chaque ordinateur
-            oublié dans un placard compte.
+            Il fallait réunir {DEFI.objectifKg} kilos de matériel informatique et
+            électronique dormant sur le territoire landais. Habitants, entreprises
+            et collectivités en ont apporté {DEFI.multiple} fois plus. Merci à toutes
+            et à tous.
           </p>
 
-          {/* Compteur */}
+          {/* Résultat */}
           <div className="inline-flex items-baseline gap-3 border-t-2 border-ocre pt-4">
             <span className="font-serif text-4xl md:text-5xl text-ocre leading-none">
-              {DEFI.collecteKg !== null ? `${DEFI.collecteKg} kg` : 'À venir'}
+              {DEFI.collecteKg} kg
             </span>
-            <span className="font-sans text-sm text-white/45">
-              {DEFI.collecteKg !== null
-                ? `collectés sur ${DEFI.objectifKg} kg`
-                : `premières pesées à partir du ${DEFI.debut}`}
+            <span className="font-sans text-sm text-white/55">
+              collectés pour un objectif de {DEFI.objectifKg} kg
             </span>
           </div>
 
-          {/* Deux publics, deux boutons. Le hero n'offrait que « Devenir point
-              de collecte », qui s'adresse aux communes et aux entreprises : le
-              visiteur venu déposer son matériel n'avait aucun bouton pour lui,
-              et devait deviner qu'il fallait faire défiler. */}
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#ou-deposer" onClick={versAncre('ou-deposer')} className="btn-ocre text-sm">
-              Où déposer mon matériel
+            <a href="#merci" onClick={versAncre('merci')} className="btn-ocre text-sm">
+              Ils ont rendu ce résultat possible
             </a>
             <a
               href="#devenir-point-collecte"
@@ -203,154 +169,38 @@ export default function DefiCollecte() {
             les deux rangées, et son défilement collant s'arrêterait au bas de
             la première. En dessous de lg, tout retombe dans l'ordre du DOM et
             l'encart s'intercale au milieu du fil. */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:grid lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
-          <div className="lg:col-start-1 lg:row-start-1">
+          <div>
 
           {/* Points de collecte — en tête de section : « où déposer ? » est la
               première question de qui arrive ici, et elle arrivait après quatre
               écrans de défilement sur mobile. L'ancre permet d'y renvoyer
               directement depuis le hero, le menu et la page d'accueil. */}
-          <div id="ou-deposer" className="mb-12 scroll-mt-28 md:scroll-mt-32">
-            {/* Le decompte a quitte cette ligne : il est le titre de l'encadre
-                juste en dessous, et l'ecrire deux fois a 120 px d'intervalle
-                ne servait personne. */}
-            <h2 className="font-serif text-2xl text-terre mb-2">Où déposer</h2>
+          <div id="merci" className="mb-12 scroll-mt-28 md:scroll-mt-32">
+            <h2 className="font-serif text-2xl text-terre mb-2">Merci aux points de collecte</h2>
             <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
               Les communes et les structures partenaires du territoire se sont
-              portées volontaires pour accueillir un point de collecte. Vous pouvez
-              y déposer votre matériel librement, aux horaires indiqués ci-dessous.
-              La liste est mise à jour au fur et à mesure des confirmations.
+              portées volontaires pour accueillir un point de collecte. C'est grâce
+              à elles, et à tous ceux qui y ont déposé leur matériel, que nous
+              avons collecté {DEFI.collecteKg} kg.
             </p>
 
-            {/* Même agencement que les points de vente de la tombola : un bloc
-                encadré, la liste à gauche et la carte à droite. Les épingles ne
-                portant volontairement aucun numéro, c'est le clic sur une ligne
-                — et la bulle qu'il ouvre — qui relie la liste à la carte. */}
-            <div className="border border-beige-dark bg-white p-6 mb-6">
-              {/* Le decompte est le titre du bloc, et non plus une etiquette
-                  au-dessus d'un titre. « En mairie et chez nos partenaires »
-                  disait ce que la liste montre deja, et « Depot libre » ce que
-                  le paragraphe au-dessus explique : ne reste que le chiffre,
-                  qui lui n'est ecrit nulle part ailleurs dans l'encadre. */}
+            {/* Liste de noms, sans horaires ni carte : les dépôts du challenge
+                sont clos. Ordre de la donnée, sans numérotation. */}
+            <div className="border border-beige-dark bg-white p-6">
               <h3 className="font-sans text-base font-bold tracking-[0.15em] uppercase text-ocre mb-5">
-                {POINTS_OUVERTS.length} point{POINTS_OUVERTS.length > 1 ? 's' : ''} de collecte
+                {POINTS_OUVERTS.length} points de collecte
               </h3>
-
-              <div className="grid lg:grid-cols-[1fr_1.05fr] gap-6 lg:gap-8">
-                <ul className="space-y-4">
-                  {POINTS_OUVERTS.map((point, i) => {
-                    const { nom, ville, adresse, horaires, note } = point
-                    return (
-                      <li key={`${nom}-${ville}`} className="flex items-start gap-3">
-                        <button
-                          type="button"
-                          onClick={() => setPointActif({ index: i, jeton: Date.now() })}
-                          aria-label={`Situer ${nom} sur la carte`}
-                          className="group flex items-start gap-3 flex-1 min-w-0 text-left"
-                        >
-                          <Epingle className="shrink-0 w-4 h-auto mt-0.5 text-ocre transition-colors group-hover:text-ocre-dark" />
-                          {/* Ni « Point communal » ni « Point partenaire » ici :
-                              neuf noms sur quinze sont ceux d'une commune, et
-                              le titre du bloc dit deja de quoi il retourne. Le
-                              champ `type` reste affiche sur « comment donner ». */}
-                          <span className="min-w-0 flex-1">
-                            <span className="block font-sans text-sm text-terre leading-snug transition-colors group-hover:text-ocre-dark">
-                              {nom}
-                            </span>
-                            <span className="block text-xs text-terre/50 mt-0.5">
-                              {adresse ? `${adresse} · ` : ''}
-                              {ville}
-                            </span>
-                            {/* Horaires empilés sous l'adresse plutôt qu'en deux
-                                colonnes : à moitié de largeur, une grille
-                                jours/créneaux repliait tous les créneaux. */}
-                            <span className="block mt-1.5 pt-1.5 border-t border-beige-dark">
-                              {horaires.map(({ jours, creneaux }) => (
-                                <span
-                                  key={jours}
-                                  className="block font-sans text-xs text-terre/50 leading-relaxed"
-                                >
-                                  <span className="font-medium text-terre/70">{jours}</span>{' '}
-                                  {creneaux.join(' et ')}
-                                </span>
-                              ))}
-                              {note && (
-                                <span className="block text-xs text-terre/40 leading-relaxed mt-1">
-                                  {note}
-                                </span>
-                              )}
-                            </span>
-                          </span>
-                        </button>
-                        <a
-                          href={lienCarte(point)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="shrink-0 text-xs text-ocre hover:underline font-sans whitespace-nowrap mt-0.5"
-                        >
-                          Y aller ↗
-                        </a>
-                      </li>
-                    )
-                  })}
-                </ul>
-
-                {/* Collante, contrairement à la tombola : quinze points portant
-                    leurs horaires font une liste bien plus haute que la carte,
-                    qui sortirait du champ dès le troisième point. */}
-                <div className="lg:sticky lg:top-32 lg:self-start">
-                  <CartePoints
-                    points={POINTS_OUVERTS}
-                    pointActif={pointActif}
-                    libelle="points de collecte"
-                    aspect="goutte"
-                  />
-                </div>
-              </div>
+              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+                {POINTS_OUVERTS.map(({ nom, ville }) => (
+                  <li key={`${nom}-${ville}`}>
+                    <span className="block font-sans text-sm text-terre leading-snug">{nom}</span>
+                    <span className="block text-xs text-terre/50 mt-0.5">{ville}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            {/* Points annoncés mais pas encore formalisés : ni adresse, ni
-                horaires, ni épingle — le dépôt s'y convient au cas par cas. */}
-            {POINTS_EN_COURS.length > 0 && (
-              <div className="border border-beige-dark bg-white p-5 mb-6">
-                <p className="font-sans text-[10px] font-bold tracking-widest uppercase text-terre/45 mb-3">
-                  Points en cours de formalisation
-                </p>
-                <ul className="space-y-2 mb-4">
-                  {POINTS_EN_COURS.map(({ nom, ville, mention }) => (
-                    <li
-                      key={`${nom}-${ville}`}
-                      className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm"
-                    >
-                      <span className="font-sans text-terre">{nom}</span>
-                      <span className="text-terre/50">· {ville}</span>
-                      <span className="font-sans text-[10px] font-medium text-kaki-light bg-kaki-pale border border-kaki/20 px-2 py-0.5 rounded-full">
-                        {mention}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-xs text-terre/50 leading-relaxed">
-                  Ces points n'accueillent pas encore de dépôt libre :{' '}
-                  <Link to="/contact/" className="text-ocre hover:underline">
-                    merci de nous contacter
-                  </Link>{' '}
-                  afin de convenir des modalités de remise du matériel.
-                </p>
-              </div>
-            )}
-
-            <p className="text-sm text-terre/50 italic">
-              D'autres points de collecte ouvriront pendant le challenge.{' '}
-              <a
-                href="#devenir-point-collecte"
-                onClick={versAncre('devenir-point-collecte')}
-                className="text-ocre not-italic hover:underline"
-              >
-                Vous souhaitez en accueillir un ?
-              </a>
-            </p>
           </div>
 
           {/* Pourquoi */}
@@ -387,7 +237,7 @@ export default function DefiCollecte() {
 
           {/* Comment ça marche */}
           <div className="mb-12">
-            <h2 className="font-serif text-2xl text-terre mb-6">Comment ça marche</h2>
+            <h2 className="font-serif text-2xl text-terre mb-6">Comment ça s'est passé</h2>
             <div className="grid sm:grid-cols-2 gap-6 mb-8">
               {ETAPES.map(({ num, titre, desc }) => (
                 <div key={num} className="border-t-2 border-ocre/30 pt-4">
@@ -408,15 +258,7 @@ export default function DefiCollecte() {
 
           </div>
 
-          {/* Colonne latérale — promotion de la tombola */}
-          {/* top-32 : l'en-tête collant fait 112 px, en dessous l'encart passait
-              dessous. row-span-2 : sans lui l'encart cesserait de suivre au bas
-              de la première rangée. */}
-          <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-32 lg:self-start mb-12 lg:mb-0">
-            <EncartTombola />
-          </div>
-
-          <div className="lg:col-start-1 lg:row-start-2">
+          <div>
 
           {/* Ce que nous acceptons */}
           <div className="bg-beige-light border border-beige-dark p-6 md:p-8 mb-12">
@@ -429,7 +271,13 @@ export default function DefiCollecte() {
                 className="w-full sm:w-36 h-auto rounded-lg border-4 border-white shadow-md mb-5 sm:mb-0 shrink-0"
               />
               <div className="flex-1 min-w-0">
-                <h2 className="font-serif text-xl text-terre mb-4">Ce que vous pouvez déposer</h2>
+                <h2 className="font-serif text-xl text-terre mb-2">Le matériel que nous collectons</h2>
+                <p className="text-sm text-terre/60 leading-relaxed mb-4">
+                  Le challenge est terminé, mais l'association continue de collecter.{' '}
+                  <Link to="/recyclerie-informatique/comment-donner/" className="text-ocre hover:underline">
+                    Comment donner
+                  </Link>
+                </p>
                 <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
                   {ACCEPTE.map((item) => (
                     <li key={item} className="flex items-start gap-2 text-sm text-terre/65">
@@ -466,13 +314,13 @@ export default function DefiCollecte() {
           {/* Accueillir un point de collecte */}
           <div id="devenir-point-collecte" className="border border-beige-dark bg-beige-light p-6 md:p-8 mb-12 scroll-mt-28 md:scroll-mt-32">
             <p className="font-sans text-[10px] font-bold tracking-[0.2em] uppercase text-ocre mb-3">
-              Entreprises, commerces & communes
+              Pour la suite
             </p>
             <h2 className="font-serif text-2xl text-terre mb-3">
               Devenez point de collecte
             </h2>
             <p className="text-sm text-terre/65 leading-relaxed mb-7 max-w-2xl">
-              Vous disposez d'un espace accessible dans vos locaux ? Nous fournissons
+              Le challenge a montré ce que le territoire peut faire. Vous disposez d'un espace accessible dans vos locaux ? Nous fournissons
               le contenant et la signalétique, et nous assurons la collecte du
               matériel. C'est un geste concret pour le territoire, et l'occasion
               d'associer vos équipes et vos clients à une démarche solidaire.
@@ -489,29 +337,14 @@ export default function DefiCollecte() {
               </a>
             </p>
 
-            {/* Kit de communication : à l'usage des communes, des entreprises et
-                des partenaires qui relaient le challenge — ils n'ont ainsi rien à
-                réécrire, et les textes diffusés restent alignés sur la page. */}
-            <p className="text-xs text-terre/45 mt-3">
-              Vous relayez le challenge ?{' '}
-              <a
-                href={KIT_COMMUNICATION}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-ocre hover:underline"
-              >
-                Télécharger le kit de communication ↗
-              </a>
-              {' '}— affiches, visuels pour les réseaux sociaux et textes prêts à publier.
-            </p>
           </div>
 
           {/* Newsletter */}
           <div className="border-y border-beige-dark py-8 mb-12">
-            <h2 className="font-serif text-xl text-terre mb-2">Suivre la progression</h2>
+            <h2 className="font-serif text-xl text-terre mb-2">Suivre l'association</h2>
             <p className="text-sm text-terre/60 leading-relaxed mb-5 max-w-xl">
-              Recevez les pesées, l'ouverture de nouveaux points de collecte et les
-              informations sur la journée du 3 octobre.
+              Recevez les nouvelles de la recyclerie, les prochaines collectes et nos
+              rendez-vous.
             </p>
             <div className="max-w-md">
               <NewsletterForm />
@@ -520,7 +353,7 @@ export default function DefiCollecte() {
 
           <div className="flex flex-wrap gap-4">
             <Link to="/evenement-lancement-03-octobre-2026/" className="btn-ocre">
-              La journée du 03 octobre
+              Retour sur la journée du 03 octobre
             </Link>
             <Link to="/recyclerie-informatique/materiel-accepte/" className="btn-outline-ocre">
               Matériel accepté en détail

@@ -49,4 +49,4 @@ export function afficher({ valeur, valeurAffichee, suffixe }) {
 // pas encore lancee, ces objectifs pourraient sinon se lire comme un bilan.
 export const MENTION_PHASE_PILOTE =
   "Ces chiffres sont des objectifs de la phase pilote, et non des résultats acquis : " +
-  "l'association se lance publiquement le 03 octobre 2026."
+  "l'association s'est lancée publiquement le 03 octobre 2026."

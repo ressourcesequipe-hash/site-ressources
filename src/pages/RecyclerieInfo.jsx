@@ -91,13 +91,13 @@ export default function RecyclerieInfo() {
             </div>
             <div>
               <p className="font-sans text-sm font-semibold text-terre">
-                Événement de lancement — 03 octobre 2026
+                Retour sur le lancement — 03 octobre 2026
               </p>
-              <p className="text-xs text-terre/55">Challenge collecte 1/2 tonne · Tombola solidaire</p>
+              <p className="text-xs text-terre/55">Challenge collecte : objectif dépassé · Tombola solidaire : tirage effectué</p>
             </div>
           </div>
           <Link to="/evenement-lancement-03-octobre-2026/" className="btn-ocre text-sm shrink-0">
-            Participer
+            Revivre la journée
           </Link>
         </div>
       </section>

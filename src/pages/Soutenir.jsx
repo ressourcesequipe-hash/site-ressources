@@ -8,9 +8,9 @@ const OPTIONS = [
     to: '/soutenir/tombola/',
     Icon: IconTombola,
     title: 'Tombola solidaire',
-    subtitle: 'Plus de 30 lots à gagner',
-    desc: 'Participez à notre grande tombola du 03 octobre 2026. Plus de 30 lots à gagner, soutenez directement la recyclerie.',
-    cta: 'Participer à la tombola',
+    subtitle: 'Tirage effectué le 03 octobre',
+    desc: 'Merci aux participants de la tombola du 03 octobre 2026 : plus de 30 lots offerts par les partenaires du territoire, au profit de la recyclerie.',
+    cta: 'Revoir la tombola',
     accent: 'ocre',
   },
   {
@@ -99,27 +99,27 @@ export default function Soutenir() {
       <section className="py-14 bg-ocre-pale border-y border-ocre/20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center gap-8 md:gap-12">
           <div className="flex-1">
-            <p className="section-label">Priorité</p>
+            <p className="section-label">Merci</p>
             <h2 className="font-serif text-2xl md:text-3xl text-terre mb-3">
-              Tombola solidaire — 03 octobre 2026
+              Tombola solidaire — tirage effectué
             </h2>
             <p className="text-terre/60 text-sm leading-relaxed mb-4">
-              Participez à une grande tombola solidaire et soutenez le lancement de la
-              recyclerie informatique et végétale Ressources. Plus de 30 lots offerts
-              par les commerçants et artisans du territoire.
+              La tombola solidaire s'est tenue le 03 octobre 2026 pour soutenir le
+              lancement de la recyclerie informatique et végétale Ressources. Merci aux
+              participants et aux commerçants et artisans qui ont offert plus de 30 lots.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link to="/soutenir/tombola/" className="btn-ocre text-sm">
-                Tout savoir sur la tombola
+                Revoir la tombola
               </Link>
               <Link to="/evenement-lancement-03-octobre-2026/" className="btn-outline-ocre text-sm">
-                L'événement du 03 octobre
+                Retour sur la journée du 03 octobre
               </Link>
             </div>
           </div>
           <div className="text-center">
             <p className="font-serif text-5xl md:text-6xl text-ocre leading-none">+ de 30 lots</p>
-            <p className="font-sans text-xs text-terre/50 tracking-wider uppercase mt-1">à gagner</p>
+            <p className="font-sans text-xs text-terre/50 tracking-wider uppercase mt-1">offerts</p>
           </div>
         </div>
       </section>
@@ -146,8 +146,8 @@ export default function Soutenir() {
                 a: 'Oui. Les entreprises mécènes bénéficient d\'une réduction d\'impôt de 60 % du don, dans la limite de 20 000 € ou 5 ‰ du CA HT — le montant le plus élevé étant retenu (CGI art. 238 bis). Plusieurs formules sont disponibles : don matériel, sponsoring, partenariat annuel.',
               },
               {
-                q: 'Puis-je participer à la tombola sans venir à l\'événement ?',
-                a: 'Oui, des billets de tombola peuvent être achetés en ligne ou auprès de nos partenaires locaux. Le tirage se fait lors de l\'événement du 03 octobre 2026 à Vielle-Saint-Girons.',
+                q: 'La tombola est-elle encore ouverte ?',
+                a: 'Non. Le tirage a eu lieu lors de l\'événement du 03 octobre 2026 à Vielle-Saint-Girons. Vous pouvez toujours soutenir la recyclerie par un don.',
               },
             ].map(({ q, a }) => (
               <details key={q} className="border border-beige group">

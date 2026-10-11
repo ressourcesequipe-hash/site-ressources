@@ -321,10 +321,10 @@ export default function ArticlePage() {
             </p>
             <div className="flex flex-wrap gap-3">
               <Link to="/soutenir/tombola/" className="text-sm text-kaki hover:text-ocre transition-colors font-medium">
-                → Tombola solidaire — 03 octobre 2026
+                → Tombola solidaire — tirage du 03 octobre 2026
               </Link>
               <Link to="/evenement-lancement-03-octobre-2026/" className="text-sm text-kaki hover:text-ocre transition-colors font-medium">
-                → Événement de lancement
+                → Retour sur l'événement de lancement
               </Link>
               <Link to="/recyclerie-informatique/comment-donner/" className="text-sm text-kaki hover:text-ocre transition-colors font-medium">
                 → Comment donner du matériel informatique

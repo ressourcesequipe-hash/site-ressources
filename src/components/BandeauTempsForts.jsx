@@ -20,103 +20,85 @@ const DUREE_AUTO = 8000
 
 const SLIDES = [
   {
-    cle: 'tombola',
-    surtitre: 'Grande tombola solidaire',
-    titre: `Plus de ${VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots à gagner`,
+    cle: 'challenge',
+    surtitre: 'Challenge territorial : objectif dépassé',
+    titre: `${DEFI.collecteKg} kg de matériel collectés`,
     texte:
-      'Villa sur la côte landaise · ordinateur gaming · vélo · vol en montgolfière · ' +
-      'séjours · restaurants · activités, et de nombreux autres lots offerts par nos partenaires.',
+      `L'objectif était d'une demi-tonne. Habitants, entreprises et collectivités du territoire ` +
+      `en ont réuni ${DEFI.multiple} fois plus en cinq semaines. Merci à tous les points de collecte.`,
     repere: (
       <>
-        <span className="text-ocre font-bold text-base">{PRIX_BILLET} €</span> le billet
+        <span className="text-ocre font-bold text-base">Du {DEFI.debut}</span> au {DEFI.fin}
         <span className="text-white/25 mx-2">·</span>
-        Tirage au sort le 3 octobre 2026 à Vielle-Saint-Girons
+        Objectif : {DEFI.objectifKg} kg
       </>
     ),
     actions: [
-      { to: '/soutenir/tombola/', label: `Je tente ma chance — ${PRIX_BILLET} €`, style: 'principal' },
-      { to: '/soutenir/tombola/#lots', label: 'Découvrir tous les lots', style: 'secondaire' },
-      { to: '/evenement-lancement-03-octobre-2026/', label: "L'événement du 3 octobre", style: 'discret' },
+      { to: '/defi-collecte/', label: 'Le bilan du challenge', style: 'principal' },
+      { to: '/defi-collecte/#merci', label: 'Les points de collecte', style: 'secondaire' },
+      { to: '/recyclerie-informatique/comment-donner/', label: 'Donner du matériel', style: 'discret' },
+    ],
+    vignette: {
+      src: '/photos/challenge-vignette.webp',
+      lien: '/defi-collecte/',
+      alt:
+        `Challenge territorial : ${DEFI.collecteKg} kg de matériel informatique et électronique ` +
+        `collectés pour un objectif d'une demi-tonne — voir le bilan`,
+    },
+  },
+  {
+    cle: 'tombola',
+    surtitre: 'Tombola solidaire',
+    titre: 'Merci à tous les participants',
+    texte:
+      `Le tirage au sort a eu lieu le 3 octobre 2026 à Vielle-Saint-Girons. Plus de ` +
+      `${VALEUR_ARRONDIE.toLocaleString('fr-FR')} € de lots, offerts par les commerçants, artisans et ` +
+      'producteurs du territoire, ont soutenu le lancement de la recyclerie.',
+    repere: (
+      <>
+        <span className="text-ocre font-bold text-base">Tirage effectué</span>
+        <span className="text-white/25 mx-2">·</span>
+        Vielle-Saint-Girons, 3 octobre 2026
+      </>
+    ),
+    actions: [
+      { to: '/soutenir/tombola/', label: 'Revoir les lots', style: 'principal' },
+      { to: '/soutenir/don/', label: 'Soutenir la recyclerie', style: 'secondaire' },
     ],
     vignette: {
       src: '/photos/tombola-vignette.webp',
       lien: '/soutenir/tombola/',
       alt:
         `Tombola solidaire du 3 octobre 2026 : plus de ${VALEUR_ARRONDIE.toLocaleString('fr-FR')} € ` +
-        `de lots à gagner, ticket à ${PRIX_BILLET} € — voir tous les lots`,
-    },
-  },
-  {
-    cle: 'challenge',
-    surtitre: 'Challenge territorial',
-    titre: 'Une demi-tonne de matériel à collecter',
-    texte:
-      `Réunir ${DEFI.objectifKg} kilos de matériel informatique dormant sur le territoire ` +
-      'landais, en cinq semaines. Chaque ordinateur oublié dans un placard compte.',
-    repere: (
-      <>
-        <span className="text-ocre font-bold text-base">Du {DEFI.debut}</span> au {DEFI.fin}
-        <span className="text-white/25 mx-2">·</span>
-        {DEFI.collecteKg !== null
-          ? `${DEFI.collecteKg} kg collectés sur ${DEFI.objectifKg} kg`
-          : `Premières pesées à partir du ${DEFI.debut}`}
-      </>
-    ),
-    // Trois actions comme la diapositive tombola, dans l'ordre du nombre de
-    // gens concernes : celui qui a du materiel a deposer, celui qui veut
-    // comprendre le challenge, puis la structure qui peut heberger un point.
-    // « Participer au challenge » etait en tete alors qu'il ne dit pas ou
-    // aller — c'est « ou deposer » que les visiteurs cherchent, et le lien
-    // les mene desormais droit a la liste des points.
-    actions: [
-      { to: '/defi-collecte/#ou-deposer', label: 'Où déposer mon matériel', style: 'principal' },
-      { to: '/defi-collecte/', label: 'Découvrir le challenge', style: 'secondaire' },
-      { to: '/defi-collecte/#devenir-point-collecte', label: 'Devenir point de collecte', style: 'discret' },
-    ],
-    // L'alt reprend le texte de l'affiche : c'est une image de texte, et elle
-    // est l'unique contenu de son lien. Si le fichier venait a manquer,
-    // `echecs` plus bas repasse la diapositive en pleine largeur.
-    vignette: {
-      src: '/photos/challenge-vignette.webp',
-      lien: '/defi-collecte/',
-      alt:
-        'Challenge territorial : objectif une demi-tonne de matériel électronique ' +
-        `et informatique, du ${DEFI.debut} au ${DEFI.fin} — voir comment participer`,
+        'de lots, tirage effectué — revoir les lots',
     },
   },
   {
     cle: 'programme',
     surtitre: 'Journée du 3 octobre',
-    titre: 'Le programme complet de la journée',
+    titre: 'Retour sur la journée de lancement',
     texte:
       'Village associatif, ateliers de sensibilisation et de réparation, sauvetage ' +
-      'de plantes, tirage au sort de la tombola et remise des lots, puis concert ' +
-      'solidaire en clôture de journée. Buvette et food truck sur place.',
+      'de plantes, tirage au sort de la tombola et concert solidaire : merci aux ' +
+      'bénévoles, aux partenaires et à tous ceux qui sont venus.',
     repere: (
       <>
-        <span className="text-ocre font-bold text-base">Samedi 3 octobre</span>, dès 10 h
+        <span className="text-ocre font-bold text-base">Samedi 3 octobre</span>
         <span className="text-white/25 mx-2">·</span>
         Vielle-Saint-Girons, salle Yvonne Meister
       </>
     ),
     actions: [
-      { to: '/evenement-lancement-03-octobre-2026/', label: 'Voir le programme complet', style: 'principal' },
-      {
-        to: 'https://www.helloasso.com/associations/ressources-association/evenements/concert-solidaire-de-lancement-de-la-recyclerie-ressources',
-        label: 'Réserver ma place pour le concert',
-        style: 'secondaire',
-      },
+      { to: '/evenement-lancement-03-octobre-2026/', label: 'Revivre la journée', style: 'principal' },
     ],
-    // Meme banniere qu'en tete de la page evenement : c'est elle qui porte le
-    // programme illustre, inutile d'en refaire une variante pour le carrousel.
     vignette: {
       src: '/photos/banniere3ocotobre.jpg',
       largeur: 1280,
       hauteur: 640,
       lien: '/evenement-lancement-03-octobre-2026/',
       alt:
-        'Programme de la journée du 3 octobre 2026 : village associatif, ateliers, ' +
-        'tirage au sort de la tombola et concert solidaire en clôture — voir le détail',
+        'Journée de lancement du 3 octobre 2026 : village associatif, ateliers, ' +
+        'tirage au sort de la tombola et concert solidaire — revoir la journée',
     },
   },
 ]
