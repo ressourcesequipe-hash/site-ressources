@@ -6,8 +6,9 @@ import NewsletterForm from '../components/NewsletterForm'
 import BandeauTempsForts from '../components/BandeauTempsForts'
 import { useReveal } from '../hooks/useReveal'
 import { PARTENAIRES_CONFIRMES, PAYS_ZONE_ACTION } from '../data/partenaires'
-import { DEFI, POINTS_OUVERTS } from '../data/defiCollecte'
+import { DEFI } from '../data/defiCollecte'
 import { AFFICHE, PHOTO_ELUS } from '../data/evenement'
+import { LOGOS_CHALLENGE } from '../data/logosChallenge'
 import { afficher, objectifs, MENTION_PHASE_PILOTE } from '../data/objectifs'
 
 /* ── Count-up hook ── */
@@ -699,20 +700,33 @@ export default function Home() {
             <p className="text-[10px] text-terre/35 tracking-[0.22em] uppercase font-sans mb-3 text-center">
               Points de collecte du challenge
             </p>
-            {/* Nuage de badges, pas une grille de cartes : quinze points de
-                collecte en cartes pleine taille auraient ecrase la section.
-                Ordre de la donnee, sans numerotation : les points de collecte
-                se valent, comme sur la page du challenge. */}
-            <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
-              {POINTS_OUVERTS.map(({ nom }) => (
-                <span
+            {/* Tuiles de logos : communes et points de collecte, toutes de
+                même taille et dans l'ordre de la donnée, sans classement. Le
+                nom reste dans l'attribut alt, et en texte quand il n'y a pas
+                de logo. */}
+            <ul className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+              {LOGOS_CHALLENGE.map(({ nom, fichier, sombre, legende }) => (
+                <li
                   key={nom}
-                  className="text-xs text-terre/50 font-sans bg-beige-light border border-beige-dark px-3 py-1.5 rounded-full"
+                  className={`flex flex-col items-center justify-center gap-1 w-36 sm:w-44 h-24 sm:h-28 px-3 rounded-xl border ${
+                    sombre ? 'bg-kaki border-kaki' : 'bg-white border-beige-dark'
+                  }`}
                 >
-                  {nom}
-                </span>
+                  {fichier ? (
+                    <img
+                      src={`/logos/inauguration/${fichier}.webp`}
+                      alt={nom}
+                      loading="lazy"
+                      decoding="async"
+                      className={`block max-w-full object-contain ${legende ? 'max-h-14' : 'max-h-16 sm:max-h-20'}`}
+                    />
+                  ) : (
+                    <span className="font-sans text-sm font-semibold text-terre/70 text-center leading-tight">{nom}</span>
+                  )}
+                  {legende && <span className="font-sans text-[11px] font-semibold text-terre/70 leading-none">{nom}</span>}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           <div className={`text-center transition-all duration-700 delay-300 ${territoire.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
