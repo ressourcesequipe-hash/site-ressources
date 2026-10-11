@@ -40,6 +40,14 @@ const REPERES = [
 // Revue de presse. article = notre récap interne ; source = le média d'origine.
 const RETOMBEES = [
   {
+    date: '5 octobre 2026',
+    media: 'ICI Gascogne (France Bleu)',
+    format: 'Émission « ICI Gascogne, ça marche » — Marie-Cécile Gardey',
+    titre: "Les Landais répondent en masse à l'appel de Ressources",
+    article: '/association/actualites/de-500-kg-a-2-tonnes-reemploi-informatique-landes/',
+    source: 'https://www.ici.fr/emissions/ici-gascogne-ca-marche-avec-marie-cecile-gardey/landes-2-13-tonnes-de-materiel-informatique-collecte-les-landais-repondent-en-masse-a-l-appel-de-ressources-4586948',
+  },
+  {
     date: '10 septembre 2026',
     media: 'TV Landes (landes-info.fr)',
     format: 'Plateau vidéo, sujet de Pierre Poinsignon',

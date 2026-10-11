@@ -5,6 +5,7 @@ import {
   COOPERATIONS_EN_COURS,
   MENTION_COOPERATIONS,
   PARTENAIRES_PAGE,
+  logoPartenaire,
 } from '../../data/partenaires'
 
 
@@ -73,7 +74,10 @@ export default function Partenaires() {
 
                 {/* Cartes */}
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {partenaires.map(({ nom, label, categorie, desc, lien, logo }) => (
+                  {partenaires.map((partenaire) => {
+                    const { nom, label, categorie, desc, lien } = partenaire
+                    const logo = logoPartenaire(partenaire)
+                    return (
                     <div
                       key={nom}
                       className={`group border-t-2 ${accent === 'ocre' ? 'border-ocre' : 'border-kaki/40'} border border-beige-dark bg-beige-light p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}
@@ -128,7 +132,8 @@ export default function Partenaires() {
                         </a>
                       )}
                     </div>
-                  ))}
+                    )
+                  })}
                 </div>
               </div>
             ))}
