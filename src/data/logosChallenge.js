@@ -15,7 +15,7 @@ export const LOGOS_CHALLENGE = [
   { nom: 'Lit-et-Mixe', fichier: 'lit-et-mixe' },
   { nom: 'Saint-Geours-de-Maremne', fichier: 'saint-geours-de-maremne', sombre: true },
   { nom: 'Seignosse', fichier: 'seignosse', sombre: true },
-  { nom: 'Vieux-Boucau' },
+  { nom: 'Vieux-Boucau', fichier: 'vieux-boucau', sombre: true },
   { nom: 'Saint-Vincent-de-Tyrosse', fichier: 'saint-vincent-de-tyrosse', sombre: true },
   { nom: 'Labenne', fichier: 'labenne', sombre: true },
   { nom: 'E.Leclerc Soustons', fichier: 'leclerc-soustons' },
