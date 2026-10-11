@@ -19,7 +19,36 @@
 
 import cms from './cms.json' with { type: 'json' }
 
-export const PARTENAIRES_CONFIRMES = cms.organisations.confirmes
+// Partenaires ajoutés côté site, à la suite de ceux de la base : tant qu'ils n'y
+// sont pas saisis, le build régénère cms.json sans eux. Dès qu'une structure
+// porte le même nom dans la base, c'est la fiche de la base qui prime.
+const PARTENAIRES_AJOUTES = [
+  {
+    nom: 'Landes Partage',
+    label: 'Partenaire du challenge',
+    categorie: 'Réseaux & partenaires opérationnels',
+    logo: '/logos/inauguration/landes-partage.webp',
+    logoAlt: 'Logo de Landes Partage.',
+    desc: 'Landes Partage est partenaire du challenge territorial de collecte de matériel informatique.',
+    lien: null,
+  },
+  {
+    nom: 'Imagine Linxe',
+    label: 'Partenaire du challenge',
+    categorie: 'Réseaux & partenaires opérationnels',
+    logo: '/logos/inauguration/imagine-linxe.webp',
+    logoAlt: 'Logo de Imagine Linxe.',
+    desc: 'Imagine Linxe est point de collecte et partenaire du challenge territorial de collecte de matériel informatique.',
+    lien: null,
+  },
+]
+
+export const PARTENAIRES_CONFIRMES = [
+  ...cms.organisations.confirmes,
+  ...PARTENAIRES_AJOUTES.filter(
+    ({ nom }) => !cms.organisations.confirmes.some((p) => p.nom === nom),
+  ),
+]
 
 // Logos retenus pour l'accueil et la page Territoire, retrouvés par le nom de
 // la structure. Ils priment sur le champ `logo` de la base : le Réseau
