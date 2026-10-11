@@ -6,13 +6,13 @@ import { LOGOS_CHALLENGE } from '../data/logosChallenge'
 export default function LogosChallenge() {
   return (
     <ul className="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto">
-      {LOGOS_CHALLENGE.flatMap(({ ligne, nom, fichier, sombre, legende }, i) => [
+      {LOGOS_CHALLENGE.flatMap(({ ligne, nom, fichier, sombre, legende, large }, i) => [
         i > 0 && ligne !== LOGOS_CHALLENGE[i - 1].ligne && (
           <li key={`saut-${ligne}`} aria-hidden="true" className="basis-full h-0 -my-1.5" />
         ),
         <li
           key={nom}
-          className={`flex flex-col items-center justify-center gap-1 w-36 sm:w-[9.5rem] h-24 sm:h-[6.5rem] px-3 rounded-xl border ${
+          className={`flex flex-col items-center justify-center gap-1 ${large ? 'w-44 sm:w-44' : 'w-36 sm:w-[9.5rem]'} h-24 sm:h-[6.5rem] px-3 rounded-xl border ${
             sombre ? 'bg-kaki border-kaki' : 'bg-white border-beige-dark'
           }`}
         >
