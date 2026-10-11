@@ -27,8 +27,8 @@ const OPTIONS = [
     Icon: IconEntreprise,
     title: 'Mécénat & partenariat',
     subtitle: 'Pour les entreprises et commerces locaux',
-    desc: 'Associez votre nom à un projet solidaire et ancré dans le territoire landais. Plusieurs formules de partenariat disponibles.',
-    cta: 'Devenir mécène ou sponsor',
+    desc: "Donnez à Ressources les moyens d'agir durablement : quatre niveaux d'engagement, ou un soutien en nature (lieu, véhicule, compétences).",
+    cta: 'Devenir mécène',
     accent: 'kaki',
   },
   {
@@ -143,7 +143,7 @@ export default function Soutenir() {
               },
               {
                 q: 'Mon entreprise peut-elle devenir mécène ?',
-                a: 'Oui. Les entreprises mécènes bénéficient d\'une réduction d\'impôt de 60 % du don, dans la limite de 20 000 € ou 5 ‰ du CA HT — le montant le plus élevé étant retenu (CGI art. 238 bis). Plusieurs formules sont disponibles : don matériel, sponsoring, partenariat annuel.',
+                a: 'Oui. Les entreprises mécènes bénéficient d\'une réduction d\'impôt de 60 % du don, dans la limite de 20 000 € ou 5 ‰ du CA HT — le montant le plus élevé étant retenu (CGI art. 238 bis). Quatre niveaux d\'engagement sont proposés, et un soutien en nature (lieu, véhicule, matériel, compétences) est aussi possible.',
               },
               {
                 q: 'La tombola est-elle encore ouverte ?',
