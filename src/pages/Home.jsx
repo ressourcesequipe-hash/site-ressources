@@ -698,7 +698,7 @@ export default function Home() {
             </div>
 
             <p className="text-[10px] text-terre/35 tracking-[0.22em] uppercase font-sans mb-3 text-center">
-              Points de collecte du challenge
+              Les partenaires du challenge
             </p>
             {/* Tuiles de logos : communes et points de collecte, toutes de
                 même taille et dans l'ordre de la donnée, sans classement. Le
