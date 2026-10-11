@@ -5,7 +5,8 @@
 // sombre  : logo blanc, posé sur une tuile verte.
 // legende : logo sans nom écrit, le nom est ajouté dessous.
 // large   : logo très allongé, tuile un peu plus large pour qu'il reste lisible.
-// Une entrée sans `fichier` s'affiche en texte : pas de logo fourni.
+// src     : chemin complet du logo, quand il n'est pas dans logos/inauguration.
+// Une entrée sans `fichier` ni `src` s'affiche en texte : pas de logo fourni.
 //
 // Ordre : communes de Côte Landes Nature, puis de Maremne Adour Côte-Sud, puis
 // les points de collecte hors mairie. Pas de classement entre elles.
@@ -29,4 +30,6 @@ export const LOGOS_CHALLENGE = [
   { ligne: 4, nom: 'Domolandes', fichier: 'domolandes' },
   { ligne: 4, nom: 'Agrolandes', fichier: 'agrolandes' },
   { ligne: 4, nom: 'Landes Attractivité', fichier: 'landes-attractivite' },
+  { ligne: 4, nom: 'SITCOM 40', src: '/logos/logo-sitcom40.svg', large: true },
+  { ligne: 4, nom: 'Réseau Re', fichier: 'reseau-re' },
 ]

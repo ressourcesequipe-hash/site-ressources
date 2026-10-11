@@ -6,7 +6,7 @@ import { LOGOS_CHALLENGE } from '../data/logosChallenge'
 export default function LogosChallenge() {
   return (
     <ul className="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto">
-      {LOGOS_CHALLENGE.flatMap(({ ligne, nom, fichier, sombre, legende, large }, i) => [
+      {LOGOS_CHALLENGE.flatMap(({ ligne, nom, fichier, src, sombre, legende, large }, i) => [
         i > 0 && ligne !== LOGOS_CHALLENGE[i - 1].ligne && (
           <li key={`saut-${ligne}`} aria-hidden="true" className="basis-full h-0 -my-1.5" />
         ),
@@ -16,9 +16,9 @@ export default function LogosChallenge() {
             sombre ? 'bg-kaki border-kaki' : 'bg-white border-beige-dark'
           }`}
         >
-          {fichier ? (
+          {fichier || src ? (
             <img
-              src={`/logos/inauguration/${fichier}.webp`}
+              src={src ?? `/logos/inauguration/${fichier}.webp`}
               alt={nom}
               loading="lazy"
               decoding="async"
