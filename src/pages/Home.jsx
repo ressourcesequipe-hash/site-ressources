@@ -5,18 +5,10 @@ import SEO from '../components/SEO'
 import NewsletterForm from '../components/NewsletterForm'
 import BandeauTempsForts from '../components/BandeauTempsForts'
 import { useReveal } from '../hooks/useReveal'
-import { PARTENAIRES_CONFIRMES, PAYS_ZONE_ACTION } from '../data/partenaires'
+import { PARTENAIRES_CONFIRMES, PAYS_ZONE_ACTION, logoPartenaire } from '../data/partenaires'
 import { DEFI } from '../data/defiCollecte'
 import { AFFICHE, PHOTO_ELUS } from '../data/evenement'
 import LogosChallenge from '../components/LogosChallenge'
-
-// Logos des partenaires institutionnels, retrouvés par leur nom (celui de la
-// base). Un partenaire sans entrée ici s'affiche en texte seul.
-const LOGOS_PARTENAIRES = {
-  'Réseau ReNAITRe': '/logos/inauguration/reseau-re.webp',
-  SITCOM40: '/logos/logo-sitcom40.svg',
-  'Mairie de Vielle-Saint-Girons': '/logos/logo-mairie-vsg.webp',
-}
 import { afficher, objectifs, MENTION_PHASE_PILOTE } from '../data/objectifs'
 
 /* ── Count-up hook ── */
@@ -694,15 +686,18 @@ export default function Home() {
               Nos partenaires
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-              {PARTENAIRES_CONFIRMES.map(({ nom }, i) => (
+              {PARTENAIRES_CONFIRMES.map((partenaire, i) => {
+                const { nom } = partenaire
+                const logo = logoPartenaire(partenaire)
+                return (
                 <div
                   key={nom}
                   className="border border-beige-dark bg-beige-light flex flex-col items-center justify-center gap-3 p-5 text-center rounded-xl hover:shadow-lg hover:border-ocre/25 hover:-translate-y-1.5 transition-all duration-300 cursor-default"
                   style={{ minHeight: 80, transitionDelay: `${i * 50}ms` }}
                 >
-                  {LOGOS_PARTENAIRES[nom] && (
+                  {logo && (
                     <img
-                      src={LOGOS_PARTENAIRES[nom]}
+                      src={logo}
                       alt=""
                       loading="lazy"
                       decoding="async"
@@ -711,7 +706,8 @@ export default function Home() {
                   )}
                   <p className="text-xs text-terre/45 font-sans font-medium leading-snug">{nom}</p>
                 </div>
-              ))}
+                )
+              })}
             </div>
 
             <p className="text-[10px] text-terre/35 tracking-[0.22em] uppercase font-sans mb-3 text-center">

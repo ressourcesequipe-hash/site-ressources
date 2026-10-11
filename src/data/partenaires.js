@@ -20,6 +20,15 @@
 import cms from './cms.json' with { type: 'json' }
 
 export const PARTENAIRES_CONFIRMES = cms.organisations.confirmes
+
+// Logos retenus pour l'accueil et la page Territoire, retrouvés par le nom de
+// la structure. Ils priment sur le champ `logo` de la base : le Réseau
+// ReNAITRe y porte le logo « Réseau Re » fourni pour le site. Une structure
+// absente d'ici garde le logo de la base, s'il y en a un.
+export const LOGOS_PARTENAIRES = {
+  'Réseau ReNAITRe': '/logos/inauguration/reseau-re.webp',
+}
+export const logoPartenaire = ({ nom, logo }) => LOGOS_PARTENAIRES[nom] ?? logo ?? null
 export const COOPERATIONS_EN_COURS = cms.organisations.cooperations
 
 // Formulation employée partout pour introduire le second bloc : elle dit
