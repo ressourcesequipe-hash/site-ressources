@@ -210,7 +210,7 @@ export default function DefiCollecte() {
               </div>
               {/* Remise de matériel lors d'une collecte du challenge. */}
               <img
-                src="/photos/collecte-domolandes.webp"
+                src="/photos/collecte-remise-materiel.webp"
                 width={564}
                 height={423}
                 loading="lazy"
