@@ -1,8 +1,5 @@
-import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
-import { DEFI } from '../../data/defiCollecte'
-import { communes } from '../../data/defiConfig'
 
 const BREADCRUMBS = [
   { label: 'Soutenir', href: '/soutenir/' },
@@ -89,22 +86,8 @@ export default function Mecene() {
       <section className="py-14 md:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
-          {/* Preuve + priorité */}
+          {/* Priorité */}
           <div className="mb-14">
-            <div className="grid sm:grid-cols-3 gap-6 mb-8">
-              <div>
-                <p className="font-serif text-4xl text-ocre leading-none mb-1.5">{DEFI.collecteKg} kg</p>
-                <p className="text-sm text-terre/60 leading-relaxed">de matériel collectés lors du challenge territorial.</p>
-              </div>
-              <div>
-                <p className="font-serif text-4xl text-ocre leading-none mb-1.5">{communes.length} communes</p>
-                <p className="text-sm text-terre/60 leading-relaxed">mobilisées, avec des associations, commerces et entreprises.</p>
-              </div>
-              <div>
-                <p className="font-serif text-4xl text-ocre leading-none mb-1.5">{DEFI.multiple} fois</p>
-                <p className="text-sm text-terre/60 leading-relaxed">l'objectif d'une demi-tonne.</p>
-              </div>
-            </div>
             <p className="text-terre/70 leading-relaxed max-w-2xl mb-3">
               Votre mécénat finance ce qui permet de tenir dans la durée : le premier
               emploi de coordination de Ressources, puis le renforcement de l'équipe.
@@ -153,9 +136,6 @@ export default function Mecene() {
             <div className="flex flex-wrap items-center gap-4">
               <a href={MAIL_DOSSIER} className="btn-ocre text-sm">Recevoir le dossier de mécénat</a>
               <a href="tel:+33662660484" className="text-sm text-kaki hover:text-ocre transition-colors font-medium">06 62 66 04 84</a>
-              <Link to="/defi-collecte/" className="text-sm text-kaki hover:text-ocre transition-colors">
-                Le bilan du challenge →
-              </Link>
             </div>
           </div>
         </div>
