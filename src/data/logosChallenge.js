@@ -24,9 +24,9 @@ export const LOGOS_CHALLENGE = [
   { ligne: 3, nom: 'E.Leclerc Soustons', fichier: 'leclerc-soustons' },
   { ligne: 3, nom: 'E.Leclerc Linxe', fichier: 'leclerc-linxe' },
   { ligne: 3, nom: 'Imagine Linxe', fichier: 'imagine-linxe' },
-  { ligne: 4, nom: 'Comptoir Électroménager Solidaire', fichier: 'comptoir-electromenager-solidaire', large: true },
+  { ligne: 3, nom: 'Comptoir Électroménager Solidaire', fichier: 'comptoir-electromenager-solidaire', large: true },
+  { ligne: 3, nom: 'Landes Partage', fichier: 'landes-partage' },
   { ligne: 4, nom: 'Domolandes', fichier: 'domolandes' },
   { ligne: 4, nom: 'Agrolandes', fichier: 'agrolandes' },
   { ligne: 4, nom: 'Landes Attractivité', fichier: 'landes-attractivite' },
-  { ligne: 4, nom: 'Landes Partage', fichier: 'landes-partage' },
 ]
