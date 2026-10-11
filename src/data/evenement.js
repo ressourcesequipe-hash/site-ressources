@@ -26,3 +26,22 @@ export const AFFICHE = {
     'électroniques et informatiques. Concert de DuoDangar et Evie à 20 h, entrée à prix ' +
     'libre. Buvette et food truck sur place.',
 }
+
+// Photo de groupe de la journée, avec les élus présents. Elle sert à l'accueil
+// et à la galerie de la page événement : la légende, qui nomme les personnes,
+// ne s'écrit qu'ici. L'ordre est celui de la photo, de gauche à droite.
+export const PHOTO_ELUS = {
+  src: '/photos/3-octobre/equipe-elus.webp',
+  largeur: 1400,
+  hauteur: 788,
+  alt: "L'équipe de l'association Ressources posant avec les élus présents lors de la journée du 3 octobre, devant le stand de la recyclerie",
+  legende:
+    'De gauche à droite : le maire de Lit-et-Mixe, délégué communautaire de Côte Landes Nature ; ' +
+    'Florian Chabaud, chargé de mission économie circulaire au Sitcom Côte Sud des Landes ; ' +
+    'Rose Maury, secrétaire et trésorière de Ressources ; ' +
+    'Sandrine Vestris, présidente de Ressources ; ' +
+    'Patrice Galléa, 4e adjoint au maire de Vielle-Saint-Girons ; ' +
+    'Régis Dubus, président du Sitcom 40, adjoint au maire de Saint-Vincent-de-Tyrosse et conseiller communautaire de Macs ; ' +
+    'Boris Lalanne, coordonnateur de projet de Ressources ; ' +
+    'François Archambot, technicien informatique de Ressources.',
+}

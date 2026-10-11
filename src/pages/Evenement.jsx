@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import { DEFI } from '../data/defiCollecte'
-import { AFFICHE } from '../data/evenement'
+import { AFFICHE, PHOTO_ELUS } from '../data/evenement'
 import { useReveal } from '../hooks/useReveal'
 import { IconFeuille, IconTicket, IconTransport } from '../components/Icons'
 
@@ -283,7 +283,7 @@ export default function Evenement() {
       </section>
 
       {/* Retour en images */}
-      <section className="py-16 md:py-20 bg-beige-light">
+      <section id="retour-en-images" className="py-16 md:py-20 bg-beige-light scroll-mt-28 md:scroll-mt-32">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <p className="section-label">Retour en images</p>
@@ -293,6 +293,21 @@ export default function Evenement() {
               moments de la journée.
             </p>
           </div>
+
+          <figure className="mb-8 bg-white rounded-xl overflow-hidden border border-beige-dark shadow-sm">
+            <img
+              src={PHOTO_ELUS.src}
+              width={PHOTO_ELUS.largeur}
+              height={PHOTO_ELUS.hauteur}
+              loading="lazy"
+              decoding="async"
+              alt={PHOTO_ELUS.alt}
+              className="w-full h-auto block"
+            />
+            <figcaption className="font-sans text-xs text-terre/60 leading-relaxed px-4 py-3">
+              {PHOTO_ELUS.legende}
+            </figcaption>
+          </figure>
 
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [&>figure]:mb-4">
             {PHOTOS.map(({ f, l, h, alt, legende }) => (

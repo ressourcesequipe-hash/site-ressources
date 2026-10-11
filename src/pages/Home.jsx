@@ -7,7 +7,7 @@ import BandeauTempsForts from '../components/BandeauTempsForts'
 import { useReveal } from '../hooks/useReveal'
 import { PARTENAIRES_CONFIRMES, PAYS_ZONE_ACTION } from '../data/partenaires'
 import { DEFI, POINTS_OUVERTS } from '../data/defiCollecte'
-import { AFFICHE } from '../data/evenement'
+import { AFFICHE, PHOTO_ELUS } from '../data/evenement'
 import { afficher, objectifs, MENTION_PHASE_PILOTE } from '../data/objectifs'
 
 /* ── Count-up hook ── */
@@ -630,6 +630,58 @@ export default function Home() {
                 />
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════ LA JOURNÉE EN IMAGES ══════════════ */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <p className="section-label">Retour en images</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-terre">La journée du 3 octobre</h2>
+          </div>
+
+          <figure className="mb-6">
+            <img
+              src={PHOTO_ELUS.src}
+              width={PHOTO_ELUS.largeur}
+              height={PHOTO_ELUS.hauteur}
+              loading="lazy"
+              decoding="async"
+              alt={PHOTO_ELUS.alt}
+              className="w-full h-auto block rounded-xl border border-beige-dark shadow-md"
+            />
+            <figcaption className="font-sans text-xs text-terre/60 leading-relaxed mt-3 max-w-4xl">
+              {PHOTO_ELUS.legende}
+            </figcaption>
+          </figure>
+
+          <div className="grid sm:grid-cols-3 gap-4 mb-8">
+            {[
+              { f: 'village-associatif', l: 1400, h: 1050, alt: 'Le village associatif dans la salle Yvonne Meister', legende: 'Le village associatif' },
+              { f: 'stand-ressources', l: 1400, h: 631, alt: "Le stand de l'association Ressources", legende: 'Le stand Ressources' },
+              { f: 'tirage-tombola', l: 1400, h: 631, alt: 'Tirage au sort public de la tombola solidaire', legende: 'Le tirage de la tombola' },
+            ].map(({ f, l, h, alt, legende }) => (
+              <figure key={f}>
+                <img
+                  src={`/photos/3-octobre/${f}.webp`}
+                  width={l}
+                  height={h}
+                  loading="lazy"
+                  decoding="async"
+                  alt={alt}
+                  className="w-full aspect-[4/3] object-cover rounded-xl border border-beige-dark"
+                />
+                <figcaption className="font-sans text-xs text-terre/60 mt-2">{legende}</figcaption>
+              </figure>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link to="/evenement-lancement-03-octobre-2026/#retour-en-images" className="btn-outline-ocre text-sm">
+              Toutes les photos et vidéos
+            </Link>
           </div>
         </div>
       </section>
