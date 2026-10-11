@@ -247,6 +247,20 @@ export default function DefiCollecte() {
                 </div>
               ))}
             </div>
+            <figure className="max-w-sm mx-auto mb-6">
+              <img
+                src="/photos/3-octobre/collecte.webp"
+                width={1054}
+                height={1400}
+                loading="lazy"
+                decoding="async"
+                alt="Matériel informatique et électronique collecté pendant le challenge, entassé dans des cartons avant la pesée"
+                className="w-full h-auto block rounded-xl border-4 border-beige-light shadow-md"
+              />
+              <figcaption className="font-sans text-xs text-terre/50 mt-2 text-center">
+                Une partie du matériel collecté, avant la pesée finale
+              </figcaption>
+            </figure>
             <img
               src="/photos/ressource-remise-de-don.jpg"
               loading="lazy"

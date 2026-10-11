@@ -60,7 +60,6 @@ const VIDEOS = [
   { f: 'video-concert-gospel-1', titre: 'Mini-concert gospel' },
   { f: 'video-concert-gospel-2', titre: 'Mini-concert gospel, deuxième extrait' },
   { f: 'video-concert-gospel-3', titre: 'Mini-concert gospel, troisième extrait' },
-  { f: 'video-collecte-linxe', titre: 'Collecte à Linxe' },
 ]
 
 export default function Evenement() {
@@ -313,7 +312,7 @@ export default function Evenement() {
           </div>
 
           <h3 className="font-serif text-2xl text-terre text-center mt-14 mb-6">En vidéo</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-3 gap-5 max-w-3xl mx-auto">
             {VIDEOS.map(({ f, titre }) => (
               <figure key={f}>
                 {/* preload="none" : aucun fichier n'est téléchargé tant que
