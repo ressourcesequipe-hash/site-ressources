@@ -208,15 +208,15 @@ export default function DefiCollecte() {
                   est un levier concret, à la portée de chacun.
                 </p>
               </div>
-              {/* Preuve que la collecte a deja lieu sur le terrain. Volontairement
-                  sans nom de commune : les points de collecte se valent tous,
-                  et cette photo n'en illustre qu'un parmi d'autres. */}
+              {/* Remise de matériel lors d'une collecte du challenge. */}
               <img
-                src="/photos/collecte-en-mairie.jpg"
+                src="/photos/collecte-domolandes.webp"
+                width={564}
+                height={423}
                 loading="lazy"
                 decoding="async"
-                alt="Matériel informatique et électronique déposé sur l'un des points de collecte du territoire"
-                className="hidden sm:block w-40 h-auto rounded-lg border-4 border-beige-light shadow-md shrink-0"
+                alt="Trois personnes remettent du matériel informatique et électronique, chargé sur des chariots, lors d'une collecte du challenge"
+                className="hidden sm:block w-60 h-auto rounded-lg border-4 border-beige-light shadow-md shrink-0"
               />
             </div>
           </div>
