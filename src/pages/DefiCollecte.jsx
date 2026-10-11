@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import LogosChallenge from '../components/LogosChallenge'
 import NewsletterForm from '../components/NewsletterForm'
 import PointCollecteForm from '../components/PointCollecteForm'
 import {
@@ -9,7 +10,6 @@ import {
   CONSIGNES,
   DEFI,
   ETAPES,
-  POINTS_OUVERTS,
 } from '../data/defiCollecte'
 
 const BREADCRUMBS = [{ label: 'Challenge collecte — bilan' }]
@@ -178,7 +178,7 @@ export default function DefiCollecte() {
               écrans de défilement sur mobile. L'ancre permet d'y renvoyer
               directement depuis le hero, le menu et la page d'accueil. */}
           <div id="merci" className="mb-12 scroll-mt-28 md:scroll-mt-32">
-            <h2 className="font-serif text-2xl text-terre mb-2">Merci aux points de collecte</h2>
+            <h2 className="font-serif text-2xl text-terre mb-2">Les partenaires du challenge</h2>
             <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
               Les communes et les structures partenaires du territoire se sont
               portées volontaires pour accueillir un point de collecte. C'est grâce
@@ -186,21 +186,7 @@ export default function DefiCollecte() {
               avons collecté {DEFI.collecteKg} kg.
             </p>
 
-            {/* Liste de noms, sans horaires ni carte : les dépôts du challenge
-                sont clos. Ordre de la donnée, sans numérotation. */}
-            <div className="border border-beige-dark bg-white p-6">
-              <h3 className="font-sans text-base font-bold tracking-[0.15em] uppercase text-ocre mb-5">
-                {POINTS_OUVERTS.length} points de collecte
-              </h3>
-              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
-                {POINTS_OUVERTS.map(({ nom, ville }) => (
-                  <li key={`${nom}-${ville}`}>
-                    <span className="block font-sans text-sm text-terre leading-snug">{nom}</span>
-                    <span className="block text-xs text-terre/50 mt-0.5">{ville}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <LogosChallenge />
           </div>
 
           {/* Pourquoi */}
