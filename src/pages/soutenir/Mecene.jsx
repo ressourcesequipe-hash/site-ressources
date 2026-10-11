@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import SEO from '../../components/SEO'
 
@@ -8,14 +9,9 @@ const BREADCRUMBS = [
 
 // Le dossier de mécénat 2026 reste un document qu'on envoie sur demande : la
 // page en donne l'esprit, pas les montants, le budget ni le détail des
-// contreparties.
-const MAIL_DOSSIER =
-  'mailto:contact@ressourcesrecyclerie.fr?subject=' +
-  encodeURIComponent('Dossier de mécénat 2026') +
-  '&body=' +
-  encodeURIComponent(
-    "Bonjour,\n\nJe souhaite recevoir le dossier de mécénat 2026 de l'association Ressources.\n\nEntreprise :\nContact :\n",
-  )
+// contreparties. Les boutons mènent au formulaire de contact, sujet et message
+// de départ déjà remplis.
+const LIEN_DOSSIER = '/contact/?sujet=mecenat#formulaire'
 
 const NIVEAUX = [
   { nom: 'Soutien solidaire', texte: 'Rejoindre les entreprises qui soutiennent Ressources.' },
@@ -79,7 +75,7 @@ export default function Mecene() {
             Rejoignez les entreprises qui accompagnent le lancement de la recyclerie
             solidaire des Landes, pour le réemploi informatique et végétal.
           </p>
-          <a href={MAIL_DOSSIER} className="btn-ocre text-sm">Recevoir le dossier de mécénat</a>
+          <Link to={LIEN_DOSSIER} className="btn-ocre text-sm">Recevoir le dossier de mécénat</Link>
         </div>
       </section>
 
@@ -134,7 +130,7 @@ export default function Mecene() {
               conseiller fiscal.
             </p>
             <div className="flex flex-wrap items-center gap-4">
-              <a href={MAIL_DOSSIER} className="btn-ocre text-sm">Recevoir le dossier de mécénat</a>
+              <Link to={LIEN_DOSSIER} className="btn-ocre text-sm">Recevoir le dossier de mécénat</Link>
               <a href="tel:+33662660484" className="text-sm text-kaki hover:text-ocre transition-colors font-medium">06 62 66 04 84</a>
             </div>
           </div>

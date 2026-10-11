@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import OptinNewsletter from '../components/OptinNewsletter'
@@ -139,7 +139,7 @@ export default function Contact() {
             </div>
 
             {/* Formulaire */}
-            <div className="md:col-span-2">
+            <div id="formulaire" className="md:col-span-2 scroll-mt-28 md:scroll-mt-32">
               <p className="font-sans text-xs font-bold tracking-widest uppercase text-ocre mb-6">
                 Formulaire de contact
               </p>
@@ -163,6 +163,19 @@ function ContactForm() {
   })
   const [status, setStatus] = useState(null)
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
+
+  // Un lien « ?sujet=mecenat » (page mécénat) arrive sur le formulaire avec le
+  // sujet choisi et un message de départ. Fait après le premier rendu : le
+  // HTML prérendu ne connaît pas l'adresse demandée.
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('sujet') !== 'mecenat') return
+    setForm((f) => ({
+      ...f,
+      sujet: 'Partenariat ou mécénat',
+      message: f.message || "Bonjour,\n\nJe souhaite recevoir le dossier de mécénat 2026 de l'association Ressources.\n\nEntreprise :\n",
+    }))
+    document.getElementById('formulaire')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [])
 
   async function handleSubmit(e) {
     e.preventDefault()
