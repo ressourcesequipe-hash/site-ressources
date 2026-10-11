@@ -42,6 +42,27 @@ const eventSchema = {
   keywords: 'tombola solidaire Landes, recyclerie informatique, réemploi numérique, Vielle-Saint-Girons',
 }
 
+const PHOTOS = [
+  { f: 'bienvenue', l: 1400, h: 647, alt: "La salle Yvonne Meister et la banderole « Festival du réemploi, l'E-Waste Day », avec les food trucks à l'entrée", legende: 'Bienvenue au Festival du Réemploi' },
+  { f: 'village-associatif', l: 1400, h: 1050, alt: 'Le village associatif dans la salle Yvonne Meister', legende: 'Le village associatif' },
+  { f: 'stand-ressources', l: 1400, h: 631, alt: "Le stand de l'association Ressources", legende: 'Le stand Ressources' },
+  { f: 'atelier-numerique', l: 1400, h: 788, alt: 'Atelier de sensibilisation au numérique', legende: 'Atelier numérique' },
+  { f: 'atelier-numerique-2', l: 1400, h: 788, alt: 'Atelier numérique, participants autour du matériel', legende: 'Atelier numérique' },
+  { f: 'atelier-vegetal', l: 1400, h: 631, alt: 'Atelier de sauvetage de plantes', legende: 'Atelier végétal' },
+  { f: 'atelier-maquillage', l: 788, h: 1400, alt: 'Atelier maquillage pour les enfants', legende: 'Atelier maquillage' },
+  { f: 'tirage-tombola', l: 1400, h: 631, alt: 'Tirage au sort public de la tombola solidaire', legende: 'Le tirage de la tombola' },
+  { f: 'equipe-benevoles', l: 1400, h: 1050, alt: "L'équipe des bénévoles de l'association Ressources", legende: 'Les bénévoles' },
+  { f: 'equipe-benevoles-2', l: 1400, h: 1050, alt: "L'équipe des bénévoles de l'association Ressources, deuxième vue", legende: 'Les bénévoles' },
+  { f: 'collecte', l: 1054, h: 1400, alt: 'Matériel informatique collecté, prêt à être pesé', legende: 'Le matériel collecté' },
+]
+
+const VIDEOS = [
+  { f: 'video-concert-gospel-1', titre: 'Mini-concert gospel' },
+  { f: 'video-concert-gospel-2', titre: 'Mini-concert gospel, deuxième extrait' },
+  { f: 'video-concert-gospel-3', titre: 'Mini-concert gospel, troisième extrait' },
+  { f: 'video-collecte-linxe', titre: 'Collecte à Linxe' },
+]
+
 export default function Evenement() {
   const [heroVisible, setHeroVisible] = useState(false)
   const tombola = useReveal()
@@ -258,6 +279,58 @@ export default function Evenement() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Retour en images */}
+      <section className="py-16 md:py-20 bg-beige-light">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <p className="section-label">Retour en images</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-terre mb-3">La journée en photos et en vidéos</h2>
+            <p className="text-terre/55 max-w-md mx-auto leading-relaxed">
+              Village associatif, ateliers, tirage de la tombola, concert : quelques
+              moments de la journée.
+            </p>
+          </div>
+
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [&>figure]:mb-4">
+            {PHOTOS.map(({ f, l, h, alt, legende }) => (
+              <figure key={f} className="break-inside-avoid bg-white rounded-xl overflow-hidden border border-beige-dark shadow-sm">
+                <img
+                  src={`/photos/3-octobre/${f}.webp`}
+                  width={l}
+                  height={h}
+                  loading="lazy"
+                  decoding="async"
+                  alt={alt}
+                  className="w-full h-auto block"
+                />
+                <figcaption className="font-sans text-xs text-terre/60 px-4 py-2.5">{legende}</figcaption>
+              </figure>
+            ))}
+          </div>
+
+          <h3 className="font-serif text-2xl text-terre text-center mt-14 mb-6">En vidéo</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {VIDEOS.map(({ f, titre }) => (
+              <figure key={f}>
+                {/* preload="none" : aucun fichier n'est téléchargé tant que
+                    personne ne lance la lecture. */}
+                <video
+                  controls
+                  playsInline
+                  preload="none"
+                  poster={`/photos/3-octobre/${f}.jpg`}
+                  aria-label={titre}
+                  className="w-full aspect-[9/16] bg-black object-contain rounded-xl"
+                >
+                  <source src={`/photos/3-octobre/${f}.mp4`} type="video/mp4" />
+                </video>
+                <figcaption className="font-sans text-xs text-terre/60 mt-2">{titre}</figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
