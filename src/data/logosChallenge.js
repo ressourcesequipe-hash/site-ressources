@@ -30,6 +30,4 @@ export const LOGOS_CHALLENGE = [
   { ligne: 4, nom: 'Domolandes', fichier: 'domolandes' },
   { ligne: 4, nom: 'Agrolandes', fichier: 'agrolandes' },
   { ligne: 4, nom: 'Landes Attractivité', fichier: 'landes-attractivite' },
-  { ligne: 4, nom: 'SITCOM 40', src: '/logos/logo-sitcom40.svg', large: true },
-  { ligne: 4, nom: 'Réseau Re', fichier: 'reseau-re' },
 ]
