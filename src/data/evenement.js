@@ -36,7 +36,7 @@ export const PHOTO_ELUS = {
   hauteur: 788,
   alt: "L'équipe de l'association Ressources posant avec les élus présents lors de la journée du 3 octobre, devant le stand de la recyclerie",
   legende:
-    'De gauche à droite : le maire de Lit-et-Mixe, délégué communautaire de Côte Landes Nature ; ' +
+    'De gauche à droite : Nicolas Ferrier, maire de Lit-et-Mixe et délégué communautaire de Côte Landes Nature ; ' +
     'Florian Chabaud, chargé de mission économie circulaire au Sitcom Côte Sud des Landes ; ' +
     'Rose Maury, secrétaire et trésorière de Ressources ; ' +
     'Sandrine Vestris, présidente de Ressources ; ' +
