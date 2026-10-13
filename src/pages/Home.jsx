@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import NewsletterForm from '../components/NewsletterForm'
 import BandeauTempsForts from '../components/BandeauTempsForts'
+import EnRayon from '../components/EnRayon'
 import { useReveal } from '../hooks/useReveal'
 import { PARTENAIRES_CONFIRMES, PAYS_ZONE_ACTION, logoPartenaire } from '../data/partenaires'
 import { DEFI } from '../data/defiCollecte'
@@ -459,6 +460,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ══════════════ EN RAYON — APERÇU DE LA BOUTIQUE ══════════════ */}
+      {/* Absent tant que la boutique compte moins de trois appareils. */}
+      <EnRayon />
 
       {/* ══════════════ IMPACT ══════════════ */}
       <section className="py-20 md:py-28 relative overflow-hidden" ref={impact.ref}

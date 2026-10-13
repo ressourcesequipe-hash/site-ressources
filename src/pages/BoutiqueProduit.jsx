@@ -3,7 +3,8 @@ import { useState } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import vitrine from '../data/vitrine.json'
-import { prix, leJour, schemaProduit, BASE } from './Boutique'
+import { prix } from '../components/CarteProduit'
+import { leJour, schemaProduit, BASE } from './Boutique'
 
 const ETATS = {
   // « Comme neuf » est interdit sur un produit dit reconditionne : art. R. 122-5

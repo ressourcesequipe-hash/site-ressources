@@ -2,21 +2,13 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import CarteProduit from '../components/CarteProduit'
 import vitrine from '../data/vitrine.json'
 
 const BREADCRUMBS = [
   { label: 'Recyclerie Informatique', href: '/recyclerie-informatique/' },
   { label: 'Matériel disponible' },
 ]
-
-const ETATS = {
-  // « Comme neuf » est interdit sur un produit dit reconditionne : art. R. 122-5
-  // du Code de la consommation, pris par le decret 2022-190. Ne pas y revenir.
-  A: 'Très bon état',
-  B: 'Bon état',
-  C: 'État correct',
-  P: 'Pour pièces',
-}
 
 /* Ces deux questions vivaient sur la page benefices, qui ne vend pas : elles
    y entretenaient la concurrence entre les deux pages sur la meme requete.
@@ -45,10 +37,6 @@ const FAQ_SCHEMA = {
     acceptedAnswer: { '@type': 'Answer', text: a },
   })),
 }
-
-export const prix = (n) =>
-  new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 })
-    .format(Number(n || 0))
 
 /** « le 25 août 2026 » plutôt qu'un horodatage. */
 export function leJour(iso) {
@@ -109,59 +97,6 @@ export function schemaProduit(p, { vendu = false } = {}) {
         }
       : {}),
   }
-}
-
-function Carte({ p, vendu = false }) {
-  return (
-    <Link
-      to={`/materiel-disponible/${p.code.toLowerCase()}/`}
-      className={`group flex flex-col border transition-colors ${
-        vendu
-          ? 'border-beige bg-beige-light/50 hover:border-beige-dark'
-          : 'border-beige-dark bg-white hover:border-ocre'
-      }`}
-    >
-      <div className="relative aspect-[4/3] overflow-hidden bg-beige-light">
-        {vendu ? (
-          <span className="absolute left-0 top-4 z-10 bg-kaki px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-white">
-            {p.donne ? 'Donné' : 'Vendu'}
-          </span>
-        ) : null}
-        <img
-          src={p.photos[0].src}
-          alt={`${p.titre} — ${p.categorie} reconditionné par la recyclerie Ressources`}
-          loading="lazy"
-          width="600"
-          height="450"
-          className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
-            vendu ? 'opacity-60 grayscale' : ''
-          }`}
-        />
-      </div>
-      <div className="flex flex-1 flex-col p-5">
-        <p className="font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-ocre">
-          {p.categorie}
-        </p>
-        <h2 className="mt-1.5 font-serif text-lg leading-snug text-terre">{p.titre}</h2>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-terre/60 line-clamp-3">
-          {p.description}
-        </p>
-        <div className="mt-4 flex items-baseline justify-between gap-3 border-t border-beige pt-3">
-          {/* Un don n'a pas de prix a barrer : l'appareil n'a pas ete vendu, il a ete offert. */}
-          {p.donne ? (
-            <span className="font-serif text-xl text-terre/60">Offert</span>
-          ) : (
-            <span className={`font-serif text-xl ${vendu ? 'text-terre/40 line-through' : 'text-kaki'}`}>
-              {prix(p.prix)}
-            </span>
-          )}
-          {p.etat ? (
-            <span className="font-sans text-xs text-terre/50">{ETATS[p.etat] || p.etat}</span>
-          ) : null}
-        </div>
-      </div>
-    </Link>
-  )
 }
 
 export default function Boutique() {
@@ -312,7 +247,7 @@ export default function Boutique() {
               {visibles.length ? (
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {visibles.map((p) => (
-                    <Carte key={p.code} p={p} />
+                    <CarteProduit key={p.code} p={p} />
                   ))}
                 </div>
               ) : (
@@ -336,7 +271,7 @@ export default function Boutique() {
               </p>
               <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {vendusVisibles.map((p) => (
-                  <Carte key={p.code} p={p} vendu />
+                  <CarteProduit key={p.code} p={p} vendu />
                 ))}
               </div>
             </div>

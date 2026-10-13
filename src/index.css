@@ -34,6 +34,10 @@
 
 @layer components {
 
+  /* Rail a defilement horizontal sans barre visible (apercu boutique). */
+  .rail-sans-barre { scrollbar-width: none; }
+  .rail-sans-barre::-webkit-scrollbar { display: none; }
+
   /* ── Buttons ── */
   .btn-ocre {
     @apply relative inline-flex items-center justify-center gap-2
