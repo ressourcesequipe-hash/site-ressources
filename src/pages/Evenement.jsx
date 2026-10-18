@@ -59,7 +59,7 @@ const PHOTOS = [
 const VIDEOS = [
   { f: 'video-elu-nicolas-ferrier', titre: 'Nicolas Ferrier, maire de Lit-et-Mixe et délégué communautaire de Côte Landes Nature' },
   { f: 'video-elu-patrice-gallea', titre: 'Patrice Galléa, 4e adjoint au maire de Vielle-Saint-Girons' },
-  { f: 'video-elu-regis-dubus', titre: 'Régis Dubus, président du Sitcom 40' },
+  { f: 'video-elu-regis-dubus', titre: 'Régis Dubus, président du Sitcom 40, adjoint au maire de Saint-Vincent-de-Tyrosse et élu communautaire de Macs' },
 ]
 
 export default function Evenement() {
