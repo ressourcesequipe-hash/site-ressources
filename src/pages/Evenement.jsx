@@ -57,9 +57,9 @@ const PHOTOS = [
 ]
 
 const VIDEOS = [
-  { f: 'video-concert-gospel-1', titre: 'Mini-concert gospel' },
-  { f: 'video-concert-gospel-2', titre: 'Mini-concert gospel, deuxième extrait' },
-  { f: 'video-concert-gospel-3', titre: 'Mini-concert gospel, troisième extrait' },
+  { f: 'video-elu-nicolas-ferrier', titre: 'Nicolas Ferrier, maire de Lit-et-Mixe et délégué communautaire de Côte Landes Nature' },
+  { f: 'video-elu-patrice-gallea', titre: 'Patrice Galléa, 4e adjoint au maire de Vielle-Saint-Girons' },
+  { f: 'video-elu-regis-dubus', titre: 'Régis Dubus, président du Sitcom 40' },
 ]
 
 export default function Evenement() {
