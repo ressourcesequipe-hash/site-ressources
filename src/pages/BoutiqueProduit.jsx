@@ -70,6 +70,10 @@ export default function BoutiqueProduit() {
                   <span className="absolute left-0 top-5 z-10 bg-kaki px-4 py-1.5 font-sans text-xs font-bold uppercase tracking-[0.15em] text-white">
                     {p.donne ? 'Donné' : 'Vendu'}
                   </span>
+                ) : p.reserve ? (
+                  <span className="absolute left-0 top-5 z-10 bg-ocre px-4 py-1.5 font-sans text-xs font-bold uppercase tracking-[0.15em] text-white">
+                    Réservé
+                  </span>
                 ) : null}
                 <img
                   src={p.photos[active].src}
@@ -174,12 +178,23 @@ export default function BoutiqueProduit() {
               ) : (
               <div className="mt-7 bg-kaki p-6 text-white">
                 <p className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-ocre">
-                  Pour le voir
+                  {p.reserve ? 'Réservé' : 'Pour le voir'}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-white/80">
-                  Cet appareil se voit sur place, allumé. Écrivez-nous en mentionnant sa référence{' '}
-                  <span className="font-mono text-white">{p.code}</span>, et nous convenons d'un
-                  moment.
+                  {p.reserve ? (
+                    <>
+                      Cet appareil est réservé pour quelqu'un. Si la réservation tombe, il redevient
+                      disponible : écrivez-nous en mentionnant sa référence{' '}
+                      <span className="font-mono text-white">{p.code}</span>, et nous vous
+                      préviendrons.
+                    </>
+                  ) : (
+                    <>
+                      Cet appareil se voit sur place, allumé. Écrivez-nous en mentionnant sa référence{' '}
+                      <span className="font-mono text-white">{p.code}</span>, et nous convenons d'un
+                      moment.
+                    </>
+                  )}
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <a

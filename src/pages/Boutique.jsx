@@ -73,7 +73,11 @@ export function schemaProduit(p, { vendu = false } = {}) {
       itemCondition: 'https://schema.org/RefurbishedCondition',
       // Un appareil parti ne dit pas « en stock » à Google : la disponibilité
       // démentie par la page fait perdre le résultat enrichi, et c'est faux.
-      availability: vendu ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+      availability: vendu
+        ? 'https://schema.org/SoldOut'
+        : p.reserve
+          ? 'https://schema.org/Reserved'
+          : 'https://schema.org/InStock',
       availableAtOrFrom: {
         '@type': 'Place',
         name: 'Recyclerie Ressources',

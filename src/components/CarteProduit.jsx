@@ -33,6 +33,11 @@ export default function CarteProduit({ p, vendu = false, Titre = 'h2' }) {
           <span className="absolute left-0 top-4 z-10 bg-kaki px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-white">
             {p.donne ? 'Donné' : 'Vendu'}
           </span>
+        ) : p.reserve ? (
+          // Reserve, mais pas parti : il reste a vendre si la personne se desiste.
+          <span className="absolute left-0 top-4 z-10 bg-ocre px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-white">
+            Réservé
+          </span>
         ) : null}
         <img
           src={p.photos[0].src}

@@ -1,23 +1,34 @@
 {
-  "version": "0.0.1",
-  "configurations": [
-    {
-      "name": "site-ressources",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": [
-        "vite"
-      ],
-      "port": 5173,
-      "autoPort": true
-    },
-    {
-      "name": "back-office",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run",
-        "dev:backoffice"
-      ],
-      "port": 5174
-    }
-  ]
+    "version":  "0.0.1",
+    "configurations":  [
+                           {
+                               "name":  "site-ressources",
+                               "runtimeExecutable":  "npx",
+                               "runtimeArgs":  [
+                                                   "vite"
+                                               ],
+                               "port":  5173,
+                               "autoPort":  true
+                           },
+                           {
+                               "name":  "back-office",
+                               "runtimeExecutable":  "npm",
+                               "runtimeArgs":  [
+                                                   "run",
+                                                   "dev:backoffice"
+                                               ],
+                               "port":  5174
+                           },
+                           {
+                               "name":  "ressources-360",
+                               "runtimeExecutable":  "npm",
+                               "runtimeArgs":  [
+                                                   "--prefix",
+                                                   "C:/Users/Mini7/.claude/projects/etabli",
+                                                   "run",
+                                                   "dev"
+                                               ],
+                               "port":  5180
+                           }
+                       ]
 }
