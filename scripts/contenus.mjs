@@ -57,7 +57,7 @@ function conserverExistant(raison) {
     fs.writeFileSync(
       CIBLE,
       JSON.stringify(
-        { maj: null, actualites: [], campagnes: [], organisations: { confirmes: [], cooperations: [] } },
+        { maj: null, actualites: [], campagnes: [], organisations: { confirmes: [], cooperations: [] }, pointsCollecte: [] },
         null,
         2
       ) + '\n'
@@ -71,7 +71,8 @@ if (!process.env.DATABASE_URL) {
 }
 
 const { db } = await import('../lib/db.js')
-const { actualite, campagne, organisation } = await import('../db/schema.js')
+const { actualite, campagne, organisation, pointCollecte } = await import('../db/schema.js')
+const { regrouperHoraires } = await import('../lib/points-collecte.js')
 const { STATUTS_EN_LIGNE } = await import('../lib/contenus.js')
 const { eq, inArray, asc, desc } = await import('drizzle-orm')
 
@@ -124,6 +125,44 @@ function versOrganisationPublique(o) {
     desc: o.descriptionCourte ?? '',
     lien: o.siteInternet ?? null,
   }
+}
+
+// Les points de collecte, sous la forme de `src/data/defiCollecte.js`.
+// `note` réunit les consignes et l'information du moment ; le site ne
+// distingue que les mairies des autres structures.
+function versPointPublic(p) {
+  const lat = Number(String(p.latitude ?? '').replace(',', '.'))
+  const lon = Number(String(p.longitude ?? '').replace(',', '.'))
+  const localise = p.latitude && p.longitude && !Number.isNaN(lat) && !Number.isNaN(lon)
+  const note = [p.consignes, p.informationsTemporaires].map((t) => String(t ?? '').trim()).filter(Boolean).join(' ')
+  return {
+    nom: p.nom,
+    ville: p.commune ?? '',
+    adresse: p.adresse ?? null,
+    coords: localise && p.visibleCarte ? [lat, lon] : null,
+    type: p.type === 'mairie' ? 'Point communal' : 'Point partenaire',
+    statut: 'confirme',
+    mention: p.mention || (p.fermeTemporairement ? `Fermé temporairement : ${p.motifFermeture}` : null),
+    horaires: p.mention ? null : regrouperHoraires(p.horaires),
+    note: note || null,
+    debutLe: p.debutLe ? new Date(p.debutLe).toISOString() : null,
+    finLe: p.finLe ? new Date(p.finLe).toISOString() : null,
+  }
+}
+
+// Interrogés à part : la colonne `mention` n'existe que là où la migration
+// 0014 est passée. Ailleurs, la requête échoue et le site garde la liste
+// écrite dans `src/data/defiCollecte.js`, sans que les actualités et les
+// partenaires en pâtissent.
+let pointsCollecte = []
+try {
+  pointsCollecte = await db.select().from(pointCollecte)
+    .where(inArray(pointCollecte.statut, STATUTS_EN_LIGNE))
+    .orderBy(asc(pointCollecte.ordre), asc(pointCollecte.nom))
+  pointsCollecte = pointsCollecte.filter((p) => p.visibleListe)
+} catch (e) {
+  const bref = String(e.message || e).split(/\bparams:/)[0].split('\n')[0].slice(0, 160)
+  console.warn(`[contenus] Points de collecte non exportés (${bref}).`)
 }
 
 let actualites = []
@@ -185,6 +224,7 @@ const sortie = {
     debutLe: c.debutLe ? new Date(c.debutLe).toISOString() : null,
     finLe: c.finLe ? new Date(c.finLe).toISOString() : null,
   })),
+  pointsCollecte: pointsCollecte.map(versPointPublic),
   organisations: {
     confirmes: organisations
       .filter((o) => STATUTS_FORMALISES.includes(o.statutPartenariat))
@@ -200,5 +240,6 @@ console.log(
   `[contenus] ${sortie.actualites.length} article(s), ` +
     `${sortie.organisations.confirmes.length} partenaire(s) confirmé(s), ` +
     `${sortie.organisations.cooperations.length} coopération(s) en cours, ` +
-    `${sortie.campagnes.length} campagne(s) active(s).`
+    `${sortie.campagnes.length} campagne(s) active(s), ` +
+    `${sortie.pointsCollecte.length} point(s) de collecte.`
 )

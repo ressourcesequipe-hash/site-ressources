@@ -15,7 +15,7 @@ import { etatOuverture, LIBELLES_OUVERTURE } from '../../../lib/points-collecte.
 const VIDE = {
   nom: '', type: '', organisationId: '', adresse: '', complementAdresse: '',
   codePostal: '', commune: '', latitude: '', longitude: '',
-  horaires: [], consignes: '', informationsTemporaires: '',
+  horaires: [], consignes: '', informationsTemporaires: '', mention: '',
   campagne: '', debutLe: '', finLe: '',
   fermeTemporairement: false, motifFermeture: '',
   visibleCarte: true, visibleListe: true, ordre: 0,
@@ -29,7 +29,7 @@ function pourFormulaire(p) {
     codePostal: p.codePostal || '', commune: p.commune || '',
     latitude: p.latitude || '', longitude: p.longitude || '',
     horaires: p.horaires || [], consignes: p.consignes || '',
-    informationsTemporaires: p.informationsTemporaires || '',
+    informationsTemporaires: p.informationsTemporaires || '', mention: p.mention || '',
     campagne: p.campagne || '', debutLe: pourChampDate(p.debutLe), finLe: pourChampDate(p.finLe),
     fermeTemporairement: Boolean(p.fermeTemporairement), motifFermeture: p.motifFermeture || '',
     visibleCarte: p.visibleCarte !== false, visibleListe: p.visibleListe !== false,
@@ -267,6 +267,12 @@ export default function PointCollecteEdition() {
                 <textarea rows={2} value={form.informationsTemporaires} disabled={lectureSeule}
                   onChange={(e) => majChamp('informationsTemporaires', e.target.value)}
                   className={classeSaisie(false) + ' resize-y'} />
+              </Champ>
+
+              <Champ label="Mention"
+                aide="Réserve affichée en pastille, par exemple « En cours de formalisation ». Tant qu'elle est remplie, le point est listé sans adresse ni horaires et reste hors de la carte.">
+                <input type="text" value={form.mention} disabled={lectureSeule}
+                  onChange={(e) => majChamp('mention', e.target.value)} className={classeSaisie(false)} />
               </Champ>
 
               <Champ label="Campagne associée" aide="Si ce point n'existe que pour une opération ponctuelle.">

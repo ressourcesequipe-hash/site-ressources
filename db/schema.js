@@ -521,6 +521,9 @@ export const pointCollecte = pgTable('points_collecte', {
   horaires: jsonb('horaires').default([]),
   consignes: text('consignes'),
   informationsTemporaires: text('informations_temporaires'),
+  // Réserve affichée en pastille (« En cours de formalisation ») : tant
+  // qu'elle est là, le point n'accueille pas de dépôt libre.
+  mention: text('mention'),
 
   type: text('type'),
   campagne: text('campagne'),

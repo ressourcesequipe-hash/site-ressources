@@ -1,0 +1,1 @@
+ALTER TABLE "points_collecte" ADD COLUMN "mention" text;

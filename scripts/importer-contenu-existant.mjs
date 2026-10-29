@@ -36,7 +36,8 @@ register(
 )
 
 const { db } = await import('../lib/db.js')
-const { actualite, organisation, user } = await import('../db/schema.js')
+const { actualite, organisation, pointCollecte, user } = await import('../db/schema.js')
+const { deplierHoraires } = await import('../lib/points-collecte.js')
 const { tempsLecture } = await import('../lib/actualites.js')
 const { slugifier } = await import('../lib/contenus.js')
 
@@ -141,6 +142,56 @@ async function importerOrganisations(auteurId) {
   return { crees, ignores, inconnues, total: toutes.length }
 }
 
+// Le site ne distingue que « Point communal » et « Point partenaire » ; le
+// back-office veut un type précis. Choix éditoriaux du 29/10/2026.
+const TYPES_POINTS = {
+  'Imagine — le tiers-lieu': 'association',
+  'Landes Partage': 'association',
+  'Le Comptoir de l’Électroménager Solidaire': 'association',
+  'E.Leclerc': 'commerce',
+  'E.Leclerc Express': 'commerce',
+  Domolandes: 'entreprise',
+  Agrolandes: 'entreprise',
+}
+
+async function importerPointsCollecte(auteurId) {
+  const { POINTS_ECRITS: POINTS_COLLECTE } = await import('../src/data/defiCollecte.js')
+  let crees = 0
+  let ignores = 0
+
+  for (const [index, p] of POINTS_COLLECTE.entries()) {
+    const slug = slugifier(p.nom)
+    const [existant] = await db.select({ id: pointCollecte.id }).from(pointCollecte).where(eq(pointCollecte.slug, slug))
+    if (existant) { ignores++; continue }
+
+    const ligne = {
+      slug,
+      nom: p.nom,
+      adresse: p.adresse ?? null,
+      commune: p.ville,
+      latitude: p.coords ? String(p.coords[0]) : null,
+      longitude: p.coords ? String(p.coords[1]) : null,
+      // Lève une erreur sur un libellé de jours imprévu : mieux vaut un
+      // import arrêté qu'un point affiché sans ses horaires.
+      horaires: deplierHoraires(p.horaires),
+      consignes: p.note ?? null,
+      mention: p.mention ?? null,
+      type: p.type === 'Point communal' ? 'mairie' : (TYPES_POINTS[p.nom] ?? 'autre'),
+      campagne: 'Défi collecte 2026',
+      // Pas de date de fin : les points restent ouverts après le défi.
+      visibleCarte: Boolean(p.coords) && !p.mention,
+      ordre: index,
+      statut: p.statut === 'confirme' ? 'publie' : 'brouillon',
+      datePublication: new Date(),
+      auteurId,
+    }
+    if (SEC) { console.log(`  [à créer] ${slug} — ${ligne.type} — ${ligne.horaires.length} créneau(x)`); crees++; continue }
+    await db.insert(pointCollecte).values(ligne)
+    crees++
+  }
+  return { crees, ignores, total: POINTS_COLLECTE.length }
+}
+
 const auteurId = await auteurParDefaut()
 if (!auteurId) {
   console.warn("Aucun compte super administrateur : le contenu sera importé sans auteur.\n")
@@ -159,5 +210,9 @@ if (org.inconnues.length) {
   console.warn(`  NON IMPORTÉES, faute de correspondance : ${org.inconnues.join(', ')}`)
   console.warn('  Ajoutez-les au tableau ORGANISATIONS en haut de ce script.')
 }
+
+console.log('\nPoints de collecte :')
+const pts = await importerPointsCollecte(auteurId)
+console.log(`  ${pts.crees} créé(s), ${pts.ignores} déjà présent(s), sur ${pts.total}.`)
 
 console.log(SEC ? '\nSimulation terminée.' : '\nImport terminé.')

@@ -1,6 +1,8 @@
 // Défi collecte : du 1er septembre au 3 octobre 2026, 500 kg de matériel
 // informatique et électronique à réunir sur le territoire.
 
+import cms from './cms.json' with { type: 'json' }
+
 const nombreFr = (n) => new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 }).format(n)
 
 // Le défi est terminé : le total est celui de la pesée finale, arrêté à la
@@ -32,7 +34,10 @@ export const DEFI = {
 // Adresses, coordonnées et horaires des mairies relevés le 29/08/2026 dans
 // l'annuaire de l'administration (api-lannuaire.service-public.fr), puis
 // recoupés un à un sur le site officiel de chaque commune.
-export const POINTS_COLLECTE = [
+// Liste écrite à la main, reprise dans le back-office par
+// `scripts/importer-contenu-existant.mjs`. Elle ne sert plus que de repli,
+// tant que la base de production n'a pas reçu les points (voir plus bas).
+export const POINTS_ECRITS = [
   {
     nom: 'Mairie de Vielle-Saint-Girons',
     ville: 'Vielle-Saint-Girons',
@@ -147,20 +152,15 @@ export const POINTS_COLLECTE = [
     type: 'Point communal',
     statut: 'confirme',
     mention: null,
-    // Seul point du challenge à changer d'horaires en cours de route : la
-    // commune applique des horaires d'été du 15 juin au 15 septembre, soit les
-    // deux premières semaines de la collecte. Ce sont eux qui sont affichés
-    // jusque-là, les horaires courants étant donnés dans la note.
-    // À BASCULER LE 16/09/2026 : les créneaux ci-dessous deviennent
-    // « Lundi au jeudi 8h–12h et 13h30–16h45 » / « Vendredi 8h–12h et
-    // 13h30–16h30 », et la note tombe.
-    // La fiche Google annonce une journée continue 8h–16h45 : elle a avalé la
-    // coupure de midi, c'est le site de la commune qui fait foi.
+    // Horaires courants, en vigueur depuis le 16/09/2026 ; la commune passe
+    // à des horaires d'été du 15 juin au 15 septembre (7h–14h15, 7h–14h le
+    // vendredi). La fiche Google annonce une journée continue 8h–16h45 :
+    // elle a avalé la coupure de midi, c'est le site de la commune qui fait foi.
     horaires: [
-      { jours: 'Lundi au jeudi', creneaux: ['7h–14h15'] },
-      { jours: 'Vendredi', creneaux: ['7h–14h'] },
+      { jours: 'Lundi au jeudi', creneaux: ['8h–12h', '13h30–16h45'] },
+      { jours: 'Vendredi', creneaux: ['8h–12h', '13h30–16h30'] },
     ],
-    note: 'Horaires d’été, jusqu’au 15 septembre. À partir du 16 : lundi au jeudi 8h–12h et 13h30–16h45, vendredi 8h–12h et 13h30–16h30.',
+    note: null,
   },
   {
     // Relevé le 02/09/2026. Adresse et horaires identiques dans l'annuaire de
@@ -290,6 +290,10 @@ export const POINTS_COLLECTE = [
     note: null,
   },
 ]
+
+// Les points viennent du back-office, via `src/data/cms.json` ; à défaut, de
+// la liste ci-dessus. Corriger un point se fait donc dans le back-office.
+export const POINTS_COLLECTE = cms.pointsCollecte?.length ? cms.pointsCollecte : POINTS_ECRITS
 
 export const POINTS_CONFIRMES = POINTS_COLLECTE.filter(
   ({ statut }) => statut === 'confirme',

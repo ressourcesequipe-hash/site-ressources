@@ -1,5 +1,5 @@
 {
-  "maj": "2026-09-21T16:10:50.192Z",
+  "maj": "2026-10-29T18:16:35.790Z",
   "actualites": [
     {
       "slug": "comment-soutenir-association-recyclerie-landes",
@@ -548,6 +548,416 @@
           "type": "paragraph"
         }
       ]
+    }
+  ],
+  "campagnes": [],
+  "pointsCollecte": [
+    {
+      "nom": "Mairie de Vielle-Saint-Girons",
+      "ville": "Vielle-Saint-Girons",
+      "adresse": "80 allée des Cigales",
+      "coords": [
+        43.9157,
+        -1.3041
+      ],
+      "type": "Point communal",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Mercredi et jeudi",
+          "creneaux": [
+            "10h–12h",
+            "15h–18h"
+          ]
+        }
+      ],
+      "note": "La mairie est ouverte du mardi au vendredi ; le dépôt de matériel se fait le mercredi et le jeudi.",
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Mairie de Linxe",
+      "ville": "Linxe",
+      "adresse": "2 place de l’Église",
+      "coords": [
+        43.9201,
+        -1.2462
+      ],
+      "type": "Point communal",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au jeudi",
+          "creneaux": [
+            "8h30–13h",
+            "14h–17h"
+          ]
+        },
+        {
+          "jours": "Vendredi",
+          "creneaux": [
+            "8h30–13h"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Mairie de Saint-Michel-Escalus",
+      "ville": "Saint-Michel-Escalus",
+      "adresse": "178 route de la Mairie",
+      "coords": [
+        43.8942,
+        -1.2617
+      ],
+      "type": "Point communal",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi et jeudi",
+          "creneaux": [
+            "9h30–12h30",
+            "13h30–17h"
+          ]
+        },
+        {
+          "jours": "Mardi et vendredi",
+          "creneaux": [
+            "9h30–12h30"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Mairie de Saint-Geours-de-Maremne",
+      "ville": "Saint-Geours-de-Maremne",
+      "adresse": "1 place des Arènes",
+      "coords": [
+        43.6912,
+        -1.2164
+      ],
+      "type": "Point communal",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au vendredi",
+          "creneaux": [
+            "8h30–12h",
+            "13h30–17h30"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Mairie de Seignosse",
+      "ville": "Seignosse",
+      "adresse": "1998 avenue Charles-de-Gaulle",
+      "coords": [
+        43.6873,
+        -1.3738
+      ],
+      "type": "Point communal",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au jeudi",
+          "creneaux": [
+            "8h30–12h30",
+            "13h30–17h"
+          ]
+        },
+        {
+          "jours": "Vendredi",
+          "creneaux": [
+            "8h30–12h30",
+            "13h30–16h30"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Mairie de Vieux-Boucau",
+      "ville": "Vieux-Boucau-les-Bains",
+      "adresse": "1 place de la Mairie",
+      "coords": [
+        43.7862,
+        -1.4005
+      ],
+      "type": "Point communal",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au vendredi",
+          "creneaux": [
+            "9h–12h",
+            "14h–17h30"
+          ]
+        },
+        {
+          "jours": "Samedi",
+          "creneaux": [
+            "9h–12h"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Mairie de Saint-Vincent-de-Tyrosse",
+      "ville": "Saint-Vincent-de-Tyrosse",
+      "adresse": "24 avenue Nationale",
+      "coords": [
+        43.6607,
+        -1.3041
+      ],
+      "type": "Point communal",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au vendredi",
+          "creneaux": [
+            "8h30–12h15",
+            "13h30–17h30"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Services techniques de Labenne",
+      "ville": "Labenne",
+      "adresse": "597 route du Stade",
+      "coords": [
+        43.5874,
+        -1.4458
+      ],
+      "type": "Point communal",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au jeudi",
+          "creneaux": [
+            "8h–12h",
+            "13h30–16h45"
+          ]
+        },
+        {
+          "jours": "Vendredi",
+          "creneaux": [
+            "8h–12h",
+            "13h30–16h30"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Mairie de Lit-et-Mixe",
+      "ville": "Lit-et-Mixe",
+      "adresse": "93 rue de l’Hôtel-de-Ville",
+      "coords": [
+        44.0339,
+        -1.2582
+      ],
+      "type": "Point communal",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au vendredi",
+          "creneaux": [
+            "9h–12h30",
+            "13h30–16h30"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Imagine — le tiers-lieu",
+      "ville": "Linxe",
+      "adresse": "rue du Château d’Eau",
+      "coords": [
+        43.9203,
+        -1.2498
+      ],
+      "type": "Point partenaire",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Jeudi et dimanche",
+          "creneaux": [
+            "9h–12h"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Landes Partage",
+      "ville": "Hagetmau",
+      "adresse": "570 chemin de Bellegarde",
+      "coords": [
+        43.6398,
+        -0.6166
+      ],
+      "type": "Point partenaire",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au samedi",
+          "creneaux": [
+            "10h–13h",
+            "14h–17h"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Le Comptoir de l’Électroménager Solidaire",
+      "ville": "Saint-Paul-lès-Dax",
+      "adresse": "106 boulevard Saint-Vincent-de-Paul",
+      "coords": [
+        43.7243,
+        -1.0498
+      ],
+      "type": "Point partenaire",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au vendredi",
+          "creneaux": [
+            "9h–12h30",
+            "13h30–17h"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "E.Leclerc",
+      "ville": "Soustons",
+      "adresse": "route de Tosse",
+      "coords": [
+        43.7455,
+        -1.3315
+      ],
+      "type": "Point partenaire",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au samedi",
+          "creneaux": [
+            "9h–19h30"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "E.Leclerc Express",
+      "ville": "Linxe",
+      "adresse": null,
+      "coords": null,
+      "type": "Point partenaire",
+      "statut": "confirme",
+      "mention": "En cours de formalisation",
+      "horaires": null,
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Domolandes",
+      "ville": "Saint-Geours-de-Maremne",
+      "adresse": "50 allée de Cérès",
+      "coords": [
+        43.7114,
+        -1.2365
+      ],
+      "type": "Point partenaire",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au vendredi",
+          "creneaux": [
+            "9h–17h"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
+    },
+    {
+      "nom": "Agrolandes",
+      "ville": "Haut-Mauco",
+      "adresse": "1003 allée Jean d’Arcet",
+      "coords": [
+        43.8383,
+        -0.5307
+      ],
+      "type": "Point partenaire",
+      "statut": "confirme",
+      "mention": null,
+      "horaires": [
+        {
+          "jours": "Lundi au jeudi",
+          "creneaux": [
+            "9h–18h"
+          ]
+        },
+        {
+          "jours": "Vendredi",
+          "creneaux": [
+            "9h–17h"
+          ]
+        }
+      ],
+      "note": null,
+      "debutLe": null,
+      "finLe": null
     }
   ],
   "organisations": {
