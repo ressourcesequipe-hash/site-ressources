@@ -229,7 +229,7 @@ export default function Presse() {
             <p className="text-sm text-terre/60 leading-relaxed mb-6 max-w-2xl">
               {MENTION_PHASE_PILOTE}
             </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-3 gap-4">
               {OBJECTIFS.map((objectif) => (
                 <div key={objectif.cle} className="border-t-2 border-ocre/30 bg-beige-light px-5 py-4">
                   <p className="font-serif text-2xl text-ocre leading-none mb-1.5">{afficher(objectif)}</p>

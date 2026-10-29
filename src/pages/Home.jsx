@@ -10,7 +10,7 @@ import { PARTENAIRES_CONFIRMES, PAYS_ZONE_ACTION, logoPartenaire } from '../data
 import { DEFI } from '../data/defiCollecte'
 import { AFFICHE, PHOTO_ELUS } from '../data/evenement'
 import LogosChallenge from '../components/LogosChallenge'
-import { afficher, objectifs, MENTION_PHASE_PILOTE } from '../data/objectifs'
+import { afficher, objectifs, MENTION_PHASE_PILOTE, REALISE } from '../data/objectifs'
 
 /* ── Count-up hook ── */
 // useLayoutEffect previent bruyamment quand il s'execute au rendu serveur, ou
@@ -87,7 +87,7 @@ const STEPS = [
 // annonce ce qui est collecte et ou, le bloc impact la part reemployee. Les
 // valeurs viennent toutes de data/objectifs.js, qui fait autorite pour le site.
 const IMPACT = objectifs('equipements', 'reemploi', 'plantes')
-const OBJECTIFS_HERO = objectifs('equipements', 'plantes', 'communes')
+const OBJECTIFS_HERO = objectifs('equipements', 'reemploi', 'plantes')
 // Les deux cartes filieres reprennent les memes valeurs avec leur libelle
 // propre. Le chiffre vient de la meme source, seul le libelle leur appartient.
 const [CARTE_INFO, CARTE_VEGETAL] = objectifs('equipements', 'plantes')
@@ -473,10 +473,24 @@ export default function Home() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           <div className={`text-center mb-16 transition-all duration-700 ${impact.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <p className="section-label">Phase pilote — An 1</p>
+            <p className="section-label">Déjà réalisé</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-terre">Cinq semaines de challenge</h2>
+          </div>
+
+          {/* Les faits d'abord, les objectifs ensuite : les trois grands
+              chiffres animes plus bas restent des cibles. */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto mb-20 text-center">
+            {REALISE.map(({ cle, valeur, label }) => (
+              <div key={cle}>
+                <p className="font-serif text-4xl md:text-5xl text-kaki leading-none">{valeur}</p>
+                <p className="font-sans text-sm text-terre/60 mt-2">{label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className={`text-center mb-16 transition-all duration-700 ${impact.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <p className="section-label">Première année</p>
             <h2 className="font-serif text-3xl md:text-4xl text-terre">Nos objectifs d'impact</h2>
-            {/* Sans cette mention, trois grands chiffres animes se lisent comme
-                un bilan. L'association s'est lancée le 03 octobre 2026. */}
             <p className="font-sans text-sm text-terre/70 leading-relaxed max-w-xl mx-auto mt-4">
               {MENTION_PHASE_PILOTE}
             </p>

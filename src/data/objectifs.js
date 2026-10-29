@@ -15,11 +15,14 @@
 // d'accueil incremente jusqu'a la valeur brute et ne saurait pas quoi faire
 // d'un « 1 000 » deja formate.
 
+import { DEFI, POINTS_OUVERTS } from './defiCollecte'
+
 export const OBJECTIFS = [
-  { cle: 'equipements', valeur: 120, suffixe: '', label: 'équipements à collecter' },
+  // Relevé le 29/10/2026 après le challenge : 120 équipements collectés était
+  // déjà dépassé, la cible devient le reconditionnement.
+  { cle: 'equipements', valeur: 300, suffixe: '', label: 'équipements reconditionnés' },
   { cle: 'reemploi', valeur: 80, suffixe: '%', label: 'réemployés ou valorisés' },
   { cle: 'plantes', valeur: 1000, valeurAffichee: '1 000', suffixe: '', label: 'plantes à redistribuer' },
-  { cle: 'communes', valeur: 5, suffixe: '', label: 'communes partenaires' },
 ]
 
 /**
@@ -45,8 +48,17 @@ export function afficher({ valeur, valeurAffichee, suffixe }) {
   return suffixe ? `${nombre} ${suffixe}` : nombre
 }
 
-// Accompagne les chiffres partout ou ils sont montres. L'association ne s'etant
-// pas encore lancee, ces objectifs pourraient sinon se lire comme un bilan.
+// Accompagne les objectifs partout ou ils sont montres, pour qu'ils ne se
+// lisent pas comme un bilan : le bilan, c'est REALISE ci-dessous.
 export const MENTION_PHASE_PILOTE =
-  "Ces chiffres sont des objectifs de la phase pilote, et non des résultats acquis : " +
-  "l'association s'est lancée publiquement le 03 octobre 2026."
+  "Objectifs de la première année d'activité, lancée le 3 octobre 2026. " +
+  "Le challenge collecte de septembre a déjà dépassé les premières ambitions."
+
+// Ce qui est acquis, en cinq semaines de challenge (1er septembre – 3 octobre
+// 2026). Les communes partenaires sont les mairies qui ont accueilli un point
+// de dépôt — neuf —, et non toutes les communes où l'on pouvait déposer.
+export const REALISE = [
+  { cle: 'kg', valeur: `${DEFI.collecteKg} kg`, label: 'de matériel collectés' },
+  { cle: 'communes', valeur: '9', label: 'communes partenaires' },
+  { cle: 'points', valeur: String(POINTS_OUVERTS.length), label: 'points de collecte' },
+]
