@@ -57,7 +57,7 @@ function conserverExistant(raison) {
     fs.writeFileSync(
       CIBLE,
       JSON.stringify(
-        { maj: null, actualites: [], campagnes: [], organisations: { confirmes: [], cooperations: [] }, pointsCollecte: [] },
+        { maj: null, actualites: [], campagnes: [], organisations: { confirmes: [], cooperations: [] }, pointsCollecte: [], pages: [] },
         null,
         2
       ) + '\n'
@@ -71,7 +71,7 @@ if (!process.env.DATABASE_URL) {
 }
 
 const { db } = await import('../lib/db.js')
-const { actualite, campagne, organisation, pointCollecte } = await import('../db/schema.js')
+const { actualite, campagne, organisation, page, pointCollecte } = await import('../db/schema.js')
 const { regrouperHoraires } = await import('../lib/points-collecte.js')
 const { STATUTS_EN_LIGNE } = await import('../lib/contenus.js')
 const { versArticlePublic } = await import('../lib/actualites.js')
@@ -131,6 +131,29 @@ try {
 } catch (e) {
   const bref = String(e.message || e).split(/\bparams:/)[0].split('\n')[0].slice(0, 160)
   console.warn(`[contenus] Points de collecte non exportés (${bref}).`)
+}
+
+// Pages institutionnelles (§8). Même précaution que pour les points : une
+// erreur ici ne prive pas le site du reste du contenu, et les pages
+// juridiques retombent sur leur version écrite dans le code.
+let pages = []
+try {
+  pages = (await db.select().from(page)
+    .where(inArray(page.statut, STATUTS_EN_LIGNE))
+    .orderBy(asc(page.ordre), asc(page.slug)))
+    .map((p) => ({
+      slug: p.slug,
+      titre: p.titrePublic || p.titreInterne,
+      extrait: p.extrait ?? '',
+      contenu: p.contenu ?? [],
+      image: p.image ?? null,
+      imageAlt: p.imageAlt ?? null,
+      imageCredit: p.imageCredit ?? null,
+      seo: p.seo ?? {},
+    }))
+} catch (e) {
+  const bref = String(e.message || e).split(/\bparams:/)[0].split('\n')[0].slice(0, 160)
+  console.warn(`[contenus] Pages non exportées (${bref}).`)
 }
 
 let actualites = []
@@ -193,6 +216,7 @@ const sortie = {
     finLe: c.finLe ? new Date(c.finLe).toISOString() : null,
   })),
   pointsCollecte: pointsCollecte.map(versPointPublic),
+  pages,
   organisations: {
     confirmes: organisations
       .filter((o) => STATUTS_FORMALISES.includes(o.statutPartenariat))
@@ -209,5 +233,5 @@ console.log(
     `${sortie.organisations.confirmes.length} partenaire(s) confirmé(s), ` +
     `${sortie.organisations.cooperations.length} coopération(s) en cours, ` +
     `${sortie.campagnes.length} campagne(s) active(s), ` +
-    `${sortie.pointsCollecte.length} point(s) de collecte.`
+    `${sortie.pointsCollecte.length} point(s) de collecte, ${sortie.pages.length} page(s).`
 )

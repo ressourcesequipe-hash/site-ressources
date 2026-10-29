@@ -154,6 +154,18 @@ async function main() {
     console.warn('[prerender] Articles non chargés, routes statiques uniquement :', e.message)
   }
 
+  /* Pages du back-office (route /:slug/). Une page dont l'adresse existe
+     déjà — les mentions légales — est déjà dans la liste. */
+  try {
+    const { PAGES } = await import(url.pathToFileURL(path.join(__dirname, 'src', 'data', 'pages.js')).href)
+    for (const p of PAGES) {
+      const route = `/${p.slug}/`
+      if (!routes.includes(route)) routes.push(route)
+    }
+  } catch (e) {
+    console.warn('[prerender] Pages non chargées :', e.message)
+  }
+
   /* Vitrine : une page par appareil en rayon.
      Sans elles, Google ne verrait qu'une liste chargée en JavaScript — c'est-a-dire
      rien. Elles disparaissent d'elles-mêmes au build suivant quand l'appareil

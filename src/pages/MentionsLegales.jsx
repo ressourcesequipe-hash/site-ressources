@@ -1,8 +1,15 @@
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import { PageCmsVue } from './PageCms'
+import { getPage } from '../data/pages'
 
+// La version publiée dans le back-office (page protégée, §8.4) prime ; le
+// texte ci-dessous ne sert plus que de repli.
 export default function MentionsLegales() {
+  const publiee = getPage('mentions-legales')
+  if (publiee) return <PageCmsVue page={publiee} />
+
   return (
     <Layout>
       <SEO

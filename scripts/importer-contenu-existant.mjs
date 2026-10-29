@@ -36,7 +36,7 @@ register(
 )
 
 const { db } = await import('../lib/db.js')
-const { actualite, organisation, pointCollecte, user } = await import('../db/schema.js')
+const { actualite, organisation, page, pointCollecte, user } = await import('../db/schema.js')
 const { deplierHoraires } = await import('../lib/points-collecte.js')
 const { tempsLecture } = await import('../lib/actualites.js')
 const { slugifier } = await import('../lib/contenus.js')
@@ -192,6 +192,55 @@ async function importerPointsCollecte(auteurId) {
   return { crees, ignores, total: POINTS_COLLECTE.length }
 }
 
+// Mentions légales, reprises de `src/pages/MentionsLegales.jsx` le 29/10/2026.
+// Les blocs n'ont pas de mise en forme dans le texte : les intitulés en gras
+// de l'éditeur deviennent une liste « Intitulé : valeur », et le lien vers la
+// politique de confidentialité un bloc lien.
+const MENTIONS_LEGALES = {
+  slug: 'mentions-legales',
+  titreInterne: 'Mentions légales',
+  titrePublic: 'Mentions légales',
+  contenu: [
+    { type: 'heading', text: 'Éditeur du site' },
+    { type: 'liste', elements: [
+      { text: 'Dénomination sociale : Association Ressources' },
+      { text: 'Forme juridique : Association loi 1901' },
+      { text: 'Siège social : 80 allée des Cigales, 40560 Vielle-Saint-Girons' },
+      { text: 'SIRET : 945 155 075 00019' },
+      { text: 'Email : contact@ressourcesrecyclerie.fr' },
+      { text: 'Directeur de la publication : Sandrine Vestris (présidente)' },
+    ] },
+    { type: 'heading', text: 'Hébergement' },
+    { type: 'liste', elements: [
+      { text: 'Hébergeur : Vercel Inc.' },
+      { text: 'Adresse : 340 Pine Street, Suite 701, San Francisco, CA 94104, États-Unis' },
+      { text: 'Site : vercel.com' },
+    ] },
+    { type: 'heading', text: 'Propriété intellectuelle' },
+    { type: 'paragraph', text: "L'ensemble du contenu de ce site (textes, visuels, structure, code) est la propriété exclusive de l'association Ressources, sauf mention contraire. Toute reproduction, même partielle, est soumise à autorisation préalable." },
+    { type: 'heading', text: 'Limitation de responsabilité' },
+    { type: 'paragraph', text: "L'association Ressources s'efforce de maintenir les informations publiées sur ce site exactes et à jour. Elle ne saurait être tenue responsable des erreurs ou omissions, ni de l'utilisation qui en serait faite." },
+    { type: 'paragraph', text: "Les liens hypertextes vers des sites tiers sont fournis à titre informatif. L'association Ressources n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu." },
+    { type: 'heading', text: 'Cookies' },
+    { type: 'paragraph', text: "Ce site n'utilise aucun cookie publicitaire et ne revend aucune donnée." },
+    { type: 'paragraph', text: "Deux mesures d'audience y cohabitent. La première est anonyme et ne dépose aucun cookie : elle fonctionne pour tous les visiteurs. La seconde, Google Analytics, dépose des cookies et n'est activée que si vous l'acceptez — rien n'est chargé tant que vous n'avez pas répondu. Vous pouvez revenir sur ce choix à tout moment depuis la politique de confidentialité." },
+    { type: 'link', label: 'Politique de confidentialité', href: '/confidentialite/' },
+    { type: 'heading', text: 'Droit applicable' },
+    { type: 'paragraph', text: 'Le présent site et ses mentions légales sont soumis au droit français. En cas de litige, les tribunaux français seront seuls compétents.' },
+    { type: 'paragraph', text: 'Dernière mise à jour : juin 2026' },
+  ],
+}
+
+async function importerPages(auteurId) {
+  const [existant] = await db.select({ id: page.id }).from(page).where(eq(page.slug, MENTIONS_LEGALES.slug))
+  if (existant) return { crees: 0, ignores: 1, total: 1 }
+  if (SEC) { console.log(`  [à créer] ${MENTIONS_LEGALES.slug} — ${MENTIONS_LEGALES.contenu.length} blocs`); return { crees: 1, ignores: 0, total: 1 } }
+  await db.insert(page).values({
+    ...MENTIONS_LEGALES, protegee: true, statut: 'publie', datePublication: new Date(), auteurId,
+  })
+  return { crees: 1, ignores: 0, total: 1 }
+}
+
 const auteurId = await auteurParDefaut()
 if (!auteurId) {
   console.warn("Aucun compte super administrateur : le contenu sera importé sans auteur.\n")
@@ -210,6 +259,10 @@ if (org.inconnues.length) {
   console.warn(`  NON IMPORTÉES, faute de correspondance : ${org.inconnues.join(', ')}`)
   console.warn('  Ajoutez-les au tableau ORGANISATIONS en haut de ce script.')
 }
+
+console.log('\nPages :')
+const pg = await importerPages(auteurId)
+console.log(`  ${pg.crees} créée(s), ${pg.ignores} déjà présente(s), sur ${pg.total}.`)
 
 console.log('\nPoints de collecte :')
 const pts = await importerPointsCollecte(auteurId)
