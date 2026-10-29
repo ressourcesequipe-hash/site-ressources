@@ -6,6 +6,7 @@ import TableauDeBord from './pages/TableauDeBord'
 import MotDePasse from './pages/MotDePasse'
 import Actualites from './pages/Actualites'
 import ActualiteEdition from './pages/ActualiteEdition'
+import ApercuActualite from './pages/ApercuActualite'
 import Evenements from './pages/Evenements'
 import EvenementEdition from './pages/EvenementEdition'
 import Partenaires from './pages/Partenaires'
@@ -52,6 +53,10 @@ export default function AdminRoutes() {
         <Route element={<ProtectedRoute titre="Rédiger une actualité" />}>
           <Route path="actualites/nouvelle" element={<ActualiteEdition />} />
           <Route path="actualites/:id" element={<ActualiteEdition />} />
+        </Route>
+
+        <Route element={<ProtectedRoute titre="Aperçu" sansCadre />}>
+          <Route path="apercu/actualite" element={<ApercuActualite />} />
         </Route>
 
         <Route element={<ProtectedRoute titre="Événements" />}>

@@ -10,7 +10,8 @@ import AdminLayout from './AdminLayout'
 // `titre` est fourni par route : chaque écran protégé est déclaré sous son
 // propre `ProtectedRoute` dans AdminRoutes.jsx, qui porte le titre affiché
 // dans l’en-tête.
-export default function ProtectedRoute({ titre }) {
+// `sansCadre` : écran affiché sans le menu du back-office (aperçus).
+export default function ProtectedRoute({ titre, sansCadre = false }) {
   const { data: session, isPending } = authClient.useSession()
   const location = useLocation()
 
@@ -25,6 +26,8 @@ export default function ProtectedRoute({ titre }) {
   if (!session) {
     return <Navigate to="/admin/connexion" state={{ from: location }} replace />
   }
+
+  if (sansCadre) return <Outlet />
 
   return (
     <AdminLayout titre={titre}>

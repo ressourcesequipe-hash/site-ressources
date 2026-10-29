@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { appelerApi } from '../lib/api'
 import { authClient } from '../lib/authClient'
-import { BandeauNonBranche, EtiquetteStatut, LIBELLES_STATUT, Message } from '../components/Formulaire'
+import { EtiquetteStatut, LIBELLES_STATUT, Message } from '../components/Formulaire'
 
 // Liste des partenaires et mécènes — §12 du cahier des charges.
 //
@@ -53,7 +53,6 @@ export default function Partenaires() {
 
   return (
     <div>
-      <BandeauNonBranche quoi="les partenaires enregistrés ici" />
 
       <div className="flex items-start justify-between gap-4 mb-5">
         <p className="text-sm text-terre/70 max-w-xl leading-relaxed">

@@ -29,6 +29,12 @@ export default function ArticlePage() {
     )
   }
 
+  return <ArticleVue article={article} />
+}
+
+// Le rendu seul, sans recherche par slug : l'aperçu du back-office l'utilise
+// avec un article pas encore publié.
+export function ArticleVue({ article }) {
   const cat = CATEGORIES.find(c => c.id === article.category)
   const breadcrumbs = [
     { label: 'L\'Association', href: '/association/' },

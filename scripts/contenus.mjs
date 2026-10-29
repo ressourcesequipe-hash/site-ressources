@@ -74,40 +74,8 @@ const { db } = await import('../lib/db.js')
 const { actualite, campagne, organisation, pointCollecte } = await import('../db/schema.js')
 const { regrouperHoraires } = await import('../lib/points-collecte.js')
 const { STATUTS_EN_LIGNE } = await import('../lib/contenus.js')
+const { versArticlePublic } = await import('../lib/actualites.js')
 const { eq, inArray, asc, desc } = await import('drizzle-orm')
-
-// Le libellé de date (« Septembre 2026 ») était saisi à la main à côté de la
-// date elle-même, et pouvait donc la contredire. Il se déduit.
-function libelleDate(valeur) {
-  if (!valeur) return ''
-  const t = new Date(valeur).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })
-  return t.charAt(0).toUpperCase() + t.slice(1)
-}
-
-// Le site attend les articles sous la forme qu'il a toujours connue. La
-// traduction est faite ici, en un seul endroit : les pages n'ont pas à savoir
-// que le contenu vient désormais d'une base.
-function versArticlePublic(a) {
-  return {
-    slug: a.slug,
-    title: a.titre,
-    excerpt: a.resume ?? '',
-    category: a.categorie ?? '',
-    date: a.datePublication ? new Date(a.datePublication).toISOString().slice(0, 10) : '',
-    dateLabel: libelleDate(a.datePublication),
-    readingTime: `${a.tempsLectureMinutes ?? 1} min`,
-    featured: Boolean(a.miseEnAvant),
-    image: a.image ?? undefined,
-    imageAlt: a.imageAlt ?? undefined,
-    imageCredit: a.imageCredit ?? undefined,
-    imageWidth: a.imageLargeur ?? undefined,
-    imageHeight: a.imageHauteur ?? undefined,
-    imageFit: a.imageCadrage ?? undefined,
-    imagePosition: a.imagePosition ?? undefined,
-    externalLink: a.lienExterne ?? undefined,
-    content: a.contenu ?? [],
-  }
-}
 
 // Le site présente les partenaires en deux blocs : ce qui est formalisé, et
 // ce qui ne l'est pas encore. La distinction se déduit du suivi interne, si

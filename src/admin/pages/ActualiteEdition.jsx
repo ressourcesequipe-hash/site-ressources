@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import SelecteurMedia from '../components/SelecteurMedia'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { appelerApi } from '../lib/api'
+import { CLE_APERCU } from './ApercuActualite'
 import { authClient } from '../lib/authClient'
 import EditeurBlocs from '../components/EditeurBlocs'
 import { BLOCS } from '../../../lib/actualites.js'
@@ -291,6 +292,17 @@ export default function ActualiteEdition() {
                 : meta.statut === 'publie'
                   ? 'Enregistrer les modifications'
                   : 'Enregistrer le brouillon'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                try { localStorage.setItem(CLE_APERCU, JSON.stringify(form)) } catch { /* stockage indisponible */ }
+                window.open('/admin/apercu/actualite', '_blank')
+              }}
+              className="px-4 py-2.5 rounded-lg border border-beige-dark text-[13.5px] font-semibold text-terre hover:border-ocre"
+            >
+              Aperçu
             </button>
 
             {!peutPublier && (
