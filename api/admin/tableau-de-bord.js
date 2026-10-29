@@ -56,7 +56,11 @@ export default async function handler(req, res) {
         message:
           e.code === 'non_active'
             ? "Web Analytics n'est pas encore activé sur le projet Vercel. Une fois activé, les chiffres s'accumuleront à partir de ce moment-là."
-            : "Les statistiques n'ont pas pu être récupérées. Réessayez dans un instant.",
+            : e.code === 'api'
+              // Message technique, sans donnée personnelle : il ne contient
+              // que des nombres et des noms de champs de l'API Vercel.
+              ? `Les statistiques n'ont pas pu être lues. ${e.message}`
+              : "Les statistiques n'ont pas pu être récupérées. Réessayez dans un instant.",
       },
     })
   }

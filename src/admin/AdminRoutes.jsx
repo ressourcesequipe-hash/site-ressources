@@ -7,6 +7,7 @@ import MotDePasse from './pages/MotDePasse'
 import Actualites from './pages/Actualites'
 import ActualiteEdition from './pages/ActualiteEdition'
 import ApercuActualite from './pages/ApercuActualite'
+import ApercuPage from './pages/ApercuPage'
 import Evenements from './pages/Evenements'
 import EvenementEdition from './pages/EvenementEdition'
 import Partenaires from './pages/Partenaires'
@@ -57,6 +58,7 @@ export default function AdminRoutes() {
 
         <Route element={<ProtectedRoute titre="Aperçu" sansCadre />}>
           <Route path="apercu/actualite" element={<ApercuActualite />} />
+          <Route path="apercu/page" element={<ApercuPage />} />
         </Route>
 
         <Route element={<ProtectedRoute titre="Événements" />}>
