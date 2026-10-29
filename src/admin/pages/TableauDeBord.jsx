@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { appelerApi } from '../lib/api'
 import { authClient } from '../lib/authClient'
 import { Message } from '../components/Formulaire'
-import { cheminLisible, nombreLisible, tendance } from '../../../lib/statistiques.js'
+import { cheminLisible, nombreLisible, provenanceLisible, tendance } from '../../../lib/statistiques.js'
 
 // Tableau de bord — §7 du cahier des charges.
 //
@@ -105,7 +105,7 @@ function Frequentation({ f }) {
 
       <div className="grid md:grid-cols-2 gap-4">
         <Liste titre="Pages les plus vues" lignes={f.pages} transforme={cheminLisible} />
-        <Liste titre="D'où viennent les visiteurs" lignes={f.provenances} />
+        <Liste titre="D'où viennent les visiteurs" lignes={f.provenances} transforme={provenanceLisible} />
       </div>
 
       <Liste titre="Appareils" lignes={f.appareils} horizontal />
